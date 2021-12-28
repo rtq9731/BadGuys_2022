@@ -4,34 +4,47 @@ using UnityEngine;
 
 public class PlayerMouseInput : MonoBehaviour
 {
-    [SerializeField] float playerArmLength = 1f;
-    [SerializeField] LayerMask whatIsTouchable;
-    PlayerController playerController;
+    [SerializeField] float _playerArmLength = 1f;
+    [SerializeField] LayerMask _whatIsTouchable;
+    PlayerController _playerController;
 
-    Transform curTouchObj = null;
+    Transform _curTouchObj = null;
+
+    private void Awake()
+    {
+        _playerController = GetComponentInParent<PlayerController>();
+    }
 
     private void Update()
     {
-        if (playerController._isPaused)
+        if (_playerController._isPaused)
         {
             return;
         }
 
         Ray ray = new Ray(transform.position, transform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, playerArmLength, whatIsTouchable))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, _playerArmLength, _whatIsTouchable))
         {
-            if(curTouchObj != hitInfo.transform)
+            if(_curTouchObj != hitInfo.transform)
             {
-                curTouchObj.GetComponent<IPlayerMouseExitHandler>()?.OnPlayerMouseExit();
-                curTouchObj = hitInfo.transform;
-                curTouchObj.GetComponent<IPlayerMouseEnterHandler>()?.OnPlayerMouseEnter();
+                _curTouchObj?.GetComponent<IPlayerMouseExitHandler>()?.OnPlayerMouseExit();
+                _curTouchObj = hitInfo.transform;
+                _curTouchObj?.GetComponent<IPlayerMouseEnterHandler>()?.OnPlayerMouseEnter();
+                Debug.Log(_curTouchObj.gameObject.name);
             }
         }
-        Debug.Log(hitInfo.transform.gameObject.name);
-        
-        if(Input.GetMouseButtonDown(0))
+        else
         {
-            curTouchObj.GetComponent<IGetPlayerMouseHandler>()?.OnGetPlayerMouse();
+            _curTouchObj?.GetComponent<IPlayerMouseExitHandler>()?.OnPlayerMouseExit();
+            _curTouchObj = null;
+        }
+
+        if(_curTouchObj != null)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                _curTouchObj.GetComponent<IGetPlayerMouseHandler>()?.OnGetPlayerMouse();
+            }
         }
     }
 }
