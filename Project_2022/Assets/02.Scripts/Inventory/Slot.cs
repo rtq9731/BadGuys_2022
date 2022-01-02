@@ -9,6 +9,7 @@ public class Slot : MonoBehaviour
 
     public ItemInfo item;
     public Image itemImage;
+    public string itemRole;
 
     private int itemCount;
 
@@ -17,6 +18,7 @@ public class Slot : MonoBehaviour
         item = _itemInfo;
         itemImage.gameObject.SetActive(true);
         itemImage.sprite = _itemInfo.itemImage;
+        itemRole = _itemInfo.itemRole;
 
         isHaveItem = true;
         itemCount = 1;

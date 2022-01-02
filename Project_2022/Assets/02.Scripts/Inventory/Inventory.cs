@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
@@ -8,20 +10,36 @@ public class Inventory : MonoBehaviour
 
     [SerializeField]
     private GameObject inventoryPanel;
-
     [SerializeField]
     private GameObject slotParents;
 
-    private Slot[] slots;
+    public Button[] buttons;
+    
+    public Slot[] slots;
+
+    public GameObject itemRolePanel;
+    public Text itemRoleText;
+    public Image itemImage;
+
+    private Slot curItemSlot;
 
     private void Start()
     {
         slots = slotParents.GetComponentsInChildren<Slot>();
+        buttons = slotParents.GetComponentsInChildren<Button>();
+
+        for (int i = 0; i < buttons.Length-1; i++)
+        {
+            buttons[i].onClick.AddListener(() =>
+            {
+                ShowItemInfo();
+            });
+        }
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             isInventoryActived = !isInventoryActived;
 
@@ -50,5 +68,15 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void ShowItemInfo()
+    {
+        itemRolePanel.SetActive(true);
+
+        curItemSlot = EventSystem.current.currentSelectedGameObject.GetComponent<Slot>();
+
+        itemRoleText.text = curItemSlot.itemRole;
+        itemImage.sprite = curItemSlot.itemImage.sprite;
     }
 }
