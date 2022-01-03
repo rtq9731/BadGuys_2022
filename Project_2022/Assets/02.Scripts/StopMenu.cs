@@ -7,21 +7,30 @@ using UnityEngine.UI;
 public class StopMenu : MonoBehaviour
 {
     [SerializeField] Button _btnReturn;
-    [SerializeField] Button _btnMenu;
+    [SerializeField] Button _btnTodo;
+    [SerializeField] Button _btnOption;
     [SerializeField] Button _btnExit;
+
+    [SerializeField] GameObject _optionPanel = null;
+    [SerializeField] GameObject _todoPanel = null;
 
     public void Start()
     {
         _btnReturn.onClick.AddListener(() =>
         {
-            UIManager._instance.DisplayCursor(false);
-            GameManager._instance._isPaused = false;
-            gameObject.SetActive(false);
+            UIStackManager.RemoveUIOnTop();
         });
 
-        _btnMenu.onClick.AddListener(() =>
+        _btnOption.onClick.AddListener(() =>
         {
-            // TODO : 나중에 메인메뉴로 돌아가게 해주자
+            _optionPanel.gameObject.SetActive(true);
+            _todoPanel.gameObject.SetActive(false);
+        });
+
+        _btnTodo.onClick.AddListener(() =>
+        {
+            _todoPanel.gameObject.SetActive(true);
+            _optionPanel.gameObject.SetActive(false);
         });
 
         _btnExit.onClick.AddListener(() =>
@@ -32,5 +41,11 @@ public class StopMenu : MonoBehaviour
             Application.Quit();
 #endif
         });
+    }
+
+    private void OnDisable()
+    {
+        UIManager._instance.DisplayCursor(false);
+        GameManager._instance._isPaused = false;
     }
 }
