@@ -35,6 +35,13 @@ public class Inventory : MonoBehaviour
                 ShowItemInfo();
             });
         }
+
+        inventoryPanel.GetComponent<StackableUI>()._onDisable += () =>
+        {
+            isInventoryActived = !isInventoryActived;
+            GameManager._instance._isPaused = false;
+            UIManager._instance.DisplayCursor(isInventoryActived);
+        };
     }
 
     private void Update()
