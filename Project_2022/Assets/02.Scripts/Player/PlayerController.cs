@@ -36,11 +36,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!_isPaused && Input.GetButtonDown("Menu"))
-        {
-            UIManager._instance.DisplayStopMenu();
-        }
-
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         if (move.sqrMagnitude > 1.0f)
             move.Normalize();
