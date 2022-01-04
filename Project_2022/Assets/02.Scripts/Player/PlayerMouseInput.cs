@@ -48,6 +48,10 @@ public class PlayerMouseInput : MonoBehaviour
             {
                 _onItemOverMouse(curItem);
             }
+            else
+            {
+                _onItemExitMouse();
+            }
         }
         else if(_curTouchObj != null)
         {
