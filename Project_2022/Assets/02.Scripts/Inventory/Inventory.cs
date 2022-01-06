@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
-    public bool isInventoryActived = false;
-
     [SerializeField]
     private GameObject inventoryPanel;
     [SerializeField]
@@ -38,9 +36,8 @@ public class Inventory : MonoBehaviour
 
         inventoryPanel.GetComponent<StackableUI>()._onDisable += () =>
         {
-            isInventoryActived = !isInventoryActived;
             GameManager._instance._isPaused = false;
-            UIManager._instance.DisplayCursor(isInventoryActived);
+            UIManager._instance.DisplayCursor(false);
         };
     }
 
@@ -48,19 +45,16 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            isInventoryActived = !isInventoryActived;
-
-            if(isInventoryActived)
+            if(!inventoryPanel.activeSelf)
             {
                 inventoryPanel.SetActive(true);
                 GameManager._instance._isPaused = true;
-                UIManager._instance.DisplayCursor(isInventoryActived);
+                UIManager._instance.DisplayCursor(inventoryPanel.activeSelf);
             }
             else
             {
-                inventoryPanel.SetActive(false);
+                UIStackManager.RemoveUIOnTop();
                 GameManager._instance._isPaused = false;
-                UIManager._instance.DisplayCursor(isInventoryActived);
             }    
         }
     }

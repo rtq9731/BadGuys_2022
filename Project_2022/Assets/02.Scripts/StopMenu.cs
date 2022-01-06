@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class StopMenu : MonoBehaviour
 {
-    [SerializeField] Button _btnReturn;
-    [SerializeField] Button _btnTodo;
-    [SerializeField] Button _btnOption;
-    [SerializeField] Button _btnExit;
+    [SerializeField] Button _btnReturn = null;
+    [SerializeField] Button _btnTodo = null;
+    [SerializeField] Button _btnOption = null;
+    [SerializeField] Button _btnExit = null;
 
     [SerializeField] GameObject _optionPanel = null;
     [SerializeField] GameObject _todoPanel = null;
