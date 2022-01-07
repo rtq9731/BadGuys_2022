@@ -307,7 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c3916c8ebdc8e4ea9e6686445dbeda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInventoryActived: 0
   inventoryPanel: {fileID: 1661824690}
   slotParents: {fileID: 1553480435}
   buttons: []
@@ -1880,12 +1879,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a63709c37699a4b8c3060cde770a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerArmLength: 1
-  _whatIsTouchable:
-    serializedVersion: 2
-    m_Bits: 4294967295
   inventory: {fileID: 81041001}
-  pickUpTxt: {fileID: 1384060201}
+  mouseImage: {fileID: 0}
+  canUseSprite: {fileID: 0}
+  baseSprite: {fileID: 0}
 --- !u!1 &734345687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,7 +2649,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 891a913a3ca12004ca04d0a3065980c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
