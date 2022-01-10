@@ -32,7 +32,18 @@ public class PlayerMouseInput : MonoBehaviour
             return;
         }
 
-        Ray ray = new Ray(transform.position, transform.forward);
+        Vector3 mousePos = Vector3.zero;
+        Ray ray;
+        if (UIStackManager.IsUIStackEmpty())
+        {
+            ray = new Ray(transform.position, transform.forward);
+        }
+        else
+        {
+            ray = Camera.main.ScreenPointToRay(mousePos);
+            mousePos = Input.mousePosition;
+        }
+
         if (Physics.Raycast(ray, out RaycastHit hitInfo, _playerArmLength, _whatIsTouchable))
         {
             if(_curTouchObj != hitInfo.transform)
