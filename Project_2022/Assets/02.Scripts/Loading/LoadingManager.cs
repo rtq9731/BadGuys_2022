@@ -10,19 +10,7 @@ public static class LoadingManager
 
     public static void LoadScene(string sceneName)
     {
-        LoadingManager.sceneName = sceneName;
-        SceneManager.LoadScene("LoadingScene");
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
         DOTween.CompleteAll();
-    }
-
-    public static void OnSceneLoaded(Scene scene, LoadSceneMode sceneLoadMode)
-    {
-        if (scene.name == "LoadingScene")
-        {
-            GameObject.FindObjectOfType<LoadingSceneManager>().SetLoading(sceneName);
-        }
+        LoadingSceneManager.LoadScene(sceneName);
     }
 }

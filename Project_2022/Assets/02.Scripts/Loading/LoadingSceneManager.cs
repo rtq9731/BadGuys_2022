@@ -13,19 +13,30 @@ public class LoadingSceneManager : MonoBehaviour
 
     [SerializeField] private Text pressAnyBtnText;
 
+    private static string sceneName = "";
+
     AsyncOperation operation;
 
-    public void SetLoading(string sceneName)
+    private void Start()
     {
         StartCoroutine(LoadCoroutine(sceneName));
 
-        sceneChangeBtn.onClick.AddListener(() =>
-        {
-            Debug.Log("씬 로드");
-            operation.allowSceneActivation = true;
-        });
-
         pressAnyBtnText.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+    }
+
+    private void Update()
+    {
+        if(Input.anyKeyDown && pressAnyBtnText.gameObject.activeSelf)
+        {
+            DOTween.KillAll();
+            operation.allowSceneActivation = true;
+        }
+    }
+
+    public static void LoadScene(string sceneName)
+    {
+        LoadingSceneManager.sceneName = sceneName;
+        SceneManager.LoadScene("LoadingScene");
     }
 
     IEnumerator LoadCoroutine(string sceneName)
@@ -36,8 +47,6 @@ public class LoadingSceneManager : MonoBehaviour
         float timer = 0f;
         while (!operation.isDone)
         {
-            yield return null;
-
             timer += Time.deltaTime;
             if (operation.progress < 0.9f)
             {
@@ -54,6 +63,8 @@ public class LoadingSceneManager : MonoBehaviour
                     pressAnyBtnText.gameObject.SetActive(true);
                 }
             }
+
+            yield return null;
         }
         DOTween.KillAll();
     }
