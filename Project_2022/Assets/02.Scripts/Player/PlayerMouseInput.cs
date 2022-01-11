@@ -9,20 +9,20 @@ public class PlayerMouseInput : MonoBehaviour
     [SerializeField] float _playerArmLength = 1f;
     [SerializeField] LayerMask _whatIsTouchable;
     PlayerController _playerController;
-    PlayerPickUpManager _playerPickUpManage;
+    PlayerPickUpManager _playerPickUpManager;
 
     Transform _curTouchObj = null;
 
-    private Action<Item> _onItemOverMouse = (x) => { };
+    private Action<IInteractableItem> _onItemOverMouse = (x) => { };
     private Action _onItemExitMouse = () => { };
 
     private void Awake()
     {
         _playerController = GetComponentInParent<PlayerController>();
-        _playerPickUpManage = GetComponent<PlayerPickUpManager>();
+        _playerPickUpManager = GetComponent<PlayerPickUpManager>();
 
-        _onItemOverMouse += _playerPickUpManage.CanPickUpItem;
-        _onItemExitMouse += () => _playerPickUpManage.ShowPickUpText(false);
+        _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
+        _onItemExitMouse += () => _playerPickUpManager.ShowPickUpIcon(false);
     }
 
     private void Update()
@@ -53,7 +53,7 @@ public class PlayerMouseInput : MonoBehaviour
                 _curTouchObj?.GetComponents<IPlayerMouseEnterHandler>()?.ToList().ForEach(x => x.OnPlayerMouseEnter());
             }
 
-            Item curItem = hitInfo.transform.GetComponent<Item>();
+            IInteractableItem curItem = hitInfo.transform.GetComponent<Item>();
             if (curItem != null)
             {
                 _onItemOverMouse(curItem);

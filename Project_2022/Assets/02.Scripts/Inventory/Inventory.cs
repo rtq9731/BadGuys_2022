@@ -6,6 +6,20 @@ using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
+    static Inventory instance = null;
+
+    public static Inventory Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<Inventory>();
+            }
+            return instance;
+        }
+    }
+
     [SerializeField]
     private GameObject inventoryPanel;
     [SerializeField]

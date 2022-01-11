@@ -15,19 +15,18 @@ public class PlayerPickUpManager : MonoBehaviour
     private Sprite baseSprite;
 
 
-    public void CanPickUpItem(Item curItem)
+    public void CanPickUpItem(IInteractableItem curItem)
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            inventory.PickUpItem(curItem.itemInfo);
-            curItem.gameObject.SetActive(false);
-            ShowPickUpText(false);
+            ShowPickUpIcon(false);
+            curItem.Interact();
             return;
         }
-        ShowPickUpText(true);
+        ShowPickUpIcon(true);
     }
 
-    public void ShowPickUpText(bool isItemOn)
+    public void ShowPickUpIcon(bool isItemOn)
     {
         if(isItemOn)
         {
