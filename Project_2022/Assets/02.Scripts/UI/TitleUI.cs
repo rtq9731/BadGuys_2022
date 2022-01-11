@@ -19,7 +19,7 @@ public class TitleUI : MonoBehaviour
         _newGameBtn.onClick.AddListener(() =>
         {
             // 로딩창 및 씬 이동 제어
-            SceneManager.LoadScene(loadSceneName);
+            LoadingManager.LoadScene("Tutorial");
         });
 
         _continueBtn.onClick.AddListener(() =>

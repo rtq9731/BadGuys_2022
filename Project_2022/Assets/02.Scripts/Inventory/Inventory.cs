@@ -35,8 +35,13 @@ public class Inventory : MonoBehaviour
 
     private Slot curItemSlot;
 
+    private InventoryContentsSize contentsSize;
+    private CreatSlot creatSlot;
+
     private void Start()
     {
+        contentsSize = GetComponentInChildren<InventoryContentsSize>();
+        creatSlot = GetComponentInChildren<CreatSlot>();
         slots = slotParents.GetComponentsInChildren<Slot>();
         buttons = slotParents.GetComponentsInChildren<Button>();
 
@@ -47,12 +52,6 @@ public class Inventory : MonoBehaviour
                 ShowItemInfo();
             });
         }
-
-        inventoryPanel.GetComponent<StackableUI>()._onDisable += () =>
-        {
-            GameManager._instance._isPaused = false;
-            UIManager._instance.DisplayCursor(false);
-        };
     }
 
     private void Update()
@@ -75,14 +74,19 @@ public class Inventory : MonoBehaviour
 
     public void PickUpItem(ItemInfo _item)
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slotParents.transform.childCount; i++)
         {
-            if (slots[i].item == null)
+            if (_item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
             {
-                slots[i].AddItem(_item);
-                return;
+                slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
             }
         }
+
+        creatSlot.CreatingSlot();
+        InventoryContentsSize.Instance.SetContentsSize();
+
+        Debug.Log(slotParents.transform.GetChild(slotParents.transform.childCount - 1));
+        slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(_item);
     }
 
     public void ShowItemInfo()

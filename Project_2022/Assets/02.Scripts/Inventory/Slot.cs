@@ -26,13 +26,20 @@ public class Slot : MonoBehaviour
 
     public void UpdateItemSlot()
     {
+
+    }
+
+    public void DestroyItemSlot()
+    {
         if(itemCount <= 0)
         {
-            isHaveItem = false;
-
-            item = null;
-            itemImage.sprite = null;
-            itemImage.gameObject.SetActive(false);
+            InventoryContentsSize.Instance.SetContentsSize();
+            Destroy(this.gameObject);
         }    
+    }
+
+    private void Update()
+    {
+        DestroyItemSlot();
     }
 }
