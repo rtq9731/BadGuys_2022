@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class LoadingSceneManager : MonoBehaviour
 {
 
     [SerializeField] private Slider loadingSlider;
     [SerializeField] private Button sceneChangeBtn;
+
+    [SerializeField] private Text pressAnyBtnText;
 
     private string sceneName = "Main";
 
@@ -23,6 +26,8 @@ public class LoadingSceneManager : MonoBehaviour
             Debug.Log("씬 로드");
             operation.allowSceneActivation = true;
         });
+
+        pressAnyBtnText.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
     }
 
     IEnumerator LoadCoroutine()
@@ -46,8 +51,11 @@ public class LoadingSceneManager : MonoBehaviour
             {
                 loadingSlider.value = Mathf.Lerp(loadingSlider.value, 1f, timer);
                 if (loadingSlider.value >= 0.99f)
+                {
                     loadingSlider.gameObject.SetActive(false);
-                    
+                    pressAnyBtnText.gameObject.SetActive(true);
+                }
+
             }
         }
     }
