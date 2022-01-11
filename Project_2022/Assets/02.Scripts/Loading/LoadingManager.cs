@@ -12,16 +12,17 @@ public static class LoadingManager
     {
         LoadingManager.sceneName = sceneName;
         SceneManager.LoadScene("LoadingScene");
-        SceneManager.sceneLoaded += OnLoadScene;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        DOTween.CompleteAll();
     }
 
-    public static void OnLoadScene(Scene scene, LoadSceneMode sceneLoadMode)
+    public static void OnSceneLoaded(Scene scene, LoadSceneMode sceneLoadMode)
     {
         if (scene.name == "LoadingScene")
         {
             GameObject.FindObjectOfType<LoadingSceneManager>().SetLoading(sceneName);
         }
-
-        DOTween.CompleteAll();
     }
 }
