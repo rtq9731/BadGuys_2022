@@ -14,13 +14,12 @@ public class Car : MonoBehaviour
     private bool isHorizontal; // 차가 놓여진 방향이 가로인가?
     [SerializeField]
     private bool isThree;      // 3칸 짜리 차인가?
-    
-    private bool isMouseClick; // 마우스 클릭을 받았는가?
-    private bool isNoObstacle; // 장애물이 있는가?
 
     private Vector3 targetPos; // 이동할 위치
 
     private Outline outline = null; // 아웃라인
+
+    private bool isMouseClick;
 
     private float[] twoPoses = { -3, -1, 1, 3 }; // 사이즈가 2인 것들이 스폿에 맞춰진 좌표들
     private float[] threePoses = { 2, 0, -2 }; // 사이즈가 3인 것들이 스폿에 맞춰진 좌표들
@@ -33,6 +32,11 @@ public class Car : MonoBehaviour
     void Start()
     {
         outline.enabled = false;
+    }
+
+    private void Update()
+    {
+        //Debug.DrawRay(transform.position, Vector3.forward * 2.5f, Color.white);
     }
 
     private void OnOutLine() // 아웃라인 킴
@@ -48,93 +52,94 @@ public class Car : MonoBehaviour
 
     private void MoveToMousePos(Vector3 mousePos)
     {
+        //Vector3 mousePos = transform.InverseTransformVector(_mousePos);
+        //Debug.Log(mousePos);
+
         if (isHorizontal)
         {
             targetPos = new Vector3(mousePos.x, 0f, 0f); // 가로로만 이동하기 때문에 X값만 받아옴
 
-            if (transform.position.x > targetPos.x) direction = Direction.Left;        // 방향을 정함
-            else if (transform.position.x < targetPos.x) direction = Direction.Right; 
-            else direction = Direction.Left;
+            if (transform.localPosition.x > targetPos.x) direction = Direction.Left;        // 방향을 정함
+            else if (transform.localPosition.x < targetPos.x) direction = Direction.Right; 
+            else direction = Direction.None;
 
             if (CanMove(direction)) // 이동이 가능하면
             {
                 
-                targetPos = new Vector3(mousePos.x, transform.position.y, transform.position.z);
-                transform.position = targetPos; // 좌표로 이동
+                targetPos = new Vector3(mousePos.x, transform.localPosition.y, transform.localPosition.z);
+                MoveToPos(targetPos); // 좌표로 이동
             }
         }
         else
         {
             targetPos = new Vector3(0f, 0f, mousePos.z); // 세로만 이동하기 때문에 Z값만 받아옴
 
-            if (transform.position.z > targetPos.z) direction = Direction.Down;        // 방향을 정함
-            else if (transform.position.z < targetPos.z) direction = Direction.Up;
-            else direction = Direction.Down;
+            if (transform.localPosition.z > targetPos.z) direction = Direction.Down;        // 방향을 정함
+            else if (transform.localPosition.z < targetPos.z) direction = Direction.Up;
+            else direction = Direction.None;
 
             if (CanMove(direction)) // 이동이 가능하면
             {
                
-                targetPos = new Vector3(transform.position.x, transform.position.y, mousePos.z);
-                transform.position = targetPos; // 좌표로 이동
+                targetPos = new Vector3(transform.localPosition.x, transform.localPosition.y, mousePos.z);
+                MoveToPos(targetPos); // 좌표로 이동
             }
         }
     }
 
     private bool CanMove(Direction dir) // 그 방향으로 이동이 가능한지
     {
-        
-        RaycastHit hit;
+        if (dir == Direction.None)
+        {
+            return false;
+        }
 
         if (!isThree) // 2
         {
             switch (dir) 
             {
                 case Direction.Up:
-                    if (transform.position.z >= 3) // 최대를 안넘어 갔는가?
+                    if (transform.localPosition.z >= 3) // 최대를 안넘어 갔는가?
                     {
-                        transform.position = new Vector3(transform.position.x, transform.position.y, 3);
+                        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 3);
                         return false;
                     }
-                    else if (Physics.Raycast(transform.position, Vector3.forward, out hit, 2.5f, target)) // 앞에 차가 있는가?
-                    {
+                    else if (ShotRay(Vector3.forward))
                         return false;
-                    }
+
                     return true;
 
                 case Direction.Down:
-                    if (transform.position.z <= -3)
+                    if (transform.localPosition.z <= -3)
                     {
-                        transform.position = new Vector3(transform.position.x, transform.position.y, -3);
+                        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -3);
                         return false;
                     }
-                    else if (Physics.Raycast(transform.position, Vector3.back, out hit, 2.5f, target))
-                    {
+                    else if (ShotRay(Vector3.back))
                         return false;
-                    }
+
                     return true;
 
                 case Direction.Right:
-                    if (transform.position.x >= 3)
+                    if (transform.localPosition.x >= 3)
                     {
-                        transform.position = new Vector3( 3, transform.position.y, transform.position.z);
+                        transform.localPosition = new Vector3( 3, transform.localPosition.y, transform.localPosition.z);
                         return false;
                     }
-                    else if (Physics.Raycast(transform.position, Vector3.right, out hit, 2.5f, target))
-                    {
+                    else if (ShotRay(Vector3.right))
                         return false;
-                    }
+
                     return true;
 
                 case Direction.Left:
-                    if (transform.position.x <= -3)
+                    if (transform.localPosition.x <= -3)
                     {
-                        transform.position = new Vector3(-3, transform.position.y, transform.position.z);
+                        transform.localPosition = new Vector3(-3, transform.localPosition.y, transform.localPosition.z);
                         return false;
                     }
-                    else if (Physics.Raycast(transform.position, Vector3.left, out hit, 2.5f, target))
-                    {
+                    else if (ShotRay(Vector3.left))
                         return false;
-                    }
+
                     return true;
 
                 default:
@@ -147,51 +152,47 @@ public class Car : MonoBehaviour
             switch (dir)
             {
                 case Direction.Up:
-                    if (transform.position.z >= 2)
+                    if (transform.localPosition.z >= 2)
                     {
-                        transform.position = new Vector3(transform.position.x, transform.position.y, 2);
+                        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 2);
                         return false;
                     }
-                    if (Physics.Raycast(transform.position, Vector3.forward, out hit, 3.5f, target))
-                    {
+                    else if (ShotRay(Vector3.forward))
                         return false;
-                    }
+
                     return true;
 
                 case Direction.Down:
-                    if (transform.position.z <= -2)
+                    if (transform.localPosition.z <= -2)
                     {
-                        transform.position = new Vector3(transform.position.x, transform.position.y, -2);
+                        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -2);
                         return false;
                     }
-                    if (Physics.Raycast(transform.position, Vector3.back, out hit, 3.5f, target))
-                    {
+                    else if (ShotRay(Vector3.back))
                         return false;
-                    }
+
                     return true;
 
                 case Direction.Right:
-                    if (transform.position.x >= 2)
+                    if (transform.localPosition.x >= 2)
                     {
-                        transform.position = new Vector3(2, transform.position.y, transform.position.z);
+                        transform.localPosition = new Vector3(2, transform.localPosition.y, transform.localPosition.z);
                         return false;
                     }
-                    if (Physics.Raycast(transform.position, Vector3.right, out hit, 3.5f, target))
-                    {
+                    else if (ShotRay(Vector3.right))
                         return false;
-                    }
+
                     return true;
 
                 case Direction.Left:
-                    if (transform.position.x >= -2)
+                    if (transform.localPosition.x >= -2)
                     {
-                        transform.position = new Vector3(-2, transform.position.y, transform.position.z);
+                        transform.localPosition = new Vector3(-2, transform.localPosition.y, transform.localPosition.z);
                         return false;
                     }
-                    if (Physics.Raycast(transform.position, Vector3.left, out hit, 3.5f, target))
-                    {
+                    else if (ShotRay(Vector3.left))
                         return false;
-                    }
+
                     return true;
 
                 default:
@@ -208,7 +209,7 @@ public class Car : MonoBehaviour
 
         if (isplayer)
         {
-            if (transform.position == RushHourManger.Instance.goalPos)
+            if (transform.localPosition == RushHourManger.Instance.goalPos)
             {
                 RushHourManger.Instance.GameClearMan();
             }
@@ -227,9 +228,39 @@ public class Car : MonoBehaviour
         RushHourManger.Instance.selectedCar = null;
         OffOutLine();
         StartCoroutine(CheckDistance());
-        //StartCoroutine(Move(targetPos));
-        transform.position = targetPos;
+        MoveToPos(targetPos);
 
+        if (isplayer)
+        {
+            if (transform.localPosition == RushHourManger.Instance.goalPos)
+            {
+                RushHourManger.Instance.GameClearMan();
+            }
+        }
+
+    }
+
+    private void MoveToPos(Vector3 thatPos)
+    {
+        transform.localPosition = thatPos;
+    }
+
+    private bool ShotRay(Vector3 dir)
+    {
+        RaycastHit hit;
+
+        if (!isThree) // 2
+        {
+            if (Physics.Raycast(transform.position, dir, out hit, 2.5f, target))
+                return true;
+        }
+        else // 3
+        {
+            if (Physics.Raycast(transform.position, dir, out hit, 3.5f, target))
+                return true;
+        }
+
+        return false;
     }
 
     private IEnumerator CheckDistance() // 딴 자동차가 선택되면 가장 가까운 스폿 위치로 맞춤
@@ -239,7 +270,7 @@ public class Car : MonoBehaviour
 
         if (isHorizontal) // 가로
         {
-            float posX = transform.position.x;
+            float posX = transform.localPosition.x;
             float minPosX = float.MaxValue;
 
             if (isThree) // 길이 3
@@ -252,14 +283,14 @@ public class Car : MonoBehaviour
                         continue;
                     }
 
-                    if (Vector3.Distance(transform.position, new Vector3(threePoses[i], 0, 0)) <
-                        Vector3.Distance(transform.position, new Vector3(minPosX, 0, 0)) ) // 거리 비교후 더 가까운쪽을 넣기
+                    if (Vector3.Distance(transform.localPosition, new Vector3(threePoses[i], 0, 0)) <
+                        Vector3.Distance(transform.localPosition, new Vector3(minPosX, 0, 0)) ) // 거리 비교후 더 가까운쪽을 넣기
                     {
                         minPosX = threePoses[i];
                     }
                 }
 
-                moveTo = new Vector3(minPosX, transform.position.y, transform.position.z);
+                moveTo = new Vector3(minPosX, transform.localPosition.y, transform.localPosition.z);
             }
             else // 길이 2
              {
@@ -271,20 +302,20 @@ public class Car : MonoBehaviour
                         continue;
                     }
 
-                    if (Vector3.Distance(transform.position, new Vector3(twoPoses[i], 0, 0)) <
-                        Vector3.Distance(transform.position, new Vector3(minPosX, 0, 0)))
+                    if (Vector3.Distance(transform.localPosition, new Vector3(twoPoses[i], 0, 0)) <
+                        Vector3.Distance(transform.localPosition, new Vector3(minPosX, 0, 0)))
                     {
                         minPosX = twoPoses[i];
                     }
                 }
 
-                moveTo = new Vector3(minPosX, transform.position.y, transform.position.z);
+                moveTo = new Vector3(minPosX, transform.localPosition.y, transform.localPosition.z);
             }
         }
 
         else // 세로
         {
-            float posZ = transform.position.z;
+            float posZ = transform.localPosition.z;
             float minPosZ = float.MaxValue;
 
             if (isThree) // 길이 3
@@ -296,14 +327,14 @@ public class Car : MonoBehaviour
                         minPosZ = threePoses[i];
                         continue;
                     }
-                    if (Vector3.Distance(transform.position, new Vector3( 0, 0, threePoses[i])) <
-                       Vector3.Distance(transform.position, new Vector3( 0, 0, minPosZ)))
+                    if (Vector3.Distance(transform.localPosition, new Vector3( 0, 0, threePoses[i])) <
+                       Vector3.Distance(transform.localPosition, new Vector3( 0, 0, minPosZ)))
                     {
                         minPosZ = threePoses[i];
                     }
                 }
 
-                moveTo = new Vector3(transform.position.x, transform.position.y, minPosZ);
+                moveTo = new Vector3(transform.localPosition.x, transform.localPosition.y, minPosZ);
             }
             else // 길이 2
             {
@@ -314,13 +345,13 @@ public class Car : MonoBehaviour
                         minPosZ = twoPoses[i];
                         continue;
                     }
-                    if (Vector3.Distance(transform.position, new Vector3(0, 0, twoPoses[i])) <
-                       Vector3.Distance(transform.position, new Vector3(0, 0, minPosZ)))
+                    if (Vector3.Distance(transform.localPosition, new Vector3(0, 0, twoPoses[i])) <
+                       Vector3.Distance(transform.localPosition, new Vector3(0, 0, minPosZ)))
                     {
                         minPosZ = twoPoses[i];
                     }
                 }
-                moveTo = new Vector3(transform.position.x, transform.position.y, minPosZ);
+                moveTo = new Vector3(transform.localPosition.x, transform.localPosition.y, minPosZ);
             }
         }
 
