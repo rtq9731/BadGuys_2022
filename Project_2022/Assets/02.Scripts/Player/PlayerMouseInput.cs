@@ -48,7 +48,6 @@ public class PlayerMouseInput : MonoBehaviour
         {
             if(_curTouchObj != hitInfo.transform)
             {
-                Debug.Log((_curTouchObj ? _curTouchObj.name : "null") + " & " + ( hitInfo.transform ? hitInfo.transform.name : "null"));
                 _curTouchObj?.GetComponents<IPlayerMouseExitHandler>()?.ToList().ForEach(x => x.OnPlayerMouseExit());
                 _curTouchObj = hitInfo.transform;
                 _curTouchObj?.GetComponents<IPlayerMouseEnterHandler>()?.ToList().ForEach(x => x.OnPlayerMouseEnter());
