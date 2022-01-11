@@ -13,13 +13,11 @@ public class LoadingSceneManager : MonoBehaviour
 
     [SerializeField] private Text pressAnyBtnText;
 
-    private string sceneName = "Main";
-
     AsyncOperation operation;
 
-    void Start()
+    public void SetLoading(string sceneName)
     {
-        StartCoroutine(LoadCoroutine());
+        StartCoroutine(LoadCoroutine(sceneName));
 
         sceneChangeBtn.onClick.AddListener(() =>
         {
@@ -30,7 +28,7 @@ public class LoadingSceneManager : MonoBehaviour
         pressAnyBtnText.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
     }
 
-    IEnumerator LoadCoroutine()
+    IEnumerator LoadCoroutine(string sceneName)
     {
         operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
@@ -55,8 +53,8 @@ public class LoadingSceneManager : MonoBehaviour
                     loadingSlider.gameObject.SetActive(false);
                     pressAnyBtnText.gameObject.SetActive(true);
                 }
-
             }
         }
+        DOTween.KillAll();
     }
 }

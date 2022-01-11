@@ -13,9 +13,18 @@ public class CameraMoveManager : MonoBehaviour
     public CanvasGroup loadCanvasGroup = null;
     public CanvasGroup allCanvasGroup = null;
 
+    public Image loadingBar = null;
+
+    bool isTitle = true;
+
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && isTitle)
         {
             GoToMain();
         }
@@ -23,13 +32,22 @@ public class CameraMoveManager : MonoBehaviour
 
     public void GoToMain()
     {
+        isTitle = false;
+
+        mainCanvasGroup.alpha = 0;
         loadCanvasGroup.alpha = 0;
         allCanvasGroup.alpha = 0;
+        loadingBar.fillAmount = 0;
         allCanvasGroup.DOFade(1, 1.55f).SetEase(Ease.InExpo).OnComplete(() => 
         {
             loadCanvasGroup.DOFade(1, 2f).SetEase(Ease.InExpo).OnComplete(() =>
             {
-                enabled = false;
+                loadingBar.DOFillAmount(1, 5).SetEase(Ease.OutQuart).OnComplete(() =>
+                {
+                    loadCanvasGroup.alpha = 0;
+                    mainCanvasGroup.DOFade(1, 2f);
+                    enabled = false;
+                });
             });
         });
 
