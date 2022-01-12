@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Inventory : MonoBehaviour
 {
@@ -79,8 +80,10 @@ public class Inventory : MonoBehaviour
             if (_item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
             {
                 slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
+                return;
             }
         }
+        
 
         creatSlot.CreatingSlot();
         InventoryContentsSize.Instance.SetContentsSize();
@@ -98,4 +101,6 @@ public class Inventory : MonoBehaviour
         itemRoleText.text = curItemSlot.itemRole;
         itemImage.sprite = curItemSlot.itemImage.sprite;
     }
+
+    
 }

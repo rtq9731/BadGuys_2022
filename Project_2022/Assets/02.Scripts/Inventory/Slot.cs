@@ -11,7 +11,9 @@ public class Slot : MonoBehaviour
     public Image itemImage;
     public string itemRole;
 
+    public Text itemCountText;
     private int itemCount;
+
 
     public void AddItem(ItemInfo _itemInfo)
     {
@@ -21,12 +23,22 @@ public class Slot : MonoBehaviour
         itemRole = _itemInfo.itemRole;
 
         isHaveItem = true;
+        itemCountText.text = null;
         itemCount = 1;
     }
 
     public void UpdateItemSlot()
     {
+        itemCount++;
 
+        if(itemCount <= 1)
+        {
+            itemCountText = null;
+        }
+        else
+        {
+            itemCountText.text = $"{itemCount}X";
+        }
     }
 
     public void DestroyItemSlot()
