@@ -18,8 +18,8 @@ public class PlayerMouseInput : MonoBehaviour
 
     private void Awake()
     {
-        _playerController = GetComponentInParent<PlayerController>();
-        _playerPickUpManager = GetComponent<PlayerPickUpManager>();
+        _playerController = FindObjectOfType<PlayerController>();
+        _playerPickUpManager = FindObjectOfType<PlayerPickUpManager>();
 
         _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
         _onItemExitMouse += () => _playerPickUpManager.ShowPickUpIcon(false);

@@ -1863,6 +1863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 393635010}
   - component: {fileID: 393635011}
+  - component: {fileID: 393635012}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -1920,6 +1921,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1510624906}
+--- !u!114 &393635012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393635009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a63709c37699a4b8c3060cde770a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 81041001}
+  mouseImage: {fileID: 770405691}
+  canUseSprite: {fileID: 21300000, guid: b78a05b470438b04f8a92f862f60e512, type: 3}
+  baseSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &431821400
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,9 +2848,8 @@ GameObject:
   - component: {fileID: 828118761}
   - component: {fileID: 828118760}
   - component: {fileID: 828118759}
-  - component: {fileID: 828118762}
-  - component: {fileID: 828118763}
   - component: {fileID: 828118764}
+  - component: {fileID: 828118762}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2922,22 +2938,6 @@ MonoBehaviour:
   _whatIsTouchable:
     serializedVersion: 2
     m_Bits: 12087
---- !u!114 &828118763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828118758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a63709c37699a4b8c3060cde770a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 81041001}
-  mouseImage: {fileID: 770405691}
-  canUseSprite: {fileID: 21300000, guid: b78a05b470438b04f8a92f862f60e512, type: 3}
-  baseSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &828118764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6060,7 +6060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003db8ca5443ebf44ab649754f485910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camTrm: {fileID: 828118761}
+  camTrm: {fileID: 393635010}
   _mouseSensitivity: 5
   _playerSpeed: 5
   _runningSpeed: 7
