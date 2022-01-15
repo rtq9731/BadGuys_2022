@@ -19,11 +19,11 @@ public class ShowInventoryUI : MonoBehaviour
 
     private void Update()
     {
-        ShowInventorySlot();
+        DownInventorySlot();
         fadeTime += Time.deltaTime;
     }
 
-    public void ShowInventorySlot()
+    public void DownInventorySlot()
     {
         if (fadeTime >= 4f)
         {

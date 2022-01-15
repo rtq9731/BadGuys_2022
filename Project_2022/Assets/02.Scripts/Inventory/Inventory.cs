@@ -39,6 +39,8 @@ public class Inventory : MonoBehaviour
     private InventoryContentsSize contentsSize;
     private CreatSlot creatSlot;
 
+    public ItemInfo MainItem;
+
     private void Start()
     {
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
