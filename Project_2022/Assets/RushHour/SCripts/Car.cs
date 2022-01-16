@@ -248,15 +248,18 @@ public class Car : MonoBehaviour
     private bool ShotRay(Vector3 dir)
     {
         RaycastHit hit;
+        float size = RushHourManger.Instance.truesize;
+        //Debug.LogWarning(size);
+        //Debug.DrawRay(transform.position, dir * 2.5f * size, Color.red);
 
         if (!isThree) // 2
         {
-            if (Physics.Raycast(transform.position, dir, out hit, 2.5f, target))
+            if (Physics.Raycast(transform.position, dir, out hit, 2.5f * size, target))
                 return true;
         }
         else // 3
         {
-            if (Physics.Raycast(transform.position, dir, out hit, 3.5f, target))
+            if (Physics.Raycast(transform.position, dir, out hit, 3.5f * size, target))
                 return true;
         }
 
