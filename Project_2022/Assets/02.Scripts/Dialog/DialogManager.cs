@@ -8,6 +8,7 @@ public class DialogManager : MonoBehaviour
 {
     [Header("상하좌우 빈 공간입니다")]
     public FreeSpace freeSpace = new FreeSpace();
+    public int padding = 0;
     public int limitPanelCount = 0;
 
     public DialogPanel panelPrefab = null;
@@ -27,24 +28,41 @@ public class DialogManager : MonoBehaviour
 
     public void Resize()
     {
-
+        float myHeight = 0f;
+        for (int i = 0; i < dialogs.FindAll(x => x.gameObject.activeSelf).Count; i++)
+        {
+            dialogs[i].rectTrm.anchoredPosition = new Vector2(0, freeSpace.down + padding + (i + 1) * dialogs[i].rectTrm.rect.height);
+            myHeight += dialogs[i].rectTrm.rect.height;
+        }
     }
 
-    public DialogPanel CreateDialogPanel()
+    private void Update()
     {
+        Resize();
+    }
 
-        if(dialogs.Count >= 1 && dialogs.Find(x => !x.gameObject.activeSelf))
+    public DialogPanel CreateDialogPanel(string str)
+    {
+        DialogPanel panel = dialogs.Find(x => !x.gameObject.activeSelf);
+        if (panel == null)
         {
+            if (dialogs.Count <= limitPanelCount)
+            {
+                panel = Instantiate<DialogPanel>(panelPrefab);
+                dialogs.Add(panel);
+            }
+            else
+            {
+                dialogs.Find(x => x.order == 0);
+            }
+        }
 
-        }
-        else
-        {
-            
-        }
+        panel.SetActive(true, () => { }, str);
 
         return null;
     }
 
+    [System.Serializable]
     public class FreeSpace
     {
         public int left = 0;
