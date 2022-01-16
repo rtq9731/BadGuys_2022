@@ -35,6 +35,7 @@ public class CameraMoveManager : MonoBehaviour
         isTitle = false;
 
         mainCanvasGroup.alpha = 0;
+        mainCanvasGroup.interactable = false;
         loadCanvasGroup.alpha = 0;
         allCanvasGroup.alpha = 0;
         loadingBar.fillAmount = 0;
@@ -46,6 +47,7 @@ public class CameraMoveManager : MonoBehaviour
                 {
                     loadCanvasGroup.alpha = 0;
                     mainCanvasGroup.DOFade(1, 2f);
+                    mainCanvasGroup.interactable = true;
                     enabled = false;
                 });
             });

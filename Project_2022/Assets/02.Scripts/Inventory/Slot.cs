@@ -11,7 +11,11 @@ public class Slot : MonoBehaviour
     public Image itemImage;
     public string itemRole;
 
+    public Text itemCountText;
     private int itemCount;
+
+    public Text itemNum;
+
 
     public void AddItem(ItemInfo _itemInfo)
     {
@@ -20,13 +24,39 @@ public class Slot : MonoBehaviour
         itemImage.sprite = _itemInfo.itemImage;
         itemRole = _itemInfo.itemRole;
 
+        initSlotInfo();
+    }
+
+
+    void initSlotInfo()
+    {
         isHaveItem = true;
+        itemCountText.text = null;
         itemCount = 1;
+
+        if(transform.parent.childCount > 9)
+        {
+            itemNum.text = null;
+        }
+        else
+        {
+            itemNum.text = transform.parent.childCount.ToString();
+
+        }
     }
 
     public void UpdateItemSlot()
     {
+        itemCount++;
 
+        if(itemCount <= 1)
+        {
+            itemCountText = null;
+        }
+        else
+        {
+            itemCountText.text = $"{itemCount}X";
+        }
     }
 
     public void DestroyItemSlot()
