@@ -5,10 +5,23 @@ using UnityEngine;
 
 public class InventoryInput : MonoBehaviour
 {
+    Dictionary<KeyCode, int> keyDic;
 
+    private int itemIndex = 0;
     void Start()
     {
-       
+        keyDic = new Dictionary<KeyCode, int>()
+        {
+             {KeyCode.Alpha1, 1},
+             {KeyCode.Alpha2, 2},
+             {KeyCode.Alpha3, 3},
+             {KeyCode.Alpha4, 4},
+             {KeyCode.Alpha5, 5},
+             {KeyCode.Alpha6, 6},
+             {KeyCode.Alpha7, 7},
+             {KeyCode.Alpha8, 8},
+             {KeyCode.Alpha9, 9}
+        };
     }
 
     private void Update()
@@ -18,29 +31,39 @@ public class InventoryInput : MonoBehaviour
 
     private void TryInputNumber()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            ChangeSlot(0);
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            ChangeSlot(1);
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-            ChangeSlot(2);
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-            ChangeSlot(3);
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-            ChangeSlot(4);
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-            ChangeSlot(5);
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-            ChangeSlot(6);
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-            ChangeSlot(7);
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-            ChangeSlot(8);
+        
+
+        if (Input.anyKeyDown)
+        {
+            foreach (var dic in keyDic)
+            {
+                if (Input.GetKeyDown(dic.Key))
+                {
+                    ChangeSlot(dic.Value - 1);
+                    itemIndex = dic.Value - 1;
+                }
+            }
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            itemIndex++;
+            itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
+            ChangeSlot(itemIndex);
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            itemIndex--;
+            itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
+            ChangeSlot(itemIndex);
+        }
+
+        Debug.Log(itemIndex);
     }
 
     void ChangeSlot(int slotNum)
     {
-        Debug.Log(transform.GetChild(slotNum).GetComponent<Item>());
-        Inventory.Instance.MainItem = transform.GetChild(slotNum).GetChild(0).GetComponent<Slot>().item;
+        Inventory.Instance.MainItem = transform.GetChild(0).GetChild(slotNum).GetComponent<Slot>().item;
     }
 }
