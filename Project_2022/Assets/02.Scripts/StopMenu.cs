@@ -43,11 +43,16 @@ public class StopMenu : MonoBehaviour
         });
     }
 
+    private void OnEnable()
+    {
+
+    }
+
     private void OnDisable()
     {
         UIManager._instance.DisplayCursor(false);
 
-        if(GameManager._instance != null)
+        if (GameManager._instance != null)
         {
             GameManager._instance._isPaused = false;
         }

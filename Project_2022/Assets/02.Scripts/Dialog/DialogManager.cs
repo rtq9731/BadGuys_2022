@@ -16,50 +16,47 @@ public class DialogManager : MonoBehaviour
 
     RectTransform myRect = null;
 
+    int curOrder = 0;
+
     private void Awake()
     {
         myRect = GetComponent<RectTransform>();
+        myRect.sizeDelta = new Vector2(myRect.sizeDelta.x + freeSpace.left + freeSpace.right, myRect.sizeDelta.y + freeSpace.down + freeSpace.up);
+        StartCoroutine(Test());
     }
 
-    public void Refresh()
+    private void CreateDialogPanel(string text, Color color)
     {
-
-    }
-
-    public void Resize()
-    {
-        float myHeight = 0f;
-        for (int i = 0; i < dialogs.FindAll(x => x.gameObject.activeSelf).Count; i++)
+        DialogPanel dialogPanel = dialogs.Find(x => !x.gameObject.activeSelf);
+        if(dialogPanel == null)
         {
-            dialogs[i].rectTrm.anchoredPosition = new Vector2(0, freeSpace.down + padding + (i + 1) * dialogs[i].rectTrm.rect.height);
-            myHeight += dialogs[i].rectTrm.rect.height;
-        }
-    }
-
-    private void Update()
-    {
-        Resize();
-    }
-
-    public DialogPanel CreateDialogPanel(string str)
-    {
-        DialogPanel panel = dialogs.Find(x => !x.gameObject.activeSelf);
-        if (panel == null)
-        {
-            if (dialogs.Count <= limitPanelCount)
+            if(dialogs.Count <= limitPanelCount + 1)
             {
-                panel = Instantiate<DialogPanel>(panelPrefab);
-                dialogs.Add(panel);
+                dialogPanel = Instantiate<DialogPanel>(panelPrefab);
+                dialogs.Add(dialogPanel);
             }
-            else
+
+            if(dialogs.Count >= limitPanelCount + 1)
             {
-                dialogs.Find(x => x.order == 0);
+                dialogs.Sort((x, y) => -x.order.CompareTo(y.order));
+                dialogs[0].SetActiveFalseImmediately();
             }
         }
+        dialogPanel.SetActive(true, color);
+    }
 
-        panel.SetActive(true, () => { }, str);
-
-        return null;
+    IEnumerator Test()
+    {
+        CreateDialogPanel("AI : M.A.M의 사용 설명 시스템에 오신 것을 환영합니다.", Color.red);
+        yield return new WaitForSeconds(0.3f);
+        CreateDialogPanel("AI : 이하는 본 기기의 사용 설명입니다.", Color.green);
+        yield return new WaitForSeconds(0.3f);
+        CreateDialogPanel("AI : E를 누르시면 특정 아이템을 수집할 수 있습니다.", Color.blue);
+        yield return new WaitForSeconds(0.3f);
+        CreateDialogPanel("AI : 수집된 아이템은 휠과 숫자키를 통해 선택 할 수 있습니다.", Color.black);
+        yield return new WaitForSeconds(0.3f);
+        CreateDialogPanel("AI : 이하 생략하겠습니다.", Color.cyan);
+        yield return new WaitForSeconds(0.3f);
     }
 
     [System.Serializable]
@@ -90,6 +87,7 @@ public class DialogDatas : ScriptableObject
 public class DialogData
 {
     public int id = 0;
+    public Color color = Color.black;
     public string str = "";
     public string name = "";
 }

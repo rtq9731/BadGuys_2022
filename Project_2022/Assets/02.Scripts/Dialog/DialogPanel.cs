@@ -12,7 +12,9 @@ public class DialogPanel : MonoBehaviour
     public RectTransform rectTrm = null;
     Rect originRect = Rect.zero;
 
-    event Action _onDisable;
+    List<Tween> tweens = new List<Tween>();
+
+    Coroutine cor = null;
 
     public int order;
 
@@ -23,34 +25,71 @@ public class DialogPanel : MonoBehaviour
         rectTrm.sizeDelta = Vector2.zero;
     }
 
-    private void Start()
-    {
-        SetActive(true, () => { }, "¤¾¤·");
-    }
-
-    public void SetActive(bool active, Action callBack, string str = "")
+    public void SetActive(bool active, Color color = default, Action callBack = null, string str = "")
     {
         float height = 0f;
         if (active)
         {
+            if(cor != null)
+            {
+                StopCoroutine(cor);
+
+                foreach (var item in tweens)
+                {
+                    item.Complete();
+                }
+            }
+
+            text.text = "";
+            text.color = color;
             gameObject.SetActive(active);
-            DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(() =>
+            cor = StartCoroutine(RemovePanel(3f));
+
+            tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).SetSpeedBased().OnComplete(() =>
             {
                 text.text = str;
                 callBack();
-            });
+            }));
         }
         else
         {
             height = originRect.height;
-            text.DOFade(0, 0.3f).OnComplete(() =>
+            tweens.Add(text.DOFade(0, 0.3f).OnComplete(() =>
             {
-                DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
+                tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
                 {
                     gameObject.SetActive(active);
                     callBack();
-                });
-            });
+                }));
+            }));
         }
+    }
+
+    public void SetActiveFalseImmediately()
+    {
+        if(cor != null)
+        {
+            StopCoroutine(cor);
+        }
+
+        foreach (var item in tweens)
+        {
+            item.Kill();
+        }
+
+        float height = 0f;
+        text.DOFade(0, 0.3f).OnComplete(() =>
+        {
+            DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            });
+        });
+    }
+
+    IEnumerator RemovePanel(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SetActive(false);
     }
 }
