@@ -60,7 +60,17 @@ public class PlayerMouseInput : MonoBehaviour
             }
             else
             {
-                _onItemExitMouse();
+                // 추가코드 
+                curItem = hitInfo.transform.GetComponent<Item_RushHourPuzzle>();
+                if(curItem != null)
+                {
+                    _onItemOverMouse(curItem);
+                }
+
+                else
+                {
+                    _onItemExitMouse();
+                }
             }
         }
         else if(_curTouchObj != null)
