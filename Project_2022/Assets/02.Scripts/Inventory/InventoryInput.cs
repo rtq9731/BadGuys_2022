@@ -31,35 +31,36 @@ public class InventoryInput : MonoBehaviour
 
     private void TryInputNumber()
     {
-        
-
-        if (Input.anyKeyDown)
+        if(transform.GetChild(0).transform.childCount > 0)
         {
-            foreach (var dic in keyDic)
+            if (Input.anyKeyDown)
             {
-                if (Input.GetKeyDown(dic.Key))
+                foreach (var dic in keyDic)
                 {
-                    ChangeSlot(dic.Value - 1);
-                    itemIndex = dic.Value - 1;
+                    if (Input.GetKeyDown(dic.Key))
+                    {
+                        ChangeSlot(dic.Value - 1);
+                        itemIndex = dic.Value - 1;
+                    }
                 }
             }
-        }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            itemIndex++;
-            itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
-            ChangeSlot(itemIndex);
-        }
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                itemIndex++;
+                itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
+                ChangeSlot(itemIndex);
+            }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            itemIndex--;
-            itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
-            ChangeSlot(itemIndex);
-        }
+            if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            {
+                itemIndex--;
+                itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
+                ChangeSlot(itemIndex);
+            }
 
-        Debug.Log(itemIndex);
+            Debug.Log(itemIndex);
+        }
     }
 
     void ChangeSlot(int slotNum)
