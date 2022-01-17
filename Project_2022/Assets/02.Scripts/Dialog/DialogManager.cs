@@ -32,14 +32,15 @@ public class DialogManager : MonoBehaviour
         {
             if(dialogs.Count <= limitPanelCount + 1)
             {
-                dialogPanel = Instantiate<DialogPanel>(panelPrefab);
+                dialogPanel = Instantiate<DialogPanel>(panelPrefab, transform);
                 dialogs.Add(dialogPanel);
             }
 
             if(dialogs.Count >= limitPanelCount + 1)
             {
                 dialogs.Sort((x, y) => -x.order.CompareTo(y.order));
-                dialogs[0].SetActiveFalseImmediately();
+                dialogs[dialogs.Count - 1].SetActiveFalseImmediately();
+                dialogPanel = dialogs[0];
             }
         }
         dialogPanel.SetActive(true, color);

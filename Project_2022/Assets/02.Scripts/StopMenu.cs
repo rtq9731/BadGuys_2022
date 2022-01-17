@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class StopMenu : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class StopMenu : MonoBehaviour
 
     private void OnEnable()
     {
-
+        DOTween.PauseAll();
     }
 
     private void OnDisable()
@@ -56,5 +57,6 @@ public class StopMenu : MonoBehaviour
         {
             GameManager._instance._isPaused = false;
         }
+        DOTween.PlayAll();
     }
 }
