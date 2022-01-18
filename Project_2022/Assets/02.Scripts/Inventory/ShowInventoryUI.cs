@@ -48,7 +48,6 @@ public class ShowInventoryUI : MonoBehaviour
             {
                 if (Input.GetKeyDown(dic.Key) )
                 {
-                    Debug.Log("asdasd");
                     fadeTime = 0;
                     ShowInventorySlot();
                 }

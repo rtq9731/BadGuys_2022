@@ -60,6 +60,8 @@ public class PlayerMouseInput : MonoBehaviour
             }
             else
             {
+
+                //여기 전체 코드 필요없을거같아요
                 // 추가코드 
                 curItem = hitInfo.transform.GetComponent<Item_RushHourPuzzle>();
                 if(curItem != null)
