@@ -15,6 +15,8 @@ public class ShowInventoryUI : MonoBehaviour
 
     public Ease ease;
 
+    bool isInventoryDown = false;
+
     private void Start()
     {
         rectTrm = GetComponent<RectTransform>(); 
@@ -63,13 +65,15 @@ public class ShowInventoryUI : MonoBehaviour
 
     public void ShowInventorySlot()
     {
-        rectTrm.transform.position = originRectTrm;
+        isInventoryDown = false;
+        rectTrm.transform.DOMove(originRectTrm, 0.5f).SetEase(ease);
     }
 
     public void DownInventorySlot()
     {
-        if (fadeTime >= 4f)
+        if (fadeTime >= 4f && !isInventoryDown)
         {
+            isInventoryDown = true;
             rectTrm.transform.DOMove(new Vector3(rectTrm.transform.position.x, -100), 1f).SetEase(ease);
         }
     }
