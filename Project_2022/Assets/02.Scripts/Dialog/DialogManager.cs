@@ -3,11 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
+[RequireComponent(typeof(ContentSizeFitter))]
 public class DialogManager : MonoBehaviour
 {
-    [Header("상하좌우 빈 공간입니다")]
-    public FreeSpace freeSpace = new FreeSpace();
     public int padding = 0;
     public int limitPanelCount = 0;
 
@@ -21,7 +21,6 @@ public class DialogManager : MonoBehaviour
     private void Awake()
     {
         myRect = GetComponent<RectTransform>();
-        myRect.sizeDelta = new Vector2(myRect.sizeDelta.x + freeSpace.left + freeSpace.right, myRect.sizeDelta.y + freeSpace.down + freeSpace.up);
         StartCoroutine(Test());
     }
 
@@ -43,6 +42,9 @@ public class DialogManager : MonoBehaviour
                 dialogPanel = dialogs[0];
             }
         }
+        dialogPanel.order = curOrder;
+        curOrder++;
+
         dialogPanel.SetActive(true, color);
     }
 
@@ -59,36 +61,5 @@ public class DialogManager : MonoBehaviour
         CreateDialogPanel("AI : 이하 생략하겠습니다.", Color.cyan);
         yield return new WaitForSeconds(0.3f);
     }
-
-    [System.Serializable]
-    public class FreeSpace
-    {
-        public int left = 0;
-        public int right = 0;
-        public int up = 0;
-        public int down = 0;
-    }
 }
 
-[CreateAssetMenu(fileName = "DialogDatas", menuName = "ScriptableObject/Dialog")]
-public class DialogDatas : ScriptableObject
-{
-    List<DialogData> dialogDatas = new List<DialogData>();
-
-    public List<DialogData> GetDialogs(int firstID, int lastID)
-    {
-        return (from data in dialogDatas
-                where data.id >= firstID
-                where data.id <= lastID
-                select data).ToList();
-    }
-}
-
-[System.Serializable]
-public class DialogData
-{
-    public int id = 0;
-    public Color color = Color.black;
-    public string str = "";
-    public string name = "";
-}

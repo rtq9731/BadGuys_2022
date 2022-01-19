@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,9 +35,13 @@ public class DialogPanel : MonoBehaviour
             {
                 StopCoroutine(cor);
 
-                foreach (var item in tweens)
+                if(tweens.Count > 1)
                 {
-                    item.Complete();
+                    
+                    foreach (var item in tweens)
+                    {
+                        item.Complete();
+                    }
                 }
             }
 
