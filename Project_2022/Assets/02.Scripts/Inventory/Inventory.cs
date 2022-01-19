@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(!inventoryPanel.activeSelf)
+            if (!inventoryPanel.activeSelf)
             {
                 inventoryPanel.SetActive(true);
                 GameManager._instance._isPaused = true;
@@ -72,8 +72,10 @@ public class Inventory : MonoBehaviour
             {
                 UIStackManager.RemoveUIOnTop();
                 GameManager._instance._isPaused = false;
-            }    
+            }
         }
+
+        InventoryReset();
     }
 
     public void PickUpItem(ItemInfo _item)
@@ -96,6 +98,19 @@ public class Inventory : MonoBehaviour
         if(slotParents.transform.childCount == 1)
         {
             MainItem = _item;
+        }
+    }
+
+    public void InventoryReset()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            MainItem = null;
+            for (int i = 0; i < slotParents.transform.childCount; i++)
+            {
+                Destroy(slotParents.transform.GetChild(i).gameObject);
+            }
+            InventoryContentsSize.Instance.SetContentsSize();
         }
     }
 

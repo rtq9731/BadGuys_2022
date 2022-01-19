@@ -10,8 +10,6 @@ public class ShowMainItem : MonoBehaviour
     [SerializeField]
     private GameObject mainItemPanel;
 
-    private int mainItemIndex;
-
     RectTransform rect;
 
     private float moveSpeed = 0.3f;
@@ -29,15 +27,17 @@ public class ShowMainItem : MonoBehaviour
         else
         {
             mainItemPanel.SetActive(true);
-            MoveMainItemPanel(Inventory.Instance.mainItemIndex);
         }
     }
 
     public void MoveMainItemPanel(int _mainItemIndex)
     {
-        rect.DOMoveX(slotParent.transform.GetChild(_mainItemIndex).position.x, 0.3f);
-
-        //rect.position = slotParent.transform.GetChild(_mainItemIndex).GetComponent<RectTransform>().position;
+        Debug.Log(_mainItemIndex);
+        rect.DOMoveX(slotParent.transform.GetChild(_mainItemIndex).position.x, 0.3f).OnComplete(() =>
+        {
+            Debug.Log(_mainItemIndex);
+            transform.SetParent(slotParent.transform.GetChild(_mainItemIndex));
+        });
     }
 
 }

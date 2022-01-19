@@ -11,6 +11,8 @@ public class InventoryInput : MonoBehaviour
 
     public ShowMainItem showMainItem;
 
+    bool isCanRemove;
+
     [SerializeField]
     Transform slotsParent;
     void Start()
@@ -32,6 +34,7 @@ public class InventoryInput : MonoBehaviour
     private void Update()
     {
         TryInputNumber();
+        RemoveItme();
     }
 
     
@@ -48,6 +51,8 @@ public class InventoryInput : MonoBehaviour
                     {
                         ChangeSlot(dic.Value - 1);
                         itemIndex = dic.Value - 1;
+
+                        showMainItem.MoveMainItemPanel(itemIndex);
                     }
                 }
             }
@@ -57,6 +62,7 @@ public class InventoryInput : MonoBehaviour
                 itemIndex--;
                 itemIndex = Mathf.Clamp(itemIndex, 0, slotsParent.childCount - 1);
                 ChangeSlot(itemIndex);
+                showMainItem.MoveMainItemPanel(itemIndex);
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -64,24 +70,64 @@ public class InventoryInput : MonoBehaviour
                 itemIndex++;
                 itemIndex = Mathf.Clamp(itemIndex, 0, slotsParent.childCount - 1);
                 ChangeSlot(itemIndex);
+                showMainItem.MoveMainItemPanel(itemIndex);
             }
 
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                RemoveItme(Inventory.Instance.mainItemIndex);
-            }
+            
         }
     }
 
     void ChangeSlot(int slotNum)
     {
+        if(slotNum > slotsParent.childCount-1)
+        {
+            return;
+        }
         Inventory.Instance.MainItem = slotsParent.GetChild(slotNum).GetComponent<Slot>().item;
         Inventory.Instance.mainItemIndex = slotNum;
     }
 
-    private void RemoveItme(int slotNum)
+    public void RemoveItme()
     {
-        Destroy(slotsParent.GetChild(slotNum).gameObject);
-        InventoryContentsSize.Instance.SetContentsSize();
+        if(Input.GetKeyDown(KeyCode.E) && isCanRemove)
+        {
+            if (slotsParent.childCount > 0)
+            {
+                GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
+                destroySlot.transform.parent = null;
+                Destroy(destroySlot);
+
+                InventoryContentsSize.Instance.SetContentsSize();
+
+                if(slotsParent.childCount > 0)
+                {
+                    if(Inventory.Instance.mainItemIndex == 0)
+                    {
+                        SetMainItem(itemIndex);
+                    }
+                    else
+                    {
+                        Inventory.Instance.mainItemIndex--;
+                        SetMainItem(itemIndex);
+                    }
+                }
+            }
+        }
+    }
+    
+    void SetMainItem(int _mainItemIndex)
+    {
+        Inventory.Instance.MainItem = slotsParent.GetChild(_mainItemIndex).GetComponent<Slot>().item;
+        showMainItem.MoveMainItemPanel(_mainItemIndex-1);
+    }
+
+
+    public void RemoveItmeFalse(IInteractableItem curItem)
+    {
+        isCanRemove = false;
+    }
+    public void CanRemoveItme(bool _isCanRemove)
+    {
+        isCanRemove = _isCanRemove;
     }
 }

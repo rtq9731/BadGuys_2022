@@ -19,6 +19,11 @@ public class InventoryContentsSize : MonoBehaviour
         SetContentsSize();
     }
 
+    private void Update()
+    {
+        SetContentsSize();
+    }
+
     public void SetContentsSize()
     {
         float width = 0;
@@ -27,7 +32,6 @@ public class InventoryContentsSize : MonoBehaviour
         {
             width += 140;
         }
-
         rect.sizeDelta = new Vector2(width, 140);
     }
 }

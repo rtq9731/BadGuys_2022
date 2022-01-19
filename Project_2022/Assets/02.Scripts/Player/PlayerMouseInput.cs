@@ -10,6 +10,7 @@ public class PlayerMouseInput : MonoBehaviour
     [SerializeField] LayerMask _whatIsTouchable;
     PlayerController _playerController;
     PlayerPickUpManager _playerPickUpManager;
+    InventoryInput _inventoryInput;
 
     Transform _curTouchObj = null;
 
@@ -20,9 +21,13 @@ public class PlayerMouseInput : MonoBehaviour
     {
         _playerController = FindObjectOfType<PlayerController>();
         _playerPickUpManager = FindObjectOfType<PlayerPickUpManager>();
+        _inventoryInput = FindObjectOfType<InventoryInput>();
 
         _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
+        _onItemOverMouse += _inventoryInput.RemoveItmeFalse;
         _onItemExitMouse += () => _playerPickUpManager.ShowPickUpIcon(false);
+        _onItemExitMouse += () => _inventoryInput.CanRemoveItme(true);
+        
     }
 
     private void Update()
@@ -60,8 +65,6 @@ public class PlayerMouseInput : MonoBehaviour
             }
             else
             {
-
-                //여기 전체 코드 필요없을거같아요
                 // 추가코드 
                 curItem = hitInfo.transform.GetComponent<Item_RushHourPuzzle>();
                 if(curItem != null)
