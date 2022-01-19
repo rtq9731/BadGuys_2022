@@ -8,6 +8,11 @@ public class InventoryInput : MonoBehaviour
     Dictionary<KeyCode, int> keyDic;
 
     private int itemIndex = 0;
+
+    public ShowMainItem showMainItem;
+
+    [SerializeField]
+    Transform slotsParent;
     void Start()
     {
         keyDic = new Dictionary<KeyCode, int>()
@@ -29,9 +34,11 @@ public class InventoryInput : MonoBehaviour
         TryInputNumber();
     }
 
+    
+
     private void TryInputNumber()
     {
-        if(transform.GetChild(0).transform.childCount > 0)
+        if(slotsParent.childCount > 0)
         {
             if (Input.anyKeyDown)
             {
@@ -47,24 +54,34 @@ public class InventoryInput : MonoBehaviour
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                itemIndex++;
-                itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
+                itemIndex--;
+                itemIndex = Mathf.Clamp(itemIndex, 0, slotsParent.childCount - 1);
                 ChangeSlot(itemIndex);
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                itemIndex--;
-                itemIndex = Mathf.Clamp(itemIndex, 0, transform.GetChild(0).childCount - 1);
+                itemIndex++;
+                itemIndex = Mathf.Clamp(itemIndex, 0, slotsParent.childCount - 1);
                 ChangeSlot(itemIndex);
             }
 
-            Debug.Log(itemIndex);
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                RemoveItme(Inventory.Instance.mainItemIndex);
+            }
         }
     }
 
     void ChangeSlot(int slotNum)
     {
-        Inventory.Instance.MainItem = transform.GetChild(0).GetChild(slotNum).GetComponent<Slot>().item;
+        Inventory.Instance.MainItem = slotsParent.GetChild(slotNum).GetComponent<Slot>().item;
+        Inventory.Instance.mainItemIndex = slotNum;
+    }
+
+    private void RemoveItme(int slotNum)
+    {
+        Destroy(slotsParent.GetChild(slotNum).gameObject);
+        InventoryContentsSize.Instance.SetContentsSize();
     }
 }

@@ -26,13 +26,13 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject slotParents;
 
-    public Button[] buttons;
+    //public Button[] buttons;
     
-    public Slot[] slots;
+    //public Slot[] slots;
 
-    public GameObject itemRolePanel;
-    public Text itemRoleText;
-    public Image itemImage;
+    //public GameObject itemRolePanel;
+    //public Text itemRoleText;
+    //public Image itemImage;
 
     private Slot curItemSlot;
 
@@ -40,21 +40,22 @@ public class Inventory : MonoBehaviour
     private CreatSlot creatSlot;
 
     public ItemInfo MainItem;
+    public int mainItemIndex;
 
     private void Start()
     {
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
         creatSlot = GetComponentInChildren<CreatSlot>();
-        slots = slotParents.GetComponentsInChildren<Slot>();
-        buttons = slotParents.GetComponentsInChildren<Button>();
+        //slots = slotParents.GetComponentsInChildren<Slot>();
+        //buttons = slotParents.GetComponentsInChildren<Button>();
 
-        for (int i = 0; i < buttons.Length-1; i++)
-        {
-            buttons[i].onClick.AddListener(() =>
-            {
-                ShowItemInfo();
-            });
-        }
+        //for (int i = 0; i < buttons.Length-1; i++)
+        //{
+        //    buttons[i].onClick.AddListener(() =>
+        //    {
+        //        ShowItemInfo();
+        //    });
+        //}
     }
 
     private void Update()
@@ -98,15 +99,15 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void ShowItemInfo()
-    {
-        itemRolePanel.SetActive(true);
+    //public void ShowItemInfo()
+    //{
+    //    itemRolePanel.SetActive(true);
 
-        curItemSlot = EventSystem.current.currentSelectedGameObject.GetComponent<Slot>();
+    //    curItemSlot = EventSystem.current.currentSelectedGameObject.GetComponent<Slot>();
 
-        itemRoleText.text = curItemSlot.itemRole;
-        itemImage.sprite = curItemSlot.itemImage.sprite;
-    }
+    //    itemRoleText.text = curItemSlot.itemRole;
+    //    itemImage.sprite = curItemSlot.itemImage.sprite;
+    //}
 
     
 }
