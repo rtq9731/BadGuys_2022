@@ -36,12 +36,9 @@ public class InventoryInput : MonoBehaviour
         TryInputNumber();
         RemoveItme();
     }
-
-    
-
     private void TryInputNumber()
     {
-        if(slotsParent.childCount > 0)
+        if (slotsParent.childCount > 0)
         {
             if (Input.anyKeyDown)
             {
@@ -72,14 +69,12 @@ public class InventoryInput : MonoBehaviour
                 ChangeSlot(itemIndex);
                 showMainItem.MoveMainItemPanel(itemIndex);
             }
-
-            
         }
     }
 
     void ChangeSlot(int slotNum)
     {
-        if(slotNum > slotsParent.childCount-1)
+        if (slotNum > slotsParent.childCount - 1)
         {
             return;
         }
@@ -89,7 +84,7 @@ public class InventoryInput : MonoBehaviour
 
     public void RemoveItme()
     {
-        if(Input.GetKeyDown(KeyCode.E) && isCanRemove)
+        if (Input.GetKeyDown(KeyCode.E) && isCanRemove)
         {
             if (slotsParent.childCount > 0)
             {
@@ -99,28 +94,27 @@ public class InventoryInput : MonoBehaviour
 
                 InventoryContentsSize.Instance.SetContentsSize();
 
-                if(slotsParent.childCount > 0)
+                if (slotsParent.childCount > 0)
                 {
-                    if(Inventory.Instance.mainItemIndex == 0)
+                    if (Inventory.Instance.mainItemIndex == 0)
                     {
-                        SetMainItem(itemIndex);
+                        SetMainItem(0);
                     }
                     else
                     {
                         Inventory.Instance.mainItemIndex--;
-                        SetMainItem(itemIndex);
+                        SetMainItem(Inventory.Instance.mainItemIndex);
                     }
                 }
             }
         }
     }
-    
+
     void SetMainItem(int _mainItemIndex)
     {
         Inventory.Instance.MainItem = slotsParent.GetChild(_mainItemIndex).GetComponent<Slot>().item;
-        showMainItem.MoveMainItemPanel(_mainItemIndex-1);
+        showMainItem.MoveMainItemPanel(_mainItemIndex);
     }
-
 
     public void RemoveItmeFalse(IInteractableItem curItem)
     {
