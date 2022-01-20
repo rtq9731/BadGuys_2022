@@ -32,6 +32,10 @@ public class ShowMainItem : MonoBehaviour
 
     public void MoveMainItemPanel(int _mainItemIndex)
     {
+        if (_mainItemIndex > slotParent.transform.childCount - 1)
+        {
+            return;
+        }
         Debug.Log(_mainItemIndex);
         rect.DOMoveX(slotParent.transform.GetChild(_mainItemIndex).position.x, 0.3f).OnComplete(() =>
         {
