@@ -6,14 +6,20 @@ using UnityEngine.UI;
 
 public class CameraMoveManager : MonoBehaviour
 {
+    public Transform mainCam = null;
+
     public GameObject vCamTitle = null;
     public GameObject vCamMoniter = null;
+    public GameObject vCamLoad = null;
 
     public CanvasGroup mainCanvasGroup = null;
     public CanvasGroup loadCanvasGroup = null;
     public CanvasGroup allCanvasGroup = null;
+    public CanvasGroup cgVR = null;
 
     public Image loadingBar = null;
+
+    public Animator vrAnim = null;
 
     bool isTitle = true;
 
@@ -55,5 +61,23 @@ public class CameraMoveManager : MonoBehaviour
 
         vCamTitle.SetActive(false);
         vCamMoniter.SetActive(true);
+    }
+
+    public void GoToVR()
+    {
+        StartCoroutine(GoToVRScreen());
+    }
+
+    IEnumerator GoToVRScreen()
+    {
+        allCanvasGroup.interactable = false;
+        vCamLoad.SetActive(true);
+        while(Vector3.Distance(mainCam.position, vCamLoad.transform.position) >= 0.1f)
+        {
+            yield return null;
+        }
+        vrAnim.enabled = true;
+        yield return new WaitForSeconds(vrAnim.GetCurrentAnimatorClipInfo(0).Length);
+        cgVR.DOFade(1, 0.3f).OnComplete(() => LoadingManager.LoadScene("Tutorial"));
     }
 }

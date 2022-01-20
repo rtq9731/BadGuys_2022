@@ -10,6 +10,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] Text stageMsgText;
     [SerializeField] Image panelHide;
 
+    public StageChangeData data;
+
     private void Start()
     {
         StageChange();
@@ -43,5 +45,6 @@ public class StageManager : MonoBehaviour
 [CreateAssetMenu(fileName = "StageDialog", menuName = "ScriptableObject/StageChangeDialog")]
 public class StageChangeData : ScriptableObject
 {
-
+    public string[] aiMsgs;
+    public string[] stageMsgs;
 }

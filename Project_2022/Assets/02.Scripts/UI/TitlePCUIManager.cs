@@ -16,7 +16,8 @@ public class TitlePCUIManager : MonoBehaviour
         btnQuit.onClick.AddListener(Application.Quit);
         btnGoTutorial.onClick.AddListener(() =>
         {
-            LoadingManager.LoadScene("Tutorial");
+            FindObjectOfType<CameraMoveManager>().GoToVR();
+            // LoadingManager.LoadScene("Tutorial");
         });
     }
 }
