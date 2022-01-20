@@ -15,12 +15,14 @@ public class OutlinerOnMouseEnter : MonoBehaviour, IPlayerMouseEnterHandler, IPl
 {
     [SerializeField] float outlineWidth = 10f;
     [SerializeField] OutlineMode outlineMode;
+    [SerializeField] Color outlineColor = new Color(100 / 255,100 / 255,100 / 255);
     Outline outline = null;
 
     private void Awake()
     {
         outline = GetComponent<Outline>();
         outline.OutlineWidth = outlineWidth;
+        outline.OutlineColor = outlineColor;
         outline.enabled = false;
     }
 
@@ -29,7 +31,6 @@ public class OutlinerOnMouseEnter : MonoBehaviour, IPlayerMouseEnterHandler, IPl
         if(outlineMode == OutlineMode.onlyEnterMouse)
         {
             outline.enabled = true;
-            outline.OutlineWidth = outlineWidth;
         }
     }
 
@@ -44,7 +45,6 @@ public class OutlinerOnMouseEnter : MonoBehaviour, IPlayerMouseEnterHandler, IPl
         if (outlineMode == OutlineMode.onlyGetMouseInput)
         {
             outline.enabled = true;
-            outline.OutlineWidth = outlineWidth;
         }
     }
 }
