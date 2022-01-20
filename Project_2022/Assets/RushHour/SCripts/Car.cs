@@ -32,6 +32,7 @@ public class Car : MonoBehaviour
     void Start()
     {
         outline.enabled = false;
+        Unable();
     }
 
     private void Update()
@@ -238,6 +239,16 @@ public class Car : MonoBehaviour
             }
         }
 
+    }
+
+    public void Unable()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public string GetColor()
+    {
+        return GetComponent<Material>().name;
     }
 
     private void MoveToPos(Vector3 thatPos)
