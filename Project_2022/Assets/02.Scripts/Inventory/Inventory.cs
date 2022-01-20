@@ -26,13 +26,13 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject slotParents;
 
-    public Button[] buttons;
+    //public Button[] buttons;
     
-    public Slot[] slots;
+    //public Slot[] slots;
 
-    public GameObject itemRolePanel;
-    public Text itemRoleText;
-    public Image itemImage;
+    //public GameObject itemRolePanel;
+    //public Text itemRoleText;
+    //public Image itemImage;
 
     private Slot curItemSlot;
 
@@ -40,28 +40,29 @@ public class Inventory : MonoBehaviour
     private CreatSlot creatSlot;
 
     public ItemInfo MainItem;
+    public int mainItemIndex;
 
     private void Start()
     {
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
         creatSlot = GetComponentInChildren<CreatSlot>();
-        slots = slotParents.GetComponentsInChildren<Slot>();
-        buttons = slotParents.GetComponentsInChildren<Button>();
+        //slots = slotParents.GetComponentsInChildren<Slot>();
+        //buttons = slotParents.GetComponentsInChildren<Button>();
 
-        for (int i = 0; i < buttons.Length-1; i++)
-        {
-            buttons[i].onClick.AddListener(() =>
-            {
-                ShowItemInfo();
-            });
-        }
+        //for (int i = 0; i < buttons.Length-1; i++)
+        //{
+        //    buttons[i].onClick.AddListener(() =>
+        //    {
+        //        ShowItemInfo();
+        //    });
+        //}
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(!inventoryPanel.activeSelf)
+            if (!inventoryPanel.activeSelf)
             {
                 inventoryPanel.SetActive(true);
                 GameManager._instance._isPaused = true;
@@ -71,8 +72,10 @@ public class Inventory : MonoBehaviour
             {
                 UIStackManager.RemoveUIOnTop();
                 GameManager._instance._isPaused = false;
-            }    
+            }
         }
+
+        InventoryReset();
     }
 
     public void PickUpItem(ItemInfo _item)
@@ -98,15 +101,28 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void ShowItemInfo()
+    public void InventoryReset()
     {
-        itemRolePanel.SetActive(true);
-
-        curItemSlot = EventSystem.current.currentSelectedGameObject.GetComponent<Slot>();
-
-        itemRoleText.text = curItemSlot.itemRole;
-        itemImage.sprite = curItemSlot.itemImage.sprite;
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            MainItem = null;
+            for (int i = 0; i < slotParents.transform.childCount; i++)
+            {
+                Destroy(slotParents.transform.GetChild(i).gameObject);
+            }
+            InventoryContentsSize.Instance.SetContentsSize();
+        }
     }
+
+    //public void ShowItemInfo()
+    //{
+    //    itemRolePanel.SetActive(true);
+
+    //    curItemSlot = EventSystem.current.currentSelectedGameObject.GetComponent<Slot>();
+
+    //    itemRoleText.text = curItemSlot.itemRole;
+    //    itemImage.sprite = curItemSlot.itemImage.sprite;
+    //}
 
     
 }
