@@ -13,8 +13,10 @@ public class Cabinet : Item
 
     public float speed;
 
+    Animator anim;
     private void Start()
     {
+        anim = GetComponent<Animator>();
         originPos = transform.position;
     }
 
@@ -29,12 +31,12 @@ public class Cabinet : Item
         if (_isOpen)
         {
             isOpen = false;
-            transform.DOMove(originPos, speed);
+            anim.SetTrigger("IsClose");
         }
         else
         {
             isOpen = true;
-            transform.DOMoveZ(endPoint, speed);
+            anim.SetTrigger("IsOpen");
         }
     }
 }

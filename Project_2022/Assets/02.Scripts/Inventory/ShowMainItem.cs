@@ -11,8 +11,11 @@ public class ShowMainItem : MonoBehaviour
     private GameObject mainItemPanel;
 
     RectTransform rect;
+    private int mainItemIndex;
 
     private float moveSpeed = 0.3f;
+
+    bool isMoving = false;
     private void Start()
     {
         rect = mainItemPanel.GetComponent<RectTransform>();
@@ -27,21 +30,27 @@ public class ShowMainItem : MonoBehaviour
         else
         {
             mainItemPanel.SetActive(true);
+
+            if(!isMoving)
+            {
+                rect.position = slotParent.transform.GetChild(mainItemIndex).position;
+            }
         }
     }
 
     public void MoveMainItemPanel(int _mainItemIndex)
     {
-        if (_mainItemIndex > slotParent.transform.childCount - 1)
-        {
-            return;
-        }
+        if (_mainItemIndex > slotParent.transform.childCount - 1) return;
+        if (_mainItemIndex < 0) return;
+       
+
+        isMoving = true;
+
         Debug.Log(_mainItemIndex);
         rect.DOMoveX(slotParent.transform.GetChild(_mainItemIndex).position.x, 0.3f).OnComplete(() =>
         {
-            Debug.Log(_mainItemIndex);
-            transform.SetParent(slotParent.transform.GetChild(_mainItemIndex));
+            isMoving = false;
         });
+        mainItemIndex = _mainItemIndex;
     }
-
 }

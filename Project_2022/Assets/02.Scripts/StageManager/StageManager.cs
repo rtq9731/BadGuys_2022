@@ -12,11 +12,6 @@ public class StageManager : MonoBehaviour
 
     public StageChangeData data;
 
-    private void Start()
-    {
-        StageChange();
-    }
-
     public void StageChange()
     {
         panelHide.gameObject.SetActive(true);
