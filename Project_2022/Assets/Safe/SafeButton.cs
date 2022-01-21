@@ -19,22 +19,26 @@ public class SafeButton : MonoBehaviour, IInteractableItem
 
     public void Interact()
     {
-        safeMg.SafeButton_Push(colorName);
-        transform.localPosition += new Vector3(0, 0, 0.1f);
-
-        Debug.LogWarning("눌림");
+        if (canPush)
+        {
+            safeMg.SafeButton_Push(colorName);
+            transform.localPosition += new Vector3(0, 0, 0.1f);
+            canPush = false;
+            Debug.LogWarning("눌림");
+        }
     }
 
     public void BackToNunPush()
     {
         transform.position = firstPos;
+        canPush = true;
         Debug.LogWarning("돌아옴");
     }
 
     public void DestroySelf()
     {
-        Destroy(gameObject.GetComponent<Outline>());
         Destroy(gameObject.GetComponent<OutlinerOnMouseEnter>());
+        Destroy(gameObject.GetComponent<Outline>());
         Destroy(gameObject.GetComponent<SafeButton>());
     }
 }
