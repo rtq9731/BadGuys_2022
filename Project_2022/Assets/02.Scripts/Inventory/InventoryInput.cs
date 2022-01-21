@@ -34,7 +34,6 @@ public class InventoryInput : MonoBehaviour
     private void Update()
     {
         TryInputNumber();
-        RemoveItme();
     }
     private void TryInputNumber()
     {
@@ -84,30 +83,30 @@ public class InventoryInput : MonoBehaviour
 
     public void RemoveItme()
     {
-        if (Input.GetKeyDown(KeyCode.E) && isCanRemove)
+        //if (Input.GetKeyDown(KeyCode.E) && isCanRemove)
+        //{
+        if (slotsParent.childCount > 0)
         {
+            GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
+            destroySlot.transform.parent = null;
+            Destroy(destroySlot);
+
+            InventoryContentsSize.Instance.SetContentsSize();
+
             if (slotsParent.childCount > 0)
             {
-                GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
-                destroySlot.transform.parent = null;
-                Destroy(destroySlot);
-
-                InventoryContentsSize.Instance.SetContentsSize();
-
-                if (slotsParent.childCount > 0)
+                if (Inventory.Instance.mainItemIndex == 0)
                 {
-                    if (Inventory.Instance.mainItemIndex == 0)
-                    {
-                        SetMainItem(0);
-                    }
-                    else
-                    {
-                        Inventory.Instance.mainItemIndex--;
-                        SetMainItem(Inventory.Instance.mainItemIndex);
-                    }
+                    SetMainItem(0);
+                }
+                else
+                {
+                    Inventory.Instance.mainItemIndex--;
+                    SetMainItem(Inventory.Instance.mainItemIndex);
                 }
             }
         }
+        //}
     }
 
     void SetMainItem(int _mainItemIndex)
@@ -120,6 +119,7 @@ public class InventoryInput : MonoBehaviour
     {
         isCanRemove = false;
     }
+
     public void CanRemoveItme(bool _isCanRemove)
     {
         isCanRemove = _isCanRemove;

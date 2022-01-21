@@ -36,7 +36,6 @@ public class OutlinerOnMouseEnter : MonoBehaviour, IPlayerMouseEnterHandler, IPl
 
     public void OnPlayerMouseExit()
     {
-        outline.OutlineWidth = 0;
         outline.enabled = false;
     }
 
