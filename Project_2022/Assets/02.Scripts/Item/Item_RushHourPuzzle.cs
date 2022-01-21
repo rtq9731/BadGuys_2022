@@ -123,6 +123,8 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         Debug.Log("Å¬¸®¾î");
         Destroy(GetComponent<OutlinerOnMouseEnter>());
         Destroy(GetComponent<Outline>());
+
+        GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
         Destroy(GetComponent<Item_RushHourPuzzle>());
     }
 }

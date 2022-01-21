@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using DG.Tweening;
 
 public class SafeManager : MonoBehaviour
 {
@@ -28,6 +28,8 @@ public class SafeManager : MonoBehaviour
         {
             btns[i].DestroySelf();
         }
+
+        safeDoor.transform.DORotate(new Vector3(0, -90, 0), 1f);
     }
 
     public void WrongPush()
@@ -38,6 +40,15 @@ public class SafeManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             btns[i].BackToNunPush();
+            btns[i].canPush = true;
+        }
+    }
+
+    public void Btn_Unable()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            btns[i].canPush = false;
         }
     }
 

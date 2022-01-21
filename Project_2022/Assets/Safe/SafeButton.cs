@@ -8,7 +8,7 @@ public class SafeButton : MonoBehaviour, IInteractableItem
     public SafeManager safeMg;
     private Vector3 firstPos;
 
-    private bool canPush;
+    public bool canPush;
 
 
     private void Awake()
@@ -17,14 +17,25 @@ public class SafeButton : MonoBehaviour, IInteractableItem
         firstPos = transform.position;
     }
 
+    private void Button_Push()
+    {
+        safeMg.SafeButton_Push(colorName);
+    }
+
     public void Interact()
     {
         if (canPush)
         {
-            safeMg.SafeButton_Push(colorName);
             transform.localPosition += new Vector3(0, 0, 0.1f);
             canPush = false;
             Debug.LogWarning("´­¸²");
+
+            if (safeMg.buttonCount == 2)
+            {
+                safeMg.Btn_Unable();
+                Invoke("Button_Push", 1f);
+            }
+            else Button_Push();
         }
     }
 
