@@ -31,7 +31,7 @@ public class ShowMainItem : MonoBehaviour
         {
             mainItemPanel.SetActive(true);
 
-            if(!isMoving && mainItemIndex != 0)
+            if(!isMoving)
             {
                 rect.position = slotParent.transform.GetChild(mainItemIndex).position;
             }

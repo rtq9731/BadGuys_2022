@@ -93,9 +93,9 @@ public class InventoryInput : MonoBehaviour
 
             InventoryContentsSize.Instance.SetContentsSize();
 
-            for (int i = 0; i < transform.parent.childCount; i++)
+            for (int i = 0; i < slotsParent.childCount; i++)
             {
-                transform.parent.GetChild(i).GetComponent<Slot>().itemNum.text = (i + 1).ToString();
+                slotsParent.GetChild(i).GetComponent<Slot>().itemNum.text = (i + 1).ToString();
             }
 
             if (slotsParent.childCount > 0)
