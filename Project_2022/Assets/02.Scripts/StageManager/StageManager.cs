@@ -17,7 +17,7 @@ public class StageManager : MonoBehaviour
         panelHide.gameObject.SetActive(true);
         stageMsgText.text = "";
         aiMsgText.text = "";
-        panelHide.rectTransform.DOAnchorPosY(-panelHide.rectTransform.rect.height, 1f).OnComplete(()=>
+        panelHide.rectTransform.DOAnchorPosY(-panelHide.rectTransform.rect.height, 2f).OnComplete(()=>
         {
             // 글자당 0.125f 초
             stageMsgText.DOText("조심해요!!!", 1f);
