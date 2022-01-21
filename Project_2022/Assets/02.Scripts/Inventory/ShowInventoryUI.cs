@@ -13,8 +13,6 @@ public class ShowInventoryUI : MonoBehaviour
     public Vector3 originRectTrm;
     Dictionary<KeyCode, int> m_keyCallFunc;
 
-    public Ease ease;
-
     bool isInventoryDown = false;
 
     private void Start()
@@ -66,7 +64,7 @@ public class ShowInventoryUI : MonoBehaviour
     public void ShowInventorySlot()
     {
         isInventoryDown = false;
-        rectTrm.transform.DOMove(originRectTrm, 0.5f).SetEase(ease);
+        rectTrm.transform.DOMove(originRectTrm, 0.5f);
     }
 
     public void DownInventorySlot()
@@ -74,7 +72,7 @@ public class ShowInventoryUI : MonoBehaviour
         if (fadeTime >= 4f && !isInventoryDown)
         {
             isInventoryDown = true;
-            rectTrm.transform.DOMove(new Vector3(rectTrm.transform.position.x, -100), 1f).SetEase(ease);
+            rectTrm.transform.DOMove(new Vector3(rectTrm.transform.position.x, -100), 1f);
         }
     }
 }

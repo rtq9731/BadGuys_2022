@@ -93,11 +93,17 @@ public class InventoryInput : MonoBehaviour
 
             InventoryContentsSize.Instance.SetContentsSize();
 
+            for (int i = 0; i < transform.parent.childCount; i++)
+            {
+                transform.parent.GetChild(i).GetComponent<Slot>().itemNum.text = (i + 1).ToString();
+            }
+
             if (slotsParent.childCount > 0)
             {
                 if (Inventory.Instance.mainItemIndex == 0)
                 {
-                    SetMainItem(0);
+                    Inventory.Instance.MainItem = slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().item;
+                    showMainItem.MoveMainItemPanel(-1);
                 }
                 else
                 {
