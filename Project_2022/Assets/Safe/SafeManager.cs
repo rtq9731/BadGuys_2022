@@ -38,6 +38,15 @@ public class SafeManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             btns[i].BackToNunPush();
+            btns[i].canPush = true;
+        }
+    }
+
+    public void Btn_Unable()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            btns[i].canPush = false;
         }
     }
 
