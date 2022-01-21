@@ -28,16 +28,16 @@ public class PlayerPickUpManager : MonoBehaviour
 
     public void ShowPickUpIcon(bool isItemOn)
     {
-        if(isItemOn)
-        {
-            mouseImage.rectTransform.sizeDelta = new Vector2(64, 64);
-            mouseImage.sprite = canUseSprite;
-        }
-        else
-        {
-            mouseImage.rectTransform.sizeDelta = new Vector2(16, 16);
-            mouseImage.sprite = baseSprite;
-        }
+        //if(isItemOn)
+        //{
+        //    mouseImage.rectTransform.sizeDelta = new Vector2(64, 64);
+        //    mouseImage.sprite = canUseSprite;
+        //}
+        //else
+        //{
+        //    mouseImage.rectTransform.sizeDelta = new Vector2(16, 16);
+        //    mouseImage.sprite = baseSprite;
+        //}
     }
 
     
