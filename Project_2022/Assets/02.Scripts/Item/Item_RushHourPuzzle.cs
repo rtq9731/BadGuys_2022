@@ -21,7 +21,9 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     // 질문 필요
     [SerializeField]
     Transform SlotParent;
-    
+    [SerializeField]
+    InventoryInput invenInput;
+
 
     private bool isFullCar;
 
@@ -31,45 +33,33 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         rushScript.enabled = false;
     }
 
-    private void PutOnCarRandom() // 자동차 생성
-    {
-        int random = Random.Range(0, cars.Count);
+    //private void PutOnCarRandom() // 자동차 생성
+    //{
+    //    int random = Random.Range(0, cars.Count);
 
-        cars[random].SetActive(true);
-        cars.Remove(cars[random]);
+    //    cars[random].SetActive(true);
+    //    cars.Remove(cars[random]);
 
-        InventoryDisCount();
-    }
+    //    InventoryDisCount();
+    //}
 
     // 색에 맞는 차 생성 
-    //private void PutOnCarByColor(string colorValue)
-    //{
-    //    GameObject target = cars.Find(item => item.GetComponent<Car>().GetColor() == colorValue);
+    private void PutOnCarByColor(Material colorValue)
+    {
+        GameObject target = cars.Find(item => item.GetComponent<Car>().GetColor() == colorValue.name);
 
-    //    if (target == null)
-    //    {
-
-    //    }
-    //    else
-    //    {
-    //        target.SetActive(true);
-    //        cars.Remove(target);
-    //    }
-    //}
+        if (target != null)
+        {
+            target.SetActive(true);
+            cars.Remove(target);
+            InventoryDisCount();
+        }
+    }
 
     // 질문할 함수
     private void InventoryDisCount()
     {
-        Slot mainSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
-        Debug.LogWarning(mainSlot.GetItemCount());
-        if (mainSlot.GetItemCount() > 0)
-        {
-            mainSlot.DiscountItemCount(1);
-        }
-        else
-        {
-            mainSlot.DestroyItemSlot();
-        }
+        invenInput.RemoveItme();
     }
     //
 
@@ -90,7 +80,16 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         }
         else
         {
-            if (cars.Count == 0 && truck == null) // 자동차를 들고 상호작용 했다면
+            Slot mainItemSlot;
+            if (SlotParent.childCount > 0)
+            {
+                mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
+                Debug.Log(mainItemSlot.slotItem.transform.name);
+            }
+            else
+                mainItemSlot = null;
+            
+            if (cars.Count == 0 && truck == null) // 만약 자동차가 모두 올려졌다면 
             {
                 isFullCar = true;
                 Interact();
@@ -103,10 +102,12 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
 
                 InventoryDisCount();
             }
-            else if (Inventory.Instance.MainItem == carInfo) // 만약 자동차가 모두 올려졌다면 
+            else if ( mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
             {
-                PutOnCarRandom();
+                PutOnCarByColor(mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial);
             }
+            else
+                return;
         }
     }
 

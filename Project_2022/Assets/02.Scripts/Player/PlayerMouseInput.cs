@@ -26,7 +26,6 @@ public class PlayerMouseInput : MonoBehaviour
         _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
         _onItemOverMouse += _inventoryInput.RemoveItmeFalse;
         _onItemExitMouse += () => _playerPickUpManager.ShowPickUpIcon(false);
-        _onItemExitMouse += () => _inventoryInput.CanRemoveItme(true);
         
     }
 
@@ -58,25 +57,22 @@ public class PlayerMouseInput : MonoBehaviour
                 _curTouchObj?.GetComponents<IPlayerMouseEnterHandler>()?.ToList().ForEach(x => x.OnPlayerMouseEnter());
             }
 
+            //
             IInteractableItem curItem = hitInfo.transform.GetComponent<Item>();
             if (curItem != null)
             {
                 _onItemOverMouse(curItem);
             }
+            else if (hitInfo.transform.GetComponent<IInteractableItem>() != null)
+            {
+                curItem = hitInfo.transform.GetComponent<IInteractableItem>();
+                _onItemOverMouse(curItem);
+            }
             else
             {
-                // 추가코드 
-                curItem = hitInfo.transform.GetComponent<Item_RushHourPuzzle>();
-                if(curItem != null)
-                {
-                    _onItemOverMouse(curItem);
-                }
-
-                else
-                {
-                    _onItemExitMouse();
-                }
+                _onItemExitMouse();
             }
+            //
         }
         else if(_curTouchObj != null)
         {

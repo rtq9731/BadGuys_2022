@@ -7,6 +7,7 @@ public class Car : MonoBehaviour
     [SerializeField]
     private LayerMask target;
     public Direction direction;
+    public Material carMaterial;
     
     [SerializeField]
     private bool isplayer;     // 플레이어 차인가?
@@ -248,7 +249,7 @@ public class Car : MonoBehaviour
 
     public string GetColor()
     {
-        return GetComponent<Material>().name;
+        return carMaterial.name;
     }
 
     private void MoveToPos(Vector3 thatPos)

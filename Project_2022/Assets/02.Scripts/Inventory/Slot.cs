@@ -12,10 +12,11 @@ public class Slot : MonoBehaviour
     public string itemRole;
 
     public Text itemCountText;
-    private int itemCount;
+    public int itemCount;
 
     public Text itemNum;
 
+    public GameObject slotItem;
 
     public void AddItem(ItemInfo _itemInfo)
     {
@@ -72,19 +73,4 @@ public class Slot : MonoBehaviour
     {
         DestroyItemSlot();
     }
-
-    // 추가한 코드_Gun
-    public int GetItemCount()
-    {
-        return itemCount;
-    }
-    public void DiscountItemCount(int value)
-    {
-        itemCount -= value;
-        if (itemCount == 0)
-            Inventory.Instance.MainItem = null;
-        Inventory.Instance.mainItemIndex = 0;
-            DestroyItemSlot();
-    }
-    //
 }

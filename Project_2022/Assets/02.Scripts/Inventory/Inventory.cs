@@ -78,7 +78,7 @@ public class Inventory : MonoBehaviour
         InventoryReset();
     }
 
-    public void PickUpItem(ItemInfo _item)
+    public void PickUpItem(ItemInfo _item, GameObject obj)
     {
         for (int i = 0; i < slotParents.transform.childCount; i++)
         {
@@ -94,8 +94,9 @@ public class Inventory : MonoBehaviour
 
         Debug.Log(slotParents.transform.GetChild(slotParents.transform.childCount - 1));
         slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(_item);
+        slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().slotItem = obj;
 
-        if(slotParents.transform.childCount == 1)
+        if (slotParents.transform.childCount == 1)
         {
             MainItem = _item;
         }
