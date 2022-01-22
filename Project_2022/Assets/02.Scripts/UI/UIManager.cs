@@ -5,15 +5,30 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] StopMenu _stopMenu = null;
+    [SerializeField] GameObject _mainUI = null;
 
     public static UIManager _instance = null;
+
+    public bool isOnCutScene = false;
+
     private void Awake()
     {
+        if (_instance != null)
+        {
+            _stopMenu = _instance._stopMenu;
+            _mainUI = _instance._mainUI;
+            Destroy(_instance.gameObject);
+        }
         _instance = this;
     }
     private void OnDestroy()
     {
         _instance = null;
+    }
+
+    public void OnCutScene()
+    {
+
     }
 
     public void DisplayCursor(bool display)
