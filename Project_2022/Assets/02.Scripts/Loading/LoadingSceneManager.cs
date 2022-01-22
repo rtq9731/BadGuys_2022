@@ -8,8 +8,8 @@ using DG.Tweening;
 public class LoadingSceneManager : MonoBehaviour
 {
 
-    [SerializeField] private Slider loadingSlider;
-    [SerializeField] private Button sceneChangeBtn;
+    [SerializeField] private Image loadingIcon;
+    [SerializeField] private float loadingTime = 5f;
 
     [SerializeField] private Text pressAnyBtnText;
 
@@ -45,27 +45,12 @@ public class LoadingSceneManager : MonoBehaviour
         operation.allowSceneActivation = false;
 
         float timer = 0f;
-        while (!operation.isDone)
+        while (timer <= loadingTime)
         {
             timer += Time.deltaTime;
-            if (operation.progress < 0.9f)
-            {
-                loadingSlider.value = Mathf.Lerp(operation.progress, 1f, timer);
-                if (loadingSlider.value >= operation.progress)
-                    timer = 0f;
-            }
-            else
-            {
-                loadingSlider.value = Mathf.Lerp(loadingSlider.value, 1f, timer);
-                if (loadingSlider.value >= 0.99f)
-                {
-                    loadingSlider.gameObject.SetActive(false);
-                    pressAnyBtnText.gameObject.SetActive(true);
-                }
-            }
-
+            loadingIcon.fillAmount = Mathf.Lerp(0f, 1f, timer / loadingTime);
             yield return null;
         }
-        DOTween.KillAll();
+        pressAnyBtnText.gameObject.SetActive(true);
     }
 }

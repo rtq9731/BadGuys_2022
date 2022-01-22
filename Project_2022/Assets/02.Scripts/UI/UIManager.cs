@@ -28,7 +28,12 @@ public class UIManager : MonoBehaviour
 
     public void OnCutScene()
     {
+        _mainUI.SetActive(false);
+    }
 
+    public void OnCutSceneOver()
+    {
+        _mainUI.SetActive(true);
     }
 
     public void DisplayCursor(bool display)
