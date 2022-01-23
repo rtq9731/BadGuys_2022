@@ -17,6 +17,7 @@ public class StageManager : MonoBehaviour
         panelHide.gameObject.SetActive(true);
         stageMsgText.text = "";
         aiMsgText.text = "";
+        UIManager._instance.OnCutScene();
         panelHide.rectTransform.DOAnchorPosY(-panelHide.rectTransform.rect.height, 2f).OnComplete(()=>
         {
             // 글자당 0.125f 초
@@ -30,6 +31,7 @@ public class StageManager : MonoBehaviour
                     panelHide.rectTransform.DOAnchorPosY(panelHide.rectTransform.rect.height / 2, 0.5f).OnComplete(() =>
                     {
                         panelHide.gameObject.SetActive(false);
+                        UIManager._instance.OnCutSceneOver();
                     });
                 });
             });
