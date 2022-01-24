@@ -23,6 +23,7 @@ public class DialogPanel : MonoBehaviour
     {
         rectTrm = GetComponent<RectTransform>();
         originRect = rectTrm.rect;
+        Debug.Log(originRect);
         rectTrm.sizeDelta = Vector2.zero;
     }
 
@@ -50,10 +51,10 @@ public class DialogPanel : MonoBehaviour
             gameObject.SetActive(active);
             cor = StartCoroutine(RemovePanel(3f));
 
-            tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).SetSpeedBased().OnComplete(() =>
+            tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 1f).SetSpeedBased().OnComplete(() =>
             {
                 text.text = str;
-                callBack();
+                callBack?.Invoke();
             }));
         }
         else
@@ -64,7 +65,7 @@ public class DialogPanel : MonoBehaviour
                 tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
                 {
                     gameObject.SetActive(active);
-                    callBack();
+                    callBack?.Invoke();
                 }));
             }));
         }
