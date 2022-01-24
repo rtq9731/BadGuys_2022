@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = FindObjectOfType<Inventory>();
             }
@@ -27,9 +27,12 @@ public class Inventory : MonoBehaviour
     private GameObject slotParents;
     [SerializeField]
     private Transform itemEatPos;
+    [SerializeField]
+    private Transform itemViewPos;
+
 
     //public Button[] buttons;
-    
+
     //public Slot[] slots;
 
     //public GameObject itemRolePanel;
@@ -88,7 +91,7 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
-        
+
         creatSlot.CreatingSlot();
         InventoryContentsSize.Instance.SetContentsSize();
 
@@ -101,12 +104,7 @@ public class Inventory : MonoBehaviour
             MainItem = _item;
         }
 
-        obj.transform.GetComponent<Collider>().enabled = false;
-        obj.transform.DOScale(0, 0.6f);
-        obj.transform.DOMove(itemEatPos.position, 0.5f).OnComplete(() => 
-        {
-            obj.gameObject.SetActive(false);
-        });
+        StartCoroutine(EatItem(obj));
     }
 
     public void InventoryReset()
@@ -119,6 +117,29 @@ public class Inventory : MonoBehaviour
         InventoryContentsSize.Instance.SetContentsSize();
     }
 
+    IEnumerator EatItem(GameObject obj)
+    {
+        obj.transform.GetComponent<Collider>().enabled = false;
+        obj.transform.GetComponent<Rigidbody>().useGravity = false;
+        obj.transform.SetParent(itemViewPos);
+        obj.transform.DOScale(0, 0.4f);
+
+        float t = 0f;
+
+        while (true)
+        {
+            t += Time.deltaTime / 1f;
+            obj.transform.position = Vector3.Lerp(obj.transform.position, itemEatPos.position, t);
+
+            if(Vector3.Distance(obj.transform.position, itemEatPos.position) <0.1f )
+            {
+                obj.gameObject.SetActive(false);
+                break;
+            }
+            yield return null;
+        }
+    }
+
     //public void ShowItemInfo()
     //{
     //    itemRolePanel.SetActive(true);
@@ -129,5 +150,5 @@ public class Inventory : MonoBehaviour
     //    itemImage.sprite = curItemSlot.itemImage.sprite;
     //}
 
-    
+
 }
