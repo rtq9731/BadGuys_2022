@@ -25,6 +25,8 @@ public class Inventory : MonoBehaviour
     private GameObject inventoryPanel;
     [SerializeField]
     private GameObject slotParents;
+    [SerializeField]
+    private Transform itemEatPos;
 
     //public Button[] buttons;
     
@@ -100,6 +102,13 @@ public class Inventory : MonoBehaviour
         {
             MainItem = _item;
         }
+
+        obj.transform.GetComponent<Collider>().enabled = false;
+        obj.transform.DOScale(0, 0.6f);
+        obj.transform.DOMove(itemEatPos.position, 0.5f).OnComplete(() => 
+        {
+            obj.gameObject.SetActive(false);
+        });
     }
 
     public void InventoryReset()

@@ -9,6 +9,5 @@ public class Item : MonoBehaviour, IInteractableItem
     public virtual void Interact()
     {
         Inventory.Instance.PickUpItem(itemInfo, this.gameObject);
-        gameObject.SetActive(false);
     }
 }

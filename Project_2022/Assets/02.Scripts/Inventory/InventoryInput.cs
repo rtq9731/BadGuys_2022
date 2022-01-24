@@ -88,7 +88,7 @@ public class InventoryInput : MonoBehaviour
         if (slotsParent.childCount > 0)
         {
             GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
-            destroySlot.transform.parent = null;
+            destroySlot.transform.SetParent(null);
             Destroy(destroySlot);
 
             InventoryContentsSize.Instance.SetContentsSize();
