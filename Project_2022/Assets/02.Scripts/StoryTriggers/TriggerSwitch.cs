@@ -1,13 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerSwitch : MonoBehaviour
+namespace Triggers.Switch.Tutorial
 {
-    public bool isTriggerd = false;
-
-    public void Fire()
+    public class TriggerSwitch : MonoBehaviour
     {
+        [SerializeField] protected Triggers.StoryTrigger storyTrigger;
+        public bool isTriggered = false;
 
+        public virtual void Fire()
+        {
+            isTriggered = true;
+            if (isTriggered)
+                return;
+        }
     }
 }

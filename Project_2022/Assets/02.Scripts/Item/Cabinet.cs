@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Cabinet : Item
+public class Cabinet : MonoBehaviour, IInteractableItem
 {
     Vector3 originPos;
 
@@ -20,7 +20,7 @@ public class Cabinet : Item
         originPos = transform.position;
     }
 
-    public override void Interact(GameObject taker)
+    public void Interact(GameObject taker)
     {
         OpenCabinet(isOpen);
     }
