@@ -98,7 +98,7 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
             
             SlotParent = rushHour_Item.SlotParent;
             Slot mainItemSlot;
-            mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex)?.GetComponent<Slot>();
+            mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
 
             if (Inventory.Instance.MainItem == rushHour_Item.truckInfo) // 트럭을 들고 했다면
             {
