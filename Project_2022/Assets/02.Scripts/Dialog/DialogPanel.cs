@@ -37,7 +37,6 @@ public class DialogPanel : MonoBehaviour
 
                 if(tweens.Count > 1)
                 {
-                    
                     foreach (var item in tweens)
                     {
                         item.Complete();
@@ -50,6 +49,7 @@ public class DialogPanel : MonoBehaviour
             gameObject.SetActive(active);
             cor = StartCoroutine(RemovePanel(5f));
 
+            tweens.Add(text.DOText(str, (str.Length * 0.125f)));
             tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(() =>
             {
                 Debug.Log(str);
