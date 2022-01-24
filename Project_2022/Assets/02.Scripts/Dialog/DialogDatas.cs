@@ -8,14 +8,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DialogDataList", menuName = "ScriptableObject/Dialog")]
 public class DialogDatas : ScriptableObject
 {
-    public List<DialogData> dialogDatas = new List<DialogData>();
+    List<DialogData> dialogDatas = new List<DialogData>();
 
     public List<DialogData> GetDialogs(int firstID, int lastID)
     {
         return (from data in dialogDatas
                 where data.id >= firstID
                 where data.id <= lastID
+                orderby data.id
                 select data).ToList();
+    }
+
+    public List<DialogData> GetDialogs()
+    {
+        dialogDatas.Sort((x, y) => -x.id.CompareTo(y.id));
+        Debug.Log(dialogDatas[0].id);
+        return dialogDatas;
     }
 }
 
@@ -24,7 +32,7 @@ public class DialogData
 {
     public Action callBack;
     public int id = 0;
-    public Color color = Color.black;
+    public Color color = Color.white;
     public string str = "";
     public string name = "";
 }

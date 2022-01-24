@@ -23,11 +23,10 @@ public class DialogPanel : MonoBehaviour
     {
         rectTrm = GetComponent<RectTransform>();
         originRect = rectTrm.rect;
-        Debug.Log(originRect);
         rectTrm.sizeDelta = Vector2.zero;
     }
 
-    public void SetActive(bool active, Color color = default, Action callBack = null, string str = "")
+    public void SetActive(bool active, Color color = default, string str = "", Action callBack = null)
     {
         float height = 0f;
         if (active)
@@ -49,10 +48,11 @@ public class DialogPanel : MonoBehaviour
             text.text = "";
             text.color = color;
             gameObject.SetActive(active);
-            cor = StartCoroutine(RemovePanel(3f));
+            cor = StartCoroutine(RemovePanel(5f));
 
-            tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 1f).SetSpeedBased().OnComplete(() =>
+            tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(() =>
             {
+                Debug.Log(str);
                 text.text = str;
                 callBack?.Invoke();
             }));
@@ -83,14 +83,7 @@ public class DialogPanel : MonoBehaviour
             item.Kill();
         }
 
-        float height = 0f;
-        text.DOFade(0, 0.3f).OnComplete(() =>
-        {
-            DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
-            {
-                gameObject.SetActive(false);
-            });
-        });
+        SetActive(false);
     }
 
     IEnumerator RemovePanel(float time)
