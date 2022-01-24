@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DialogDataList", menuName = "ScriptableObject/Dialog")]
 public class DialogDatas : ScriptableObject
 {
-    List<DialogData> dialogDatas = new List<DialogData>();
+    [SerializeField] List<DialogData> dialogDatas = new List<DialogData>();
 
     public List<DialogData> GetDialogs(int firstID, int lastID)
     {

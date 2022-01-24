@@ -4,16 +4,12 @@ using UnityEngine;
 
 namespace Triggers.Tutorial
 {
-    public class GameStartTrigger : StoryTrigger
+    public class FirstInteractTrigger : StoryTrigger
     {
         public override void OnTriggered()
         {
             DialogManager.Instance.SetDialaogs(datas.GetDialogs());
-        }
-
-        private void Start()
-        {
-            OnTriggered();
+            Debug.Log("¤¾¤·");
         }
     }
 }
