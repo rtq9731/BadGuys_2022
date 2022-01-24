@@ -6,6 +6,8 @@ namespace Triggers.Tutorial
 {
     public class GameStartTrigger : StoryTrigger
     {
+        [SerializeField] DialogDatas datas;
+
         public override void OnTriggered()
         {
             DialogManager.Instance.SetDialaogs(datas.GetDialogs());

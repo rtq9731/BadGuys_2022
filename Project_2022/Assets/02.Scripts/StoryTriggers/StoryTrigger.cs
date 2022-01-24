@@ -6,7 +6,6 @@ namespace Triggers
 {
     public abstract class StoryTrigger : MonoBehaviour
     {
-        [SerializeField] protected DialogDatas datas;
         public abstract void OnTriggered();
     }
 }
