@@ -13,14 +13,10 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     List<GameObject> cars;
     [SerializeField]
     GameObject truck;
-    [SerializeField]
-    ItemInfo carInfo;
-    [SerializeField]
-    ItemInfo truckInfo;
+    public ItemInfo truckInfo;
 
     // 질문 필요
-    [SerializeField]
-    Transform SlotParent;
+    public Transform SlotParent;
     [SerializeField]
     InventoryInput invenInput;
 
@@ -29,6 +25,8 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
 
     private void Awake()
     {
+        Destroy(GetComponent<OutlinerOnMouseEnter>());
+        Destroy(GetComponent<Outline>());
         rushHourCam.gameObject.SetActive(false);
         rushScript.enabled = false;
     }
@@ -84,17 +82,11 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
             if (SlotParent.childCount > 0)
             {
                 mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
-                Debug.Log(mainItemSlot.slotItem.transform.name);
             }
             else
                 mainItemSlot = null;
             
-            if (cars.Count == 0 && truck == null) // 만약 자동차가 모두 올려졌다면 
-            {
-                isFullCar = true;
-                Interact(taker);
-            }
-            else if (Inventory.Instance.MainItem == truckInfo) // 트럭을 들고 했다면
+            if (Inventory.Instance.MainItem == truckInfo) // 트럭을 들고 했다면
             {
                 truck.SetActive(true);
                 truck = null;
@@ -104,9 +96,17 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
             else if ( mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
             {
                 PutOnCarByColor(mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial);
+
+                
             }
-            else
-                return;
+
+            if (cars.Count == 0 && truck == null) // 만약 자동차가 모두 올려졌다면 
+            {
+                isFullCar = true;
+
+                gameObject.AddComponent<OutlinerOnMouseEnter>();
+                GetComponent<CarOutLine>().DestroySelf();
+            }
         }
     }
 
