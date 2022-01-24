@@ -76,8 +76,6 @@ public class Inventory : MonoBehaviour
                 GameManager._instance._isPaused = false;
             }
         }
-
-        InventoryReset();
     }
 
     public void PickUpItem(ItemInfo _item, GameObject obj, GameObject whoIsTaker)
@@ -105,7 +103,6 @@ public class Inventory : MonoBehaviour
 
         obj.transform.GetComponent<Collider>().enabled = false;
         obj.transform.DOScale(0, 0.6f);
-        DOTween.To((Vector2 x) => { return x = obj.transform.position; }, x => { obj.transform.position = x; }, whoIsTaker.transform.position)
         obj.transform.DOMove(itemEatPos.position, 0.5f).OnComplete(() => 
         {
             obj.gameObject.SetActive(false);
@@ -114,15 +111,12 @@ public class Inventory : MonoBehaviour
 
     public void InventoryReset()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        MainItem = null;
+        for (int i = 0; i < slotParents.transform.childCount; i++)
         {
-            MainItem = null;
-            for (int i = 0; i < slotParents.transform.childCount; i++)
-            {
-                Destroy(slotParents.transform.GetChild(i).gameObject);
-            }
-            InventoryContentsSize.Instance.SetContentsSize();
+            Destroy(slotParents.transform.GetChild(i).gameObject);
         }
+        InventoryContentsSize.Instance.SetContentsSize();
     }
 
     //public void ShowItemInfo()
