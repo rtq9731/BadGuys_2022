@@ -80,7 +80,7 @@ public class Inventory : MonoBehaviour
         InventoryReset();
     }
 
-    public void PickUpItem(ItemInfo _item, GameObject obj)
+    public void PickUpItem(ItemInfo _item, GameObject obj, GameObject whoIsTaker)
     {
         for (int i = 0; i < slotParents.transform.childCount; i++)
         {
@@ -105,6 +105,7 @@ public class Inventory : MonoBehaviour
 
         obj.transform.GetComponent<Collider>().enabled = false;
         obj.transform.DOScale(0, 0.6f);
+        DOTween.To((Vector2 x) => { return x = obj.transform.position; }, x => { obj.transform.position = x; }, whoIsTaker.transform.position)
         obj.transform.DOMove(itemEatPos.position, 0.5f).OnComplete(() => 
         {
             obj.gameObject.SetActive(false);

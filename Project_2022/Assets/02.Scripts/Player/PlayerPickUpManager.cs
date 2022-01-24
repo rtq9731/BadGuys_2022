@@ -6,21 +6,14 @@ using UnityEngine.UI;
 public class PlayerPickUpManager : MonoBehaviour
 {
     [SerializeField]
-    private Inventory inventory;
-    [SerializeField]
-    private Image mouseImage;
-    [SerializeField]
-    private Sprite canUseSprite;
-    [SerializeField]
-    private Sprite baseSprite;
-
+    private GameObject itemTakePos;
 
     public void CanPickUpItem(IInteractableItem curItem)
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             ShowPickUpIcon(false);
-            curItem.Interact();
+            curItem.Interact(itemTakePos);
             return;
         }
         ShowPickUpIcon(true);

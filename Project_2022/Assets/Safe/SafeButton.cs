@@ -22,7 +22,7 @@ public class SafeButton : MonoBehaviour, IInteractableItem
         safeMg.SafeButton_Push(colorName);
     }
 
-    public void Interact()
+    public void Interact(GameObject taker)
     {
         if (canPush)
         {

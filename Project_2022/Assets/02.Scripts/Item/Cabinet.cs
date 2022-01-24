@@ -20,9 +20,8 @@ public class Cabinet : Item
         originPos = transform.position;
     }
 
-    public override void Interact()
+    public override void Interact(GameObject taker)
     {
-        Debug.Log("¿ÀÇÂ Ä³ºñ³Ý");
         OpenCabinet(isOpen);
     }
 

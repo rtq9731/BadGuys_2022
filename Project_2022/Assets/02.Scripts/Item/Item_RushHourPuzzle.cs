@@ -63,7 +63,7 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     }
     //
 
-    public void Interact()
+    public void Interact(GameObject taker)
     {
         if (isFullCar) // 모든 자동차가 찼으면
         {
@@ -92,8 +92,7 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
             if (cars.Count == 0 && truck == null) // 만약 자동차가 모두 올려졌다면 
             {
                 isFullCar = true;
-                Interact();
-                
+                Interact(taker);
             }
             else if (Inventory.Instance.MainItem == truckInfo) // 트럭을 들고 했다면
             {

@@ -6,8 +6,8 @@ public class Item : MonoBehaviour, IInteractableItem
 {
     public ItemInfo itemInfo;
 
-    public virtual void Interact()
+    public virtual void Interact(GameObject taker)
     {
-        Inventory.Instance.PickUpItem(itemInfo, this.gameObject);
+        Inventory.Instance.PickUpItem(itemInfo, this.gameObject, taker);
     }
 }
