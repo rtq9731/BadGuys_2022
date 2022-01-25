@@ -4,14 +4,10 @@ namespace Triggers.Switch.Tutorial
 {
     public class TriggerSwitch : MonoBehaviour
     {
-        [SerializeField] protected Triggers.StoryTrigger storyTrigger;
-        public bool isTriggered = false;
-
+        [SerializeField] protected StoryTrigger trigger;
         public virtual void Fire()
         {
-            isTriggered = true;
-            if (isTriggered)
-                return;
+            enabled = false;
         }
     }
 }

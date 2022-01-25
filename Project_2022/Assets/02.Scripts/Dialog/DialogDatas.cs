@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DialogDataList", menuName = "ScriptableObject/Dialog")]
 public class DialogDatas : ScriptableObject
 {
-    List<DialogData> dialogDatas = new List<DialogData>();
+    [SerializeField] List<DialogData> dialogDatas = new List<DialogData>();
 
     public List<DialogData> GetDialogs(int firstID, int lastID)
     {
@@ -22,7 +22,6 @@ public class DialogDatas : ScriptableObject
     public List<DialogData> GetDialogs()
     {
         dialogDatas.Sort((x, y) => -x.id.CompareTo(y.id));
-        Debug.Log(dialogDatas[0].id);
         return dialogDatas;
     }
 }

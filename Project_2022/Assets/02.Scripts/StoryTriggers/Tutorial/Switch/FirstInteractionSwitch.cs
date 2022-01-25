@@ -17,20 +17,11 @@ namespace Triggers.Switch.Tutorial
 
         public override void Fire()
         {
-            if (!isTriggered)
+            foreach (var item in FindObjectsOfType<Item>())
             {
-                foreach (var item in FindObjectsOfType<Item>())
-                {
-                    item.onInteract -= Fire;
-                }
-                isTriggered = true;
-
-                storyTrigger.OnTriggered();
+                item.onInteract -= Fire;
             }
-            else
-            {
-                return;
-            }
+            trigger.OnTriggered();
         }
     }
 
