@@ -8,7 +8,7 @@ public class Slot : MonoBehaviour
     private bool isHaveItem;
 
     public ItemInfo item;
-    public Image itemImage;
+    public RawImage itemImage;
     public string itemRole;
 
     public Text itemCountText;
@@ -21,8 +21,8 @@ public class Slot : MonoBehaviour
     public void AddItem(ItemInfo _itemInfo)
     {
         item = _itemInfo;
-        itemImage.gameObject.SetActive(true);
-        itemImage.sprite = _itemInfo.itemImage;
+        //itemImage.gameObject.SetActive(true);
+        //itemImage = _itemInfo.itemImage;
         itemRole = _itemInfo.itemRole;
 
         initSlotInfo();

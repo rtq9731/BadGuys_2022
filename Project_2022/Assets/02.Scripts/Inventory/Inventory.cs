@@ -43,6 +43,7 @@ public class Inventory : MonoBehaviour
 
     private InventoryContentsSize contentsSize;
     private CreatSlot creatSlot;
+    private CreateRenderTextureCam createRender;
 
     public ItemInfo MainItem;
     public int mainItemIndex;
@@ -51,6 +52,7 @@ public class Inventory : MonoBehaviour
     {
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
         creatSlot = GetComponentInChildren<CreatSlot>();
+        createRender = FindObjectOfType<CreateRenderTextureCam>();
         //slots = slotParents.GetComponentsInChildren<Slot>();
         //buttons = slotParents.GetComponentsInChildren<Button>();
 
@@ -105,6 +107,7 @@ public class Inventory : MonoBehaviour
         }
 
         StartCoroutine(EatItem(obj));
+        
     }
 
     public void InventoryReset()
@@ -138,6 +141,9 @@ public class Inventory : MonoBehaviour
             }
             yield return null;
         }
+        Debug.Log("asd");
+        DOTween.Kill(obj.transform);
+        createRender.CreateRenderCam(obj);
     }
 
     //public void ShowItemInfo()
