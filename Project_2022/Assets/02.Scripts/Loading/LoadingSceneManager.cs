@@ -7,10 +7,9 @@ using DG.Tweening;
 
 public class LoadingSceneManager : MonoBehaviour
 {
-
-    [SerializeField] private Image loadingIcon;
     [SerializeField] private float loadingTime = 5f;
 
+    [SerializeField] private Text loadingPercent;
     [SerializeField] private Text pressAnyBtnText;
 
     private static string sceneName = "";
@@ -48,7 +47,7 @@ public class LoadingSceneManager : MonoBehaviour
         while (timer <= loadingTime)
         {
             timer += Time.deltaTime;
-            loadingIcon.fillAmount = Mathf.Lerp(0f, 1f, timer / loadingTime);
+            loadingPercent.text = Mathf.Lerp(0f, 100f, timer / loadingTime) + "%";
             yield return null;
         }
         pressAnyBtnText.gameObject.SetActive(true);

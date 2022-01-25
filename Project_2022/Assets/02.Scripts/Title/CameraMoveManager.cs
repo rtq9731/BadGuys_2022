@@ -8,10 +8,13 @@ public class CameraMoveManager : MonoBehaviour
 {
     public Transform mainCam = null;
 
+    public Text textReady = null;
+
     public GameObject vCamTitle = null;
     public GameObject vCamMoniter = null;
     public GameObject vCamLoad = null;
 
+    public CanvasGroup StartCanvasGroup = null;
     public CanvasGroup mainCanvasGroup = null;
     public CanvasGroup loadCanvasGroup = null;
     public CanvasGroup allCanvasGroup = null;
@@ -28,6 +31,11 @@ public class CameraMoveManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    private void Start()
+    {
+        textReady.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+    }
+
     private void Update()
     {
         if (Input.anyKeyDown && isTitle)
@@ -39,6 +47,8 @@ public class CameraMoveManager : MonoBehaviour
     public void GoToMain()
     {
         isTitle = false;
+        DOTween.CompleteAll();
+        StartCanvasGroup.gameObject.SetActive(false);
 
         mainCanvasGroup.alpha = 0;
         mainCanvasGroup.interactable = false;
