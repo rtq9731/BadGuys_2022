@@ -68,7 +68,7 @@ public class DialogManager : MonoBehaviour
     {
         dialogs.Sort((x, y) => -x.order.CompareTo(y.order));
         float height = 0f;
-        Debug.Log(height);
+        //Debug.Log(height);
         for (int i = 0; i < dialogs.Count; i++)
         {
             dialogs[i].rectTrm.anchoredPosition = new Vector2(0, height);

@@ -187,7 +187,7 @@ public class Car : MonoBehaviour
                     return true;
 
                 case Direction.Left:
-                    if (transform.localPosition.x >= -2)
+                    if (transform.localPosition.x <= -2)
                     {
                         transform.localPosition = new Vector3(-2, transform.localPosition.y, transform.localPosition.z);
                         return false;
@@ -255,6 +255,7 @@ public class Car : MonoBehaviour
     private void MoveToPos(Vector3 thatPos)
     {
         transform.localPosition = thatPos;
+        Debug.LogWarning(thatPos);
     }
 
     private bool ShotRay(Vector3 dir)
@@ -262,7 +263,7 @@ public class Car : MonoBehaviour
         RaycastHit hit;
         float size = RushHourManger.Instance.truesize;
         //Debug.LogWarning(size);
-        //Debug.DrawRay(transform.position, dir * 2.5f * size, Color.red);
+        //Debug.DrawRay(transform.position, dir * 3.5f * size, Color.red);
 
         if (!isThree) // 2
         {
@@ -308,7 +309,7 @@ public class Car : MonoBehaviour
                 moveTo = new Vector3(minPosX, transform.localPosition.y, transform.localPosition.z);
             }
             else // 길이 2
-             {
+            {
                 for (int i = 0; i < twoPoses.Length; i++) // 좌표간 거리 비교
                 {
                     if (minPosX == float.MaxValue)
@@ -371,6 +372,7 @@ public class Car : MonoBehaviour
         }
 
         targetPos = moveTo;
+
         yield return null;
     }
 
