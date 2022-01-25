@@ -30,9 +30,18 @@ public class CreateRenderTextureCam : MonoBehaviour
         obj.transform.SetParent(camParent);
         
         itemObj.transform.SetParent(obj.transform.GetChild(0));
-        itemObj.transform.rotation = Quaternion.Euler(new Vector3(-20, 44, 0));
+        
         itemObj.transform.position = obj.transform.GetChild(0).position;
         itemObj.transform.DOScale(0.1f, 0.1f);
+
+        if(itemObj.name == "Truck")
+        {
+            itemObj.transform.rotation = Quaternion.Euler(new Vector3(20, -150, 0));
+        }
+        else
+        {
+            itemObj.transform.rotation = Quaternion.Euler(new Vector3(-20, 44, 0));
+        }
 
         itemObj.SetActive(true);
 
