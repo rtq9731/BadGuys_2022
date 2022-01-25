@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PanelScript : MonoBehaviour
 {
-    [SerializeField] RectTransform topRect;
     [SerializeField] Button btnExit;
 
     private void Start()
