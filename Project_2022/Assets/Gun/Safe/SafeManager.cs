@@ -15,8 +15,16 @@ public class SafeManager : MonoBehaviour
     [SerializeField]
     GameObject safeDoor;
 
+    private AudioSource audio;
+
+    [SerializeField]
+    public AudioClip wrongSound;
+    [SerializeField]
+    public AudioClip clearSound;
+
     private void Awake()
     {
+        audio = GetComponent<AudioSource>();
         rightPassword = true;
         buttonCount = 0;
     }
@@ -24,18 +32,25 @@ public class SafeManager : MonoBehaviour
     private void ClearSafe()
     {
         Debug.LogWarning("금고 클리어");
+
+        audio.clip = clearSound;
+        audio.Play();
+
         for (int i = 0; i < 5; i++)
         {
             btns[i].DestroySelf();
         }
 
-        safeDoor.transform.DORotate(new Vector3(0, -90, 0), 1f);
+        safeDoor.transform.DORotate(new Vector3(-90, 0, 90), 1f);
     }
 
     public void WrongPush()
     {
         rightPassword = true;
         buttonCount = 0;
+
+        audio.clip = wrongSound;
+        audio.Play();
 
         for (int i = 0; i < 5; i++)
         {
