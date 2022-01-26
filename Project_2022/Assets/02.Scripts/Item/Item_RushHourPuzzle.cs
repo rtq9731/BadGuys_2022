@@ -63,6 +63,11 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     }
     //
 
+    public bool CanEat()
+    {
+        return false;
+    }
+
     public void Interact(GameObject taker)
     {
         if (isFullCar) // 모든 자동차가 찼으면
@@ -81,27 +86,25 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         }
         else
         {
-            Slot mainItemSlot;
+            Slot mainItemSlot = null;
             if (SlotParent.childCount > 0)
             {
                 mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
-            }
-            else
-                mainItemSlot = null;
-            
-            if (Inventory.Instance.MainItem == truckInfo) // 트럭을 들고 했다면
-            {
-                truck.SetActive(true);
-                truck = null;
 
-                InventoryDisCount();
-                GetComponent<CarOutLine>().OutLineAllDisable();
-            }
-            else if ( mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
-            {
-                PutOnCarByColor(mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial);
+                if (Inventory.Instance.MainItem == truckInfo) // 트럭을 들고 했다면
+                {
+                    truck.SetActive(true);
+                    truck = null;
 
-                GetComponent<CarOutLine>().OutLineAllDisable();
+                    InventoryDisCount();
+                    GetComponent<CarOutLine>().OutLineAllDisable();
+                }
+                else if (mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
+                {
+                    PutOnCarByColor(mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial);
+
+                    GetComponent<CarOutLine>().OutLineAllDisable();
+                }
             }
 
             if (cars.Count == 0 && truck == null) // 만약 자동차가 모두 올려졌다면 
