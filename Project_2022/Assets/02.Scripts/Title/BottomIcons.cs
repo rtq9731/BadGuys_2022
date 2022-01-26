@@ -10,6 +10,8 @@ public class BottomIcons : MonoBehaviour
     [SerializeField] Button btnPerson;
     [SerializeField] Button btnMail;
 
+    [SerializeField] Text emailUnreadCount;
+
     [SerializeField] GameObject panelQuit;
     [SerializeField] GameObject panelCredit;
     [SerializeField] GameObject panelPersons;
@@ -23,23 +25,33 @@ public class BottomIcons : MonoBehaviour
         btnMail.onClick.AddListener(OnClickBtnMail);
     }
 
+    private void OnEnable()
+    {
+        RefreshEmailCounter();
+    }
+
+    public void RefreshEmailCounter()
+    {
+        emailUnreadCount.text = GameManager._instance.jsonData.emails.FindAll(x => !x.isRead).Count.ToString();
+    }
+
     private void OnClickBtnQuit()
     {
-
+        panelQuit.gameObject.SetActive(true);
     }
 
     private void OnClickBtnCredit()
     {
-
+        panelCredit.gameObject.SetActive(true);
     }
 
     private void OnClickBtnPerson()
     {
-
+        panelPersons.gameObject.SetActive(true);
     }
 
     private void OnClickBtnMail()
     {
-
+        panelEmail.gameObject.SetActive(true);
     }
 }

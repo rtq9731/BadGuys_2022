@@ -14,6 +14,8 @@ public class CameraMoveManager : MonoBehaviour
     public GameObject vCamMoniter = null;
     public GameObject vCamLoad = null;
 
+    public GameObject panelEquip = null;
+
     public CanvasGroup StartCanvasGroup = null;
     public CanvasGroup mainCanvasGroup = null;
     public CanvasGroup loadCanvasGroup = null;
@@ -80,6 +82,10 @@ public class CameraMoveManager : MonoBehaviour
 
     IEnumerator GoToVRScreen()
     {
+        panelEquip.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
         allCanvasGroup.interactable = false;
         vCamLoad.SetActive(true);
         while(Vector3.Distance(mainCam.position, vCamLoad.transform.position) >= 0.1f)

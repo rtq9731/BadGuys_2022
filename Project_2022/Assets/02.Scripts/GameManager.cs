@@ -5,17 +5,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    EmailDatas emailDatas;
+    public EmailJsonData jsonData = new EmailJsonData();
+
     readonly string fileName = "Emailes.sav";
 
     public static GameManager _instance = null;
 
     public bool _isPaused = false;
-    EmailDatas emailDatas;
-    public EmailJsonData jsonData;
 
     private void Awake()
     {
+        if(_instance != null)
+        {
+            Destroy(_instance.gameObject);
+        }
         _instance = this;
+
+        emailDatas = Resources.Load<EmailDatas>("EmailDatasSO");
         LoadEmailData();
     }
     private void OnDestroy()
@@ -36,11 +43,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LoadEmailData()
+    public EmailJsonData LoadEmailData()
     {
         using(StreamReader sr = new StreamReader(Application.persistentDataPath + fileName))
         {
-            jsonData = JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
+            Debug.Log(Application.persistentDataPath + fileName);
+            return jsonData = JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
         }
     }
 }

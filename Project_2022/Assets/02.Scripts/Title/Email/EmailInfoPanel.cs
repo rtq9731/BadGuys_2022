@@ -11,7 +11,7 @@ public class EmailInfoPanel : MonoBehaviour
     [SerializeField] Text textDate;
     [SerializeField] Text text;
 
-    void InitEmailPanel(EmailData data)
+    public void InitEmailPanel(EmailData data)
     {
         textDate.text = data.sendTime.ToString("yyyy-MM-dd");
         EmailTextData textData = GameManager._instance.GetEmailText(data.textDataID);
@@ -19,5 +19,15 @@ public class EmailInfoPanel : MonoBehaviour
         textSender.text = textData.sender;
         textSenderPart.text = textData.partName;
         text.text = textData.text;
+    }
+
+    public void InitEmailPanel()
+    {
+        textTitle.text = ""; 
+        textTitle.text = "";
+        textSender.text = "";
+        textSenderPart.text = "";
+        textDate.text = "";
+        text.text = "";
     }
 }

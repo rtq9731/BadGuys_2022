@@ -11,7 +11,7 @@ public class EmailButton : MonoBehaviour
     [SerializeField] Text textTitle;
     [SerializeField] Text textSender;
 
-    public event Action<EmailData> onClickBtnEmail;
+    public event Action<EmailData> onClickBtnEmail = (x) => { };
 
     EmailData data;
 

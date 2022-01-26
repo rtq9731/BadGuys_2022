@@ -20,7 +20,6 @@ public class PanelMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         parentRect = gameObject.transform.parent.GetComponent<RectTransform>();
         camRect.width = Screen.width;
         camRect.height = Screen.height;
-        Debug.Log(camRect);
     }
 
     private void FixedUpdate()
