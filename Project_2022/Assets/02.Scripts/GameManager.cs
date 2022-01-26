@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,22 @@ public class GameManager : MonoBehaviour
     public EmailJsonData jsonData = new EmailJsonData();
 
     readonly string fileName = "Emailes.sav";
+
+    private bool _isPause;
+    public bool IsPause
+    {
+        get
+        {
+            return _isPause;
+        }
+
+        set
+        {
+            _isPause = value;
+            _onPauseChanged(_isPause);
+        }
+    }
+    public Action<bool> _onPauseChanged = (_isPaused) => { };
 
     private static GameManager _instance = null;
     public static GameManager Instance
@@ -28,8 +45,6 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
-
-    public bool _isPaused = false;
 
     private void Awake()
     {

@@ -29,11 +29,14 @@ public class UIManager : MonoBehaviour
     public void OnCutScene()
     {
         _mainUI.SetActive(false);
+        GameManager.Instance.IsPause = true;
     }
 
     public void OnCutSceneOver()
     {
         _mainUI.SetActive(true);
+        GameManager.Instance.IsPause = false;
+        FindObjectOfType<DialogManager>().ClearALLDialog();
     }
 
     public void DisplayCursor(bool display)
@@ -46,7 +49,7 @@ public class UIManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        GameManager.Instance._isPaused = true;
+        GameManager.Instance.IsPause = true;
         _stopMenu.gameObject.SetActive(true);
     }
 }

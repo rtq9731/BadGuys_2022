@@ -33,11 +33,32 @@ public class DialogManager : MonoBehaviour
         Instance = this;
 
         myRect = GetComponent<RectTransform>();
+        GameManager.Instance._onPauseChanged += OnGamePause;
+    }
+
+    void OnGamePause(bool isPause)
+    {
+        if(isPause)
+        {
+            StopCoroutine(cor);
+        }
+        else
+        {
+            if (cor == null)
+            {
+                cor = StartCoroutine(PlayDialog());
+            }
+        }
     }
 
     private void Update()
     {
         SetPositionPanels();
+    }
+
+    public void ClearALLDialog()
+    {
+        lastDialogs.Clear();
     }
 
     private void CreateDialogPanel(string name, string text, Color color)

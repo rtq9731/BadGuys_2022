@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance._isPaused)
+        if(GameManager.Instance.IsPause)
         {
             return;
         }

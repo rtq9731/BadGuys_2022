@@ -55,7 +55,7 @@ public class StopMenu : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            GameManager.Instance._isPaused = false;
+            GameManager.Instance.IsPause = false;
         }
         DOTween.PlayAll();
     }

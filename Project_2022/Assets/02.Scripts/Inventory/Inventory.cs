@@ -72,13 +72,13 @@ public class Inventory : MonoBehaviour
             if (!inventoryPanel.activeSelf)
             {
                 inventoryPanel.SetActive(true);
-                GameManager.Instance._isPaused = true;
+                GameManager.Instance.IsPause = true;
                 UIManager._instance.DisplayCursor(inventoryPanel.activeSelf);
             }
             else
             {
                 UIStackManager.RemoveUIOnTop();
-                GameManager.Instance._isPaused = false;
+                GameManager.Instance.IsPause = false;
             }
         }
     }
