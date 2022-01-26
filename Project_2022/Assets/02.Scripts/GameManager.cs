@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject obj = Instantiate(new GameObject());
                     _instance = obj.AddComponent<GameManager>();
-                    _instance.  emailDatas = Resources.Load<EmailDataListSO>("EmailDatasSO");
+                    _instance.  emailDatas = Resources.Load<EmailDataListSO>("EmailDataSOList");
                 }
             }
             return _instance;
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(_instance.gameObject);
 
         emailDatas = new EmailDataListSO();
-        emailDatas = Resources.Load<EmailDataListSO>("EmailDatasSO");
+        emailDatas = Resources.Load<EmailDataListSO>("EmailDataSOList");
         LoadEmailData();
     }
     private void OnDestroy()
