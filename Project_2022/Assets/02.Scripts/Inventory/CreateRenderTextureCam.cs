@@ -45,7 +45,10 @@ public class CreateRenderTextureCam : MonoBehaviour
 
         itemObj.SetActive(true);
 
-        RenderTexture renderTexture = new RenderTexture(256,256,0);
+        RenderTexture renderTexture = new RenderTexture(256,256,24, RenderTextureFormat.Default);
+
+        
+
 
         obj.GetComponent<Camera>().targetTexture = renderTexture;
 

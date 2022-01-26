@@ -91,7 +91,7 @@ public class InventoryInput : MonoBehaviour
             destroySlot.transform.SetParent(null);
             Destroy(destroySlot);
 
-            InventoryContentsSize.Instance.SetContentsSize();
+            //InventoryContentsSize.Instance.SetContentsSize();
 
             for (int i = 0; i < slotsParent.childCount; i++)
             {

@@ -16,12 +16,12 @@ public class InventoryContentsSize : MonoBehaviour
 
     private void Start()
     {
-        SetContentsSize();
+        //SetContentsSize();
     }
 
     private void Update()
     {
-        SetContentsSize();
+        
     }
 
     public void SetContentsSize()

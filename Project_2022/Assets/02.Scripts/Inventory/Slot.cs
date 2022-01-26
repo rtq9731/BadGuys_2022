@@ -64,7 +64,7 @@ public class Slot : MonoBehaviour
     {
         if(itemCount <= 0)
         {
-            InventoryContentsSize.Instance.SetContentsSize();
+            //InventoryContentsSize.Instance.SetContentsSize();
             Destroy(this.gameObject);
         }    
     }

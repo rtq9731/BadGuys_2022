@@ -95,7 +95,7 @@ public class Inventory : MonoBehaviour
         }
 
         creatSlot.CreatingSlot();
-        InventoryContentsSize.Instance.SetContentsSize();
+        //InventoryContentsSize.Instance.SetContentsSize();
 
         Debug.Log(slotParents.transform.GetChild(slotParents.transform.childCount - 1));
         slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(_item);
@@ -117,7 +117,7 @@ public class Inventory : MonoBehaviour
         {
             Destroy(slotParents.transform.GetChild(i).gameObject);
         }
-        InventoryContentsSize.Instance.SetContentsSize();
+        //InventoryContentsSize.Instance.SetContentsSize();
     }
 
     IEnumerator EatItem(GameObject obj)
