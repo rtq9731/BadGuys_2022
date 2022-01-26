@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    EmailDatas emailDatas;
+    EmailDataListSO emailDatas;
     public EmailJsonData jsonData = new EmailJsonData();
 
     readonly string fileName = "Emailes.sav";
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject obj = Instantiate(new GameObject());
                     _instance = obj.AddComponent<GameManager>();
+                    _instance.  emailDatas = Resources.Load<EmailDataListSO>("EmailDatasSO");
                 }
             }
             return _instance;
@@ -39,7 +40,8 @@ public class GameManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(_instance.gameObject);
 
-        emailDatas = Resources.Load<EmailDatas>("EmailDatasSO");
+        emailDatas = new EmailDataListSO();
+        emailDatas = Resources.Load<EmailDataListSO>("EmailDatasSO");
         LoadEmailData();
     }
     private void OnDestroy()

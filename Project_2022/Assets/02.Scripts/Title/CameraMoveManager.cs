@@ -36,6 +36,8 @@ public class CameraMoveManager : MonoBehaviour
     private void Start()
     {
         textReady.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void Update()

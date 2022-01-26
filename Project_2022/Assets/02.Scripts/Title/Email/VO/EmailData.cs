@@ -3,11 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/EamilDatas", fileName = "EmailDatasSO")]
-public class EmailDatas : ScriptableObject
-{
-    public List<EmailTextData> emailList = new List<EmailTextData>();
-}
 
 public class EmailJsonData
 {
