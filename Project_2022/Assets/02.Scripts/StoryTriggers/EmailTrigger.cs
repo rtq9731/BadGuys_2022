@@ -9,18 +9,18 @@ namespace Triggers
         [SerializeField] protected EmailData data;
         public virtual void OnTriggered()
         {
-            if(GameManager._instance.jsonData.emails.Count > 0)
+            if(GameManager.Instance.jsonData.emails.Count > 0)
             {
-                if (GameManager._instance.jsonData.emails.Find(x => x.id == data.id) == null)
+                if (GameManager.Instance.jsonData.emails.Find(x => x.id == data.id) == null)
                 {
                     data.sendTime = new System.DateTime(2040, System.DateTime.Now.Month, System.DateTime.Now.Day);
                     Debug.Log(data.sendTime);
-                    GameManager._instance.jsonData.emails.Add(data);
-                    GameManager._instance.SaveEmailData();
+                    GameManager.Instance.jsonData.emails.Add(data);
+                    GameManager.Instance.SaveEmailData();
                 }
                 else
                 {
-                    EmailData curData = GameManager._instance.jsonData.emails.Find(x => x.id == data.id);
+                    EmailData curData = GameManager.Instance.jsonData.emails.Find(x => x.id == data.id);
 
                     curData.textDataID = data.textDataID;
                 }
@@ -29,8 +29,8 @@ namespace Triggers
             {
                 data.sendTime = new System.DateTime(2040, System.DateTime.Now.Month, System.DateTime.Now.Day);
                 Debug.Log(data.sendTime);
-                GameManager._instance.jsonData.emails.Add(data);
-                GameManager._instance.SaveEmailData();
+                GameManager.Instance.jsonData.emails.Add(data);
+                GameManager.Instance.SaveEmailData();
             }
         }
     }

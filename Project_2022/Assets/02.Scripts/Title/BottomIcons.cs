@@ -32,7 +32,7 @@ public class BottomIcons : MonoBehaviour
 
     public void RefreshEmailCounter()
     {
-        emailUnreadCount.text = GameManager._instance.jsonData.emails.FindAll(x => !x.isRead).Count.ToString();
+        emailUnreadCount.text = GameManager.Instance.jsonData.emails.FindAll(x => !x.isRead).Count.ToString();
     }
 
     private void OnClickBtnQuit()
