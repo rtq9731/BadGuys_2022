@@ -17,6 +17,7 @@ public class EmailButton : MonoBehaviour
 
     public void InitEmailButton(EmailData data)
     {
+        gameObject.SetActive(true);
         this.data = data;
         EmailTextData textData = GameManager._instance.GetEmailText(data.textDataID);
         textTitle.text = textData.title;
