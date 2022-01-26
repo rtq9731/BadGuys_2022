@@ -94,6 +94,6 @@ public class CameraMoveManager : MonoBehaviour
         }
         vrAnim.enabled = true;
         yield return new WaitForSeconds(vrAnim.GetCurrentAnimatorClipInfo(0).Length);
-        cgVR.DOFade(1, 0.3f).OnComplete(() => LoadingManager.LoadScene("Tutorial"));
+        cgVR.DOFade(1, 0.3f).OnComplete(() => LoadingManager.LoadScene("Tutorial", false));
     }
 }

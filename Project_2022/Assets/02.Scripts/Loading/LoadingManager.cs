@@ -8,9 +8,9 @@ public static class LoadingManager
 {
     static string sceneName = "";
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(string sceneName, bool isExit)
     {
         DOTween.CompleteAll();
-        LoadingSceneManager.LoadScene(sceneName);
+        LoadingSceneManager.LoadScene(sceneName, isExit);
     }
 }
