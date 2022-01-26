@@ -19,7 +19,7 @@ public class EmailPanel : MonoBehaviour
 
     public void RefreshEmailBtns()
     {
-        List<EmailData> emails = GameManager._instance.LoadEmailData().emails;
+        List<EmailData> emails = GameManager.Instance.LoadEmailData().emails;
         Debug.Log(emails.Count);
         emails.Sort((x, y) => x.sendTime.CompareTo(y.sendTime));
         for (int i = 0; i < emails.Count; i++)
@@ -33,8 +33,8 @@ public class EmailPanel : MonoBehaviour
     public void OnDisable()
     {
         emailBtns.ForEach(x => x.gameObject.SetActive(false));
-        GameManager._instance.jsonData.emails.ForEach(x => x.isRead = true);
-        GameManager._instance.SaveEmailData();
+        GameManager.Instance.jsonData.emails.ForEach(x => x.isRead = true);
+        GameManager.Instance.SaveEmailData();
         FindObjectOfType<BottomIcons>()?.RefreshEmailCounter();
     }
 

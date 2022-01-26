@@ -10,7 +10,23 @@ public class GameManager : MonoBehaviour
 
     readonly string fileName = "Emailes.sav";
 
-    public static GameManager _instance = null;
+    private static GameManager _instance = null;
+    public static GameManager Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = FindObjectOfType<GameManager>();
+                if(_instance == null)
+                {
+                    GameObject obj = Instantiate(new GameObject());
+                    _instance = obj.AddComponent<GameManager>();
+                }
+            }
+            return _instance;
+        }
+    }
 
     public bool _isPaused = false;
 
@@ -21,6 +37,7 @@ public class GameManager : MonoBehaviour
             Destroy(_instance.gameObject);
         }
         _instance = this;
+        DontDestroyOnLoad(_instance.gameObject);
 
         emailDatas = Resources.Load<EmailDatas>("EmailDatasSO");
         LoadEmailData();

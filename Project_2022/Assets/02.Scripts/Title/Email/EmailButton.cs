@@ -19,7 +19,7 @@ public class EmailButton : MonoBehaviour
     {
         gameObject.SetActive(true);
         this.data = data;
-        EmailTextData textData = GameManager._instance.GetEmailText(data.textDataID);
+        EmailTextData textData = GameManager.Instance.GetEmailText(data.textDataID);
         textTitle.text = textData.title;
         textSender.text = textData.sender;
     }

@@ -15,7 +15,7 @@ public class EmailInfoPanel : MonoBehaviour
     {
         gameObject.SetActive(true);
         textDate.text = data.sendTime.ToString("yyyy-MM-dd");
-        EmailTextData textData = GameManager._instance.GetEmailText(data.textDataID);
+        EmailTextData textData = GameManager.Instance.GetEmailText(data.textDataID);
         textTitle.text = textData.title;
         textSender.text = textData.sender;
         textSenderPart.text = textData.partName;
