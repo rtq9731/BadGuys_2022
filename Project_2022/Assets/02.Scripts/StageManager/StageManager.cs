@@ -9,6 +9,7 @@ public class StageManager : MonoBehaviour
     [SerializeField] Text aiMsgText;
     [SerializeField] Text stageMsgText;
     [SerializeField] Image panelHide;
+    [SerializeField] GameObject player;
 
     public StageChangeData data;
 

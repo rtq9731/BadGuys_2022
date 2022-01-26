@@ -19,6 +19,8 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     public Transform SlotParent;
     [SerializeField]
     InventoryInput invenInput;
+    [SerializeField]
+    GameObject player;
 
 
     private bool isFullCar;
@@ -92,12 +94,13 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
                 truck = null;
 
                 InventoryDisCount();
+                GetComponent<CarOutLine>().OutLineAllDisable();
             }
             else if ( mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
             {
                 PutOnCarByColor(mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial);
 
-                
+                GetComponent<CarOutLine>().OutLineAllDisable();
             }
 
             if (cars.Count == 0 && truck == null) // 만약 자동차가 모두 올려졌다면 
@@ -124,6 +127,8 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         Destroy(GetComponent<Outline>());
 
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
+
+        player.transform.position = new Vector3(0, -3, 30);
         Destroy(GetComponent<Item_RushHourPuzzle>());
     }
 }

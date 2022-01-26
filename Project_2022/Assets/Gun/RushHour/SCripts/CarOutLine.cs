@@ -72,7 +72,7 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
         enableOutLine = target;
     }
 
-    void OutLineAllDisable()
+    public void OutLineAllDisable()
     {
         if (enableOutLine != null)
         {
@@ -86,8 +86,9 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
         for (int i = 0; i < carOutLines.Count; i++)
         {
             carOutLines[i].GetComponent<Outline>().enabled = false;
+            truckOutLine.GetComponent<Outline>().enabled = false;
         }
-
+        OutLineAllDisable();
         Destroy(GetComponent<CarOutLine>());
     }
 
