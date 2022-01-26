@@ -7,26 +7,28 @@ public class SafeButton : MonoBehaviour, IInteractableItem
     public string colorName;
     public SafeManager safeMg;
     private Vector3 firstPos;
-
+    private AudioSource clickSound;
     public bool canPush;
 
 
     private void Awake()
     {
+        clickSound = GetComponent<AudioSource>();
         canPush = true;
         firstPos = transform.position;
     }
 
     private void Button_Push()
     {
-        safeMg.SafeButton_Push(colorName);
+        safeMg.SafeButton_Push(colorName); 
     }
 
     public void Interact(GameObject taker)
     {
         if (canPush)
         {
-            transform.localPosition += new Vector3(0, 0, 0.1f);
+            clickSound.Play();
+            transform.localPosition -= new Vector3(0, 0, 0.05f);
             canPush = false;
             Debug.LogWarning("´­¸²");
 
