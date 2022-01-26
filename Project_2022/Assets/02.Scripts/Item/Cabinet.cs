@@ -5,19 +5,16 @@ using DG.Tweening;
 
 public class Cabinet : MonoBehaviour, IInteractableItem
 {
-    Vector3 originPos;
-
-    public float endPoint = 0.45f;
-
     public bool isOpen = false;
 
-    public float speed;
-
     Animator anim;
+
     private void Start()
     {
+
+
+
         anim = GetComponent<Animator>();
-        originPos = transform.position;
     }
 
     public void Interact(GameObject taker)
