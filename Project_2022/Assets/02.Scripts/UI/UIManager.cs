@@ -13,14 +13,9 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null)
-        {
-            _stopMenu = _instance._stopMenu;
-            _mainUI = _instance._mainUI;
-            Destroy(_instance.gameObject);
-        }
         _instance = this;
     }
+
     private void OnDestroy()
     {
         _instance = null;
@@ -50,6 +45,7 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.Instance.IsPause = true;
+        Debug.Log("¤¾¤·");
         _stopMenu.gameObject.SetActive(true);
     }
 }
