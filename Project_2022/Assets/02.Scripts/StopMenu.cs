@@ -47,7 +47,7 @@ public class StopMenu : MonoBehaviour
     private void OnEnable()
     {
         DOTween.PauseAll();
-        transform.DOScale(1, 0.5f);
+        //transform.DOScale(1, 0.5f);
     }
 
     private void OnDisable()

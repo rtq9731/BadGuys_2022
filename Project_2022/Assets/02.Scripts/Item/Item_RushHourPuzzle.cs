@@ -21,6 +21,8 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     InventoryInput invenInput;
     [SerializeField]
     GameObject player;
+    [SerializeField]
+    Transform playerMovePos;
 
 
     private bool isFullCar;
@@ -133,7 +135,7 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         UIManager._instance.OnCutSceneOver();
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
 
-        player.transform.position = new Vector3(0, -3, 30);
+        player.transform.position = playerMovePos.position;
         Destroy(GetComponent<Item_RushHourPuzzle>());
     }
 }
