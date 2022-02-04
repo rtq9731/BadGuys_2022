@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 [RequireComponent(typeof(ContentSizeFitter))]
 public class DialogManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class DialogManager : MonoBehaviour
     public int padding = 0;
     public int limitPanelCount = 0;
 
+    public ShowInventoryUI showInventoryUI;
+
     public DialogPanel panelPrefab = null;
     List<DialogPanel> dialogs = new List<DialogPanel>();
 
@@ -21,6 +24,8 @@ public class DialogManager : MonoBehaviour
     RectTransform myRect = null;
 
     Coroutine cor = null;
+
+    Vector3 originRect;
 
     int curOrder = 0;
 
@@ -33,6 +38,11 @@ public class DialogManager : MonoBehaviour
         Instance = this;
 
         myRect = GetComponent<RectTransform>();
+        showInventoryUI = FindObjectOfType<ShowInventoryUI>();
+        
+        originRect = myRect.anchoredPosition;
+        Debug.Log(myRect.rect.y);
+        Debug.Log(originRect);
         GameManager.Instance._onPauseChanged += OnGamePause;
     }
 
@@ -55,6 +65,8 @@ public class DialogManager : MonoBehaviour
     {
         SetPositionPanels();
     }
+
+
 
     public void ClearALLDialog()
     {
@@ -126,6 +138,20 @@ public class DialogManager : MonoBehaviour
             DialogData data = lastDialogs.Pop();
             CreateDialogPanel(data.name, data.str, data.color);
             yield return new WaitForSeconds(3f);
+        }
+    }
+
+    public void SetDialogPos(bool isInventoryDown)
+    {
+        if(isInventoryDown)
+        {
+            myRect.DOAnchorPos(originRect, 0.5f);
+            Debug.Log("내려간다~");
+        }
+        else
+        {
+            myRect.DOAnchorPos(new Vector2(myRect.anchoredPosition.x , originRect.y + 130f), 0.5f);
+            Debug.Log("올라간다~");
         }
     }
 }

@@ -13,13 +13,13 @@ public class ShowInventoryUI : MonoBehaviour
     public Vector3 originRectTrm;
     Dictionary<KeyCode, int> m_keyCallFunc;
 
-    bool isInventoryDown = false;
+    public bool isInventoryDown = false;
 
     private void Start()
     {
         rectTrm = GetComponent<RectTransform>(); 
         
-        originRectTrm = rectTrm.transform.position;
+        originRectTrm = rectTrm.anchoredPosition;
 
         m_keyCallFunc = new Dictionary<KeyCode, int>()
         {
@@ -35,6 +35,9 @@ public class ShowInventoryUI : MonoBehaviour
              {KeyCode.E, 10}
 
         };
+
+        isInventoryDown = true;
+        rectTrm.DOAnchorPos(new Vector3(rectTrm.transform.position.x, -100), 0.5f);
     }
 
     private void Update()
@@ -64,7 +67,8 @@ public class ShowInventoryUI : MonoBehaviour
     public void ShowInventorySlot()
     {
         isInventoryDown = false;
-        rectTrm.transform.DOMove(originRectTrm, 0.5f);
+        rectTrm.DOAnchorPos(originRectTrm, 0.5f);
+        DialogManager.Instance.SetDialogPos(isInventoryDown);
     }
 
     public void DownInventorySlot()
@@ -72,7 +76,8 @@ public class ShowInventoryUI : MonoBehaviour
         if (fadeTime >= 4f && !isInventoryDown)
         {
             isInventoryDown = true;
-            rectTrm.transform.DOMove(new Vector3(rectTrm.transform.position.x, -100), 1f);
+            rectTrm.DOAnchorPos(new Vector3(rectTrm.anchoredPosition.x, -100), 0.5f);
+            DialogManager.Instance.SetDialogPos(isInventoryDown);
         }
     }
 }
