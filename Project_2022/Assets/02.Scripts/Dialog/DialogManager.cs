@@ -71,6 +71,7 @@ public class DialogManager : MonoBehaviour
     public void ClearALLDialog()
     {
         lastDialogs.Clear();
+        dialogs.ForEach(x => x.gameObject.SetActive(false));
     }
 
     private void CreateDialogPanel(string name, string text, Color color)

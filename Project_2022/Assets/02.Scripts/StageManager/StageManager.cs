@@ -38,6 +38,17 @@ public class StageManager : MonoBehaviour
             });
         });
     }
+
+    private IEnumerator StageChanger()
+    {
+        panelHide.gameObject.SetActive(true);
+        stageMsgText.text = "";
+        aiMsgText.text = "";
+        panelHide.rectTransform.DOAnchorPosY(-panelHide.rectTransform.rect.height, 2f);
+
+        yield return new WaitForSeconds(2f);
+
+    }
 }
 
 [CreateAssetMenu(fileName = "StageDialog", menuName = "ScriptableObject/StageChangeDialog")]
