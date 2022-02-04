@@ -69,7 +69,7 @@ public class LoadingSceneManager : MonoBehaviour
             timer += Time.deltaTime;
 
             loadingPercent.text = Mathf.Lerp(0, 100, timer / loadingTime).ToString("##") + "%";
-            loadingIcon.Rotate(new Vector3(0, 0, Mathf.Lerp(0, 180, timer / 2000)));
+            loadingIcon.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(0, 360, timer / loadingTime)));
 
             SetLoadingText((int)Mathf.Lerp(0, 5, timer / loadingTime) % loadingTextsOnEnter.Length);
 
