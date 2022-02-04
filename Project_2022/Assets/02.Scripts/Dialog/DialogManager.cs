@@ -151,7 +151,7 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
-            myRect.DOAnchorPos(new Vector2(myRect.anchoredPosition.x , originRect.y + 130f), 0.5f);
+            myRect.DOAnchorPos(new Vector2(myRect.anchoredPosition.x , originRect.y + 180f), 0.5f);
             Debug.Log("올라간다~");
         }
     }

@@ -66,9 +66,12 @@ public class ShowInventoryUI : MonoBehaviour
 
     public void ShowInventorySlot()
     {
-        isInventoryDown = false;
-        rectTrm.DOAnchorPos(originRectTrm, 0.5f);
-        DialogManager.Instance.SetDialogPos(isInventoryDown);
+        if(transform.childCount > 0)
+        {
+            isInventoryDown = false;
+            rectTrm.DOAnchorPos(originRectTrm, 0.5f);
+            DialogManager.Instance.SetDialogPos(isInventoryDown);
+        }
     }
 
     public void DownInventorySlot()
