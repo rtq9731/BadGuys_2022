@@ -11,6 +11,7 @@ public class BottomIcons : MonoBehaviour
     [SerializeField] Button btnMail;
 
     [SerializeField] Text emailUnreadCount;
+    [SerializeField] Text emailUnreadPanelText;
 
     [SerializeField] GameObject panelQuit;
     [SerializeField] GameObject panelCredit;
@@ -33,6 +34,15 @@ public class BottomIcons : MonoBehaviour
     public void RefreshEmailCounter()
     {
         emailUnreadCount.text = GameManager.Instance.jsonData.emails.FindAll(x => !x.isRead).Count.ToString();
+        if(GameManager.Instance.jsonData.emails.FindAll(x => !x.isRead).Count > 0)
+        {
+            emailUnreadPanelText.transform.parent.gameObject.SetActive(true);
+            emailUnreadPanelText.text = $"확인하지 않은 \n{GameManager.Instance.jsonData.emails.FindAll(x => !x.isRead).Count} 개의 메세지가 있습니다.";
+        }
+        else
+        {
+            emailUnreadPanelText.transform.parent.gameObject.SetActive(false);
+        }
     }
 
     private void OnClickBtnQuit()
