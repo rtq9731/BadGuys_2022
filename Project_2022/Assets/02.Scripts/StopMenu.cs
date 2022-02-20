@@ -47,7 +47,7 @@ public class StopMenu : MonoBehaviour
     private void OnEnable()
     {
         DOTween.PauseAll();
-        //transform.DOScale(1, 0.5f);
+        transform.DOScale(1, 0.5f); // 일시정지의 순서 때문에 한번 더 해줄 필요가 있음.
     }
 
     private void OnDisable()
