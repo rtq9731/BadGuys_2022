@@ -41,7 +41,7 @@ public class SafeManager : MonoBehaviour
             btns[i].DestroySelf();
         }
 
-        safeDoor.transform.DORotate(new Vector3(-90, 0, -180), 1f);
+        safeDoor.transform.DOLocalRotate(new Vector3(-90, 0, -150), 1f);
     }
 
     public void WrongPush()
