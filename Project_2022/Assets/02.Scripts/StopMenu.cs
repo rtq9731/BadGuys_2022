@@ -9,10 +9,9 @@ public class StopMenu : MonoBehaviour
 {
     [SerializeField] Button _btnReturn = null;
     [SerializeField] Button _btnTodo = null;
-    [SerializeField] Button _btnOption = null;
     [SerializeField] Button _btnExit = null;
 
-    [SerializeField] GameObject _optionPanel = null;
+    [SerializeField] PanelOption _optionPanel = null;
     [SerializeField] GameObject _todoPanel = null;
 
     public void Start()
@@ -22,17 +21,15 @@ public class StopMenu : MonoBehaviour
             UIStackManager.RemoveUIOnTop();
         });
 
-        _btnOption.onClick.AddListener(() =>
-        {
-            _optionPanel.gameObject.SetActive(true);
-            _todoPanel.gameObject.SetActive(false);
-        });
-
         _btnTodo.onClick.AddListener(() =>
         {
             _todoPanel.gameObject.SetActive(true);
-            _optionPanel.gameObject.SetActive(false);
         });
+
+        _optionPanel.onChangePanel += () =>
+        {
+            _todoPanel.gameObject.SetActive(false);
+        };
 
         _btnExit.onClick.AddListener(() =>
         {

@@ -13,7 +13,7 @@ public class SetCabinetColor : MonoBehaviour
         {
             materials[i] = transform.GetChild(i).GetComponent<MeshRenderer>().material;
             materials[i].color = color;
-            Debug.Log(i);
+            //Debug.Log(i);
         }
     }
 }
