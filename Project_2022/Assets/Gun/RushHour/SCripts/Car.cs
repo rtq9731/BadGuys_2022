@@ -36,11 +36,6 @@ public class Car : MonoBehaviour
         Unable();
     }
 
-    private void Update()
-    {
-        //Debug.DrawRay(transform.position, Vector3.forward * 2.5f, Color.white);
-    }
-
     private void OnOutLine() // æ∆øÙ∂Û¿Œ ≈¥
     {
         outline.enabled = true;
@@ -263,7 +258,7 @@ public class Car : MonoBehaviour
         RaycastHit hit;
         float size = RushHourManger.Instance.truesize;
         //Debug.LogWarning(size);
-        //Debug.DrawRay(transform.position, dir * 3.5f * size, Color.red);
+        Debug.DrawRay(transform.position, dir * 3.5f * size, Color.red);
 
         if (!isThree) // 2
         {
