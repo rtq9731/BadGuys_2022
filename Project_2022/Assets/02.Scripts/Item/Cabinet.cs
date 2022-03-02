@@ -11,9 +11,6 @@ public class Cabinet : MonoBehaviour, IInteractableItem
 
     private void Start()
     {
-
-
-
         anim = GetComponent<Animator>();
     }
 
