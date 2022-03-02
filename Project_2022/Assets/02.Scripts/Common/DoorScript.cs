@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
-public class DoorScript : MonoBehaviour
+public class DoorScript : MonoBehaviour, IInteractableItem
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject door;
+    [SerializeField] [Range(-180, 180)] float maxRotation;
+    [SerializeField] float duration = 2f;
 
-    // Update is called once per frame
-    void Update()
+    bool isOpen = false;
+
+    public void Interact(GameObject taker)
     {
-        
+        if (!isOpen)
+        {
+            door.transform.DOLocalRotate(Vector3.forward * maxRotation, duration);
+        }
+        else
+        {
+            door.transform.DOLocalRotate(Vector3.zero, duration);
+        }
     }
 }
