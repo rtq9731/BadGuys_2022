@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.Instance.IsPause = true;
-        Debug.Log("¤¾¤·");
         _stopMenu.gameObject.SetActive(true);
     }
 }

@@ -50,7 +50,10 @@ public class DialogManager : MonoBehaviour
     {
         if(isPause)
         {
-            StopCoroutine(cor);
+            if(cor != null)
+            {
+                StopCoroutine(cor);
+            }
         }
         else
         {
