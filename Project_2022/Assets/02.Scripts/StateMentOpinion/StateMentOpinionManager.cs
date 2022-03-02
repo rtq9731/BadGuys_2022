@@ -12,8 +12,8 @@ public class StateMentOpinionManager : MonoBehaviour
     private GameObject paper;
     [SerializeField]
     private float movingTime = 3f;
-    [SerializeField]
-    private float typingSpeed = 2f;
+    //[SerializeField]
+    //private float typingSpeed = 2f;
 
     private int stepNum;
 
@@ -24,8 +24,6 @@ public class StateMentOpinionManager : MonoBehaviour
         MoveStep(0);
         stepNum = 0;
         StartCoroutine(TextClear());
-
-        FindTextAndSet("Patient_name", "ÃµÁø¸¸");
     }
 
     private void Update()
@@ -56,6 +54,19 @@ public class StateMentOpinionManager : MonoBehaviour
 
         StartCoroutine(TextTyping(target, textContent));
         Debug.Log(textName + " = " + textContent);
+    }
+
+    public void FindTextAndSetbyNum(int textNum, string textContent)
+    {
+        Text target = texts[textNum];
+
+        if (target == null)
+        {
+            target = transform.Find(texts[textNum].name).GetComponent<Text>();
+        }
+
+        StartCoroutine(TextTyping(target, textContent));
+        Debug.Log(textNum + " = " + textContent);
     }
 
     public void MoveStep(int num)
