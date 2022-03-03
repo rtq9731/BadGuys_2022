@@ -8,12 +8,14 @@ public class MultiWindowManager : MonoBehaviour
     [SerializeField] List<MultiWindowCell> windowCells = new List<MultiWindowCell>();
     private void Awake()
     {
-        windowCells.ForEach(item => item.OnObjEnable += SortWindows);
-        windowCells.ForEach(item => item.OnObjDisable += SortWindows);
+        windowCells.ForEach(cell =>
+        {
+            cell.OnObjEnable += () => SortWindows(cell);
+        });
     }
 
-    public void SortWindows()
+    public void SortWindows(MultiWindowCell obj)
     {
-        windowCells.Sort();
+        obj.transform.SetAsLastSibling();
     }
 }

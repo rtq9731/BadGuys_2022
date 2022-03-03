@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BottomIcons : MonoBehaviour
 {
+    [SerializeField] MultiWindowManager multiWindow;
     [SerializeField] Button btnQuit;
     [SerializeField] Button btnCredit;
     [SerializeField] Button btnPerson;
@@ -47,21 +48,25 @@ public class BottomIcons : MonoBehaviour
 
     private void OnClickBtnQuit()
     {
+        multiWindow.SortWindows(panelQuit.GetComponent<MultiWindowCell>());
         panelQuit.gameObject.SetActive(true);
     }
 
     private void OnClickBtnCredit()
     {
+        multiWindow.SortWindows(panelCredit.GetComponent<MultiWindowCell>());
         panelCredit.gameObject.SetActive(true);
     }
 
     private void OnClickBtnPerson()
     {
+        multiWindow.SortWindows(panelPersons.GetComponent<MultiWindowCell>());
         panelPersons.gameObject.SetActive(true);
     }
 
     private void OnClickBtnMail()
     {
+        multiWindow.SortWindows(panelEmail.GetComponent<MultiWindowCell>());
         panelEmail.gameObject.SetActive(true);
     }
 }
