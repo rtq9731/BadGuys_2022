@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class MultiWindowManager : MonoBehaviour
 {
-    List<MuitiWindowCell> windowCells = new List<MuitiWindowCell>();
-
-    private void Start()
+    [SerializeField] List<MultiWindowCell> windowCells = new List<MultiWindowCell>();
+    private void Awake()
     {
-        windowCells = transform.GetComponentsInChildren<MuitiWindowCell>().ToList();
+        windowCells.ForEach(item => item.OnObjEnable += SortWindows);
+        windowCells.ForEach(item => item.OnObjDisable += SortWindows);
+    }
 
+    public void SortWindows()
+    {
         windowCells.Sort();
     }
 }
