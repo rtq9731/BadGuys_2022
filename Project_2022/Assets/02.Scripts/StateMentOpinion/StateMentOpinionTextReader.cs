@@ -21,11 +21,12 @@ public class StateMentOpinionTextReader : MonoBehaviour
     void Start()
     {
         //StartCoroutine(ExampleMaker());
-        TextLoadbyNum(0);
+        TextLoadbyNum(0); // 테스트용 
     }
 
     public void TextLoadbyNum(int num)
     {
+        // 0번 방지용
         //if (num == 0)
         //{
         //    Debug.LogError("Text 0번은 example 입니다.");
@@ -46,6 +47,7 @@ public class StateMentOpinionTextReader : MonoBehaviour
             value = reader.ReadToEnd();
             reader.Close();
 
+            Debug.LogWarning(value);
             StartCoroutine(TextSubStrig(value));
         }
         else
@@ -54,7 +56,7 @@ public class StateMentOpinionTextReader : MonoBehaviour
 
     IEnumerator TextSubStrig(string Text)
     {
-        string[] opinionText = Text.Split('#');
+        string[] opinionText = Text.Split('\n');
 
         for (int i = 0; i < SMOM.texts.Count; i++)
         {
