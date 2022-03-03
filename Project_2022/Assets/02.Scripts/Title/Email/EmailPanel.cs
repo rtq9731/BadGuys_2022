@@ -20,7 +20,6 @@ public class EmailPanel : MonoBehaviour
     public void RefreshEmailBtns()
     {
         List<EmailData> emails = GameManager.Instance.LoadEmailData().emails;
-        Debug.Log(emails.Count);
         emails.Sort((x, y) => x.sendTime.CompareTo(y.sendTime));
         for (int i = 0; i < emails.Count; i++)
         {
