@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class PersonScrollView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    List<GameObject> panels = new List<GameObject>();
 }
