@@ -6,19 +6,44 @@ using DG.Tweening;
 
 public class PersonScrollView : MonoBehaviour
 {
-    [SerializeField] List<RectTransform> panels = new List<RectTransform>();
+    [SerializeField] List<PatientInfoPanel> panels = new List<PatientInfoPanel>();
+    [SerializeField] PatientInfoPanel panelPrefab = null;
 
     [SerializeField] Button btnLeft, btnRight, btnSelect;
 
     int curPanelNum = 0;
 
-    private void Start()
+    private void OnEnable()
     {
         panels.ForEach(item => item.transform.DOComplete());
-        RefreshPanels();
+        // RefreshPanels();
 
         btnLeft.onClick.AddListener(OnClickLeft);
         btnRight.onClick.AddListener(OnClickRight);
+        btnSelect.onClick.AddListener(OnClickSelect);
+    }
+
+    public void MakePatientInfoPanel(PatientInfoList data)
+    {
+        panels.ForEach(item => Destroy(item));
+        panels.Clear();
+
+        foreach (var item in data.patientInfos)
+        {
+            panels.Add(GetNewPanel(item));
+        }
+
+        RefreshPanels();
+    }
+
+    private PatientInfoPanel GetNewPanel(PatientInfo data)
+    {
+        PatientInfoPanel result = null;
+        
+        result = Instantiate<PatientInfoPanel>(panelPrefab, transform);
+        result.InitPatientInfoPanel(data);
+
+        return result;
     }
 
     private void OnClickLeft()
@@ -31,7 +56,6 @@ public class PersonScrollView : MonoBehaviour
         curPanelNum--;
         
         RefreshPanels();
-        Debug.Log(curPanelNum);
     }
 
     private void OnClickRight()
@@ -45,6 +69,11 @@ public class PersonScrollView : MonoBehaviour
 
         RefreshPanels();
         Debug.Log(curPanelNum);
+    }
+
+    private void OnClickSelect()
+    {
+        panels[curPanelNum].OnPatientSelect();
     }
 
     private void RefreshPanels()
@@ -69,11 +98,11 @@ public class PersonScrollView : MonoBehaviour
 
             int absPosNumber = Mathf.Abs(posNumber); // Y 위치를 대칭으로 맞추려면 절댓값이 필요함
 
-            panels[i].DOAnchorPos(new Vector3(375 * posNumber, 64 * absPosNumber - 1, 0), 0.5f);
+            panels[i].GetComponent<RectTransform>().DOAnchorPos(new Vector3(375 * posNumber, 64 * absPosNumber - 1, 0), 0.5f);
 
             if (i == curPanelNum)
             {
-                panels[i].SetAsLastSibling();
+                panels[i].transform.SetAsLastSibling();
             }
         }
     }

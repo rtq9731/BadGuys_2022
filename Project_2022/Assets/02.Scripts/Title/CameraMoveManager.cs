@@ -80,6 +80,9 @@ public class CameraMoveManager : MonoBehaviour
 
     public void GoToVR(string sceneName)
     {
+        if (SceneManager.GetActiveScene().name == sceneName)
+            return;
+
         StartCoroutine(GoToVRScreen(sceneName));
     }
 
