@@ -16,7 +16,7 @@ public class BottomIcons : MonoBehaviour
 
     [SerializeField] GameObject panelQuit;
     [SerializeField] GameObject panelCredit;
-    [SerializeField] GameObject panelPersons;
+    [SerializeField] GameObject panelPatient;
     [SerializeField] GameObject panelEmail;
 
     private void Awake()
@@ -60,8 +60,8 @@ public class BottomIcons : MonoBehaviour
 
     private void OnClickBtnPerson()
     {
-        multiWindow.SortWindows(panelPersons.GetComponent<MultiWindowCell>());
-        panelPersons.gameObject.SetActive(true);
+        multiWindow.SortWindows(panelPatient.GetComponent<MultiWindowCell>());
+        panelPatient.gameObject.SetActive(true);
     }
 
     private void OnClickBtnMail()

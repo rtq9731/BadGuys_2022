@@ -9,15 +9,8 @@ public class TitlePCUIManager : MonoBehaviour
     [SerializeField] Button btnPerson = null;
     [SerializeField] Button btnInfomation = null;
 
-    [SerializeField] Button btnGoTutorial = null;
-
     private void Awake()
     {
         btnQuit.onClick.AddListener(Application.Quit);
-        btnGoTutorial.onClick.AddListener(() =>
-        {
-            FindObjectOfType<CameraMoveManager>().GoToVR();
-            // LoadingManager.LoadScene("Tutorial");
-        });
     }
 }

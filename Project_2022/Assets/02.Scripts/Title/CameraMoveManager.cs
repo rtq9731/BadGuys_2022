@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CameraMoveManager : MonoBehaviour
 {
@@ -77,12 +78,12 @@ public class CameraMoveManager : MonoBehaviour
         vCamMoniter.SetActive(true);
     }
 
-    public void GoToVR()
+    public void GoToVR(string sceneName)
     {
-        StartCoroutine(GoToVRScreen());
+        StartCoroutine(GoToVRScreen(sceneName));
     }
 
-    IEnumerator GoToVRScreen()
+    IEnumerator GoToVRScreen(string sceneName)
     {
         panelEquip.SetActive(true);
 
@@ -96,6 +97,6 @@ public class CameraMoveManager : MonoBehaviour
         }
         vrAnim.enabled = true;
         yield return new WaitForSeconds(vrAnim.GetCurrentAnimatorClipInfo(0).Length);
-        cgVR.DOFade(1, 0.3f).OnComplete(() => LoadingManager.LoadScene("Tutorial", false));
+        cgVR.DOFade(1, 0.3f).OnComplete(() => LoadingManager.LoadScene(sceneName, false));
     }
 }

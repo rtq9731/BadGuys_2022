@@ -6,8 +6,6 @@ using DG.Tweening;
 
 public static class LoadingManager
 {
-    static string sceneName = "";
-
     public static void LoadScene(string sceneName, bool isExit)
     {
         DOTween.CompleteAll();
