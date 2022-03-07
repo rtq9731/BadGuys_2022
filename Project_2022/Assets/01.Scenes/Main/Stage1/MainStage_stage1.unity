@@ -607,7 +607,7 @@ PrefabInstance:
     - target: {fileID: 7197224028007607571, guid: ae1544b139f9fe649bb642d26474d617,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae1544b139f9fe649bb642d26474d617, type: 3}
@@ -631,7 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineWidth: 10
   outlineMode: 2
-  outlineColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &42046132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,7 +650,26 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!114 &42046133
+--- !u!95 &42046133
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42046130}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b94bed7b973aa143b125b5f6a5cdafd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &42046138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -659,9 +678,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 42046130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73259fceae313e146ab973966604204a, type: 3}
+  m_Script: {fileID: 11500000, guid: 64404186a7ff65e4b9c2003102530e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpen: 0
 --- !u!1001 &54996156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6826,9 +6846,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1058205511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e88306be6f7a4c468034c9444163cd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 64404186a7ff65e4b9c2003102530e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOpen: 0
 --- !u!95 &1058205513
 Animator:
   serializedVersion: 3
@@ -6839,7 +6860,7 @@ Animator:
   m_GameObject: {fileID: 1058205511}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c217ffcf9c5138946995a5d6e036deec, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5ebd6740325480c418a22f8255725cc3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6848,6 +6869,39 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1058205518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058205511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &1058205519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058205511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58958dfe369700141808695022fa2ccc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineWidth: 10
+  outlineMode: 2
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1067148670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5057849357938845739, guid: bc79b4c0d4a580144aeb0f6d1051aa31,
@@ -7588,7 +7642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cebef945ecf0144ebed0ceaec9f7903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerArmLength: 5
+  _playerArmLength: 3
   _whatIsTouchable:
     serializedVersion: 2
     m_Bits: 55
