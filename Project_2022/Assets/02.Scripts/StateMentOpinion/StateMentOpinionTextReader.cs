@@ -58,10 +58,10 @@ public class StateMentOpinionTextReader : MonoBehaviour
     {
         string[] opinionText = Text.Split('\n');
 
-        for (int i = 0; i < SMOM.texts.Count; i++)
+        for (int i = 0; i < SMOM.texts.Count - 1; i++)
         {
             SMOM.FindTextAndSetbyNum(i, opinionText[i]);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         yield return null;

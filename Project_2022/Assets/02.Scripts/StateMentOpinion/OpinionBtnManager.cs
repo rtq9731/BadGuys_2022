@@ -29,6 +29,7 @@ public class OpinionBtnManager : MonoBehaviour
         {
             for (int i = 0; i < Btns.Length; i++)
             {
+                CloseAllParents();
                 Btns[i].GetComponent<Button>().interactable = false;
             }
         }

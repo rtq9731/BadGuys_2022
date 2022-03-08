@@ -18,6 +18,8 @@ public class StateMentOpinionManager : MonoBehaviour
             Debug.LogError("StateMentOpinionManager가 2개 이상입니다.");
             Destroy(this);
         }
+
+        startCameraMove = false;
     }
 
     [SerializeField]
@@ -33,29 +35,35 @@ public class StateMentOpinionManager : MonoBehaviour
     public UnityEvent<int> Cameramoving;
     public List<Text> texts;
 
+    private bool startCameraMove;
+
     private void Start()
     {
         MoveStep(0);
         stepNum = 0;
         StartCoroutine(TextClear());
+        StartCoroutine(StartCutScene());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (startCameraMove == true)
         {
-            stepNum--;
-            if (stepNum < 0) stepNum = 0;
-            MoveStep(stepNum);
-            Cameramoving.Invoke(stepNum);
-        }
+            if (Input.GetKeyDown(KeyCode.W) && stepNum > 0)
+            {
+                stepNum--;
+                if (stepNum < 0) stepNum = 0;
+                MoveStep(stepNum);
+                Cameramoving.Invoke(stepNum);
+            }
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            stepNum++;
-            if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
-            MoveStep(stepNum);
-            Cameramoving.Invoke(stepNum);
+            if (Input.GetKeyDown(KeyCode.S) && stepNum < movePos.Count - 1)
+            {
+                stepNum++;
+                if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
+                MoveStep(stepNum);
+                Cameramoving.Invoke(stepNum);
+            }
         }
     }
 
@@ -101,6 +109,18 @@ public class StateMentOpinionManager : MonoBehaviour
         yield return new WaitForSeconds(0f);
     }
 
+    private IEnumerator StartCutScene()
+    {
+        float downSec = 8f;
+
+        yield return new WaitForSeconds(5f);
+        paper.transform.DOMove(movePos[2].transform.position, downSec);
+        yield return new WaitForSeconds(downSec);
+        startCameraMove = true;
+        stepNum = 2;
+        Cameramoving.Invoke(stepNum);
+    }
+
     private IEnumerator TextTyping(Text targetText, string content)
     {
         yield return new WaitForSeconds(0f);
@@ -108,7 +128,7 @@ public class StateMentOpinionManager : MonoBehaviour
         {
             targetText.text = content.Substring(0, i);
 
-            float delay = Random.Range(0.1f, 0.3f);
+            float delay = Random.Range(0.1f, 0.2f);
             yield return new WaitForSeconds(delay);
         }
 
