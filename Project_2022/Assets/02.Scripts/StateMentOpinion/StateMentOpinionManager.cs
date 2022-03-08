@@ -2,10 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using DG.Tweening;
 
 public class StateMentOpinionManager : MonoBehaviour
 {
+    public static StateMentOpinionManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Debug.LogError("StateMentOpinionManager가 2개 이상입니다.");
+            Destroy(this);
+        }
+    }
+
     [SerializeField]
     private List<GameObject> movePos;
     [SerializeField]
@@ -15,8 +29,8 @@ public class StateMentOpinionManager : MonoBehaviour
     //[SerializeField]
     //private float typingSpeed = 2f;
 
-    private int stepNum;
-
+    public int stepNum;
+    public UnityEvent<int> Cameramoving;
     public List<Text> texts;
 
     private void Start()
@@ -33,6 +47,7 @@ public class StateMentOpinionManager : MonoBehaviour
             stepNum--;
             if (stepNum < 0) stepNum = 0;
             MoveStep(stepNum);
+            Cameramoving.Invoke(stepNum);
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -40,6 +55,7 @@ public class StateMentOpinionManager : MonoBehaviour
             stepNum++;
             if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
             MoveStep(stepNum);
+            Cameramoving.Invoke(stepNum);
         }
     }
 
