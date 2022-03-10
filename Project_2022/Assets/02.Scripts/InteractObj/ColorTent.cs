@@ -7,30 +7,33 @@ public class ColorTent : MonoBehaviour, IInteractAndGetItemObj
 {
     [SerializeField] ItemInfo keyItem = null;
     [SerializeField] ItemInfo returnItem = null;
+    [SerializeField] OutlinerOnMouseEnter outline = null;
     [SerializeField] GameObject itemObj = null;
     [SerializeField] GameObject dissolveObj = null;
     [SerializeField] GameObject originObj = null;
 
+    [SerializeField] float duration = 0f;
+
     Material dissolveMat = null;
-    bool canInteract = false;
+    bool canInteract = true;
 
     private void Start()
     {
         dissolveMat = dissolveObj.GetComponent<MeshRenderer>().material;
     }
 
-    public void Interact(ItemInfo itemInfo)
+    public void Interact(ItemInfo itemInfo, GameObject taker)
     {
         if (!canInteract)
             return;
 
-        if (itemInfo.itemName == keyItem.itemName)
+        //if (itemInfo.itemName == keyItem.itemName)
         {
-            DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), 50f, 3f).OnComplete(() =>
-            {
-                originObj.SetActive(false);
-            });
-            FindObjectOfType<Inventory>().PickUpItem(returnItem, null, null);
+            DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), 50f, duration);
+            itemObj.SetActive(true);
+            outline.enabled = false;
+            //FindObjectOfType<Inventory>().PickUpItem(returnItem, itemObj, taker);
+            canInteract = false;
         }
     }
 }

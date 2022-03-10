@@ -19,9 +19,10 @@ public class PlayerPickUpManager : MonoBehaviour
 
     public void CanInteractObj(IInteractAndGetItemObj curObj, ItemInfo itemInfo)
     {
+        Debug.Log(curObj);
         if (Input.GetKeyDown(KeyCode.E))
         {
-            curObj.Interact(itemInfo);
+            curObj.Interact(itemInfo, itemTakePos);
             return;
         }
     }

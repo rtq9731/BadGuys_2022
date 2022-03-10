@@ -24,6 +24,7 @@ public class PlayerMouseInput : MonoBehaviour
         _playerController = FindObjectOfType<PlayerController>();
         _playerPickUpManager = FindObjectOfType<PlayerPickUpManager>();
         _inventoryInput = FindObjectOfType<InventoryInput>();
+        _inventory = FindObjectOfType<Inventory>();
 
         _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
         _onObjOverMouse += _playerPickUpManager.CanInteractObj;
@@ -59,9 +60,16 @@ public class PlayerMouseInput : MonoBehaviour
                 _curTouchObj?.GetComponents<IPlayerMouseEnterHandler>()?.ToList().ForEach(x => x.OnPlayerMouseEnter());
             }
 
+            IInteractAndGetItemObj curObj = hitInfo.transform.GetComponent<IInteractAndGetItemObj>();
+            if (curObj != null && _inventory.MainItem != null)
+            {
+                Debug.Log("obj");
+                _onObjOverMouse(curObj, _inventory.MainItem);
+                return;
+            }
+
             //
             IInteractableItem curItem = hitInfo.transform.GetComponent<Item>();
-            IInteractAndGetItemObj curObj = hitInfo.transform.GetComponent<IInteractAndGetItemObj>();
             if (curItem != null)
             {
                 _onItemOverMouse(curItem);
@@ -70,10 +78,6 @@ public class PlayerMouseInput : MonoBehaviour
             {
                 curItem = hitInfo.transform.GetComponent<IInteractableItem>();
                 _onItemOverMouse(curItem);
-            }
-            else if (curObj != null)
-            {
-                _onObjOverMouse(curObj, _inventory.MainItem);
             }
             else
             {

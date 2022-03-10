@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IInteractAndGetItemObj
 {
-    public void Interact(ItemInfo itemInfo);
+    public void Interact(ItemInfo itemInfo, GameObject taker);
 }
