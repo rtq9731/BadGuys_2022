@@ -9,7 +9,12 @@ public class OpinionBtnManager : MonoBehaviour
     [SerializeField]
     private ParentsBtn[] Btns;
     [SerializeField]
-    private int camStep = 2;
+    private int camStep;
+
+    private void Awake()
+    {
+        camStep = StateMentOpinionManager.Instance.opinionStep;
+    }
 
     private void Start()
     {

@@ -32,6 +32,7 @@ public class StateMentOpinionManager : MonoBehaviour
     //private float typingSpeed = 2f;
 
     public int stepNum;
+    public int opinionStep = 1;
     public UnityEvent<int> Cameramoving;
     public List<Text> texts;
 
@@ -114,10 +115,10 @@ public class StateMentOpinionManager : MonoBehaviour
         float downSec = 8f;
 
         yield return new WaitForSeconds(5f);
-        paper.transform.DOMove(movePos[2].transform.position, downSec);
+        paper.transform.DOMove(movePos[opinionStep].transform.position, downSec);
         yield return new WaitForSeconds(downSec);
         startCameraMove = true;
-        stepNum = 2;
+        stepNum = opinionStep;
         Cameramoving.Invoke(stepNum);
     }
 
