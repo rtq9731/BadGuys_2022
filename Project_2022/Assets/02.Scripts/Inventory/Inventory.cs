@@ -27,9 +27,6 @@ public class Inventory : MonoBehaviour
     private GameObject slotParents;
     [SerializeField]
     private Transform itemEatPos;
-    [SerializeField]
-    private Transform itemViewPos;
-
 
     //public Button[] buttons;
 
@@ -53,16 +50,7 @@ public class Inventory : MonoBehaviour
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
         creatSlot = GetComponentInChildren<CreatSlot>();
         createRender = FindObjectOfType<CreateRenderTextureCam>();
-        //slots = slotParents.GetComponentsInChildren<Slot>();
-        //buttons = slotParents.GetComponentsInChildren<Button>();
-
-        //for (int i = 0; i < buttons.Length-1; i++)
-        //{
-        //    buttons[i].onClick.AddListener(() =>
-        //    {
-        //        ShowItemInfo();
-        //    });
-        //}
+        
     }
 
     private void Update()
@@ -124,7 +112,6 @@ public class Inventory : MonoBehaviour
     {
         obj.transform.GetComponent<Collider>().enabled = false;
         obj.transform.GetComponent<Rigidbody>().useGravity = false;
-        obj.transform.SetParent(itemViewPos);
         obj.transform.DOScale(0, 0.4f);
 
         float t = 0f;
@@ -141,7 +128,6 @@ public class Inventory : MonoBehaviour
             }
             yield return null;
         }
-        Debug.Log("asd");
         DOTween.Kill(obj.transform);
         createRender.CreateRenderCam(obj);
     }
