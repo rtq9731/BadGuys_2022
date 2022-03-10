@@ -31,7 +31,7 @@ public class ColorTent : MonoBehaviour, IInteractAndGetItemObj
         {
             DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), 50f, duration);
             itemObj.SetActive(true);
-            outline.enabled = false;
+            outline.gameObject.SetActive(false);
             //FindObjectOfType<Inventory>().PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
         }
