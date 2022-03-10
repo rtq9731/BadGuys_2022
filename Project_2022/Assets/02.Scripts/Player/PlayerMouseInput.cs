@@ -63,7 +63,6 @@ public class PlayerMouseInput : MonoBehaviour
             IInteractAndGetItemObj curObj = hitInfo.transform.GetComponent<IInteractAndGetItemObj>();
             if (curObj != null && _inventory.MainItem != null)
             {
-                Debug.Log("obj");
                 _onObjOverMouse(curObj, _inventory.MainItem);
                 return;
             }

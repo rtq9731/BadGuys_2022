@@ -27,6 +27,6 @@ public class PanelOption : MonoBehaviour
     private void RefreshPanels()
     {
         onChangePanel?.Invoke();
-        panels.ForEach(x => x.gameObject.SetActive(false));
+        panels.ForEach(x => x.gameObject.SetActive(false)); 
     }
 }
