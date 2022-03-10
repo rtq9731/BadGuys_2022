@@ -12,8 +12,6 @@ public class CreateRenderTextureCam : MonoBehaviour
 
     public GameObject renderCam;
 
-
-
     public void CreateRenderCam(GameObject itemObj)
     {
         float x = 0;
@@ -46,9 +44,6 @@ public class CreateRenderTextureCam : MonoBehaviour
         itemObj.SetActive(true);
 
         RenderTexture renderTexture = new RenderTexture(256,256,24, RenderTextureFormat.Default);
-
-        
-
 
         obj.GetComponent<Camera>().targetTexture = renderTexture;
 
