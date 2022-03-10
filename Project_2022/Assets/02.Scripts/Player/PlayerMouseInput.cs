@@ -11,10 +11,12 @@ public class PlayerMouseInput : MonoBehaviour
     PlayerController _playerController;
     PlayerPickUpManager _playerPickUpManager;
     InventoryInput _inventoryInput;
+    Inventory _inventory = null;
 
     Transform _curTouchObj = null;
 
     private Action<IInteractableItem> _onItemOverMouse = (x) => { };
+    private Action<IInteractAndGetItemObj, ItemInfo> _onObjOverMouse = (x, y) => { };
     private Action _onItemExitMouse = () => { };
 
     private void Awake()
@@ -22,10 +24,11 @@ public class PlayerMouseInput : MonoBehaviour
         _playerController = FindObjectOfType<PlayerController>();
         _playerPickUpManager = FindObjectOfType<PlayerPickUpManager>();
         _inventoryInput = FindObjectOfType<InventoryInput>();
+        _inventory = FindObjectOfType<Inventory>();
 
         _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
+        _onObjOverMouse += _playerPickUpManager.CanInteractObj;
         _onItemOverMouse += _inventoryInput.RemoveItmeFalse;
-        _onItemExitMouse += () => _playerPickUpManager.ShowPickUpIcon(false);
         
     }
 
@@ -55,6 +58,13 @@ public class PlayerMouseInput : MonoBehaviour
                 _curTouchObj?.GetComponents<IPlayerMouseExitHandler>()?.ToList().ForEach(x => x.OnPlayerMouseExit());
                 _curTouchObj = hitInfo.transform;
                 _curTouchObj?.GetComponents<IPlayerMouseEnterHandler>()?.ToList().ForEach(x => x.OnPlayerMouseEnter());
+            }
+
+            IInteractAndGetItemObj curObj = hitInfo.transform.GetComponent<IInteractAndGetItemObj>();
+            if (curObj != null && _inventory.MainItem != null)
+            {
+                _onObjOverMouse(curObj, _inventory.MainItem);
+                return;
             }
 
             //
