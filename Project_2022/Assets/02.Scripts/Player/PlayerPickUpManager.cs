@@ -12,11 +12,18 @@ public class PlayerPickUpManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ShowPickUpIcon(false);
             curItem.Interact(itemTakePos);
             return;
         }
-        ShowPickUpIcon(true);
+    }
+
+    public void CanInteractObj(IInteractAndGetItemObj curObj, ItemInfo itemInfo)
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            curObj.Interact(itemInfo);
+            return;
+        }
     }
 
     public void ShowPickUpIcon(bool isItemOn)
