@@ -25,7 +25,7 @@ public class PersonScrollView : MonoBehaviour
 
     public void MakePatientInfoPanel(PatientInfoList data)
     {
-        panels.ForEach(item => Destroy(item));
+        panels.ForEach(item => Destroy(item.gameObject));
         panels.Clear();
 
         foreach (var item in data.patientInfos)
