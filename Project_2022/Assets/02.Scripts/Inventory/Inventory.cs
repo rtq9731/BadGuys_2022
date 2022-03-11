@@ -110,8 +110,14 @@ public class Inventory : MonoBehaviour
 
     IEnumerator EatItem(GameObject obj)
     {
-        obj.transform.GetComponent<Collider>().enabled = false;
-        obj.transform.GetComponent<Rigidbody>().useGravity = false;
+        Collider col = obj.transform.GetComponent<Collider>();
+        if (col != null)
+            col.enabled = false;
+
+        Rigidbody rigid = obj.transform.GetComponent<Rigidbody>();
+        if (rigid != null)
+            rigid.useGravity = false;
+
         obj.transform.DOScale(0, 0.4f);
 
         float t = 0f;

@@ -60,11 +60,26 @@ public class PlayerMouseInput : MonoBehaviour
                 _curTouchObj?.GetComponents<IPlayerMouseEnterHandler>()?.ToList().ForEach(x => x.OnPlayerMouseEnter());
             }
 
-            IInteractAndGetItemObj curObj = hitInfo.transform.GetComponent<IInteractAndGetItemObj>();
-            if (curObj != null && _inventory.MainItem != null)
+            if(_inventory.MainItem != null)
             {
-                _onObjOverMouse(curObj, _inventory.MainItem);
-                return;
+                IInteractAndGetItemObj curObj = hitInfo.transform.GetComponent<IInteractAndGetItemObj>();
+                if (curObj != null)
+                {
+                    _onObjOverMouse(curObj, _inventory.MainItem);
+                    return;
+                }
+                else
+                {
+                    if (hitInfo.transform.parent != null)
+                    {
+                        curObj = hitInfo.transform.parent.transform.GetComponent<IInteractAndGetItemObj>();
+                        if (curObj != null)
+                        {
+                            _onObjOverMouse(curObj, _inventory.MainItem);
+                            return;
+                        }
+                    }
+                }
             }
 
             //
