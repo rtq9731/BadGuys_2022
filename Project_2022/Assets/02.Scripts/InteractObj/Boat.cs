@@ -39,7 +39,7 @@ public class Boat : MonoBehaviour, IInteractableItem
     {
         if(transform.position == originPos)
         {
-            StartMove();
+            StartCoroutine(StartMove());
         }
         else
         {
@@ -66,9 +66,10 @@ public class Boat : MonoBehaviour, IInteractableItem
             yield return null;
         }
 
-        transform.DOMoveX(230f, 15f);
 
-        yield return null;
+        yield return new WaitForSeconds(0.4f);
+        transform.DOMoveX(230f, 20f);
+
     }
 
 

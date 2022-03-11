@@ -1963,6 +1963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 931124498}
   - component: {fileID: 931124499}
+  - component: {fileID: 931124500}
   m_Layer: 0
   m_Name: CM vcam3
   m_TagString: Untagged
@@ -2020,6 +2021,22 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1102593700}
+--- !u!114 &931124500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931124497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cebef945ecf0144ebed0ceaec9f7903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerArmLength: 5
+  _whatIsTouchable:
+    serializedVersion: 2
+    m_Bits: 55
 --- !u!1 &986592987
 GameObject:
   m_ObjectHideFlags: 0
@@ -2498,6 +2515,7 @@ MonoBehaviour:
   inventory: {fileID: 658755288}
   sunObj: {fileID: 0}
   boatCam: {fileID: 931124497}
+  mainCam: {fileID: 0}
 --- !u!1 &1136098330
 GameObject:
   m_ObjectHideFlags: 0
