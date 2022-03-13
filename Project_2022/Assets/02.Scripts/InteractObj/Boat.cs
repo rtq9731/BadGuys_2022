@@ -29,10 +29,7 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     private void Update()
     {
-        if(Input.anyKey)
-        {
-            return; 
-        }
+        ReturnMove();
     }
 
     public void Interact(GameObject taker)
@@ -41,16 +38,11 @@ public class Boat : MonoBehaviour, IInteractableItem
         {
             StartCoroutine(StartMove());
         }
-        else
-        {
-            ReturnMove();
-        }
     }
 
     // 플레이어 이동제한, UI없애는 함수
     void SetPlayerInput(bool isCanMove)
     {
-
         isMove = isCanMove;
     }
 
@@ -66,24 +58,30 @@ public class Boat : MonoBehaviour, IInteractableItem
             yield return null;
         }
 
-
         yield return new WaitForSeconds(0.4f);
-        transform.DOMoveX(230f, 20f);
-
+        transform.DOMoveX(230f, 20f).OnComplete(() =>
+        {
+            inventory.SetActive(true);
+            SetPlayerInput(false);
+        });
     }
-
-
 
     // 처음 자리로 돌아가는 함수
     private void ReturnMove()
     {
-        TurnBoat();
-        transform.DOMove(originPos, 10f).OnComplete(() =>
+        if(Input.GetKeyDown(KeyCode.R))
         {
-            TakeOffBoat();
-        });
-    }
+            DOTween.KillAll();
 
+            TurnBoat();
+            inventory.SetActive(false);
+            transform.DOMove(originPos, 5f).OnComplete(() =>
+            {
+                TakeOffBoat();
+                inventory.SetActive(true);
+            });
+        }
+    }
 
     // 보트에서 내리는 함수
     private void TakeOffBoat()
