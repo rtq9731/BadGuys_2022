@@ -38,7 +38,6 @@ public class DialogManager : MonoBehaviour
         Instance = this;
 
         myRect = GetComponent<RectTransform>();
-        showInventoryUI = FindObjectOfType<ShowInventoryUI>();
         
         originRect = myRect.anchoredPosition;
         Debug.Log(myRect.rect.y);
@@ -46,8 +45,16 @@ public class DialogManager : MonoBehaviour
         GameManager.Instance._onPauseChanged += OnGamePause;
     }
 
+    private void Start()
+    {
+        showInventoryUI = FindObjectOfType<ShowInventoryUI>();
+    }
+
     void OnGamePause(bool isPause)
     {
+        if (!Application.isPlaying)
+            return;
+
         if(isPause)
         {
             if(cor != null)
@@ -57,7 +64,7 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
-            if (cor == null)
+            if (cor == null && gameObject.activeSelf)
             {
                 cor = StartCoroutine(PlayDialog());
             }
