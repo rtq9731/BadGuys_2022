@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] Transform camTrm = null;
+    [SerializeField] public Transform camTrm = null;
     [Header("Control Settings")]
     public float _mouseSensitivity = 100.0f;
     public float _playerSpeed = 5.0f;

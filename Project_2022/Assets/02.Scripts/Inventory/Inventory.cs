@@ -118,6 +118,8 @@ public class Inventory : MonoBehaviour
         if (rigid != null)
             rigid.useGravity = false;
 
+        float objScale = obj.transform.localScale.x;
+
         obj.transform.DOScale(0, 0.4f);
 
         float t = 0f;
@@ -135,7 +137,8 @@ public class Inventory : MonoBehaviour
             yield return null;
         }
         DOTween.Kill(obj.transform);
-        createRender.CreateRenderCam(obj);
+        createRender.CreateRenderCam(obj, objScale);
+
     }
 
     //public void ShowItemInfo()

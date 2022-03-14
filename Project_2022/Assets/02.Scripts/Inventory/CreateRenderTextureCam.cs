@@ -12,7 +12,7 @@ public class CreateRenderTextureCam : MonoBehaviour
 
     public GameObject renderCam;
 
-    public void CreateRenderCam(GameObject itemObj)
+    public void CreateRenderCam(GameObject itemObj, float originScale)
     {
         float x = 0;
 
@@ -30,7 +30,7 @@ public class CreateRenderTextureCam : MonoBehaviour
         itemObj.transform.SetParent(obj.transform.GetChild(0));
         
         itemObj.transform.position = obj.transform.GetChild(0).position;
-        itemObj.transform.DOScale(0.1f, 0.1f);
+        itemObj.transform.DOScale(originScale, 0.1f);
 
         if(itemObj.name == "Truck")
         {

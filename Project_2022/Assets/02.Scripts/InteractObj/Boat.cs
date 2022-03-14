@@ -13,6 +13,8 @@ public class Boat : MonoBehaviour, IInteractableItem
     private GameObject boatCam;
     [SerializeField]
     private GameObject mainCam;
+    [SerializeField]
+    private GameObject playerCam;
 
 
     private RectTransform rectTrm;
@@ -21,10 +23,14 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     private bool isMove = false;
 
+    Animator anim;
+
     private void Start()
     {
         rectTrm = inventory.transform.GetChild(0).GetComponent<RectTransform>();
         originPos = transform.position;
+
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -52,14 +58,17 @@ public class Boat : MonoBehaviour, IInteractableItem
         SetPlayerInput(true);
         boatCam.SetActive(true);
         inventory.SetActive(false);
+        anim.SetBool("IsBoat", true);
 
-        while(Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
+        playerCam.GetComponentInParent<PlayerController>().camTrm = boatCam.transform;
+
+        while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
 
         yield return new WaitForSeconds(0.4f);
-        transform.DOMoveX(230f, 20f).OnComplete(() =>
+        transform.DOMoveX(230f, 15f).SetEase(Ease.Unset).OnComplete(() =>
         {
             inventory.SetActive(true);
             SetPlayerInput(false);
@@ -75,30 +84,36 @@ public class Boat : MonoBehaviour, IInteractableItem
 
             TurnBoat();
             inventory.SetActive(false);
-            transform.DOMove(originPos, 5f).OnComplete(() =>
-            {
-                TakeOffBoat();
-                inventory.SetActive(true);
-            });
+            
         }
     }
 
     // 보트에서 내리는 함수
     private void TakeOffBoat()
     {
-        boatCam.SetActive(false);
+        transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
+        {
+            playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
+            anim.SetBool("IsBoat", false);
+            boatCam.SetActive(false);
+        });
     }
+
 
     // 보트 돌리는 함수
     private void TurnBoat()
     {
-        if(transform.position == originPos)
+        if(transform.position != originPos)
         {
-            transform.DORotate(new Vector3(0, 90), 2f);
-        }
-        else
-        {
-            transform.DORotate(new Vector3(0, -90), 2f);
+            transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
+            {
+                transform.DOMove(originPos, 5f).OnComplete(() =>
+                {
+                    TakeOffBoat();
+                    inventory.SetActive(true);
+
+                });
+            });
         }
     }
 }
