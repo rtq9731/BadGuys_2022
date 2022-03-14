@@ -23,14 +23,14 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     private bool isMove = false;
 
-    Animator anim;
+    Animator[] anim;
 
     private void Start()
     {
         rectTrm = inventory.transform.GetChild(0).GetComponent<RectTransform>();
         originPos = transform.position;
 
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponentsInChildren<Animator>();
     }
 
     private void Update()
@@ -58,7 +58,11 @@ public class Boat : MonoBehaviour, IInteractableItem
         SetPlayerInput(true);
         boatCam.SetActive(true);
         inventory.SetActive(false);
-        anim.SetBool("IsBoat", true);
+        
+        for(int i = 0; i < 2; i ++)
+        {
+            anim[i].SetBool("IsBoat", true);
+        }
 
         playerCam.GetComponentInParent<PlayerController>().camTrm = boatCam.transform;
 
@@ -78,7 +82,7 @@ public class Boat : MonoBehaviour, IInteractableItem
     // 처음 자리로 돌아가는 함수
     private void ReturnMove()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R) && isMove)
         {
             DOTween.KillAll();
 
@@ -94,7 +98,10 @@ public class Boat : MonoBehaviour, IInteractableItem
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
-            anim.SetBool("IsBoat", false);
+            for (int i = 0; i < 2; i++)
+            {
+                anim[i].SetBool("IsBoat", false);
+            }
             boatCam.SetActive(false);
         });
     }
