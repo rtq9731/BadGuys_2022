@@ -5,16 +5,20 @@ using DG.Tweening;
 
 public class Bridge : ColorRemoveObjParent
 {
-    [SerializeField] List<GameObject> dessolveObjs = new List<GameObject>();
-    List<Material> dessolveMats = new List<Material>();
+    [SerializeField] List<GameObject> dissolveObjs = new List<GameObject>();
+    List<Material> dissolveMats = new List<Material>();
 
     public override void Start()
     {
-        base.Start();
-        for (int i = 0; i < dessolveObjs.Count; i++)
+        onInteract += () => enabled = false;
+        for (int i = 0; i < dissolveObjs.Count; i++)
         {
-            dessolveMats.Add(dessolveObjs[i].GetComponent<MeshRenderer>().material);
+            Material curMat = dissolveObjs[i].GetComponent<MeshRenderer>().material;
+            curMat.SetFloat("_NoiseScale", noiseScale);
+            dissolveMats.Add(curMat);
         }
+        inventory = FindObjectOfType<Inventory>();
+        outline.enabled = false;
     }
 
     public override void Interact(ItemInfo itemInfo, GameObject taker)
@@ -25,15 +29,17 @@ public class Bridge : ColorRemoveObjParent
 
         if (itemInfo.itemName == keyItem.itemName)
         {
-            foreach (var item in dessolveMats)
+            for (int i = 0; i < dissolveMats.Count; i++)
             {
-                Material dessolveMat = item;
+                Material dissolveMat = dissolveMats[i];
+                Debug.Log(dissolveMat);
                 DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), dissolveStrength, dissolveDuration);
             }
 
             itemObj.SetActive(true);
             inventory.PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
+            onInteract?.Invoke();
         }
     }
 

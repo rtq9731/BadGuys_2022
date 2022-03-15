@@ -16,6 +16,7 @@ public class Tent : ColorRemoveObjParent
             itemObj.SetActive(true);
             inventory.PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
+            onInteract?.Invoke();
         }
     }
 
