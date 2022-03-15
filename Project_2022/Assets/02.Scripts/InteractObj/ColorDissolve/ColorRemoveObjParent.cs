@@ -23,7 +23,7 @@ public abstract class ColorRemoveObjParent : MonoBehaviour, IInteractAndGetItemO
     protected Inventory inventory = null;
 
     protected Material dissolveMat = null;
-    private void Start()
+    public virtual void Start()
     {
         onInteract += () => enabled = false;
         dissolveMat = dissolveObj.GetComponent<MeshRenderer>().material;
@@ -36,7 +36,7 @@ public abstract class ColorRemoveObjParent : MonoBehaviour, IInteractAndGetItemO
 
     public virtual void OnPlayerMouseEnter()
     {
-        if ( inventory.MainItem == keyItem)
+        if (inventory.MainItem == keyItem && canInteract)
         {
             outline.enabled = true;
         }
