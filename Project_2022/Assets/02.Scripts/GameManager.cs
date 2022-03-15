@@ -50,8 +50,9 @@ public class GameManager : MonoBehaviour
     {
         if(_instance != null)
         {
-            Destroy(_instance.gameObject);
+            Destroy(this.gameObject);
         }
+
         _instance = this;
         DontDestroyOnLoad(_instance.gameObject);
 
@@ -84,5 +85,21 @@ public class GameManager : MonoBehaviour
             Debug.Log(Application.persistentDataPath + fileName);
             return jsonData = JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
         }
+    }
+
+    public string playerName = "ȫ�浿";
+    public bool canState;
+    public int stateNum;
+
+    public void GameClear(int num)
+    {
+        canState = true;
+        stateNum = num;
+    }
+
+    public void StateMentClear()
+    {
+        canState = false;
+        stateNum = 0;
     }
 }

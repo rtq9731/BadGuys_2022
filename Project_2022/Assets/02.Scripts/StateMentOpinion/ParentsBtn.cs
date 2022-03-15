@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class ParentsBtn : MonoBehaviour
 {
     public GameObject[] childBtns;
-    [SerializeField]
-    private Text btnText;
+    public Text btnText;
     [SerializeField]
     OpinionBtnManager OBManager;
 
@@ -40,5 +39,6 @@ public class ParentsBtn : MonoBehaviour
     {
         btnText.text = text;
         CloseParentsBtn();
+        OBManager.CheckAllParents();
     }
 }

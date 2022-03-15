@@ -20,6 +20,10 @@ public class StateMentOpinionManager : MonoBehaviour
         }
 
         startCameraMove = false;
+        isChoose = false;
+        MoveStep(0);
+        stepNum = 0;
+        StartCoroutine(TextClear());
     }
 
     [SerializeField]
@@ -28,6 +32,7 @@ public class StateMentOpinionManager : MonoBehaviour
     private GameObject paper;
     [SerializeField]
     private float movingTime = 3f;
+
     //[SerializeField]
     //private float typingSpeed = 2f;
 
@@ -35,20 +40,14 @@ public class StateMentOpinionManager : MonoBehaviour
     public int opinionStep = 1;
     public UnityEvent<int> Cameramoving;
     public List<Text> texts;
+    public bool canCameraMove = true;
+    public bool isChoose = false;
 
     private bool startCameraMove;
 
-    private void Start()
-    {
-        MoveStep(0);
-        stepNum = 0;
-        StartCoroutine(TextClear());
-        StartCoroutine(StartCutScene());
-    }
-
     private void Update()
     {
-        if (startCameraMove == true)
+        if (startCameraMove && canCameraMove)
         {
             if (Input.GetKeyDown(KeyCode.W) && stepNum > 0)
             {
@@ -66,6 +65,11 @@ public class StateMentOpinionManager : MonoBehaviour
                 Cameramoving.Invoke(stepNum);
             }
         }
+    }
+
+    public void StartCameraMove(float wait = 5, float down = 8)
+    {
+        StartCoroutine(StartCutScene(wait, down));
     }
 
     public void FindTextAndSet(string textName, string textContent)
@@ -110,11 +114,9 @@ public class StateMentOpinionManager : MonoBehaviour
         yield return new WaitForSeconds(0f);
     }
 
-    private IEnumerator StartCutScene()
+    private IEnumerator StartCutScene(float waitSec = 5f, float downSec = 8f)
     {
-        float downSec = 8f;
-
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(waitSec);
         paper.transform.DOMove(movePos[opinionStep].transform.position, downSec);
         yield return new WaitForSeconds(downSec);
         startCameraMove = true;
