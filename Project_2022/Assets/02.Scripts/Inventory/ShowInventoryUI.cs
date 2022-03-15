@@ -66,7 +66,7 @@ public class ShowInventoryUI : MonoBehaviour
 
     public void ShowInventorySlot()
     {
-        if(transform.childCount > 0)
+        if(transform.childCount >= 0)
         {
             isInventoryDown = false;
             rectTrm.DOAnchorPos(originRectTrm, 0.5f);

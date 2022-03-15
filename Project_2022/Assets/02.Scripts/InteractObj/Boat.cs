@@ -52,6 +52,14 @@ public class Boat : MonoBehaviour, IInteractableItem
         isMove = isCanMove;
     }
 
+    void SetPaddleAnim(bool isMove)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            anim[i].SetBool("IsBoat", isMove);
+        }
+    }
+
     // 보트 출발하는 함수
     IEnumerator StartMove()
     {
@@ -59,10 +67,7 @@ public class Boat : MonoBehaviour, IInteractableItem
         boatCam.SetActive(true);
         inventory.SetActive(false);
         
-        for(int i = 0; i < 2; i ++)
-        {
-            anim[i].SetBool("IsBoat", true);
-        }
+        
 
         playerCam.GetComponentInParent<PlayerController>().camTrm = boatCam.transform;
 
@@ -72,10 +77,15 @@ public class Boat : MonoBehaviour, IInteractableItem
         }
 
         yield return new WaitForSeconds(0.4f);
-        transform.DOMoveX(230f, 15f).SetEase(Ease.Unset).OnComplete(() =>
+        SetPaddleAnim(true);
+
+
+        //sun obj 바로 앞으로 가게끔 바꾸기
+        transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             inventory.SetActive(true);
             SetPlayerInput(false);
+            SetPaddleAnim(false);
         });
     }
 
@@ -86,9 +96,9 @@ public class Boat : MonoBehaviour, IInteractableItem
         {
             DOTween.KillAll();
 
+            SetPaddleAnim(true);
             TurnBoat();
             inventory.SetActive(false);
-            
         }
     }
 
@@ -98,10 +108,7 @@ public class Boat : MonoBehaviour, IInteractableItem
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
-            for (int i = 0; i < 2; i++)
-            {
-                anim[i].SetBool("IsBoat", false);
-            }
+            SetPaddleAnim(false);
             boatCam.SetActive(false);
         });
     }
@@ -114,7 +121,9 @@ public class Boat : MonoBehaviour, IInteractableItem
         {
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
-                transform.DOMove(originPos, 5f).OnComplete(() =>
+                float duration = Vector2.Distance(transform.position, originPos);
+
+                transform.DOMove(originPos, duration).OnComplete(() =>
                 {
                     TakeOffBoat();
                     inventory.SetActive(true);
