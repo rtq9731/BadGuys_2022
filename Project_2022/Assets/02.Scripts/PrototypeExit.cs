@@ -21,6 +21,7 @@ public class PrototypeExit : MonoBehaviour
 
             exitImage.transform.DOScale(new Vector3(25, 25, 25), 2f).OnComplete(() =>
             {
+                GameManager.Instance.GameClear(1);
                   LoadingManager.LoadScene("Title", true);
             });
         }

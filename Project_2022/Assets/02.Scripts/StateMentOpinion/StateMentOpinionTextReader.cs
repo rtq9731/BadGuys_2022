@@ -12,16 +12,19 @@ public class StateMentOpinionTextReader : MonoBehaviour
     private Text[] loadTexts;
     private string filePath = Application.streamingAssetsPath;
 
+    public int maxNum;
+
     private void Awake()
     {
         SMOM = GetComponent<StateMentOpinionManager>();
         textFilesName = Directory.GetFiles(filePath, "*.txt");
+        maxNum = textFilesName.Length;
     }
 
     void Start()
     {
         //StartCoroutine(ExampleMaker());
-        TextLoadbyNum(0); // 테스트용 
+        //TextLoadbyNum(0); // 테스트용 
     }
 
     public void TextLoadbyNum(int num)
@@ -60,6 +63,12 @@ public class StateMentOpinionTextReader : MonoBehaviour
 
         for (int i = 0; i < SMOM.texts.Count - 1; i++)
         {
+            if (i == 0)
+            {
+                SMOM.FindTextAndSetbyNum(i, GameManager.Instance.playerName);
+                yield return new WaitForSeconds(0.2f);
+            }
+
             SMOM.FindTextAndSetbyNum(i, opinionText[i]);
             yield return new WaitForSeconds(0.2f);
         }
