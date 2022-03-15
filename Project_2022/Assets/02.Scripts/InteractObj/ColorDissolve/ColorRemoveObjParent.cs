@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,15 +12,22 @@ public abstract class ColorRemoveObjParent : MonoBehaviour, IInteractAndGetItemO
     [SerializeField] protected GameObject itemObj = null;
     [SerializeField] protected GameObject dissolveObj = null;
 
+    [SerializeField] protected float noiseScale = 50f;
     [SerializeField] protected float dissolveDuration = 2f;
     [SerializeField] protected float dissolveStrength = 50f;
 
-    Inventory inventory = null;
+    Action onInteract = null;
+
+    protected bool canInteract = true;
+
+    protected Inventory inventory = null;
 
     protected Material dissolveMat = null;
     private void Start()
     {
+        onInteract += () => enabled = false;
         dissolveMat = dissolveObj.GetComponent<MeshRenderer>().material;
+        dissolveMat.SetFloat("_NoiseScale", noiseScale);
         inventory = FindObjectOfType<Inventory>();
         outline.enabled = false;
     }
