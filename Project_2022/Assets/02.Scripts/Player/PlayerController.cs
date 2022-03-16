@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
 
     CharacterController _characterController = null;
 
-
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
