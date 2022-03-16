@@ -33,6 +33,7 @@ public class Bridge : ColorRemoveObjParent
             {
                 Material dissolveMat = dissolveMats[i];
                 Debug.Log(dissolveMat);
+                outline.enabled = false;
                 DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), dissolveStrength, dissolveDuration);
             }
 

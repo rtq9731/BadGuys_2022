@@ -13,6 +13,7 @@ public class Sun : ColorRemoveObjParent
         if (itemInfo.itemName == keyItem.itemName)
         {
             DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), dissolveStrength, dissolveDuration);
+            outline.enabled = false;
             itemObj.SetActive(true);
             inventory.PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
