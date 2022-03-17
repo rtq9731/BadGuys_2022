@@ -2523,6 +2523,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAmount: 10
   rotateDuration: 1
+  rotationFinish: 0
+  lastRotation: 0
 --- !u!114 &75824627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15842,6 +15844,13 @@ MonoBehaviour:
   - {fileID: 937268303}
   - {fileID: 797603528}
   - {fileID: 1138848565}
+  myScripts:
+  - {fileID: 937268303}
+  - {fileID: 797603528}
+  - {fileID: 1138848565}
+  - {fileID: 1966916343}
+  - {fileID: 1816524607}
+  - {fileID: 75824626}
   errorRange: 10
   vCamComplete: {fileID: 171100585}
   completeSR: {fileID: 1379596096}
@@ -26768,7 +26777,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839995466}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.2850001, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
@@ -34213,6 +34222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pictureAnswerChecker: {fileID: 0}
+  pictureBtnManager: {fileID: 0}
   colors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 1, g: 0.49803922, b: 0, a: 0}
@@ -38496,6 +38506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pictureAnswerChecker: {fileID: 0}
+  pictureBtnManager: {fileID: 0}
   colors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 1, g: 0.49803922, b: 0, a: 0}
@@ -49212,6 +49223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pictureAnswerChecker: {fileID: 0}
+  pictureBtnManager: {fileID: 0}
   colors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 1, g: 0.49803922, b: 0, a: 0}
@@ -52154,13 +52166,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549997395}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
   m_LocalPosition: {x: 0, y: 1.2850001, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1422146761}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
 --- !u!212 &1549997397
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -59811,6 +59823,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAmount: 10
   rotateDuration: 1
+  rotationFinish: 0
+  lastRotation: 0
 --- !u!114 &1816524608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65069,6 +65083,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationAmount: 10
   rotateDuration: 1
+  rotationFinish: 0
+  lastRotation: 0
 --- !u!114 &1966916344
 MonoBehaviour:
   m_ObjectHideFlags: 0

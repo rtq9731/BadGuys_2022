@@ -40,8 +40,6 @@ public class DialogManager : MonoBehaviour
         myRect = GetComponent<RectTransform>();
         
         originRect = myRect.anchoredPosition;
-        Debug.Log(myRect.rect.y);
-        Debug.Log(originRect);
         GameManager.Instance._onPauseChanged += OnGamePause;
     }
 

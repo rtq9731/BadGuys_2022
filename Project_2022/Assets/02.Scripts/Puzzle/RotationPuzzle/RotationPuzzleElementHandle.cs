@@ -13,11 +13,11 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
 
     Coroutine cor = null;
 
-    float rotationFinish = 0f;
+    [SerializeField] float rotationFinish = 0f;
+    [SerializeField] float lastRotation = 0f;
 
     public void Interact(GameObject taker)
     {
-        transform.DOComplete();
         rotationFinish += rotationAmount;
         if(cor == null)
         {
@@ -25,6 +25,8 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
         }
         else
         {
+            _onRotate?.Invoke(rotationAmount);
+            lastRotation = transform.rotation.eulerAngles.x;
             StopCoroutine(cor);
             cor = StartCoroutine(RotateHandle(rotateDuration));
         }
@@ -36,11 +38,10 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
         while (transform.rotation.x <= rotationFinish)
         {
             timer += Time.deltaTime;
-            Debug.Log(transform.rotation.x);
-            Debug.Log(Mathf.Lerp(0, rotationFinish, timer / duration));
-            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x + Mathf.Lerp(0, rotationFinish, timer / duration), 0, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(Mathf.Lerp(lastRotation, rotationFinish, timer / duration), 0, 0));
             yield return null;
         }
+        lastRotation = transform.rotation.eulerAngles.x;
         _onRotate?.Invoke(rotationAmount);
     }
 }

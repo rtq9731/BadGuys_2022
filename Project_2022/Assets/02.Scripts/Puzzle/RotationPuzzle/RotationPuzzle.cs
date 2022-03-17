@@ -7,11 +7,12 @@ using DG.Tweening;
 public class RotationPuzzle : MonoBehaviour
 {
     [SerializeField] List<RotationPuzzleElement> elements = new List<RotationPuzzleElement>();
+    [SerializeField] List<MonoBehaviour> myScripts = new List<MonoBehaviour>();
 
     [SerializeField] float errorRange = 10f;
 
     [SerializeField] GameObject vCamComplete = null;
-    [SerializeField] SpriteRenderer completeSR = null; 
+    [SerializeField] SpriteRenderer completeSR = null;
 
     private void Start()
     {
@@ -23,18 +24,20 @@ public class RotationPuzzle : MonoBehaviour
 
     private void OnElementRotate()
     {
-        var items = from item in elements
-                    select -errorRange <= item.GetPictureRotationZ() && errorRange >= item.GetPictureRotationZ();
+        List<RotationPuzzleElement> items = new List<RotationPuzzleElement>();
+        items = elements.FindAll(item => Mathf.Abs(item.GetPictureRotationZ()) <= errorRange);
 
-        if(items.Count() == elements.Count)
+        if (items.ToList().Count == elements.Count)
         {
-            // OnCompletePuzzle();
+            OnCompletePuzzle();
         }
     }
 
     private void OnCompletePuzzle()
     {
         vCamComplete.SetActive(true);
+        completeSR.gameObject.SetActive(true);
+        completeSR.material.SetFloat("_DissolveAmount", 0f);
         FindObjectOfType<UIManager>().OnCutScene();
 
         foreach (var item in elements)
@@ -50,6 +53,7 @@ public class RotationPuzzle : MonoBehaviour
                 completeSR.gameObject.SetActive(false);
                 vCamComplete.SetActive(false);
                 enabled = false;
+                myScripts.ForEach(item => item.enabled = false);
             });
         });
 
