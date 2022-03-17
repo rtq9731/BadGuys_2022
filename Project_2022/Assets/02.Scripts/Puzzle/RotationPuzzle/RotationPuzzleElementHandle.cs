@@ -28,7 +28,6 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
             StopCoroutine(cor);
             cor = StartCoroutine(RotateHandle(rotateDuration));
         }
-        //_onRotate?.Invoke(rotationAmount);
     }
 
     IEnumerator RotateHandle(float duration)
@@ -38,8 +37,10 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
         {
             timer += Time.deltaTime;
             Debug.Log(transform.rotation.x);
-            //transform.rotation += Quaternion.Euler(new Vector3(Mathf.Lerp(0, rotationFinish, timer / duration), 0, 0));
+            Debug.Log(Mathf.Lerp(0, rotationFinish, timer / duration));
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x + Mathf.Lerp(0, rotationFinish, timer / duration), 0, 0));
             yield return null;
         }
+        _onRotate?.Invoke(rotationAmount);
     }
 }
