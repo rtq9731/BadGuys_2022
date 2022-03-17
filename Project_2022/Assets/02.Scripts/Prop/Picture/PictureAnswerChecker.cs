@@ -21,14 +21,17 @@ public class PictureAnswerChecker : MonoBehaviour
             if(pictureCode[i] == pictureCorrectCode[i])
             {
                 isCorrect = true;
+                Debug.Log(isCorrect);
                 return isCorrect;
             }
             else
             {
                 isCorrect = false;
-                break;
+                Debug.Log(isCorrect);
+                return isCorrect;
             }
         }
-        return false;
+        Debug.Log(isCorrect);
+        return isCorrect;
     }
 }

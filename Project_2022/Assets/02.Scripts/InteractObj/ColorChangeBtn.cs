@@ -7,6 +7,7 @@ using DG.Tweening;
 public class ColorChangeBtn : MonoBehaviour, IInteractableItem
 {
     public PictureAnswerChecker pictureAnswerChecker;
+    public PictureBtnManager pictureBtnManager;
 
     public Color[] colors;
     public Color curColor;
@@ -22,6 +23,7 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
     void Start()
     {
         curColor = colors[0];
+        pictureBtnManager = FindObjectOfType<PictureBtnManager>();
     }
 
     public void Interact(GameObject taker)
@@ -44,12 +46,15 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
 
             pictureAnswerChecker.pictureInfo = images[0].transform.parent.GetComponent<PictureInfo>();
             pictureAnswerChecker.pictureAnswer = images[0].transform.parent.parent.GetComponentInChildren<PictureAnswer>();
+            pictureBtnManager.colorChangeBtns = transform.parent.parent.GetComponentsInChildren<ColorChangeBtn>();
 
-            if (!pictureAnswerChecker.CheckAnswer())
+            if (pictureAnswerChecker.CheckAnswer())
+            {
                 isCorrect = true;
-            DestoryOutline();
+                DestoryOutline();
+                StartCoroutine(pictureBtnManager.ClearColorPuzzle());
+            }
         }
-        
     }
     
     //버튼 눌리는함수
