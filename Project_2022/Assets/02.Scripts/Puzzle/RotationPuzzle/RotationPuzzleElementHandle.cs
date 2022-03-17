@@ -38,7 +38,7 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
         {
             timer += Time.deltaTime;
             Debug.Log(transform.rotation.x);
-            transform.rotation += Quaternion.Euler(new Vector3(Mathf.Lerp(0, rotationFinish, timer / duration), 0, 0));
+            //transform.rotation += Quaternion.Euler(new Vector3(Mathf.Lerp(0, rotationFinish, timer / duration), 0, 0));
             yield return null;
         }
     }
