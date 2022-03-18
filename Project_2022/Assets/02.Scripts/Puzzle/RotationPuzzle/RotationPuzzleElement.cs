@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class RotationPuzzleElement : MonoBehaviour
 {
-    [SerializeField] RotationPuzzleElementHandle handle = null;
+    [SerializeField] RotationPuzzleElementHandle[] handles = null;
     [SerializeField] Transform pictureTrm = null;
 
     [SerializeField] float rotateDuration = 1f;
@@ -15,12 +15,15 @@ public class RotationPuzzleElement : MonoBehaviour
 
     Coroutine cor = null;
 
-    float rotationFinish = 0f;
-    float lastRotation = 0f;
+    [SerializeField] float rotationFinish = 0f;
+    [SerializeField] float lastRotation = 0f;
 
     private void Start()
     {
-        handle._onRotate += OnRotateHandle;
+        foreach (var item in handles)
+        {
+            item._onRotate += OnRotateHandle;
+        }
         lastRotation = pictureTrm.rotation.eulerAngles.z;
         rotationFinish = pictureTrm.rotation.eulerAngles.z;
     }
@@ -34,7 +37,6 @@ public class RotationPuzzleElement : MonoBehaviour
         }
         else
         {
-            lastRotation = pictureTrm.localRotation.eulerAngles.z;
             StopCoroutine(cor);
             cor = StartCoroutine(RotatePicture(rotateDuration));
             _onRotationChanged?.Invoke();
@@ -57,7 +59,7 @@ public class RotationPuzzleElement : MonoBehaviour
 
     IEnumerator RotateToAnswer()
     {
-        float timer = 0.001f;
+        float timer = 0f;
         while (pictureTrm.localRotation.z != 0)
         {
             timer += Time.deltaTime;
@@ -68,15 +70,14 @@ public class RotationPuzzleElement : MonoBehaviour
 
     IEnumerator RotatePicture(float duration)
     {
-        float timer = 0.001f;
+        float timer = 0f;
         while (pictureTrm.localRotation.eulerAngles.z != rotationFinish)
         {
             timer += Time.deltaTime;
-            Debug.Log(Mathf.Lerp(lastRotation, rotationFinish, timer / duration));
+            lastRotation = Mathf.Lerp(lastRotation, rotationFinish, timer / duration);
             pictureTrm.localRotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(lastRotation, rotationFinish, timer / duration)));
             yield return null;
         }
-        lastRotation = pictureTrm.localRotation.eulerAngles.z;
 
         _onRotationChanged?.Invoke();
     }
