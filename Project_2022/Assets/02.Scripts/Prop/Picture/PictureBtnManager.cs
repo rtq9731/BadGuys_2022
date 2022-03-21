@@ -5,6 +5,7 @@ using DG.Tweening;
 public class PictureBtnManager : MonoBehaviour
 {
     public ColorChangeBtn[] colorChangeBtns;
+    public PictureAnswer correctPicture;
 
     public IEnumerator ClearColorPuzzle()
     {
@@ -21,7 +22,8 @@ public class PictureBtnManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         Debug.Log(colorChangeBtns[0].transform.parent.parent);
-        colorChangeBtns[0].transform.parent.parent.DOLocalMoveZ(-13.5f, 1.2f);
+        correctPicture.transform.DOLocalMoveZ(-0.4f, 1.2f);
+        colorChangeBtns[0].transform.parent.parent.DOLocalMoveZ(-12.45f, 1.2f);
     }
 }
     

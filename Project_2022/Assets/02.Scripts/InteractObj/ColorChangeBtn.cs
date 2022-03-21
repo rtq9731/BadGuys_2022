@@ -47,6 +47,7 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
             pictureAnswerChecker.pictureInfo = images[0].transform.parent.GetComponent<PictureInfo>();
             pictureAnswerChecker.pictureAnswer = images[0].transform.parent.parent.GetComponentInChildren<PictureAnswer>();
             pictureBtnManager.colorChangeBtns = transform.parent.parent.GetComponentsInChildren<ColorChangeBtn>();
+            pictureBtnManager.correctPicture = transform.parent.parent.parent.GetComponentInChildren<PictureAnswer>();
 
             if (pictureAnswerChecker.CheckAnswer())
             {
