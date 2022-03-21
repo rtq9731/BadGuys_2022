@@ -10,7 +10,7 @@ public class PictureAnswerChecker : MonoBehaviour
     public int[] pictureCode;
     public int[] pictureCorrectCode;
 
-    bool isCorrect;
+    bool isCorrect = false;
 
     public bool CheckAnswer()
     {
@@ -26,17 +26,17 @@ public class PictureAnswerChecker : MonoBehaviour
                 if (pictureCode[index + 2] == pictureCorrectCode[index+2])
                 {
                     isCorrect = true;
-                    Debug.Log(isCorrect);
                     return isCorrect;
                 }
+                isCorrect = false;
                 return isCorrect;
             }
+            isCorrect = false;
             return isCorrect;
         }
         else
         {
             isCorrect = false;
-            Debug.Log(isCorrect);
             return isCorrect;
         }
     }

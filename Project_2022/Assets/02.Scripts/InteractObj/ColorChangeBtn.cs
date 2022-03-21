@@ -52,7 +52,6 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
             if (pictureAnswerChecker.CheckAnswer())
             {
                 isCorrect = true;
-                DestoryOutline();
                 StartCoroutine(pictureBtnManager.ClearColorPuzzle());
             }
         }
@@ -65,13 +64,5 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
         {
             transform.DOLocalMoveY(0.1f, 0.1f);
         });
-    }
-
-    void DestoryOutline()
-    {
-        if(isCorrect)
-        {
-            transform.GetComponent<Outline>().enabled = true;
-        }
     }
 }
