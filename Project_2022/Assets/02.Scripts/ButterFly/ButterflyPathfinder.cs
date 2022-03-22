@@ -121,7 +121,7 @@ public class ButterflyPathfinder : MonoBehaviour
         butterflyDissolveMats.ForEach(item => seq.Join(item.DOFloat(0, "_NoiseStrength", 5f)));
         seq.OnComplete(() =>
         {
-            ChangeState(ButterflyState.NONE);
+            ChangeState(ButterflyState.IDLE);
         });
     }
 
@@ -152,6 +152,7 @@ public class ButterflyPathfinder : MonoBehaviour
             yield return null;
         }
 
+        ChangeState(ButterflyState.DISAPPEAR);
         yield return null;
     }
 }
