@@ -29,6 +29,7 @@ public class DialogPanel : MonoBehaviour
     public void SetActive(bool active, Color color = default, string str = "", Action callBack = null)
     {
         float height = 0f;
+        text.text = "";
         if (active)
         {
             if(cor != null)
@@ -44,7 +45,6 @@ public class DialogPanel : MonoBehaviour
                 }
             }
 
-            text.text = "";
             text.color = color;
             gameObject.SetActive(active);
             cor = StartCoroutine(RemovePanel(5f));
@@ -88,7 +88,16 @@ public class DialogPanel : MonoBehaviour
 
     IEnumerator RemovePanel(float time)
     {
-        yield return new WaitForSeconds(time);
+        float timer = 0f;
+        
+        while (timer < time)
+        {
+            if(!GameManager.Instance.IsPause)
+                timer += Time.deltaTime;
+
+            yield return null;
+        }
+
         SetActive(false);
     }
 }

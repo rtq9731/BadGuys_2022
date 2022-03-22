@@ -11,6 +11,8 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
     [SerializeField] Outline outline = null;
     [SerializeField] float removeDuration = 2f;
 
+    public System.Action _onPlayerMouseEnter = null;
+
     Inventory inventory = null;
 
     private void Start()
@@ -30,6 +32,7 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
 
     public void OnPlayerMouseEnter()
     {
+        _onPlayerMouseEnter?.Invoke();
         ColorKeyAndObj obj = colorKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
         if (obj != null)
         {

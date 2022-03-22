@@ -14,7 +14,7 @@ public class DialogManager : MonoBehaviour
     public int padding = 0;
     public int limitPanelCount = 0;
 
-    public ShowInventoryUI showInventoryUI;
+    ShowInventoryUI showInventoryUI;
 
     public DialogPanel panelPrefab = null;
     List<DialogPanel> dialogs = new List<DialogPanel>();
@@ -40,7 +40,6 @@ public class DialogManager : MonoBehaviour
         myRect = GetComponent<RectTransform>();
         
         originRect = myRect.anchoredPosition;
-        GameManager.Instance._onPauseChanged += OnGamePause;
     }
 
     private void Start()
@@ -48,33 +47,10 @@ public class DialogManager : MonoBehaviour
         showInventoryUI = FindObjectOfType<ShowInventoryUI>();
     }
 
-    void OnGamePause(bool isPause)
-    {
-        if (!Application.isPlaying)
-            return;
-
-        if(isPause)
-        {
-            if(cor != null)
-            {
-                StopCoroutine(cor);
-            }
-        }
-        else
-        {
-            if (cor == null && gameObject.activeSelf)
-            {
-                cor = StartCoroutine(PlayDialog());
-            }
-        }
-    }
-
     private void Update()
     {
         SetPositionPanels();
     }
-
-
 
     public void ClearALLDialog()
     {
@@ -132,6 +108,7 @@ public class DialogManager : MonoBehaviour
         foreach (var item in datas)
         {
             lastDialogs.Push(item);
+            Debug.Log(item.str);
         }
 
         if (cor == null)
@@ -146,8 +123,18 @@ public class DialogManager : MonoBehaviour
         {
             DialogData data = lastDialogs.Pop();
             CreateDialogPanel(data.name, data.str, data.color);
-            yield return new WaitForSeconds(3f);
+
+            float timer = 0f;
+            while (timer < 3f)
+            {
+                if (!GameManager.Instance.IsPause)
+                    timer += Time.deltaTime;
+
+                yield return null;
+            }
         }
+        cor = null;
+        yield return null;
     }
 
     public void SetDialogPos(bool isInventoryDown)
@@ -155,12 +142,10 @@ public class DialogManager : MonoBehaviour
         if(isInventoryDown)
         {
             myRect.DOAnchorPos(originRect, 0.5f);
-            Debug.Log("내려간다~");
         }
         else
         {
             myRect.DOAnchorPos(new Vector2(myRect.anchoredPosition.x , originRect.y + 180f), 0.5f);
-            Debug.Log("올라간다~");
         }
     }
 }

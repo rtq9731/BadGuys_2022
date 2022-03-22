@@ -22,6 +22,7 @@ namespace Triggers.Switch.Tutorial
                 item.onInteract -= Fire;
             }
             trigger.OnTriggered();
+            enabled = false;
         }
     }
 
