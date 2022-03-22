@@ -16,7 +16,7 @@ public abstract class ColorRemoveObjParent : MonoBehaviour, IInteractAndGetItemO
     [SerializeField] protected float dissolveDuration = 2f;
     [SerializeField] protected float dissolveStrength = 50f;
 
-    protected Action onInteract = null;
+    public Action onInteract = null;
 
     protected bool canInteract = true;
 
