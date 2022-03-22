@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ButterflyPathfinder : MonoBehaviour
 {
@@ -9,7 +10,9 @@ public class ButterflyPathfinder : MonoBehaviour
     {
         NONE,
         IDLE,
-        MOVING
+        MOVING,
+        DISAPPEAR,
+        APPEAR
     }
 
     [System.Serializable]
@@ -21,11 +24,16 @@ public class ButterflyPathfinder : MonoBehaviour
     [SerializeField] List<ButterflyPath> butterflyPaths = new List<ButterflyPath>();
 
     ButterflyState state = ButterflyState.IDLE;
+
     [SerializeField] Transform butterfly = null;
+    [SerializeField] Transform butterflyDissolve = null;
+    [SerializeField] Texture2D butterflyDissolveTex = null;
+    List<Material> butterflyDissolveMats = new List<Material>();
+
     [SerializeField] Animator butterflyAnim = null;
     Transform curDestTrm = null;
 
-    int hashButterflyFly = 0;
+    int hashButterflyFLY = 0;
     int hashButterflyIDLE = 0;
 
     int curDest = -1;
@@ -34,10 +42,16 @@ public class ButterflyPathfinder : MonoBehaviour
 
     private void Start()
     {
-        MoveToNext();
+        butterflyDissolve.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(item => 
+        {
+            item.material.SetTexture("_MainTex", butterflyDissolveTex);
+            butterflyDissolveMats.Add(item.material);
+        });
 
-        hashButterflyFly = Animator.StringToHash("bFly");
+        hashButterflyFLY = Animator.StringToHash("bFly");
         hashButterflyIDLE = Animator.StringToHash("bIdle");
+
+        ChangeState(ButterflyState.APPEAR);
     }
 
     public void UpdateState()
@@ -47,9 +61,17 @@ public class ButterflyPathfinder : MonoBehaviour
             case ButterflyState.NONE:
                 break;
             case ButterflyState.IDLE:
+                butterflyAnim.SetBool(hashButterflyFLY, false);
+                butterflyAnim.SetBool(hashButterflyIDLE, true);
                 break;
             case ButterflyState.MOVING:
                 Butterfly_Move();
+                break;
+            case ButterflyState.DISAPPEAR:
+                Butterfly_Disappear();
+                break;
+            case ButterflyState.APPEAR:
+                Butterfly_Appear();
                 break;
             default:
                 break;
@@ -71,7 +93,36 @@ public class ButterflyPathfinder : MonoBehaviour
     private void Butterfly_Move()
     {
         StartCoroutine(MovePosition(butterflyPaths[curDest].paths));
-        butterflyAnim.SetBool(hashButterflyFly, true);
+        butterflyAnim.SetBool(hashButterflyFLY, true);
+    }
+
+    private void Butterfly_Appear()
+    {
+        Sequence seq = DOTween.Sequence();
+        
+        butterflyAnim.SetBool(hashButterflyIDLE, true);
+        butterflyAnim.SetBool(hashButterflyFLY, false);
+
+        butterflyDissolve.gameObject.SetActive(true);
+        butterflyDissolveMats.ForEach(item => seq.Join(item.DOFloat(300, "_NoiseStrength", 5f)));
+        seq.OnComplete(() =>
+        {
+            MoveToNext();
+            butterflyDissolve.gameObject.SetActive(false);
+            butterfly.gameObject.SetActive(true);
+        });
+    }
+
+    private void Butterfly_Disappear()
+    {
+        Sequence seq = DOTween.Sequence();
+        butterflyDissolve.gameObject.SetActive(true);
+        butterfly.gameObject.SetActive(false);
+        butterflyDissolveMats.ForEach(item => seq.Join(item.DOFloat(0, "_NoiseStrength", 5f)));
+        seq.OnComplete(() =>
+        {
+            ChangeState(ButterflyState.NONE);
+        });
     }
 
     private IEnumerator MovePosition(List<Transform> paths)
