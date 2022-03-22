@@ -8,6 +8,7 @@ public class ButterFlyScript : MonoBehaviour
 {
     [SerializeField] Transform butterfly = null;
     [SerializeField] Texture2D butterflyDissolveTex = null;
+    [SerializeField] ParticleSystem ps = null;
     List<Material> butterflyDissolveMats = new List<Material>();
 
     [SerializeField] Animator butterflyAnim = null;
@@ -35,11 +36,14 @@ public class ButterFlyScript : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         butterflyAnim.SetTrigger(hashButterflyFLY);
 
-        StartCoroutine(FlyForDisappear(destination, callBack));
-        butterflyDissolveMats.ForEach(item => seq.Join(item.DOFloat(0, "_NoiseStrength", 7f)).SetEase(Ease.InCubic));
+        StartCoroutine(FlyForDisappear(destination));
+        butterflyDissolveMats.ForEach(item => seq.Join(item.DOFloat(0, "_NoiseStrength", 7f)).SetEase(Ease.InCubic).OnComplete(() => {
+            ps.Play();
+            callBack();
+        }));
     }
 
-    private IEnumerator FlyForDisappear(Transform dest, System.Action callBack)
+    private IEnumerator FlyForDisappear(Transform dest)
     {
         while (Vector2.Distance(dest.position, transform.position) >= 0.01f)
         {
@@ -47,7 +51,6 @@ public class ButterFlyScript : MonoBehaviour
             butterfly.LookAt(dest);
 
             yield return null;
-        }
-        callBack();
+        };
     }
 }
