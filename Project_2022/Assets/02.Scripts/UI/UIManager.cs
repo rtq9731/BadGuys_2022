@@ -18,7 +18,10 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _instance = null;
+        if(_instance == this)
+        {
+            _instance = null;
+        }
     }
 
     public void OnCutScene()

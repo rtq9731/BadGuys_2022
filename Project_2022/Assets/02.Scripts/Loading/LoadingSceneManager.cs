@@ -79,4 +79,34 @@ public class LoadingSceneManager : MonoBehaviour
         loadingText.gameObject.SetActive(false);
         pressAnyBtnText.gameObject.SetActive(true);
     }
+
+    public static IEnumerator LoadStage(string sceneColor)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync("PictureMoveEffectScene", LoadSceneMode.Additive);
+        async.allowSceneActivation = false;
+
+        float timer = 0f;
+        float loadingTime = 1f;
+
+        while (true)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= loadingTime)
+            {
+                Debug.Log("로드 메인씬");
+                SceneManager.UnloadSceneAsync("MainStage_stage1");
+                SceneManager.LoadScene("MainStage_Stage" + sceneColor, LoadSceneMode.Additive);
+                async.allowSceneActivation = true;
+                yield break;
+            }
+            else
+            {
+                Debug.Log("아직 로딩 안끝남");
+            }
+            yield return null;
+        }
+    }
+
+
 }
