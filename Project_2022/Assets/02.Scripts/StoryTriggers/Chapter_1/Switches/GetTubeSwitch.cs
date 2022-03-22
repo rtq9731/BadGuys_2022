@@ -9,6 +9,7 @@ namespace Triggers.Switch.Chapter1
         private void Start()
         {
             GetComponent<ColorRemoveObjParent>().onInteract += Fire;
+            GetComponent<ColorRemoveObjParent>().onInteract += () => { GetComponent<ColorRemoveObjParent>().onInteract = null; };
         }
     }
 }

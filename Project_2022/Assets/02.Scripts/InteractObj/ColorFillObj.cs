@@ -11,7 +11,8 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
     [SerializeField] Outline outline = null;
     [SerializeField] float removeDuration = 2f;
 
-    public System.Action _onPlayerMouseEnter = null;
+    public event System.Action _onPlayerMouseEnter = null;
+    public event System.Action _onComplete = null;
 
     Inventory inventory = null;
 
@@ -24,9 +25,15 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
     public void Interact(ItemInfo itemInfo, GameObject taker)
     {
         ColorKeyAndObj obj = colorKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
-        if(obj != null)
+        colorKeyAndObjs.Remove(obj);
+        if (obj != null)
         {
-            obj.RemoveUnFilledObj(removeDuration);
+            if(colorKeyAndObjs.Count < 1)
+            {
+                obj.RemoveUnFilledObj(removeDuration, _onComplete);
+            }
+
+            obj.RemoveUnFilledObj(removeDuration, () => { });
         }
     }
 
@@ -52,9 +59,12 @@ public class ColorKeyAndObj
     public ItemInfo keyItem = null;
     public GameObject unFilledObj = null;
 
-    public void RemoveUnFilledObj(float duration)
+    public void RemoveUnFilledObj(float duration, System.Action callBack)
     {
-        unFilledObj.GetComponent<SpriteRenderer>().material.DOFloat(0, "_DissolveAmount", duration);
+        unFilledObj.GetComponent<SpriteRenderer>().material.DOFloat(0, "_DissolveAmount", duration).OnComplete(() => 
+        {
+            callBack?.Invoke();
+        });
     }
 }
 

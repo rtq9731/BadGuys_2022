@@ -10,6 +10,7 @@ namespace Triggers.Switch.Chapter1
         private void Start()
         {
             GetComponent<Item>().onInteract += Fire;
+            GetComponent<Item>().onInteract += () => { GetComponent<Item>().onInteract -= Fire; };
         }
     }
 }

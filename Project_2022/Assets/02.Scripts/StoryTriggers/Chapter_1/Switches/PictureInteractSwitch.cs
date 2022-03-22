@@ -10,6 +10,7 @@ namespace Triggers.Switch.Chapter1
         private void Start()
         {
             GetComponent<ColorFillObj>()._onPlayerMouseEnter += Fire;
+            GetComponent<ColorFillObj>()._onPlayerMouseEnter += () => { GetComponent<ColorFillObj>()._onPlayerMouseEnter -= Fire; };
         }
     }
 }

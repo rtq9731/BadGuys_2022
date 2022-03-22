@@ -52,7 +52,6 @@ public class DialogPanel : MonoBehaviour
             tweens.Add(text.DOText(str, (str.Length * 0.125f)));
             tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(() =>
             {
-                Debug.Log(str);
                 text.text = str;
                 callBack?.Invoke();
             }));
