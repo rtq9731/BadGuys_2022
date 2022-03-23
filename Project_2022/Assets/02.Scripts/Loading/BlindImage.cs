@@ -13,11 +13,6 @@ public class BlindImage : MonoBehaviour
     [SerializeField]
     private Image blindImageBlack;
 
-    private void Awake()
-    {
-        
-    }
-
     void Start()
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainStage_Stage" + LoadingSceneManager.sceneColor));
@@ -27,7 +22,4 @@ public class BlindImage : MonoBehaviour
             SceneManager.UnloadSceneAsync("PictureMoveEffectScene");
         });
     }
-
-    
-    
 }
