@@ -3420,9 +3420,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1575620096}
   - {fileID: 550228893}
   - {fileID: 837084647}
+  - {fileID: 1575620096}
   - {fileID: 1652346692}
   - {fileID: 159124121}
   - {fileID: 1612625511}
@@ -13254,7 +13254,7 @@ Transform:
   - {fileID: 861265259}
   - {fileID: 740237958}
   m_Father: {fileID: 160070938}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &553689982
 PrefabInstance:
@@ -20092,7 +20092,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 160070938}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &838215873
 PrefabInstance:
@@ -46812,6 +46812,7 @@ GameObject:
   - component: {fileID: 1954194033}
   - component: {fileID: 1954194035}
   - component: {fileID: 1954194034}
+  - component: {fileID: 1954194036}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -46865,6 +46866,20 @@ MonoBehaviour:
   butterfly_Idle: {fileID: 863069375}
   destination: {fileID: 704828242}
   vcam: {fileID: 863211248}
+--- !u!114 &1954194036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954194032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42aaef1f55106f64d8c737cfa8930456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanternGroup: {fileID: 914095168}
+  butterflyTrigger: {fileID: 1954194035}
 --- !u!1001 &1954988400
 PrefabInstance:
   m_ObjectHideFlags: 0
