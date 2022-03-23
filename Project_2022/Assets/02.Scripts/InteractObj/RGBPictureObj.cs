@@ -20,7 +20,7 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
         Debug.Log("그림 상호작용");
         pictureCam.SetActive(true);
         StartCoroutine(CameraMove());
-
+        //SceneManager.LoadScene("MainStage_StageR");
         MeshCollider mesh = transform.GetComponent<MeshCollider>();
         mesh.enabled = false;
     }

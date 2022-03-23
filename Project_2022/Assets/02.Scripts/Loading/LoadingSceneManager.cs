@@ -82,7 +82,7 @@ public class LoadingSceneManager : MonoBehaviour
 
     public static IEnumerator LoadStage(string _sceneColor)
     {
-        AsyncOperation async = SceneManager.LoadSceneAsync("PictureMoveEffectScene", LoadSceneMode.Additive);
+        AsyncOperation async = SceneManager.LoadSceneAsync("PictureMoveEffectScene");
         async.allowSceneActivation = false;
 
         sceneColor = _sceneColor;
