@@ -19,7 +19,7 @@ public class LoadingSceneManager : MonoBehaviour
 
     private static string sceneName = "";
     private static bool isExit = false;
-
+    public static string sceneColor = "";
     AsyncOperation operation;
 
     private void Start()
@@ -80,10 +80,12 @@ public class LoadingSceneManager : MonoBehaviour
         pressAnyBtnText.gameObject.SetActive(true);
     }
 
-    public static IEnumerator LoadStage(string sceneColor)
+    public static IEnumerator LoadStage(string _sceneColor)
     {
         AsyncOperation async = SceneManager.LoadSceneAsync("PictureMoveEffectScene", LoadSceneMode.Additive);
         async.allowSceneActivation = false;
+
+        sceneColor = _sceneColor;
 
         float timer = 0f;
         float loadingTime = 1f;
@@ -94,15 +96,9 @@ public class LoadingSceneManager : MonoBehaviour
 
             if (timer >= loadingTime)
             {
-                Debug.Log("로드 메인씬");
-                SceneManager.UnloadSceneAsync("MainStage_stage1");
-                SceneManager.LoadScene("MainStage_Stage" + sceneColor, LoadSceneMode.Additive);
+                SceneManager.LoadScene("MainStage_Stage" + _sceneColor, LoadSceneMode.Additive);
                 async.allowSceneActivation = true;
                 yield break;
-            }
-            else
-            {
-                Debug.Log("아직 로딩 안끝남");
             }
             yield return null;
         }

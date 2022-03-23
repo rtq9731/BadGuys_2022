@@ -31,19 +31,18 @@ public class DialogManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-        }
+        //if (Instance != null)
+        //{
+        //    Destroy(gameObject);
+        //}
         Instance = this;
-
-        myRect = GetComponent<RectTransform>();
-        
-        originRect = myRect.anchoredPosition;
     }
 
     private void Start()
     {
+        myRect = GetComponent<RectTransform>();
+
+        originRect = myRect.anchoredPosition;
         showInventoryUI = FindObjectOfType<ShowInventoryUI>();
     }
 

@@ -7,7 +7,6 @@ using DG.Tweening;
 
 public class BlindImage : MonoBehaviour
 {
-    public string sceneColor;
 
     [SerializeField]
     private Image blindImageWhite;
@@ -21,6 +20,9 @@ public class BlindImage : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(SceneManager.GetActiveScene().name);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainStage_Stage" + LoadingSceneManager.sceneColor));
+        SceneManager.UnloadSceneAsync("MainStage_stage1");
         blindImageBlack.gameObject.SetActive(false);
         blindImageWhite.DOFade(0f, 1f).OnComplete(() =>
         {
@@ -29,8 +31,5 @@ public class BlindImage : MonoBehaviour
     }
 
     
-    void Update()
-    {
-        
-    }
+    
 }

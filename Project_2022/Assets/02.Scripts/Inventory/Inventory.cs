@@ -50,7 +50,6 @@ public class Inventory : MonoBehaviour
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
         creatSlot = GetComponentInChildren<CreatSlot>();
         createRender = FindObjectOfType<CreateRenderTextureCam>();
-        
     }
 
     private void Update()

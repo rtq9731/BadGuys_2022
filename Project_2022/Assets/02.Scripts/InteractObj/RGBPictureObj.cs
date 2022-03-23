@@ -39,6 +39,7 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             Debug.Log("asdasd");
             blindPanel.SetActive(true);
             StartCoroutine(LoadingSceneManager.LoadStage(sceneColor));
+            
         });
     }
 }

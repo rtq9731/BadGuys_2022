@@ -8,20 +8,17 @@ public class Boat : MonoBehaviour, IInteractableItem
     [SerializeField]
     private GameObject inventory;
     [SerializeField]
-    private GameObject sunObj;
-    [SerializeField]
     private GameObject boatCam;
     [SerializeField]
     private GameObject mainCam;
     [SerializeField]
     private GameObject playerCam;
 
-
     private RectTransform rectTrm;
 
     private Vector3 originPos;
 
-    private bool isBoat = false;
+    private bool isCanInterct = true;
 
     Animator[] anim;
 
@@ -33,16 +30,18 @@ public class Boat : MonoBehaviour, IInteractableItem
         anim = GetComponentsInChildren<Animator>();
     }
 
-    private void Update()
-    {
-        ReturnMove();
-    }
-
     public void Interact(GameObject taker)
     {
-        if(transform.position == originPos)
+        if(isCanInterct)
         {
-            StartCoroutine(StartMove());
+            if (transform.position == originPos)
+            {
+                StartCoroutine(StartMove());
+            }
+            else
+            {
+                ReturnMove();
+            }
         }
     }
 
@@ -60,7 +59,8 @@ public class Boat : MonoBehaviour, IInteractableItem
         boatCam.SetActive(true);
         inventory.SetActive(false);
 
-        isBoat = true;
+        playerCam.GetComponentInParent<PlayerController>().enabled = false;
+
 
         //playerCam.GetComponentInParent<PlayerController>().camTrm = boatCam.transform;
 
@@ -84,25 +84,25 @@ public class Boat : MonoBehaviour, IInteractableItem
     // 처음 자리로 돌아가는 함수
     private void ReturnMove()
     {
-        if(Input.GetKeyDown(KeyCode.R) && isBoat)
-        {
-            DOTween.KillAll();
+         DOTween.KillAll();
 
-            SetPaddleAnim(true);
-            TurnBoat();
-            inventory.SetActive(false);
-        }
+         SetPaddleAnim(true);
+         TurnBoat();
+         inventory.SetActive(false);
+        
     }
 
     // 보트에서 내리는 함수
     private void TakeOffBoat()
     {
+        isCanInterct = false;
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
+            isCanInterct = true;
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);
             boatCam.SetActive(false);
-            isBoat = false;
+            playerCam.GetComponentInParent<PlayerController>().enabled = true;
         });
     }
 
