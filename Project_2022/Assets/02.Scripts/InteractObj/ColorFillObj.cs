@@ -15,10 +15,12 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
     public event System.Action _onComplete = null;
 
     Inventory inventory = null;
+    InventoryInput invenInput = null;
 
     private void Start()
     {
         inventory = FindObjectOfType<Inventory>();
+        invenInput = FindObjectOfType<InventoryInput>();
         outline.enabled = false;
     }
 
@@ -33,6 +35,7 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
                 obj.RemoveUnFilledObj(removeDuration, _onComplete);
             }
 
+            invenInput.RemoveItme();
             obj.RemoveUnFilledObj(removeDuration, () => { });
         }
     }

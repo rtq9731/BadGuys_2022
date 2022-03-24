@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bench : MonoBehaviour, IInteractableItem
+public class Bench : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler, IGetPlayerMouseHandler
 {
     private Outline outline = null;
-    private OutlinerOnMouseEnter outliner = null;
 
     private Animator anim = null;
 
     [SerializeField] string triggerName = "";
+
+    bool isActive = true;
 
     public event System.Action onInteract = null;
 
@@ -17,18 +18,47 @@ public class Bench : MonoBehaviour, IInteractableItem
     {
         anim = GetComponentInChildren<Animator>();
         outline = GetComponentInChildren<Outline>();
-        outliner = GetComponentInChildren<OutlinerOnMouseEnter>();
+        outline.enabled = false;
     }
+
+    public void OnPlayerMouseEnter()
+    {
+        if (!isActive)
+            return;
+
+        outline.enabled = true;
+    }
+
+    public void OnGetPlayerMouse()
+    {
+        if (!isActive)
+            return;
+
+        outline.enabled = true;
+    }
+
+    public void OnPlayerMouseExit()
+    {
+        if (!isActive)
+            return;
+
+        outline.enabled = false;
+    }
+
 
     public void Interact(GameObject taker)
     {
+        if (!isActive)
+            return;
+
         anim.SetTrigger(triggerName);
+        outline.enabled = false;
         onInteract?.Invoke();
     }
 
     public void SetActive(bool active)
     {
-        outline.enabled = active;
-        outliner.enabled = active;
+        enabled = active;
+        isActive = active;
     }
 }
