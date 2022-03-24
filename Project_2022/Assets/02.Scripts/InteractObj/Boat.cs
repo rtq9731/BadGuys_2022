@@ -19,6 +19,7 @@ public class Boat : MonoBehaviour, IInteractableItem
     private Vector3 originPos;
 
     private bool isCanInterct = true;
+    private bool isGoToSun = false;
 
     Animator[] anim;
 
@@ -32,7 +33,7 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        if(isCanInterct)
+        if (isCanInterct)
         {
             if (transform.position == originPos)
             {
@@ -40,7 +41,7 @@ public class Boat : MonoBehaviour, IInteractableItem
             }
             else
             {
-                ReturnMove();
+                TurnBoat(isGoToSun);
             }
         }
     }
@@ -56,13 +57,13 @@ public class Boat : MonoBehaviour, IInteractableItem
     // 보트 출발하는 함수
     IEnumerator StartMove()
     {
+        DOTween.KillAll();
+
         boatCam.SetActive(true);
         inventory.SetActive(false);
 
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
-
-
-        //playerCam.GetComponentInParent<PlayerController>().camTrm = boatCam.transform;
+        isGoToSun = true;
 
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
@@ -72,8 +73,6 @@ public class Boat : MonoBehaviour, IInteractableItem
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
 
-
-        //sun obj 바로 앞으로 가게끔 바꾸기
         transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             inventory.SetActive(true);
@@ -81,16 +80,6 @@ public class Boat : MonoBehaviour, IInteractableItem
         });
     }
 
-    // 처음 자리로 돌아가는 함수
-    private void ReturnMove()
-    {
-         DOTween.KillAll();
-
-         SetPaddleAnim(true);
-         TurnBoat();
-         inventory.SetActive(false);
-        
-    }
 
     // 보트에서 내리는 함수
     private void TakeOffBoat()
@@ -106,14 +95,17 @@ public class Boat : MonoBehaviour, IInteractableItem
         });
     }
 
-
-    // 보트 돌리는 함수
-    private void TurnBoat()
+    //돌리는 함수
+    private void TurnBoat(bool isGo)
     {
-        if(transform.position != originPos)
+        DOTween.KillAll();
+        isCanInterct = false;
+        if (isGo)
         {
+            isGoToSun = false;
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
+                isCanInterct = true;
                 float duration = Vector2.Distance(transform.position, originPos);
 
                 Debug.Log(Mathf.Round(duration / 10));
@@ -126,5 +118,19 @@ public class Boat : MonoBehaviour, IInteractableItem
                 });
             });
         }
+        else
+        {
+            isGoToSun = true;
+            transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
+            {
+                isCanInterct = true;
+                transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
+                {
+                    inventory.SetActive(true);
+                    SetPaddleAnim(false);
+                });
+            });
+        }
     }
+
 }
