@@ -13,8 +13,6 @@ public class ShowMainItem : MonoBehaviour
     RectTransform rect;
     private int mainItemIndex;
 
-    private float moveSpeed = 0.3f;
-
     bool isMoving = false;
     private void Start()
     {
