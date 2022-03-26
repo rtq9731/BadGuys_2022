@@ -54,20 +54,21 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
     {
         outline.enabled = false;
     }
-}
 
-[System.Serializable]
-public class ColorKeyAndObj
-{
-    public ItemInfo keyItem = null;
-    public GameObject unFilledObj = null;
-
-    public void RemoveUnFilledObj(float duration, System.Action callBack)
+    [System.Serializable]
+    public class ColorKeyAndObj
     {
-        unFilledObj.GetComponent<SpriteRenderer>().material.DOFloat(0, "_DissolveAmount", duration).OnComplete(() => 
+        public ItemInfo keyItem = null;
+        public GameObject unFilledObj = null;
+
+        public void RemoveUnFilledObj(float duration, System.Action callBack)
         {
-            callBack?.Invoke();
-        });
+            unFilledObj.GetComponent<SpriteRenderer>().material.DOFloat(0, "_DissolveAmount", duration).OnComplete(() =>
+            {
+                callBack?.Invoke();
+            });
+        }
     }
 }
+
 
