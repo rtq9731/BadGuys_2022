@@ -40,9 +40,17 @@ public class CreateRenderTextureCam : MonoBehaviour
             itemObj.transform.rotation = Quaternion.Euler(new Vector3(-20, 44, 0));
         }
 
-        if(itemObj.transform.GetChild(0).name.Contains("Car"))
+        if(itemObj.transform.childCount > 0)
         {
-            itemObj.transform.DOScale(originScale, 0.1f);
+            if (itemObj.transform.GetChild(0).name.Contains("Car"))
+            {
+                itemObj.transform.DOScale(originScale, 0.1f);
+            }
+            else
+            {
+                obj.transform.GetChild(0).transform.localPosition = new Vector3(0.23f, 0.1f, 1f);
+                itemObj.transform.DOScale(1f, 0.1f);
+            }
         }
         else
         {
@@ -50,8 +58,16 @@ public class CreateRenderTextureCam : MonoBehaviour
             itemObj.transform.DOScale(1f, 0.1f);
         }
 
-        itemObj.transform.position = obj.transform.GetChild(0).position;
-        
+        if(itemObj.name.Contains("sculpture"))
+        {
+            ExceptionFunc(itemObj);
+        }
+        else
+        {
+            itemObj.transform.position = obj.transform.GetChild(0).position;
+        }
+
+
         RenderTexture renderTexture = new RenderTexture(256,256,24, RenderTextureFormat.Default);
 
         obj.GetComponent<Camera>().targetTexture = renderTexture;
@@ -65,5 +81,18 @@ public class CreateRenderTextureCam : MonoBehaviour
         Slot slot = slotsParent.GetChild(slotsParent.childCount - 1).GetComponent<Slot>();
 
         slot.itemImage.texture = camObj.GetComponent<Camera>().targetTexture;
+    }
+
+    void ExceptionFunc(GameObject itemObj)
+    {
+        if (itemObj.name == "sculpture_1")
+            itemObj.transform.localPosition = new Vector3(-1.45f, -0.7f, 0f);
+        else if (itemObj.name == "sculpture_2")
+            itemObj.transform.localPosition = new Vector3(-1.75f, -1f, -0.5f);
+        else if (itemObj.name == "sculpture_3")
+            itemObj.transform.localPosition = new Vector3(-2.75f, -1.35f, -0.6f);
+        else if (itemObj.name == "sculpture_4")
+            itemObj.transform.localPosition = new Vector3(-2.4f, -1.35f, -1.35f);
+
     }
 }
