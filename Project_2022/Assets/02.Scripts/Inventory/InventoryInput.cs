@@ -81,7 +81,7 @@ public class InventoryInput : MonoBehaviour
         Inventory.Instance.mainItemIndex = slotNum;
     }
 
-    public void RemoveItme()
+    public void RemoveItem()
     {
         //if (Input.GetKeyDown(KeyCode.E) && isCanRemove)
         //{
