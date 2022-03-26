@@ -16,10 +16,15 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
     Inventory inventory = null;
     InventoryInput invenInput = null;
 
+    private void Start()
+    {
+        outline.enabled = false;
+    }
+
     public void Interact(ItemInfo itemInfo, GameObject taker)
     {
         SculptureKeyAndObj obj = sculptureKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
-        invenInput.RemoveItme();
+        invenInput.RemoveItem();
         if (obj != null)
         {
             if (sculptureKeyAndObjs.Count < 1)
@@ -27,7 +32,7 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
                 obj.MakeSculptureObj(removeDuration, _onComplete);
             }
 
-            invenInput.RemoveItme();
+            invenInput.RemoveItem();
             obj.MakeSculptureObj(removeDuration, () => { });
         }
     }

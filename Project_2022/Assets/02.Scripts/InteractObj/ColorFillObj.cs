@@ -35,7 +35,7 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
                 obj.RemoveUnFilledObj(removeDuration, _onComplete);
             }
 
-            invenInput.RemoveItme();
+            invenInput.RemoveItem();
             obj.RemoveUnFilledObj(removeDuration, () => { });
         }
     }

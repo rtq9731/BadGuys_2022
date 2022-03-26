@@ -61,7 +61,7 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
     // 질문할 함수
     private void InventoryDisCount()
     {
-        invenInput.RemoveItme();
+        invenInput.RemoveItem();
     }
     //
 
