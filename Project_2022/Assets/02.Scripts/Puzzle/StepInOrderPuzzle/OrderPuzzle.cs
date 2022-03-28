@@ -8,11 +8,23 @@ public class OrderPuzzle : MonoBehaviour
     public GameObject[] rightOrder;
     public List<GameObject> stoneList = new List<GameObject>();
 
+    public AudioClip correctAnswerClip;
+    public AudioClip clickSound;
+
+    AudioSource audioSource;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void CheckAnswer(GameObject stone)
     {
         stoneList.Add(stone);
 
-        for(int i = 0; i < stoneList.Count; i++)
+        audioSource.clip = clickSound;
+        audioSource.Play();
+
+        for (int i = 0; i < stoneList.Count; i++)
         {
             if(stoneList[i] != rightOrder[i])
             {
@@ -31,7 +43,17 @@ public class OrderPuzzle : MonoBehaviour
 
     private void CorrectAnswer()
     {
-        //정답시 나올 연출
+        if(rightOrder.Length == stoneList.Count)
+        {
+            Debug.Log("!!!정답!!!");
+            for(int i = 0; i < rightOrder.Length; i++)
+            {
+                stoneList[i].GetComponent<BoxCollider>().enabled = false;
+            }
+            audioSource.clip = correctAnswerClip;
+            audioSource.Play();
+            return;
+        }
     }
 
     private void AllReturn()

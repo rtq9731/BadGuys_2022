@@ -67,6 +67,11 @@ public class CreateRenderTextureCam : MonoBehaviour
             itemObj.transform.position = obj.transform.GetChild(0).position;
         }
 
+        if(itemObj.GetComponent<Rigidbody>() != null)
+        {
+            itemObj.GetComponent<Rigidbody>().useGravity = false;
+        }
+
 
         RenderTexture renderTexture = new RenderTexture(256,256,24, RenderTextureFormat.Default);
 
