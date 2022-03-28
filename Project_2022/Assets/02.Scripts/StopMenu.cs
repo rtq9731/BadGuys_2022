@@ -24,6 +24,7 @@ public class StopMenu : MonoBehaviour
         _btnTodo.onClick.AddListener(() =>
         {
             _todoPanel.gameObject.SetActive(true);
+            _optionPanel.gameObject.SetActive(false);
         });
 
         _optionPanel.onChangePanel += () =>
