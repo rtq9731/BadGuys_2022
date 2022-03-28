@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Linq;
+using DG.Tweening;
 
 public class SlidePuzzleManager : MonoBehaviour
 {
     [SerializeField]
     private GridLayoutGroup gridComponent;
+    [SerializeField]
+    private SlideInterect slideInterect;
     [SerializeField]
     private List<GameObject> pieces;
     [SerializeField]
@@ -17,8 +20,17 @@ public class SlidePuzzleManager : MonoBehaviour
     private float pieceWidth;
     [SerializeField]
     private float panelWidth;
+    [SerializeField]
+    private SlideInterect interectManager;
+    [SerializeField]
+    private SlidePuzzleInput inputManager;
 
     private List<Vector3> pieceShufflePos;
+
+    [SerializeField]
+    private SlidePuzzlePiece lastPiece;
+    [SerializeField]
+    private Material lastPieceMat;
 
     public bool clearPuzzle;
     public UnityEvent clearEvent;
@@ -40,12 +52,26 @@ public class SlidePuzzleManager : MonoBehaviour
 
     private void SetMaxPos(Vector3 firstPos)
     {
-        MaxPos = new Vector2(Mathf.Abs(firstPos.x), Mathf.Abs(firstPos.y));
+        Debug.Log(firstPos);
+        MaxPos = firstPos;
+        Debug.Log(MaxPos);
     }
 
     private void RayLengthCalul()
     {
-        rayLength = pieceWidth / panelWidth;
+       if(rayLength == 0) rayLength = pieceWidth / panelWidth;
+    }
+
+    public void GamePause_Slide()
+    {
+        StartCoroutine(ChildrenEnable(false));
+        interectManager.enabled = true;
+        this.enabled = false;
+    }
+
+    public void GameStart_Slide()
+    {
+        StartCoroutine(ChildrenEnable(true));
     }
 
     public void Shuffle()
@@ -70,10 +96,10 @@ public class SlidePuzzleManager : MonoBehaviour
         for (int i = 0; i < pieceOriPos.Count - 1; i++)
         {
             Vector3 oriPos = pieceOriPos[i];
-            if (pieces[i].transform.position - oriPos != null)
+            if (pieces[i].transform.GetComponent<RectTransform>().localPosition != oriPos)
             {
                 clear = false;
-                Debug.Log(i + " 번째 퍼즐 안맞음");
+                //Debug.Log(i + " 번째 퍼즐 안맞음");
             }
                 
             
@@ -85,6 +111,8 @@ public class SlidePuzzleManager : MonoBehaviour
         if (clear == true)
         {
             Debug.Log("Clear");
+            lastPiece.UnSetTouchEnable(true);
+            lastPieceMat.DOFloat(1, "_DissolveAmount", 2f);
             clearEvent.Invoke();
         }        
     }
@@ -111,7 +139,7 @@ public class SlidePuzzleManager : MonoBehaviour
         Debug.Log(transform.childCount);
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).gameObject.activeSelf == false)
+            if (transform.GetChild(i).GetComponent<SlidePuzzlePiece>() == null)
                 continue;
 
             GameObject child = transform.GetChild(i).gameObject;
@@ -119,7 +147,25 @@ public class SlidePuzzleManager : MonoBehaviour
             pieceOriPos.Add(transform.GetChild(i).GetComponent<RectTransform>().localPosition);
         }
 
-        pieces[pieces.Count - 1].SetActive(false);
+        lastPieceMat = pieces[pieces.Count - 1].GetComponent<Image>().material;
+        lastPiece = pieces[pieces.Count - 1].GetComponent<SlidePuzzlePiece>();
+        lastPiece.UnSetTouchEnable(false);
+        lastPieceMat.SetFloat("_DissolveAmount", 0f);
         yield return null;
+    }
+
+    private IEnumerator ChildrenEnable(bool enable)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            SlidePuzzlePiece childPiece = transform.GetChild(i).GetComponent<SlidePuzzlePiece>();
+
+            if (childPiece == null)
+                continue;
+
+            childPiece.enabled = enable;
+
+            yield return null;
+        }
     }
 }

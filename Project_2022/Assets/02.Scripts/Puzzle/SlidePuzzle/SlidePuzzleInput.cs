@@ -22,6 +22,18 @@ public class SlidePuzzleInput : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (selectPiece != null)
+            {
+                selectPiece.SortingPos();
+                selectPiece.UnSelected();
+            }
+            selectPiece = null;
+
+            slideManager.GamePause_Slide();
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray camRay = viewCamera.ScreenPointToRay(Input.mousePosition);

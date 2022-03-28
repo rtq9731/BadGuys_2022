@@ -15,16 +15,18 @@ public class SlidePuzzlePiece : MonoBehaviour
 
     Vector2 maximumPos;
 
+    Material myMT;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         SPManager = transform.GetComponentInParent<SlidePuzzleManager>();
         target = SPManager.target;
         speed = SPManager.pieceSpeed;
-        maximumPos = SPManager.MaxPos;
     }
     private void Start()
     {
+        maximumPos = SPManager.MaxPos;
         rayLength = SPManager.rayLength;
         poses = SPManager.GetPoses();
     }
@@ -33,6 +35,11 @@ public class SlidePuzzlePiece : MonoBehaviour
     {
         //rayLength = SPManager.rayLength;
         //Debug.DrawRay(transform.position, Vector3.left * rayLength, Color.red);
+    }
+
+    public void UnSetTouchEnable(bool value)
+    {
+        GetComponent<BoxCollider>().enabled = value;
     }
 
     public void MoveToPos(Vector3 pos)
@@ -84,19 +91,55 @@ public class SlidePuzzlePiece : MonoBehaviour
         SortingPos();
     }
 
+    private Vector3 ConerCheck(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.Up:
+                if (rectTransform.localPosition.y > maximumPos.y){
+                    SortingPos();
+                    //Debug.LogError("나갈려는 시도 위");
+                    return Vector3.zero;
+                }
+                return Vector3.up;
+
+            case Direction.Down:
+                if (rectTransform.localPosition.y < -maximumPos.y){
+                    SortingPos();
+                    //Debug.LogError("나갈려는 시도 밑");
+                    return Vector3.zero;
+                }
+                return Vector3.down;
+
+            case Direction.Left:
+                if (rectTransform.localPosition.x < maximumPos.x){
+                    SortingPos();
+                    //Debug.LogError("나갈려는 시도 왼");
+                    return Vector3.zero;
+                }
+                return Vector3.left;
+
+            case Direction.Right:
+                if (rectTransform.localPosition.x > -maximumPos.x){
+                    SortingPos();
+                    //Debug.LogError("나갈려는 시도 오");
+                    return Vector3.zero;
+                }
+                return Vector3.right;
+            case Direction.None:
+                return Vector3.zero;
+            default:
+                return Vector3.zero;
+        }     
+    }
+
     private bool CheckDir(Direction dir)
     {
         Vector3 rayDir = Vector3.zero;
 
-        if (dir == Direction.Up)
-            rayDir = Vector3.up;
-        else if (dir == Direction.Down)
-            rayDir = Vector3.down;
-        else if (dir == Direction.Left)
-            rayDir = Vector3.left;
-        else if (dir == Direction.Right)
-            rayDir = Vector3.right;
-        else
+        rayDir = ConerCheck(dir);
+
+        if (rayDir == Vector3.zero)
             return false;
 
         RaycastHit hit;
@@ -107,19 +150,6 @@ public class SlidePuzzlePiece : MonoBehaviour
             //Debug.Log("Nope");
             return false;
         }
-            
-
-        //Vector3 cPos = rectTransform.localPosition;
-        //Debug.Log(rectTransform.localPosition);
-        //if (dir == Direction.Left && cPos.x <= -maximumPos.x)
-        //    return false;
-        //if (dir == Direction.Right && cPos.x >= maximumPos.x)
-        //    return false;
-        //if (dir == Direction.Up && cPos.y <= -maximumPos.y)
-        //    return false;
-        //if (dir == Direction.Left && cPos.y >= maximumPos.y)
-        //    return false;
-
 
         return true;
     }
