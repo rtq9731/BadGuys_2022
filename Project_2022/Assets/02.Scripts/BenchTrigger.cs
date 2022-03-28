@@ -8,6 +8,7 @@ public class BenchTrigger : MonoBehaviour
     [SerializeField] Bench togetherBench = null;
 
     [SerializeField] GameObject nextButterflyTrigger = null;
+    [SerializeField] GameObject wall = null;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class BenchTrigger : MonoBehaviour
 
     private void OnCompletePuzzle()
     {
+        wall.SetActive(false);
         eachBench.SetActive(false);
         togetherBench.SetActive(false);
         nextButterflyTrigger.SetActive(true);
