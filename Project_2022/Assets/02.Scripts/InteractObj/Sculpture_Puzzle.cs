@@ -10,13 +10,13 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
     [SerializeField] Outline outline = null;
     [SerializeField] float removeDuration = 2f;
 
+    [SerializeField] GameObject wallObj = null;
+
     public event System.Action _onPlayerMouseEnter = null;
     public event System.Action _onComplete = null;
 
     Inventory inventory = null;
     InventoryInput invenInput = null;
-
-    bool isComplete = false;
 
     private void Start()
     {
@@ -27,21 +27,28 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
 
     public void Interact(ItemInfo itemInfo, GameObject taker)
     {
+
         SculptureKeyAndObj obj = sculptureKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
         if (obj != null)
         {
-            if (sculptureKeyAndObjs.Count < 1)
-            {
-                obj.MakeSculptureObj(removeDuration, _onComplete);
-            }
-
             invenInput.RemoveItem();
             obj.MakeSculptureObj(removeDuration, () => { });
+
+            if (sculptureKeyAndObjs.FindAll(item => !item.isComplete).Count < 1)
+            {
+                obj.MakeSculptureObj(removeDuration, _onComplete);
+                wallObj.SetActive(false);
+                enabled = false;
+                outline.enabled = false;
+            }
         }
     }
 
     public void OnPlayerMouseEnter()
     {
+        if (!enabled)
+            return;
+
         _onPlayerMouseEnter?.Invoke();
         SculptureKeyAndObj obj = sculptureKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
         if (obj != null)
@@ -52,17 +59,23 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
 
     public void OnPlayerMouseExit()
     {
+        if (!enabled)
+            return;
+
         outline.enabled = false;
     }
 
     [System.Serializable]
     public class SculptureKeyAndObj
     {
+        public bool isComplete = false;
         public ItemInfo keyItem = null;
         public GameObject sculptureObj = null;
 
         public void MakeSculptureObj(float duration, System.Action callBack)
         {
+            isComplete = true;
+
             sculptureObj.GetComponent<MeshRenderer>().material.DOFloat(200, "_NoiseStrength", duration).OnComplete(() =>
             {
                 callBack?.Invoke();
