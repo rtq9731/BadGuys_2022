@@ -9,12 +9,9 @@ public class StoneBtn : MonoBehaviour
 
     public bool isPressed;
 
-    float originPosY;
-
     private void Start()
     {
         orderPuzzle = transform.parent.GetComponent<OrderPuzzle>();
-        originPosY = transform.position.y;
     }
 
     public void Pressed()

@@ -15,11 +15,11 @@ public class BlindImage : MonoBehaviour
 
     void Start()
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainStage_Stage" + LoadingSceneManager.sceneColor));
-        blindImageBlack.gameObject.SetActive(false);
-        blindImageWhite.DOFade(0f, 1f).OnComplete(() =>
-        {
-            SceneManager.UnloadSceneAsync("PictureMoveEffectScene");
-        });
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainStage_Stage" + LoadingSceneManager.sceneColor));
+            blindImageBlack.gameObject.SetActive(false);
+            blindImageWhite.DOFade(0f, 1f).OnComplete(() =>
+            {
+                SceneManager.UnloadSceneAsync("PictureMoveEffectScene");
+            });
     }
 }
