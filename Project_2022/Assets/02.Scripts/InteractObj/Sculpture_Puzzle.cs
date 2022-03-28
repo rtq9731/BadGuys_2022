@@ -16,15 +16,18 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
     Inventory inventory = null;
     InventoryInput invenInput = null;
 
+    bool isComplete = false;
+
     private void Start()
     {
+        inventory = FindObjectOfType<Inventory>();
+        invenInput = FindObjectOfType<InventoryInput>();
         outline.enabled = false;
     }
 
     public void Interact(ItemInfo itemInfo, GameObject taker)
     {
         SculptureKeyAndObj obj = sculptureKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
-        invenInput.RemoveItem();
         if (obj != null)
         {
             if (sculptureKeyAndObjs.Count < 1)
@@ -60,7 +63,7 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
 
         public void MakeSculptureObj(float duration, System.Action callBack)
         {
-            sculptureObj.GetComponent<MeshRenderer>().material.DOFloat(200, "_DissolveStrength", duration).OnComplete(() =>
+            sculptureObj.GetComponent<MeshRenderer>().material.DOFloat(200, "_NoiseStrength", duration).OnComplete(() =>
             {
                 callBack?.Invoke();
             });
