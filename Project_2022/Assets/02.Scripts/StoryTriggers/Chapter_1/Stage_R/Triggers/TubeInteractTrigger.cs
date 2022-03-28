@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Triggers;
 
-namespace Triggers.Switch.Chapter1
+namespace Triggers.Chapter1.StageR
 {
     public class TubeInteractTrigger : StoryTrigger
     {
