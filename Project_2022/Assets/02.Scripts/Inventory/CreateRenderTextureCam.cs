@@ -42,7 +42,7 @@ public class CreateRenderTextureCam : MonoBehaviour
 
         if(itemObj.transform.childCount > 0)
         {
-            if (itemObj.transform.GetChild(0).name.Contains("Car"))
+            if (itemObj.transform.GetChild(0).name.Contains("Car") || itemObj.transform.name == "Truck")
             {
                 itemObj.transform.DOScale(originScale, 0.1f);
             }
