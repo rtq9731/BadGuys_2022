@@ -32,16 +32,15 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
         {
             yield return null;
         }
-        UIManager._instance.OnCutSceneOver();
+        
         yield return new WaitForSeconds(0.4f);
 
         pictureCam.transform.DOLocalMoveZ(0.2f, 1f).OnComplete(() =>
         {
             Debug.Log("asdasd");
             blindPanel.SetActive(true);
+            UIManager._instance.OnCutSceneOver();
             StartCoroutine(LoadingSceneManager.LoadStage(sceneColor));
-
-            
         });
     }
 }
