@@ -4,9 +4,12 @@ using UnityEngine;
 
 namespace Triggers
 {
-    public abstract class StoryTrigger : MonoBehaviour
+    public class StoryTrigger : MonoBehaviour
     {
         [SerializeField] protected DialogDatas datas;
-        public abstract void OnTriggered();
+        public virtual void OnTriggered()
+        {
+            DialogManager.Instance.SetDialaogs(datas.GetDialogs());
+        }
     }
 }

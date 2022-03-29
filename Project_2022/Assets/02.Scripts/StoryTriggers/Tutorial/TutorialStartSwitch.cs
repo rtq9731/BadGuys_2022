@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Triggers;
 
-namespace Triggers.Switch.Chapter1.StageR
+namespace Triggers.Switch.Tutorial
 {
-    public class FirtsInteractSwitch : TriggerSwitch
+    public class TutorialStartSwitch : TriggerSwitch
     {
         private void Start()
         {
