@@ -9,6 +9,7 @@ namespace Triggers.Chapter1.StageR
         public override void OnTriggered()
         {
             DialogManager.Instance.SetDialaogs(datas.GetDialogs());
+            LoadingTrigger.Instance.Ontrigger();
         }
     }
 }
