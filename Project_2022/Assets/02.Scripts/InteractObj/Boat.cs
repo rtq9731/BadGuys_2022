@@ -65,10 +65,12 @@ public class Boat : MonoBehaviour, IInteractableItem
         isGoToSun = true;
         boatCam.GetComponent<BoatCam>().enabled = false;
         UIManager._instance.OnCutScene();
+
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
+
         boatCam.GetComponent<BoatCam>().enabled = true;
         UIManager._instance.OnCutSceneOver();
         yield return new WaitForSeconds(0.4f);
@@ -80,12 +82,12 @@ public class Boat : MonoBehaviour, IInteractableItem
         });
     }
 
-
     // 보트에서 내리는 함수
     private void TakeOffBoat()
     {
         isCanInterct = false;
         UIManager._instance.OnCutScene();
+        boatCam.GetComponent<BoatCam>().enabled = false;
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
             UIManager._instance.OnCutSceneOver();
@@ -133,5 +135,4 @@ public class Boat : MonoBehaviour, IInteractableItem
             });
         }
     }
-
 }
