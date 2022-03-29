@@ -15,14 +15,43 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     private GameObject pictureCam;
     [SerializeField]
     private GameObject blindPanel;
+
+    bool isClearStage = false;
+
+    private void Start()
+    {
+        GetComponent<MeshCollider>().enabled = false;
+        if (sceneColor == "R")
+        {
+            isClearStage = true;
+            GetComponent<MeshCollider>().enabled = true;
+            return;
+        }
+        else if (PlayerPrefs.GetString("RStage") != null && sceneColor == "G")
+        {
+            isClearStage = true;
+            GetComponent<MeshCollider>().enabled = true;
+            return;
+        }
+        else if (PlayerPrefs.GetString("GStage") != null && sceneColor == "B")
+        {
+            isClearStage = true;
+            GetComponent<MeshCollider>().enabled = true;
+            return;
+        }
+    }
+
     public void Interact(GameObject taker)
     {
-        Debug.Log("그림 상호작용");
-        pictureCam.SetActive(true);
-        StartCoroutine(CameraMove());
-        //SceneManager.LoadScene("MainStage_StageR");
-        MeshCollider mesh = transform.GetComponent<MeshCollider>();
-        mesh.enabled = false;
+        if(isClearStage)
+        {
+            Debug.Log("그림 상호작용");
+            pictureCam.SetActive(true);
+            StartCoroutine(CameraMove());
+            //SceneManager.LoadScene("MainStage_StageR");
+            MeshCollider mesh = transform.GetComponent<MeshCollider>();
+            mesh.enabled = false;
+        }
     }
 
     IEnumerator CameraMove()
