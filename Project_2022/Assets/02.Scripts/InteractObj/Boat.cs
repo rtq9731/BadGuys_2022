@@ -60,22 +60,22 @@ public class Boat : MonoBehaviour, IInteractableItem
         DOTween.KillAll();
 
         boatCam.SetActive(true);
-        inventory.SetActive(false);
 
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
         isGoToSun = true;
-
+        boatCam.GetComponent<BoatCam>().enabled = false;
+        UIManager._instance.OnCutScene();
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
-
+        boatCam.GetComponent<BoatCam>().enabled = true;
+        UIManager._instance.OnCutSceneOver();
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
 
         transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            inventory.SetActive(true);
             SetPaddleAnim(false);
         });
     }
@@ -85,8 +85,10 @@ public class Boat : MonoBehaviour, IInteractableItem
     private void TakeOffBoat()
     {
         isCanInterct = false;
+        UIManager._instance.OnCutScene();
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
+            UIManager._instance.OnCutSceneOver();
             isCanInterct = true;
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);
@@ -100,6 +102,7 @@ public class Boat : MonoBehaviour, IInteractableItem
     {
         DOTween.KillAll();
         isCanInterct = false;
+        SetPaddleAnim(true);
         if (isGo)
         {
             isGoToSun = false;
@@ -113,7 +116,6 @@ public class Boat : MonoBehaviour, IInteractableItem
                 transform.DOMove(originPos, Mathf.Round(duration / 10)).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
                     TakeOffBoat();
-                    inventory.SetActive(true);
 
                 });
             });
@@ -126,7 +128,6 @@ public class Boat : MonoBehaviour, IInteractableItem
                 isCanInterct = true;
                 transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
-                    inventory.SetActive(true);
                     SetPaddleAnim(false);
                 });
             });

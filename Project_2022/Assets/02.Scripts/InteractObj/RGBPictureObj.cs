@@ -27,11 +27,12 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
 
     IEnumerator CameraMove()
     {
+        UIManager._instance.OnCutScene();
         while (Vector3.Distance(pictureCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
-
+        UIManager._instance.OnCutSceneOver();
         yield return new WaitForSeconds(0.4f);
 
         pictureCam.transform.DOLocalMoveZ(0.2f, 1f).OnComplete(() =>
