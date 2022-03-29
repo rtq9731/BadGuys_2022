@@ -19,6 +19,13 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
 
     int fillCounter = -1;
 
+    private void Start()
+    {
+        inventory = FindObjectOfType<Inventory>();
+        invenInput = FindObjectOfType<InventoryInput>();
+        outline.enabled = false;
+    }
+
     public void Interact(ItemInfo itemInfo, GameObject taker)
     {
         ItemInfo obj = keys.Find(item => item == itemInfo);
@@ -32,7 +39,7 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
             if (fillCounter == fillObjects.Count - 1)
             {
                 enabled = false;
-                _onComplete();
+                _onComplete?.Invoke();
             }
         }
     }
