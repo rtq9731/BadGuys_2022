@@ -22,16 +22,20 @@ public class LoadingTrigger : MonoBehaviour
     }
 
     [SerializeField]
-    private Image blindImage;
+    private Image blindImage = null;
 
-    public void Ontrigger()
+    void DelayFunc()
     {
-        //다이얼로그나 연출을 다 본후에 실행하게
         PlayerPrefs.SetString("RStage", "Clear");
         blindImage.DOFade(1, 1.2f).OnComplete(() =>
         {
             StartCoroutine(LoadLobbyStage());
         });
+    }
+
+    public void Ontrigger()
+    {
+        Invoke("DelayFunc", 5f);
     }
 
     IEnumerator LoadLobbyStage()

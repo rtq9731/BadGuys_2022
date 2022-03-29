@@ -20,6 +20,10 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
 
     private void Start()
     {
+
+        Debug.Log(PlayerPrefs.GetString("RStage"));
+        Debug.Log(PlayerPrefs.GetString("GStage"));
+        Debug.Log(PlayerPrefs.GetString("BStage"));
         GetComponent<MeshCollider>().enabled = false;
         if (sceneColor == "R")
         {
@@ -27,13 +31,13 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             GetComponent<MeshCollider>().enabled = true;
             return;
         }
-        else if (PlayerPrefs.GetString("RStage") != null && sceneColor == "G")
+        else if (PlayerPrefs.GetString("RStage") != "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
             return;
         }
-        else if (PlayerPrefs.GetString("GStage") != null && sceneColor == "B")
+        else if (PlayerPrefs.GetString("GStage") != "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
