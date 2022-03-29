@@ -11,6 +11,8 @@ public class OrderPuzzle : MonoBehaviour
     public AudioClip correctAnswerClip;
     public AudioClip clickSound;
 
+    public GameObject wall = null;
+
     AudioSource audioSource;
     private void Start()
     {
@@ -39,6 +41,7 @@ public class OrderPuzzle : MonoBehaviour
                 CorrectAnswer();
             }
         }
+
     }
 
     private void CorrectAnswer()
@@ -50,6 +53,7 @@ public class OrderPuzzle : MonoBehaviour
             {
                 stoneList[i].GetComponent<BoxCollider>().enabled = false;
             }
+            wall.SetActive(false);
             audioSource.clip = correctAnswerClip;
             audioSource.Play();
             return;
