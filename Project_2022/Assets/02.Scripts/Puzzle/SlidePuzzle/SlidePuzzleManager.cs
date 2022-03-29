@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.IO;
 using System.Linq;
 using DG.Tweening;
 
@@ -10,8 +11,6 @@ public class SlidePuzzleManager : MonoBehaviour
 {
     [SerializeField]
     private GridLayoutGroup gridComponent;
-    [SerializeField]
-    private SlideInterect slideInterect;
     [SerializeField]
     private List<GameObject> pieces;
     [SerializeField]
@@ -25,7 +24,10 @@ public class SlidePuzzleManager : MonoBehaviour
     [SerializeField]
     private SlidePuzzleInput inputManager;
 
-    private List<Vector3> pieceShufflePos;
+    public bool[] twoDVector;
+    private List<Vector3> nowPos;
+    private string[] fileNames;
+    private string filePath = "Assets/SlidePuzzleSave";
 
     [SerializeField]
     private SlidePuzzlePiece lastPiece;
@@ -39,11 +41,16 @@ public class SlidePuzzleManager : MonoBehaviour
     public float rayLength;
     public float pieceSpeed;
 
+    public bool isPieceStop;
+
     private void Awake()
     {
         RayLengthCalul();
+        isPieceStop = true;
+        twoDVector = new bool[9];
+        fileNames = Directory.GetFiles(filePath, "*.txt");
         pieceOriPos = new List<Vector3>();
-        pieceShufflePos = new List<Vector3>();
+        nowPos = new List<Vector3>();
         clearPuzzle = false;
         gridComponent.enabled = false;
         StartCoroutine(GetChildren());
@@ -52,9 +59,7 @@ public class SlidePuzzleManager : MonoBehaviour
 
     private void SetMaxPos(Vector3 firstPos)
     {
-        Debug.Log(firstPos);
         MaxPos = firstPos;
-        Debug.Log(MaxPos);
     }
 
     private void RayLengthCalul()
@@ -65,6 +70,7 @@ public class SlidePuzzleManager : MonoBehaviour
     public void GamePause_Slide()
     {
         StartCoroutine(ChildrenEnable(false));
+        inputManager.enabled = false;
         interectManager.enabled = true;
         this.enabled = false;
     }
@@ -72,6 +78,7 @@ public class SlidePuzzleManager : MonoBehaviour
     public void GameStart_Slide()
     {
         StartCoroutine(ChildrenEnable(true));
+        inputManager.enabled = true;
     }
 
     public void Shuffle()
@@ -84,9 +91,19 @@ public class SlidePuzzleManager : MonoBehaviour
         StartCoroutine(CheckPiecesPos());
     }
 
-    public List<Vector3> GetPoses()
+    public List<Vector3> GetOriPoses()
     {
         return pieceOriPos.ToList();
+    }
+
+    public List<Vector3> GetNowPoses()
+    {
+        nowPos.Clear();
+        for (int i = 0; i < pieces.Count; i++)
+        {
+            nowPos.Add(pieces[i].GetComponent<RectTransform>().localPosition);
+        }
+        return nowPos.ToList();
     }
 
     private IEnumerator CheckPiecesPos()
@@ -111,7 +128,6 @@ public class SlidePuzzleManager : MonoBehaviour
         if (clear == true)
         {
             Debug.Log("Clear");
-            lastPiece.UnSetTouchEnable(true);
             lastPieceMat.DOFloat(1, "_DissolveAmount", 2f);
             clearEvent.Invoke();
         }        
@@ -119,24 +135,42 @@ public class SlidePuzzleManager : MonoBehaviour
 
     private IEnumerator ShufflePieces()
     {
-        Debug.Log("셔플 시작");
-        pieceShufflePos = pieceOriPos.ToList();
+        List<Vector3> loadPoses = new List<Vector3>();
 
-        int count = pieceShufflePos.Count;
-        for (int i = 0; i < count; i++)
+        int random = Random.Range(0, fileNames.Length);
+        Debug.Log(random);
+
+        FileInfo info = new FileInfo(fileNames[random]);
+        string value = "";
+
+        if (info.Exists)
         {
-            int ran = Random.Range(0, pieceShufflePos.Count);
-            pieces[i].transform.localPosition = pieceShufflePos[ran];
-            pieceShufflePos.RemoveAt(ran);
+            StreamReader reader = new StreamReader(fileNames[random]);
+            value = reader.ReadToEnd();
+            reader.Close();
+        }
+        else
+            Debug.LogError("파일이 없습니다");
+
+        string[] textPoses = value.Split('\n');
+        //Debug.Log(textPoses[0]);
+
+        for (int i = 0; i < textPoses.Length; i++)
+        {
+            string[] poses = textPoses[i].Split(',');
+            loadPoses.Add(new Vector3(float.Parse(poses[0]), float.Parse(poses[1]), float.Parse(poses[2])));
         }
 
-        Debug.Log("셔플끝");
+        for (int i = 0; i < pieces.Count; i++)
+        {
+            pieces[i].transform.GetComponent<RectTransform>().localPosition = loadPoses[i];
+        }
+
         yield return null;
     }
 
     private IEnumerator GetChildren()
     {
-        Debug.Log(transform.childCount);
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).GetComponent<SlidePuzzlePiece>() == null)
@@ -145,11 +179,14 @@ public class SlidePuzzleManager : MonoBehaviour
             GameObject child = transform.GetChild(i).gameObject;
             pieces.Add(child);
             pieceOriPos.Add(transform.GetChild(i).GetComponent<RectTransform>().localPosition);
+
+            twoDVector[i] = true;
         }
 
         lastPieceMat = pieces[pieces.Count - 1].GetComponent<Image>().material;
         lastPiece = pieces[pieces.Count - 1].GetComponent<SlidePuzzlePiece>();
-        lastPiece.UnSetTouchEnable(false);
+        lastPiece.transform.GetComponent<BoxCollider>().enabled = false;
+        twoDVector[8] = false;
         lastPieceMat.SetFloat("_DissolveAmount", 0f);
         yield return null;
     }

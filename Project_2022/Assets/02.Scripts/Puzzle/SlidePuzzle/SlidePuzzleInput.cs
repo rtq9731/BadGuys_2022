@@ -13,6 +13,7 @@ public class SlidePuzzleInput : MonoBehaviour
 
     private LayerMask target; // 그림들 레이어
     private SlidePuzzlePiece selectPiece;
+    private Vector3 hitPos;
 
     private void Awake()
     {
@@ -22,19 +23,7 @@ public class SlidePuzzleInput : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (selectPiece != null)
-            {
-                selectPiece.SortingPos();
-                selectPiece.UnSelected();
-            }
-            selectPiece = null;
-
-            slideManager.GamePause_Slide();
-        }
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && slideManager.isPieceStop)
         {
             Ray camRay = viewCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -44,33 +33,24 @@ public class SlidePuzzleInput : MonoBehaviour
             {
                 selectPiece = hit.transform.GetComponent<SlidePuzzlePiece>();
                 selectPiece.Selected(color);
-            }
-        }
-
-        if (Input.GetMouseButton(0) && selectPiece != null)
-        {
-            Ray camRay = viewCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            float depth = viewCamera.farClipPlane;
-
-            if (Physics.Raycast(camRay, out hit, depth))
-            {
-                Vector3 mePos = transform.position;
-                Vector3 mousePos = transform.InverseTransformVector(hit.point - new Vector3(mePos.x, mePos.y, hit.point.z));
-
-                //Debug.LogWarning(mousePos);
-                selectPiece.MoveToPos(mousePos);
+                
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
+            selectPiece.MoveToDis();
+
             if (selectPiece != null)
-            {
-                selectPiece.SortingPos();
                 selectPiece.UnSelected();
-            }
+
             selectPiece = null;
         }
+    }
+
+    private void OnDrawGizmos() //마우스 클릭 위치에 원을 그려줌.
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(hitPos, 0.05f);
     }
 }
