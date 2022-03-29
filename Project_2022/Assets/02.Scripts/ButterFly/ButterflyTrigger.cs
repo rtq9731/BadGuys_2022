@@ -19,7 +19,6 @@ public class ButterflyTrigger : MonoBehaviour
             butterfly_Idle.gameObject.SetActive(false);
 
             butterfly.transform.position = butterfly_Idle.transform.position;
-            butterfly.transform.rotation = butterfly_Idle.transform.rotation;
             
             UIManager._instance.OnCutScene();
             
@@ -30,7 +29,7 @@ public class ButterflyTrigger : MonoBehaviour
                 gameObject.SetActive(false);
                 onComplete?.Invoke();
             });
-            vcam.m_LookAt = butterfly.transform;
+            vcam.m_LookAt = butterfly.butterfly;
             vcam.gameObject.SetActive(true);
         }
     }

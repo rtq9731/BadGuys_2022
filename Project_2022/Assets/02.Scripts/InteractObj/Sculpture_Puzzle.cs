@@ -10,6 +10,7 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
     [SerializeField] Outline outline = null;
     [SerializeField] float removeDuration = 2f;
 
+    [SerializeField] GameObject clearTrigger = null;
     [SerializeField] GameObject wallObj = null;
 
     public event System.Action _onPlayerMouseEnter = null;
@@ -38,6 +39,7 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
             {
                 obj.MakeSculptureObj(removeDuration, _onComplete);
                 wallObj.SetActive(false);
+                clearTrigger.SetActive(true);
                 enabled = false;
                 outline.enabled = false;
             }

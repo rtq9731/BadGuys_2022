@@ -6,13 +6,15 @@ using DG.Tweening;
 
 public class ButterFlyScript : MonoBehaviour
 {
-    [SerializeField] Transform butterfly = null;
+    public Transform butterfly = null;
     [SerializeField] Texture2D butterflyDissolveTex = null;
     [SerializeField] ParticleSystem ps = null;
+
     List<Material> butterflyDissolveMats = new List<Material>();
 
     [SerializeField] Animator butterflyAnim = null;
 
+    [SerializeField] float noiseScale = 0f;
     [SerializeField] float speed = 0f;
 
     int hashButterflyFLY = 0;
@@ -23,7 +25,8 @@ public class ButterFlyScript : MonoBehaviour
         butterfly.GetComponentsInChildren<MeshRenderer>().ToList().ForEach(item =>
         {
             item.material.SetTexture("_MainTex", butterflyDissolveTex);
-            butterflyDissolveMats.Add(item.material);
+            item.material.SetFloat("_NoiseScale", noiseScale);
+           butterflyDissolveMats.Add(item.material);
         });
 
         hashButterflyFLY = Animator.StringToHash("bFly");
@@ -32,25 +35,40 @@ public class ButterFlyScript : MonoBehaviour
 
     public void Disappear(Transform destination, System.Action callBack)
     {
-        butterflyDissolveMats.ForEach(item => item.SetFloat("_NoiseStrength", 300f));
-        Sequence seq = DOTween.Sequence();
+        butterfly.position = transform.position;
+        butterfly.rotation = Quaternion.Euler(Vector3.zero);
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        butterflyDissolveMats.ForEach(item => item.SetFloat("_NoiseStrength", 300));
+
         butterflyAnim.SetTrigger(hashButterflyFLY);
 
-        StartCoroutine(FlyForDisappear(destination));
-        butterflyDissolveMats.ForEach(item => seq.Join(item.DOFloat(0, "_NoiseStrength", 7f)).SetEase(Ease.InCubic).OnComplete(() => {
-            ps.Play();
-            callBack();
-        }));
+        StartCoroutine(FlyForDisappear(destination, callBack));
     }
 
-    private IEnumerator FlyForDisappear(Transform dest)
+    private IEnumerator FlyForDisappear(Transform dest, System.Action callBack)
     {
-        while (Vector2.Distance(dest.position, transform.position) >= 0.01f)
+        float distToDest = Vector2.Distance(dest.position, butterfly.position);
+
+        while (Vector2.Distance(dest.position, butterfly.position) >= 0.01f)
         {
-            transform.Translate((dest.position - transform.position).normalized * speed * Time.deltaTime);
             butterfly.LookAt(dest);
+            transform.Translate((dest.position - transform.position).normalized * speed * Time.deltaTime);
+            Debug.DrawRay(butterfly.position, (dest.position - butterfly.position), Color.red, 10);
+
+            butterflyDissolveMats.ForEach(item =>
+            {
+                item.SetFloat("_NoiseStrength", Mathf.Lerp(0, 300, Vector2.Distance(dest.position, butterfly.position) / distToDest));
+            });
+
+            if(butterflyDissolveMats[0].GetFloat("_NoiseStrength") <= 40 && distToDest / 2 >= Vector2.Distance(dest.position, butterfly.position))
+            {
+                ps.Play();
+                callBack();
+                break;
+            }
 
             yield return null;
         };
+
     }
 }

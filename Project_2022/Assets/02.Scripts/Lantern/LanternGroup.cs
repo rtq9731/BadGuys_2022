@@ -10,7 +10,6 @@ public class LanternGroup : MonoBehaviour
     private void Start()
     {
         lanterns = GetComponentsInChildren<LanternScript>().ToList();
-        Debug.Log(lanterns.Count);
         lanterns.ForEach(item =>
         {
             item.SetActiveLight(false);
