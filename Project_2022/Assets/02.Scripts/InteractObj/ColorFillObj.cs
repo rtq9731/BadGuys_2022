@@ -24,7 +24,7 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
         outline.enabled = false;
     }
 
-    public void Interact(ItemInfo itemInfo, GameObject taker)
+    public virtual void Interact(ItemInfo itemInfo, GameObject taker)
     {
         ColorKeyAndObj obj = colorKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
         colorKeyAndObjs.Remove(obj);
