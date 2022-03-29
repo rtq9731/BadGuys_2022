@@ -12272,8 +12272,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512799832}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 178.97, y: 36.06, z: 202.48}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 194.7, y: 36.06, z: 286.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16828,16 +16828,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sculptureKeyAndObjs:
-  - keyItem: {fileID: 11400000, guid: d3d4ee79272428149be6fa7bfbfc89ee, type: 2}
+  - isComplete: 0
+    keyItem: {fileID: 11400000, guid: d3d4ee79272428149be6fa7bfbfc89ee, type: 2}
     sculptureObj: {fileID: 669075982}
-  - keyItem: {fileID: 11400000, guid: 57d2eb65709356c4cb50d12f00f5525d, type: 2}
+  - isComplete: 0
+    keyItem: {fileID: 11400000, guid: 57d2eb65709356c4cb50d12f00f5525d, type: 2}
     sculptureObj: {fileID: 669075981}
-  - keyItem: {fileID: 11400000, guid: bcbae6e0a7593494e9fd1e5350fc86fe, type: 2}
+  - isComplete: 0
+    keyItem: {fileID: 11400000, guid: bcbae6e0a7593494e9fd1e5350fc86fe, type: 2}
     sculptureObj: {fileID: 669075980}
-  - keyItem: {fileID: 11400000, guid: 3acbb2257b3780f4e8952992640ff91d, type: 2}
+  - isComplete: 0
+    keyItem: {fileID: 11400000, guid: 3acbb2257b3780f4e8952992640ff91d, type: 2}
     sculptureObj: {fileID: 669075979}
   outline: {fileID: 669076002}
   removeDuration: 3
+  wallObj: {fileID: 0}
 --- !u!114 &669075998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32952,6 +32957,7 @@ MonoBehaviour:
   eachBench: {fileID: 2047034012}
   togetherBench: {fileID: 132140571}
   nextButterflyTrigger: {fileID: 519412565}
+  wall: {fileID: 0}
 --- !u!1001 &1324342991
 PrefabInstance:
   m_ObjectHideFlags: 0
