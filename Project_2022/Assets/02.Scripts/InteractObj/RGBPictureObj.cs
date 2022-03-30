@@ -72,7 +72,7 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
         {
             Debug.Log("asdasd");
             blindPanel.SetActive(true);
-            UIManager._instance.OnCutSceneOver();
+            UIManager._instance.OnCutSceneOverWithoutClearDialog();
             StartCoroutine(LoadingSceneManager.LoadStage(sceneColor));
         });
     }

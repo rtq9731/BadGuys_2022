@@ -72,7 +72,7 @@ public class Boat : MonoBehaviour, IInteractableItem
         }
 
         boatCam.GetComponent<BoatCam>().enabled = true;
-        UIManager._instance.OnCutSceneOver();
+        UIManager._instance.OnCutSceneOverWithoutClearDialog();
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
 
@@ -90,7 +90,7 @@ public class Boat : MonoBehaviour, IInteractableItem
         boatCam.GetComponent<BoatCam>().enabled = false;
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
-            UIManager._instance.OnCutSceneOver();
+            UIManager._instance.OnCutSceneOverWithoutClearDialog();
             isCanInterct = true;
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);

@@ -49,7 +49,7 @@ public class RotationPuzzle : MonoBehaviour
         {
             completeSR.material.DOFloat(0, "_DissolveAmount", 3f).OnComplete(() =>
             {
-                FindObjectOfType<UIManager>().OnCutSceneOver();
+                FindObjectOfType<UIManager>().OnCutSceneOverWithoutClearDialog();
                 completeSR.gameObject.SetActive(false);
                 vCamComplete.SetActive(false);
                 enabled = false;

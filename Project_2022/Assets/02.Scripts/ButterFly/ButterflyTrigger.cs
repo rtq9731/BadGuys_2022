@@ -25,7 +25,7 @@ public class ButterflyTrigger : MonoBehaviour
             butterfly.Disappear(destination, () =>
             {
                 vcam.gameObject.SetActive(false);
-                UIManager._instance.OnCutSceneOver();
+                UIManager._instance.OnCutSceneOverWithoutClearDialog();
                 gameObject.SetActive(false);
                 onComplete?.Invoke();
             });

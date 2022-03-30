@@ -34,7 +34,13 @@ public class UIManager : MonoBehaviour
     {
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
-        FindObjectOfType<DialogManager>().ClearALLDialog();
+        FindObjectOfType<DialogManager>()?.ClearALLDialog();
+    }
+
+    public void OnCutSceneOverWithoutClearDialog()
+    {
+        _mainUI.SetActive(true);
+        GameManager.Instance.IsPause = false;
     }
 
     public void DisplayCursor(bool display)
