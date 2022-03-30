@@ -21,23 +21,21 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     private void Start()
     {
         GetComponent<MeshCollider>().enabled = false;
+        Debug.Log(PlayerPrefs.GetString("MainStage_StageR"));
         if (sceneColor == "R")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
-            return;
         }
-        else if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
+        if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
-            return;
         }
-        else if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
+        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
-            return;
         }
     }
 
