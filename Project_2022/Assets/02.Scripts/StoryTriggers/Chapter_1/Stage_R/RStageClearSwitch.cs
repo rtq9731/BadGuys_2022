@@ -9,8 +9,11 @@ namespace Triggers.Switch.Chapter1.StageR
         private void Start()
         {
             GetComponent<ColorFillObj>()._onComplete += Fire;
-            GetComponent<ColorFillObj>()._onComplete += () => { GetComponent<ColorFillObj>()._onComplete -= Fire; };
-            LoadingTrigger.Instance.Ontrigger();
+            GetComponent<ColorFillObj>()._onComplete += () => 
+            { 
+                GetComponent<ColorFillObj>()._onComplete -= Fire;
+                LoadingTrigger.Instance.Ontrigger();
+            };
         }
     }
 }

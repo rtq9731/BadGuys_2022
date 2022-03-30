@@ -13,6 +13,7 @@ namespace Triggers.Switch.Chapter1.StageB
             GetComponent<ColorFillObj_prcture>()._onComplete += () =>
             {
                 GetComponent<ColorFillObj_prcture>()._onComplete -= Fire;
+                LoadingTrigger.Instance.Ontrigger();
             };
         }
     }

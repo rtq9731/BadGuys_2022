@@ -16,8 +16,6 @@ public class CreateRenderTextureCam : MonoBehaviour
     {
         float x = 0;
 
-        Debug.Log(transform.childCount);
-
         for(int i = 0; i < transform.childCount; i++)
         {
             x += 5;

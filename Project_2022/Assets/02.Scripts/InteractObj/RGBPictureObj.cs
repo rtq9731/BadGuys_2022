@@ -20,10 +20,6 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
 
     private void Start()
     {
-
-        Debug.Log(PlayerPrefs.GetString("RStage"));
-        Debug.Log(PlayerPrefs.GetString("GStage"));
-        Debug.Log(PlayerPrefs.GetString("BStage"));
         GetComponent<MeshCollider>().enabled = false;
         if (sceneColor == "R")
         {
@@ -31,13 +27,13 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             GetComponent<MeshCollider>().enabled = true;
             return;
         }
-        else if (PlayerPrefs.GetString("RStage") != "Clear" && sceneColor == "G")
+        else if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
             return;
         }
-        else if (PlayerPrefs.GetString("GStage") != "Clear" && sceneColor == "B")
+        else if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
@@ -52,7 +48,6 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             Debug.Log("그림 상호작용");
             pictureCam.SetActive(true);
             StartCoroutine(CameraMove());
-            //SceneManager.LoadScene("MainStage_StageR");
             MeshCollider mesh = transform.GetComponent<MeshCollider>();
             mesh.enabled = false;
         }
