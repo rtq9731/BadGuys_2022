@@ -9,7 +9,6 @@ namespace Triggers.Switch.Chapter1.StageB
         private void Start()
         {
             Fire();
-            Debug.Log("¤¾¤·");
         }
     }
 }
