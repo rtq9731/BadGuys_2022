@@ -8,20 +8,21 @@ public class PictureInfo : MonoBehaviour
     public Image[] picturePieces;
     public int[] pieceColorCode;
 
+    public int btnCount;
 
     private void Start()
     {
-       
+        
     }
 
     public int[] GetPictureInfo()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < btnCount; i++)
         {
             picturePieces[i] = transform.GetChild(i).GetComponent<Image>();
         }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < btnCount; i++)
         {
             pieceColorCode[i] = picturePieces[i].color.GetHashCode();
         }
