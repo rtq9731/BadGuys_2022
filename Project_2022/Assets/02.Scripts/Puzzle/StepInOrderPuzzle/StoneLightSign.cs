@@ -9,6 +9,8 @@ public class StoneLightSign : MonoBehaviour, IInteractableItem
     [SerializeField]
     private GameObject[] rightStoneOrder;
 
+    public event System.Action _onInteract = null;
+
     private bool isProgress;
     void Start()
     {
@@ -17,8 +19,12 @@ public class StoneLightSign : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        if(isProgress == false)
+        if (isProgress == false)
+        {
+            _onInteract?.Invoke();
             StartCoroutine(LightInOrder());
+        }
+
     }
 
     IEnumerator LightInOrder()

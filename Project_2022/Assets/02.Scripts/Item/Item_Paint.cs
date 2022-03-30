@@ -25,6 +25,7 @@ public class Item_Paint : Item, IPlayerMouseEnterHandler, IPlayerMouseExitHandle
         inveninput = FindObjectOfType<InventoryInput>();
 
         paintMs.material.color = paintColor;
+        outline.enabled = false;
     }
 
     public override void Interact(GameObject taker)
@@ -33,7 +34,7 @@ public class Item_Paint : Item, IPlayerMouseEnterHandler, IPlayerMouseExitHandle
         if (item != null)
         {
             inveninput.RemoveItem();
-            Inventory.Instance.PickUpItem(itemInfo, Instantiate(returnItemPrfab), taker);
+            Inventory.Instance.PickUpItem(itemInfo, Instantiate(returnItemPrfab, transform.position, Quaternion.identity), taker);
         }
     }
 

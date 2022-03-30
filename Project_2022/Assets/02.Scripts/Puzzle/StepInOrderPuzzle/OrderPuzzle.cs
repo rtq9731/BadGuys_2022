@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Triggers;
 
 public class OrderPuzzle : MonoBehaviour
 {
+    public StoryTrigger completeTrigger = null;
+    public StoryTrigger failedTrigger = null;
+
     public GameObject[] rightOrder;
     public List<GameObject> stoneList = new List<GameObject>();
 
@@ -34,6 +38,7 @@ public class OrderPuzzle : MonoBehaviour
                 {
                     AllReturn();
                 });
+                failedTrigger.OnTriggered();
                 return;
             }
             else
@@ -49,6 +54,7 @@ public class OrderPuzzle : MonoBehaviour
         if(rightOrder.Length == stoneList.Count)
         {
             Debug.Log("!!!Á¤´ä!!!");
+            completeTrigger.OnTriggered();
             for(int i = 0; i < rightOrder.Length; i++)
             {
                 stoneList[i].GetComponent<BoxCollider>().enabled = false;

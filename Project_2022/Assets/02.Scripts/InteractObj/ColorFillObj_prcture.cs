@@ -38,13 +38,16 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
             fillCounter++;
             fillObjects[fillCounter].GetComponent<SpriteRenderer>().material.DOFloat(1, "_DissolveAmount", removeDuration);
             invenInput.RemoveItem();
-            inventory.PickUpItem(whiteBrushItemInfo, Instantiate<GameObject>(whiteBrushPrefab), taker);
 
             if (fillCounter == fillObjects.Count - 1)
             {
                 enabled = false;
                 _onComplete?.Invoke();
+                return;
             }
+
+            inventory.PickUpItem(whiteBrushItemInfo, Instantiate(whiteBrushPrefab, transform.position, Quaternion.identity), taker);
+
         }
     }
 

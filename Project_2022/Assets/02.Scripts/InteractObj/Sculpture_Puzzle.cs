@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Triggers;
 
 public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
@@ -12,6 +13,8 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
 
     [SerializeField] GameObject clearTrigger = null;
     [SerializeField] GameObject wallObj = null;
+
+    [SerializeField] StoryTrigger storyTrigger = null;
 
     public event System.Action _onPlayerMouseEnter = null;
     public event System.Action _onComplete = null;
@@ -24,6 +27,8 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
         inventory = FindObjectOfType<Inventory>();
         invenInput = FindObjectOfType<InventoryInput>();
         outline.enabled = false;
+
+        _onComplete += storyTrigger.OnTriggered;
     }
 
     public void Interact(ItemInfo itemInfo, GameObject taker)
