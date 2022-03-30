@@ -10,6 +10,9 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
 
     [SerializeField] List<ItemInfo> keys = new List<ItemInfo>();
     [SerializeField] List<GameObject> fillObjects = new List<GameObject>();
+    [SerializeField] GameObject whiteBrushPrefab = null;
+
+    [SerializeField] ItemInfo whiteBrushItemInfo = null;
 
     public event System.Action _onPlayerMouseEnter = null;
     public event System.Action _onComplete = null;
@@ -34,7 +37,8 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
             keys.Remove(obj);
             fillCounter++;
             fillObjects[fillCounter].GetComponent<SpriteRenderer>().material.DOFloat(1, "_DissolveAmount", removeDuration);
-            invenInput.RemoveItem(); 
+            invenInput.RemoveItem();
+            inventory.PickUpItem(whiteBrushItemInfo, Instantiate<GameObject>(whiteBrushPrefab), taker);
 
             if (fillCounter == fillObjects.Count - 1)
             {
