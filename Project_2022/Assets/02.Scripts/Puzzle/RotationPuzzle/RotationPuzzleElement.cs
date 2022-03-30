@@ -39,7 +39,6 @@ public class RotationPuzzleElement : MonoBehaviour
         {
             StopCoroutine(cor);
             cor = StartCoroutine(RotatePicture(rotateDuration));
-            _onRotationChanged?.Invoke();
         }
     }
 

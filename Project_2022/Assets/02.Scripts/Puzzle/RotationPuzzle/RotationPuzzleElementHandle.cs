@@ -19,13 +19,13 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
     public void Interact(GameObject taker)
     {
         rotationFinish += rotationAmount;
-        if(cor == null)
+        _onRotate?.Invoke(rotationAmount);
+        if (cor == null)
         {
             cor = StartCoroutine(RotateHandle(rotateDuration));
         }
         else
         {
-            _onRotate?.Invoke(rotationAmount);
             StopCoroutine(cor);
             cor = StartCoroutine(RotateHandle(rotateDuration));
         }
@@ -41,6 +41,5 @@ public class RotationPuzzleElementHandle : MonoBehaviour, IInteractableItem
             lastRotation = Mathf.Lerp(lastRotation, rotationFinish, timer / duration);
             yield return null;
         }
-        _onRotate?.Invoke(rotationAmount);
     }
 }
