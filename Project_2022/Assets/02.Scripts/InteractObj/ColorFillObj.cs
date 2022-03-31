@@ -22,6 +22,11 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
         inventory = FindObjectOfType<Inventory>();
         invenInput = FindObjectOfType<InventoryInput>();
         outline.enabled = false;
+
+        foreach (var item in colorKeyAndObjs)
+        {
+            item.unFilledObj.GetComponent<SpriteRenderer>().material.SetFloat("_DissolveAmount", 1);
+        }
     }
 
     public virtual void Interact(ItemInfo itemInfo, GameObject taker)

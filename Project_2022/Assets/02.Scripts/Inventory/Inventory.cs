@@ -66,7 +66,6 @@ public class Inventory : MonoBehaviour
         creatSlot.CreatingSlot();
         //InventoryContentsSize.Instance.SetContentsSize();
 
-        Debug.Log(slotParents.transform.GetChild(slotParents.transform.childCount - 1));
         slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(_item);
         slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().slotItem = obj;
 

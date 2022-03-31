@@ -17,7 +17,6 @@ public class PictureAnswerChecker : MonoBehaviour
 
     bool isCorrect = false;
 
-    public StoryTrigger storyTrigger;
     public GameObject storyWall;
 
     public bool CheckAnswer()
@@ -55,7 +54,6 @@ public class PictureAnswerChecker : MonoBehaviour
                 clearPictureIndex++;
                 if(clearPictureIndex == 3)
                 {
-                    storyTrigger.OnTriggered();
                     storyWall.SetActive(false);
                 }
             }

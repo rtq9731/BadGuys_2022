@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Triggers;
 
 public class RotationPuzzle : MonoBehaviour
 {
     [SerializeField] List<RotationPuzzleElement> elements = new List<RotationPuzzleElement>();
     [SerializeField] List<MonoBehaviour> myScripts = new List<MonoBehaviour>();
+    [SerializeField] StoryTrigger completeTrigger = null;
 
     [SerializeField] float errorRange = 10f;
 
@@ -51,6 +53,7 @@ public class RotationPuzzle : MonoBehaviour
             {
                 FindObjectOfType<UIManager>().OnCutSceneOverWithoutClearDialog();
                 completeSR.gameObject.SetActive(false);
+                completeTrigger.OnTriggered();
                 vCamComplete.SetActive(false);
                 enabled = false;
                 myScripts.ForEach(item => item.enabled = false);

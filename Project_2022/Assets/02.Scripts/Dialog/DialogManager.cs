@@ -107,7 +107,6 @@ public class DialogManager : MonoBehaviour
         foreach (var item in datas)
         {
             lastDialogs.Push(item);
-            Debug.Log(item.str);
         }
 
         if (cor == null)
