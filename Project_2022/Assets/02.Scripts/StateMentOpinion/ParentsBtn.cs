@@ -9,10 +9,14 @@ public class ParentsBtn : MonoBehaviour
     public Text btnText;
     [SerializeField]
     OpinionBtnManager OBManager;
+    public bool currect;
+    [SerializeField]
+    private string answerText;
 
     private void Awake()
     {
         btnText.text = "";
+        currect = false;
         CloseParentsBtn();
         GetComponent<Button>().interactable = false;
     }
@@ -38,6 +42,12 @@ public class ParentsBtn : MonoBehaviour
     public void Child_Btn(string text)
     {
         btnText.text = text;
+
+        if (btnText.text == answerText)
+            currect = true;
+        else
+            currect = false;
+
         CloseParentsBtn();
         OBManager.CheckAllParents();
     }

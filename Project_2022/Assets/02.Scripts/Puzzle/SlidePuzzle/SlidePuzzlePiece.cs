@@ -25,12 +25,6 @@ public class SlidePuzzlePiece : MonoBehaviour
         poses = SPManager.GetOriPoses();
     }
 
-    private void Update()
-    {
-        //rayLength = SPManager.rayLength;
-        //Debug.DrawRay(transform.position, Vector3.left * rayLength, Color.red);
-    }
-
     private bool CalculNearByEmpty(int empty)
     {
         if (empty - 3 == myPointNum)
