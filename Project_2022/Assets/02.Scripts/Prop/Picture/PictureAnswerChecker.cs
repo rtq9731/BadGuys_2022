@@ -37,6 +37,7 @@ public class PictureAnswerChecker : MonoBehaviour
                 {
                     pictureInfo.isClear = true;
                     isCorrect = true;
+                    AllClearPicture();
                     return isCorrect;
                 }
             }
