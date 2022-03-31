@@ -12,5 +12,11 @@ namespace Triggers.Switch
                 Fire();
             }
         }
+
+        public override void Fire()
+        {
+            trigger.OnTriggered();
+            gameObject.SetActive(false);
+        }
     }
 }
