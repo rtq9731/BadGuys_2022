@@ -28,7 +28,7 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {   
-        if(!isCorrect)
+         if(!isCorrect)
         {
             if (colorIndex == colors.Length - 1)
                 colorIndex = -1;
