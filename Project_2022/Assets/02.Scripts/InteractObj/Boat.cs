@@ -23,12 +23,17 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     Animator[] anim;
 
+    Sequence goSequence;
+    Sequence backSequence;
     private void Start()
     {
         rectTrm = inventory.transform.GetChild(0).GetComponent<RectTransform>();
         originPos = transform.position;
 
         anim = GetComponentsInChildren<Animator>();
+
+        goSequence = DOTween.Sequence();
+        
     }
 
     public void Interact(GameObject taker)
@@ -57,8 +62,6 @@ public class Boat : MonoBehaviour, IInteractableItem
     // 보트 출발하는 함수
     IEnumerator StartMove()
     {
-        DOTween.Kill(this);
-
         boatCam.SetActive(true);
 
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
@@ -74,6 +77,7 @@ public class Boat : MonoBehaviour, IInteractableItem
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
 
+        
         transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             SetPaddleAnim(false);
@@ -98,37 +102,49 @@ public class Boat : MonoBehaviour, IInteractableItem
     //돌리는 함수
     private void TurnBoat(bool isGo)
     {
-        DOTween.Kill(this);
         isCanInterct = false;
         SetPaddleAnim(true);
         if (isGo)
         {
+            backSequence = DOTween.Sequence();
+            DOTween.Kill(goSequence);
+
             isGoToSun = false;
-            transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
-            {
-                isCanInterct = true;
-                float duration = Vector2.Distance(transform.position, originPos);
+            float duration = Vector2.Distance(transform.position, originPos);
+            backSequence.Append(transform.DORotate(new Vector3(0, -90), 2f));
+            backSequence.Append(transform.DOMove(originPos, Mathf.Round(duration / 10)).SetEase(Ease.InOutSine));
+            isCanInterct = true;
 
-                Debug.Log(Mathf.Round(duration / 10));
-
-                transform.DOMove(originPos, Mathf.Round(duration / 10)).SetEase(Ease.InOutSine).OnComplete(() =>
-                {
-                    TakeOffBoat();
-
-                });
-            });
+            Debug.Log("부둣가로 간다");
+            //backSequence.Append(transform.DORotate(new Vector3(0, -90), 2f)).OnComplete(() =>
+            //{
+            //    isCanInterct = true;
+            //    Debug.Log("부둣가로 간다");
+            //    transform.DOMove(originPos, Mathf.Round(duration / 10)).SetEase(Ease.InOutSine).OnComplete(() =>
+            //    {
+            //        TakeOffBoat();
+            //    });
+            //});
         }
         else
         {
+            goSequence = DOTween.Sequence();
+            DOTween.Kill(backSequence);
+
             isGoToSun = true;
-            transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
-            {
-                isCanInterct = true;
-                transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
-                {
-                    SetPaddleAnim(false);
-                });
-            });
+
+            float duration = Vector2.Distance(transform.position, new Vector2(230f, transform.position.y));
+
+            goSequence.Append(transform.DORotate(new Vector3(0, 90), 2f));
+            goSequence.Append(transform.DOMoveX(230f, Mathf.Round(duration / 10)).SetEase(Ease.InOutSine));
+            isCanInterct = true;
+
+            Debug.Log("태양으로 간다");
+            //isCanInterct = true;
+            //transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
+            //{
+            //    SetPaddleAnim(false);
+            //});
         }
     }
 }
