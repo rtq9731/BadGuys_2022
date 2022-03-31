@@ -18,7 +18,7 @@ public class OutlinerOnMouseEnter : MonoBehaviour, IPlayerMouseEnterHandler, IPl
     [SerializeField] Color outlineColor = new Color(100 / 255,100 / 255,100 / 255);
     Outline outline = null;
 
-    private void Awake()
+    private void Start()
     {
         outline = GetComponent<Outline>();
         outline.OutlineWidth = outlineWidth;
