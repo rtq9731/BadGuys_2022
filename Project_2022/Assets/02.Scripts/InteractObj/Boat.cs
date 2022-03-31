@@ -112,7 +112,6 @@ public class Boat : MonoBehaviour, IInteractableItem
                 transform.DOMove(originPos, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
                     TakeOffBoat();
-
                 });
             });
         }
