@@ -37,6 +37,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
         CameraOverSetting();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        SlidePuzzleAllClear.Instance.AddClearCount();
     }
 
     private void CameraGameSetting()
