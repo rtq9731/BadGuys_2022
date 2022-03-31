@@ -42,6 +42,7 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
             if (fillCounter == fillObjects.Count - 1)
             {
                 enabled = false;
+                outline.enabled = false;
                 _onComplete?.Invoke();
                 return;
             }

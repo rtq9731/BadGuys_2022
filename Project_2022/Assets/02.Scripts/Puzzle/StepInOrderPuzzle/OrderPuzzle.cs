@@ -17,6 +17,8 @@ public class OrderPuzzle : MonoBehaviour
 
     public GameObject wall = null;
 
+    bool isComplete = false;
+
     AudioSource audioSource;
     private void Start()
     {
@@ -44,6 +46,12 @@ public class OrderPuzzle : MonoBehaviour
             else
             {
                 CorrectAnswer();
+
+                if(isComplete)
+                {
+                    completeTrigger.OnTriggered();
+                    break;
+                }
             }
         }
 
@@ -54,7 +62,7 @@ public class OrderPuzzle : MonoBehaviour
         if(rightOrder.Length == stoneList.Count)
         {
             Debug.Log("!!!Á¤´ä!!!");
-            completeTrigger.OnTriggered();
+            isComplete = true;
             for(int i = 0; i < rightOrder.Length; i++)
             {
                 stoneList[i].GetComponent<BoxCollider>().enabled = false;

@@ -52,24 +52,6 @@ public class Inventory : MonoBehaviour
         createRender = FindObjectOfType<CreateRenderTextureCam>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (!inventoryPanel.activeSelf)
-            {
-                inventoryPanel.SetActive(true);
-                GameManager.Instance.IsPause = true;
-                UIManager._instance.DisplayCursor(inventoryPanel.activeSelf);
-            }
-            else
-            {
-                UIStackManager.RemoveUIOnTop();
-                GameManager.Instance.IsPause = false;
-            }
-        }
-    }
-
     public void PickUpItem(ItemInfo _item, GameObject obj, GameObject whoIsTaker)
     {
         for (int i = 0; i < slotParents.transform.childCount; i++)

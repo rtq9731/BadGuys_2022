@@ -15,29 +15,23 @@ public class PictureAnswerChecker : MonoBehaviour
     public bool CheckAnswer()
     {
         int index = 0;
-        
+        isCorrect = false;
+
         pictureCode = pictureInfo.GetPictureInfo();
         pictureCorrectCode = pictureAnswer.pieceColorCode;
 
-        if (pictureCode[index] == pictureCorrectCode[index])
+        for (int i = 0; i < pictureCode.Length; i++)
         {
-            if(pictureCode[index+1] == pictureCorrectCode[index+1])
+            if(pictureCode[i] == pictureCorrectCode[i])
             {
-                if (pictureCode[index + 2] == pictureCorrectCode[index+2])
+                index++;
+                if (index == pictureCode.Length)
                 {
                     isCorrect = true;
                     return isCorrect;
                 }
-                isCorrect = false;
-                return isCorrect;
             }
-            isCorrect = false;
-            return isCorrect;
         }
-        else
-        {
-            isCorrect = false;
-            return isCorrect;
-        }
+        return isCorrect;
     }
 }

@@ -35,6 +35,8 @@ public class Boat : MonoBehaviour, IInteractableItem
     {
         if (isCanInterct)
         {
+            transform.DOKill();
+
             if (transform.position == originPos)
             {
                 StartCoroutine(StartMove());
@@ -57,8 +59,6 @@ public class Boat : MonoBehaviour, IInteractableItem
     // 보트 출발하는 함수
     IEnumerator StartMove()
     {
-        DOTween.Kill(this);
-
         boatCam.SetActive(true);
 
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
@@ -98,7 +98,7 @@ public class Boat : MonoBehaviour, IInteractableItem
     //돌리는 함수
     private void TurnBoat(bool isGo)
     {
-        DOTween.Kill(this);
+
         isCanInterct = false;
         SetPaddleAnim(true);
         if (isGo)
@@ -109,12 +109,9 @@ public class Boat : MonoBehaviour, IInteractableItem
                 isCanInterct = true;
                 float duration = Vector2.Distance(transform.position, originPos);
 
-                Debug.Log(Mathf.Round(duration / 10));
-
-                transform.DOMove(originPos, Mathf.Round(duration / 10)).SetEase(Ease.InOutSine).OnComplete(() =>
+                transform.DOMove(originPos, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
                     TakeOffBoat();
-
                 });
             });
         }
@@ -124,7 +121,9 @@ public class Boat : MonoBehaviour, IInteractableItem
             transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
             {
                 isCanInterct = true;
-                transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
+                float duration = Vector2.Distance(transform.position, new Vector2(230f, transform.position.y));
+
+                transform.DOMoveX(230f, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
                     SetPaddleAnim(false);
                 });
