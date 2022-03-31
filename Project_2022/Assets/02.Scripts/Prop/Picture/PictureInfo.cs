@@ -10,6 +10,8 @@ public class PictureInfo : MonoBehaviour
 
     public int btnCount;
 
+    public bool isClear;
+
     private void Start()
     {
         
