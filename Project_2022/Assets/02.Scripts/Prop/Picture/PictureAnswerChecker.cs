@@ -15,6 +15,9 @@ public class PictureAnswerChecker : MonoBehaviour
     public int[] pictureCode;
     public int[] pictureCorrectCode;
 
+    [SerializeField]
+    GStageLightTrigger lightTrigger = null;
+
     bool isCorrect = false;
 
     public GameObject storyWall;
@@ -55,6 +58,7 @@ public class PictureAnswerChecker : MonoBehaviour
                 if(clearPictureIndex == 3)
                 {
                     storyWall.SetActive(false);
+                    lightTrigger.SetActiveGroup(true);
                 }
             }
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Triggers;
 
 public class SlidePuzzleAllClear : MonoBehaviour
 {
@@ -11,12 +12,21 @@ public class SlidePuzzleAllClear : MonoBehaviour
     [SerializeField]
     private int clearCount;
 
+    [SerializeField]
+    GStageLightTrigger lightTrigger = null;
+
+    [SerializeField]
+    StoryTrigger completeTrigger = null;
+
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(this.gameObject);
+
+        slideAllClear += completeTrigger.OnTriggered;
+        slideAllClear += () => lightTrigger.SetActiveGroup(true);
 
         clearCount = 0;
     }

@@ -10,6 +10,8 @@ public class RotationPuzzle : MonoBehaviour
     [SerializeField] List<RotationPuzzleElement> elements = new List<RotationPuzzleElement>();
     [SerializeField] List<MonoBehaviour> myScripts = new List<MonoBehaviour>();
     [SerializeField] StoryTrigger completeTrigger = null;
+    [SerializeField] GStageLightTrigger lightTrigger = null;
+    [SerializeField] GameObject completeWall = null;
 
     [SerializeField] float errorRange = 10f;
 
@@ -55,6 +57,7 @@ public class RotationPuzzle : MonoBehaviour
                 completeSR.gameObject.SetActive(false);
                 completeTrigger.OnTriggered();
                 vCamComplete.SetActive(false);
+                lightTrigger.SetActiveGroup(true);
                 enabled = false;
                 myScripts.ForEach(item => item.enabled = false);
             });
