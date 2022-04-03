@@ -45,8 +45,8 @@ public class PiecePuzzleInput : MonoBehaviour
                 //targetPiece.MoveToPos(disPos);
                 Vector3 localPos = transform.InverseTransformPoint(hit.point);
                 // 도형 가로, 세로 구하고 /2
-                localPos.x = Mathf.Clamp(localPos.x, -boxSize.x / 2 + pieceSize / 2, boxSize.x / 2 - pieceSize / 2);
-                localPos.y = Mathf.Clamp(localPos.y, -boxSize.y / 2 + pieceSize / 2, boxSize.y / 2 - pieceSize / 2);
+                //localPos.x = Mathf.Clamp(localPos.x, -boxSize.x / 2 + pieceSize / 2, boxSize.x / 2 - pieceSize / 2);
+                //localPos.y = Mathf.Clamp(localPos.y, -boxSize.y / 2 + pieceSize / 2, boxSize.y / 2 - pieceSize / 2);
                 targetPiece.MoveToPos(localPos);
             }
         }

@@ -36,19 +36,20 @@ public class PiecePuzzlePiece : MonoBehaviour
 
         Debug.LogWarning(new Vector3(pos.x, pos.y, 0));
         
-        transform.localPosition = new Vector3(pos.x, pos.y, 0);
+        transform.localPosition = new Vector3(pos.x, pos.y, -0.1f);
     }
 
     private void PieceIn()
     {
         manager.PutPieceIn();
         transform.DOKill();
-        transform.DOLocalMove(myClearPos + new Vector3(0, 0, 0.1f), 0);
+        transform.DOLocalMove(myClearPos + new Vector3(0, 0, 0), 0);
     }
 
     public void CheckPieceIn()
     {
-        float distance = Vector3.Distance(transform.localPosition, myClearPos);
+        Vector3 mPos = transform.localPosition - new Vector3(0, 0, transform.localPosition.z);
+        float distance = Vector3.Distance(mPos, myClearPos);
         Debug.Log(distance);
         if (distance < clearDis)
             PieceIn();

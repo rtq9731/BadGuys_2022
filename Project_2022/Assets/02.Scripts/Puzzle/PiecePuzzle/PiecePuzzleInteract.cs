@@ -35,7 +35,7 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        PiecePuzzleAllClear.Instance.AddClearCount();
+        
     }
 
     private void AblePuzzle()

@@ -69,6 +69,7 @@ public class PiecePuzzleManager : MonoBehaviour
     {
         Debug.LogWarning("Clear");
         clear.Invoke();
+        PiecePuzzleAllClear.Instance.AddClearCount();
         this.enabled = false;
     }
 
