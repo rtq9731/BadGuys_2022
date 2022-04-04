@@ -2078,27 +2078,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 397755418}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &402283895 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3249341115277267031, guid: 88c24a61cf233594dad8b1e5c9e2e201,
+--- !u!114 &402283897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 402283898, guid: 88c24a61cf233594dad8b1e5c9e2e201,
     type: 3}
   m_PrefabInstance: {fileID: 2076614165}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &402283898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 402283895}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a0d4e5cebac5a048950d74ce7662144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opinionBtnManagers:
-  - {fileID: 1484367429694618743, guid: 38abba71b9c03b74c892d4dd8156c3ec, type: 3}
-  - {fileID: 1484367429694618743, guid: fb9601ac9cdbea44eaa00d8553487960, type: 3}
 --- !u!1 &404022218
 GameObject:
   m_ObjectHideFlags: 0
@@ -6765,7 +6756,7 @@ MonoBehaviour:
   _stateManager: {fileID: 882821884}
   _stateReader: {fileID: 882821883}
   _closeBtn: {fileID: 40688254}
-  _btnReader: {fileID: 402283898}
+  _btnReader: {fileID: 402283897}
   _statePanel: {fileID: 1340652817}
   _waitAndDown:
   - Wait: 5
@@ -10982,6 +10973,10 @@ PrefabInstance:
     - target: {fileID: 1918873026, guid: 88c24a61cf233594dad8b1e5c9e2e201, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074078134, guid: 88c24a61cf233594dad8b1e5c9e2e201, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7346756855873117608, guid: 88c24a61cf233594dad8b1e5c9e2e201,
         type: 3}

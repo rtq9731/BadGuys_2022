@@ -9,7 +9,7 @@ public class OpinionBtnReader : MonoBehaviour
 
     public void ButtonLoad()
     {
-        Debug.LogWarning("버튼 로드 실행");
+        Debug.LogWarning("버튼 로드 실행: " + GameManager.Instance.stateNum);
         Instantiate(opinionBtnManagers[GameManager.Instance.stateNum], transform);
     }
 }
