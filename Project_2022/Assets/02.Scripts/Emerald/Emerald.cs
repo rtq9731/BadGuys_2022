@@ -12,8 +12,7 @@ public class Emerald : MonoBehaviour ,IInteractableItem
 
     public PlayerController playerController;
 
-    public BoxCollider boxCollider;
-
+    BoxCollider boxCollider;
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
