@@ -88,7 +88,7 @@ public class LoadingSceneManager : MonoBehaviour
         sceneColor = _sceneColor;
 
         float timer = 0f;
-        float loadingTime = 1f;
+        float loadingTime = 3f;
 
         while (true)
         {

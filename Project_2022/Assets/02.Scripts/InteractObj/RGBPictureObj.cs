@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -15,6 +16,10 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     private GameObject pictureCam;
     [SerializeField]
     private GameObject blindPanel;
+    [SerializeField]
+    private GameObject loadImage;
+    [SerializeField]
+    private Image blindImage;
 
     bool isClearStage = false;
 
@@ -49,8 +54,6 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             Debug.Log("그림 상호작용");
             pictureCam.SetActive(true);
             StartCoroutine(CameraMove());
-            MeshCollider mesh = transform.GetComponent<MeshCollider>();
-            mesh.enabled = false;
         }
     }
 
@@ -64,12 +67,17 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
         
         yield return new WaitForSeconds(0.4f);
 
-        pictureCam.transform.DOLocalMoveZ(0.2f, 1f).OnComplete(() =>
+        blindPanel.SetActive(true);
+
+        blindImage.DOFade(1f, 1f).OnComplete(() =>
         {
-            Debug.Log("asdasd");
-            blindPanel.SetActive(true);
             UIManager._instance.OnCutSceneOverWithoutClearDialog();
+            loadImage.SetActive(true);
             StartCoroutine(LoadingSceneManager.LoadStage(sceneColor));
         });
+
+
+
+        
     }
 }

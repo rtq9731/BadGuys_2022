@@ -26,7 +26,6 @@ public class LoadingTrigger : MonoBehaviour
 
     void DelayFunc()
     {
-        Debug.Log(SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString(SceneManager.GetActiveScene().name, "Clear");
         blindImage.DOFade(1, 1.2f).OnComplete(() =>
         {
@@ -34,9 +33,9 @@ public class LoadingTrigger : MonoBehaviour
         });
     }
 
-    public void Ontrigger()
+    public void Ontrigger(float sec)
     {
-        Invoke("DelayFunc", 5f);
+        Invoke("DelayFunc", sec);
     }
 
     IEnumerator LoadLobbyStage()
