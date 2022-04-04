@@ -39,6 +39,7 @@ public class StateMentPanelManager : MonoBehaviour
 
         if (GameManager.Instance.canState)
         {
+            Debug.Log("¿€µø");
             StateReady(stateNum, _waitAndDown[stateNum]);
             _closeBtn.SetActive(false);
             _btnReader.ButtonLoad();
