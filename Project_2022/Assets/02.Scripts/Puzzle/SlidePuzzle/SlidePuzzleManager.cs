@@ -106,6 +106,12 @@ public class SlidePuzzleManager : MonoBehaviour
         return nowPos.ToList();
     }
 
+    public void CheatClear()
+    {
+        lastPieceMat.DOFloat(1, "_DissolveAmount", 2f);
+        clearEvent.Invoke();
+    }
+
     private IEnumerator CheckPiecesPos()
     {
         bool clear = true;
@@ -116,7 +122,6 @@ public class SlidePuzzleManager : MonoBehaviour
             if (pieces[i].transform.GetComponent<RectTransform>().localPosition != oriPos)
             {
                 clear = false;
-                //Debug.Log(i + " 번째 퍼즐 안맞음");
             }
                 
             
@@ -127,7 +132,6 @@ public class SlidePuzzleManager : MonoBehaviour
 
         if (clear == true)
         {
-            Debug.Log("Clear");
             lastPieceMat.DOFloat(1, "_DissolveAmount", 2f);
             clearEvent.Invoke();
         }        
@@ -138,7 +142,6 @@ public class SlidePuzzleManager : MonoBehaviour
         List<Vector3> loadPoses = new List<Vector3>();
 
         int random = Random.Range(0, fileNames.Length);
-        Debug.Log(random);
 
         FileInfo info = new FileInfo(fileNames[random]);
         string value = "";
@@ -149,8 +152,6 @@ public class SlidePuzzleManager : MonoBehaviour
             value = reader.ReadToEnd();
             reader.Close();
         }
-        else
-            Debug.LogError("파일이 없습니다");
 
         string[] textPoses = value.Split('\n');
         //Debug.Log(textPoses[0]);
