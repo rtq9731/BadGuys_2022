@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 {
@@ -10,10 +12,7 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        if(isAllClear)
-        {
-
-        }
+        LoadingTrigger.Instance.LoadingScene("Title");
     }
 
     void Start()
@@ -22,15 +21,13 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
         mesh.enabled = false;
 
-        if (PlayerPrefs.GetString("MainStage_StageR") == "Clear") { isAllClear = false; }
-        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear") { isAllClear = false; }
+        Debug.Log(PlayerPrefs.GetString("MainStage_StageB"));
+
         if (PlayerPrefs.GetString("MainStage_StageB") == "Clear") 
         { 
             isAllClear = true;
             mesh.enabled = true;
         }
-
-
     }
 
     void Update()

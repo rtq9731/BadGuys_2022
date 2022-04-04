@@ -38,6 +38,14 @@ public class LoadingTrigger : MonoBehaviour
         Invoke("DelayFunc", sec);
     }
 
+    public void LoadingScene(string sceneName)
+    {
+        blindImage.DOFade(1, 1.2f).OnComplete(() =>
+        {
+            SceneManager.LoadScene(sceneName);
+        });
+    }
+
     IEnumerator LoadLobbyStage()
     {
         AsyncOperation async = SceneManager.LoadSceneAsync("LoadingStageScene");
