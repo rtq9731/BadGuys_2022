@@ -13,6 +13,7 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
     public void Interact(GameObject taker)
     {
         LoadingTrigger.Instance.LoadingScene("Title");
+        GameManager.Instance.GameClear(2);
     }
 
     void Start()
