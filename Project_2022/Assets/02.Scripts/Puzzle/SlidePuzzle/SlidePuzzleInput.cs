@@ -39,11 +39,12 @@ public class SlidePuzzleInput : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            selectPiece.MoveToDis();
-
-            if (selectPiece != null)
+           if (selectPiece != null)
+            {
+                selectPiece.MoveToDis();
                 selectPiece.UnSelected();
-
+            }
+                
             selectPiece = null;
         }
     }
