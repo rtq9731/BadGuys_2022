@@ -22,9 +22,12 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     private Image blindImage;
 
     bool isClearStage = false;
+    bool canInteract = true;
+
 
     private void Start()
     {
+        canInteract = true;
         GetComponent<MeshCollider>().enabled = false;
         transform.GetChild(0).gameObject.SetActive(false);
         if (sceneColor == "R")
@@ -45,15 +48,18 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             GetComponent<MeshCollider>().enabled = true;
             transform.GetChild(0).gameObject.SetActive(true);
         }
+
+        CheckStageClear();
     }
 
     public void Interact(GameObject taker)
     {
-        if(isClearStage)
+        if(isClearStage && canInteract)
         {
             Debug.Log("그림 상호작용");
             pictureCam.SetActive(true);
             StartCoroutine(CameraMove());
+            canInteract = false;
         }
     }
 
@@ -75,9 +81,24 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
             loadImage.SetActive(true);
             StartCoroutine(LoadingSceneManager.LoadStage(sceneColor));
         });
+    }
 
-
-
-        
+    void CheckStageClear()
+    {   
+        if(PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "R")
+        {
+            Destroy(this);
+            Destroy(GetComponent<Outline>());
+        }
+        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "G")
+        {
+            Destroy(this);
+            Destroy(GetComponent<Outline>());
+        }
+        if (PlayerPrefs.GetString("MainStage_StageB") == "Clear" && sceneColor == "B")
+        {
+            Destroy(this);
+            Destroy(GetComponent<Outline>());
+        }
     }
 }
