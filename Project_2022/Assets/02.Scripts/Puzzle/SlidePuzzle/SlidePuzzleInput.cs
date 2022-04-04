@@ -14,6 +14,7 @@ public class SlidePuzzleInput : MonoBehaviour
     private LayerMask target; // 그림들 레이어
     private SlidePuzzlePiece selectPiece;
     private Vector3 hitPos;
+    private bool cheatOn;
 
     private void Awake()
     {
@@ -46,6 +47,17 @@ public class SlidePuzzleInput : MonoBehaviour
             }
                 
             selectPiece = null;
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            cheatOn = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (cheatOn)
+                slideManager.CheatClear();
         }
     }
 
