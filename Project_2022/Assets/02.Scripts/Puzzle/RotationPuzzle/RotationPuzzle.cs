@@ -57,6 +57,7 @@ public class RotationPuzzle : MonoBehaviour
                 completeSR.gameObject.SetActive(false);
                 completeTrigger.OnTriggered();
                 vCamComplete.SetActive(false);
+                completeWall.SetActive(false);
                 lightTrigger.SetActiveGroup(true);
                 enabled = false;
                 myScripts.ForEach(item => item.enabled = false);
