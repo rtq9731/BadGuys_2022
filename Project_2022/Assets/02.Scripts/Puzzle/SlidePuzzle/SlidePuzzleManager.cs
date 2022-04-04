@@ -27,7 +27,7 @@ public class SlidePuzzleManager : MonoBehaviour
     public bool[] twoDVector;
     private List<Vector3> nowPos;
     private string[] fileNames;
-    private string filePath = "Assets/SlidePuzzleSave";
+    private string filePath = "Assets/Resources/SlidePuzzleSave";
 
     [SerializeField]
     private SlidePuzzlePiece lastPiece;
