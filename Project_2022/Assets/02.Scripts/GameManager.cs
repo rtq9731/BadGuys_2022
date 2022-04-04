@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     readonly string fileName = "Emailes.sav";
 
+    public bool _isFirst = true;
     private bool _isPause;
     public bool IsPause
     {
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         emailDatas = Resources.Load<EmailDataListSO>("EmailDataSOList");
         LoadEmailData();
     }
+
     private void OnDestroy()
     {
         _instance = null;

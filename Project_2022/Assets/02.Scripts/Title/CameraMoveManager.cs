@@ -39,6 +39,11 @@ public class CameraMoveManager : MonoBehaviour
         textReady.DOFade(0f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        if(!GameManager.Instance._isFirst)
+        {
+            GoToMain();
+        }
     }
 
     private void Update()
@@ -51,6 +56,7 @@ public class CameraMoveManager : MonoBehaviour
 
     public void GoToMain()
     {
+        GameManager.Instance._isFirst = false;
         isTitle = false;
         DOTween.CompleteAll();
         StartCanvasGroup.gameObject.SetActive(false);
