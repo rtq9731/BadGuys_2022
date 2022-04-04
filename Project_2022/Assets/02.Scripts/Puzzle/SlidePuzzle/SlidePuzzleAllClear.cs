@@ -8,6 +8,7 @@ public class SlidePuzzleAllClear : MonoBehaviour
 {
     public static SlidePuzzleAllClear Instance;
     public Action slideAllClear;
+    public List<TextAsset> patterns;
 
     [SerializeField]
     private int clearCount;

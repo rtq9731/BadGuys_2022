@@ -48,7 +48,7 @@ public class SlidePuzzleManager : MonoBehaviour
         RayLengthCalul();
         isPieceStop = true;
         twoDVector = new bool[9];
-        fileNames = Directory.GetFiles(filePath, "*.txt");
+        //fileNames = Directory.GetFiles(filePath, "*.txt");
         pieceOriPos = new List<Vector3>();
         nowPos = new List<Vector3>();
         clearPuzzle = false;
@@ -141,7 +141,7 @@ public class SlidePuzzleManager : MonoBehaviour
     {
         List<Vector3> loadPoses = new List<Vector3>();
 
-        int random = Random.Range(0, fileNames.Length);
+        int random = Random.Range(0, SlidePuzzleAllClear.Instance.patterns.Count);
 
         //FileInfo info = new FileInfo();
         string value = "";
@@ -153,7 +153,9 @@ public class SlidePuzzleManager : MonoBehaviour
         //    reader.Close();
         //}
 
-        value = Resources.LoadAll<TextAsset>("SlidePuzzleSave/")[random].ToString();
+        //value = Resources.LoadAll<TextAsset>("SlidePuzzleSave/")[random].ToString();
+
+        value = SlidePuzzleAllClear.Instance.patterns[random].ToString();
         string[] textPoses = value.Split('\n');
         //Debug.Log(textPoses[0]);
 
