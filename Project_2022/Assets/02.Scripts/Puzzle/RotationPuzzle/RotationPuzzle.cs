@@ -29,7 +29,7 @@ public class RotationPuzzle : MonoBehaviour
     private void OnElementRotate()
     {
         List<RotationPuzzleElement> items = new List<RotationPuzzleElement>();
-        items = elements.FindAll(item => Mathf.Abs(item.GetPictureRotationZ()) <= errorRange);
+        items = elements.FindAll(item => Mathf.Abs(item.GetPictureRotationZ() % 360) <= errorRange);
 
         if (items.ToList().Count == elements.Count)
         {
@@ -42,7 +42,7 @@ public class RotationPuzzle : MonoBehaviour
         vCamComplete.SetActive(true);
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
-        FindObjectOfType<UIManager>().OnCutScene();
+        UIManager._instance.OnCutScene();
 
         foreach (var item in elements)
         {
@@ -53,7 +53,7 @@ public class RotationPuzzle : MonoBehaviour
         {
             completeSR.material.DOFloat(0, "_DissolveAmount", 3f).OnComplete(() =>
             {
-                FindObjectOfType<UIManager>().OnCutSceneOverWithoutClearDialog();
+                UIManager._instance.OnCutSceneOverWithoutClearDialog();
                 completeSR.gameObject.SetActive(false);
                 completeTrigger.OnTriggered();
                 vCamComplete.SetActive(false);

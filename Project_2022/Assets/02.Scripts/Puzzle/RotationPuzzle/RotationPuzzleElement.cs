@@ -31,6 +31,7 @@ public class RotationPuzzleElement : MonoBehaviour
     private void OnRotateHandle(float amount)
     {
         rotationFinish += amount;
+        _onRotationChanged?.Invoke();
         if (cor == null)
         {
             cor = StartCoroutine(RotatePicture(rotateDuration));
@@ -53,7 +54,7 @@ public class RotationPuzzleElement : MonoBehaviour
 
     public float GetPictureRotationZ()
     {
-        return pictureTrm.rotation.eulerAngles.z;
+        return rotationFinish;
     } 
 
     IEnumerator RotateToAnswer()
@@ -77,7 +78,5 @@ public class RotationPuzzleElement : MonoBehaviour
             pictureTrm.localRotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(lastRotation, rotationFinish, timer / duration)));
             yield return null;
         }
-
-        _onRotationChanged?.Invoke();
     }
 }
