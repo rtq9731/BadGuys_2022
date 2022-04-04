@@ -143,16 +143,17 @@ public class SlidePuzzleManager : MonoBehaviour
 
         int random = Random.Range(0, fileNames.Length);
 
-        FileInfo info = new FileInfo(fileNames[random]);
+        //FileInfo info = new FileInfo();
         string value = "";
 
-        if (info.Exists)
-        {
-            StreamReader reader = new StreamReader(fileNames[random]);
-            value = reader.ReadToEnd();
-            reader.Close();
-        }
+        //if (info.Exists)
+        //{
+        //    StreamReader reader = new StreamReader();
+        //    value = reader.ReadToEnd();
+        //    reader.Close();
+        //}
 
+        value = Resources.LoadAll<TextAsset>("SlidePuzzleSave/")[random].ToString();
         string[] textPoses = value.Split('\n');
         //Debug.Log(textPoses[0]);
 
