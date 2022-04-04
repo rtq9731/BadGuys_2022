@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject obj = Instantiate(new GameObject());
                     _instance = obj.AddComponent<GameManager>();
-                    _instance.  emailDatas = Resources.Load<EmailDataListSO>("EmailDataSOList");
+                    _instance.emailDatas = Resources.Load<EmailDataListSO>("EmailDataSOList");
                 }
             }
             return _instance;
