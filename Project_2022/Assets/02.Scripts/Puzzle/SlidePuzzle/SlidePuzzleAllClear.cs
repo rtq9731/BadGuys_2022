@@ -18,6 +18,9 @@ public class SlidePuzzleAllClear : MonoBehaviour
     [SerializeField]
     StoryTrigger completeTrigger = null;
 
+    [SerializeField]
+    GameObject StageWall;
+
     private void Awake()
     {
         if (Instance == null)
@@ -25,7 +28,7 @@ public class SlidePuzzleAllClear : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        slideAllClear += completeTrigger.OnTriggered;
+        //slideAllClear += completeTrigger.OnTriggered;
         slideAllClear += () => lightTrigger.SetActiveGroup(true);
 
         clearCount = 0;
@@ -40,6 +43,7 @@ public class SlidePuzzleAllClear : MonoBehaviour
 
     private void InvokeClearEvent()
     {
+        StageWall.SetActive(false);
         slideAllClear?.Invoke();
     }
 }

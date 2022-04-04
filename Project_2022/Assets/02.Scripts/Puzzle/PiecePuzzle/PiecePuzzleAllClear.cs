@@ -43,6 +43,7 @@ public class PiecePuzzleAllClear : MonoBehaviour
 
     private void InvokeClearEvent()
     {
+        StageWall.SetActive(false);
         pieceAllClear?.Invoke();
     }
 }
