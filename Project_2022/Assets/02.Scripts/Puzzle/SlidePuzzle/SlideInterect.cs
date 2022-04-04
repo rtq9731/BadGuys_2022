@@ -13,14 +13,10 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     [SerializeField]
     private GameObject myCam;
 
-    private void Awake()
-    {
-        myCam.SetActive(false);
-        slideMnager.clearEvent.AddListener(GameClear_Slide);
-    }
-
     private void Start()
     {
+        myCam.SetActive(false);
+        slideMnager.clearEvent += GameClear_Slide;
         GameSetting_Slide();
     }
 
@@ -43,11 +39,13 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     private void CameraGameSetting()
     {
         myCam.SetActive(true);
+        UIManager._instance.OnCutScene();
     }
 
     private void CameraOverSetting()
     {
         myCam.SetActive(false);
+        UIManager._instance.OnCutSceneOverWithoutClearDialog();
     }
 
     public void Interact(GameObject taker)

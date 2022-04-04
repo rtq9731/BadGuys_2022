@@ -35,7 +35,7 @@ public class SlidePuzzleManager : MonoBehaviour
     private Material lastPieceMat;
 
     public bool clearPuzzle;
-    public UnityEvent clearEvent;
+    public System.Action clearEvent = () => { };
     public Vector2 MaxPos;
     public LayerMask target; // 그림들 레이어
     public float rayLength;
