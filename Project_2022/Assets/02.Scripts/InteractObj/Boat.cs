@@ -22,15 +22,25 @@ public class Boat : MonoBehaviour, IInteractableItem
     private bool isGoToSun = false;
 
     Animator[] anim;
-
+    BoatCam boatCamera;
     private void Start()
     {
         rectTrm = inventory.transform.GetChild(0).GetComponent<RectTransform>();
         originPos = transform.position;
-
+        boatCamera = boatCam.GetComponent<BoatCam>();
         anim = GetComponentsInChildren<Animator>();
     }
-
+    private void Update()
+    {
+        if(GameManager.Instance.IsPause)
+        {
+            boatCamera.enabled = false;
+        }
+        else
+        {
+            boatCamera.enabled = true;
+        }    
+    }
     public void Interact(GameObject taker)
     {
         if (isCanInterct)
@@ -63,14 +73,14 @@ public class Boat : MonoBehaviour, IInteractableItem
 
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
         isGoToSun = true;
-        boatCam.GetComponent<BoatCam>().enabled = false;
+        boatCamera.enabled = false;
 
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
 
-        boatCam.GetComponent<BoatCam>().enabled = true;
+        boatCamera.enabled = true;
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
 
