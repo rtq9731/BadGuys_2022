@@ -33,6 +33,8 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
         camera.SetActive(false);
         manager.enabled = false;
 
+        UIManager._instance.OnCutSceneOverWithoutClearDialog();
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
@@ -40,6 +42,7 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
 
     private void AblePuzzle()
     {
+        UIManager._instance.OnCutScene();
         camera.SetActive(true);
         manager.enabled = true;
         input.enabled = true;

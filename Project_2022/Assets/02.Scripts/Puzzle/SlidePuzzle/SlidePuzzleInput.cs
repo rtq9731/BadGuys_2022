@@ -33,7 +33,8 @@ public class SlidePuzzleInput : MonoBehaviour
             if (Physics.Raycast(camRay, out hit, depth, target))
             {
                 selectPiece = hit.transform.GetComponent<SlidePuzzlePiece>();
-                selectPiece.Selected(color);
+                if(selectPiece != null)
+                    selectPiece.Selected(color);
                 
             }
         }

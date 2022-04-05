@@ -31,9 +31,9 @@ public class SlidePuzzlePiece : MonoBehaviour
             return true;
         if (empty + 3 == myPointNum)
             return true;
-        if (empty + 1 == myPointNum)
+        if (empty + 1 == myPointNum && empty % 3 != 2)
             return true;
-        if (empty - 1 == myPointNum)
+        if (empty - 1 == myPointNum && empty % 3 != 0)
             return true;
 
         return false;
@@ -94,6 +94,7 @@ public class SlidePuzzlePiece : MonoBehaviour
         }
         else
         {
+            SPManager.isPieceStop = false;
             rectTransform.DOShakePosition(speed, new Vector3(3, 3, 0));
             yield return new WaitForSeconds(speed);
         }
