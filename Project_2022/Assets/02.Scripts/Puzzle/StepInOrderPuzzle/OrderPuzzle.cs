@@ -40,7 +40,7 @@ public class OrderPuzzle : MonoBehaviour
                 {
                     AllReturn();
                 });
-                failedTrigger.OnTriggered();
+                //failedTrigger.OnTriggered();
                 return;
             }
             else
