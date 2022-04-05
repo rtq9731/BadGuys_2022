@@ -23,7 +23,7 @@ public class PictureBtnManager : MonoBehaviour
 
         Debug.Log(colorChangeBtns[0].transform.parent.parent);
         correctPicture.transform.DOLocalMoveZ(-0.4f, 1.2f);
-        colorChangeBtns[0].transform.parent.parent.DOLocalMoveZ(-12.45f, 1.2f);
+        colorChangeBtns[0].transform.parent.parent.DOLocalMoveZ(-13f, 1.2f);
     }
 }
     
