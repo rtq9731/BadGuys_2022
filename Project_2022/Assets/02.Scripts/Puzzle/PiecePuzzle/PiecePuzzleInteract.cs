@@ -23,8 +23,12 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
         myCol = GetComponent<BoxCollider>();
         clear = false;
         playing = false;
-        DisAblePuzzle();
         outline = GetComponent<Outline>();
+    }
+
+    private void Start()
+    {
+        DisAblePuzzle();
     }
 
     private void DisAblePuzzle()

@@ -7,13 +7,26 @@ using DG.Tweening;
 public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 {
     private bool isAllClear;
+    private bool isComplete = false;
+
+    [SerializeField] Image blindImage = null;
 
     MeshCollider mesh;
 
     public void Interact(GameObject taker)
     {
-        LoadingTrigger.Instance.LoadingScene("Title");
-        GameManager.Instance.GameClear(2);
+        if (isComplete)
+        {
+            return;
+        }
+
+        isComplete = true;
+
+        blindImage.DOFade(1, 0.5f).OnComplete(() =>
+        {
+            LoadingSceneManager.LoadScene("Title", true);
+            GameManager.Instance.GameClear(2);
+        });
     }
 
     void Start()
@@ -29,10 +42,5 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
             isAllClear = true;
             mesh.enabled = true;
         }
-    }
-
-    void Update()
-    {
-        
     }
 }
