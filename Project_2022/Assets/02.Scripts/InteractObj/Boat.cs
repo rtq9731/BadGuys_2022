@@ -6,8 +6,6 @@ using DG.Tweening;
 public class Boat : MonoBehaviour, IInteractableItem
 {
     [SerializeField]
-    private GameObject inventory;
-    [SerializeField]
     private GameObject boatCam;
     [SerializeField]
     private GameObject mainCam;
@@ -21,25 +19,29 @@ public class Boat : MonoBehaviour, IInteractableItem
     private bool isCanInterct = true;
     private bool isGoToSun = false;
 
+    bool isPause;
+
     Animator[] anim;
     BoatCam boatCamera;
     private void Start()
     {
-        rectTrm = inventory.transform.GetChild(0).GetComponent<RectTransform>();
         originPos = transform.position;
-        boatCamera = boatCam.GetComponent<BoatCam>();
         anim = GetComponentsInChildren<Animator>();
     }
     private void Update()
     {
-        if(GameManager.Instance.IsPause)
+        if(boatCam.activeSelf)
         {
-            boatCamera.enabled = false;
+            if (GameManager.Instance.IsPause)
+            {
+                boatCamera.enabled = false;
+                isPause = true;
+            }
+            else if(!GameManager.Instance.IsPause && isPause)
+            {
+                boatCamera.enabled = true;
+            }
         }
-        else
-        {
-            boatCamera.enabled = true;
-        }    
     }
     public void Interact(GameObject taker)
     {
@@ -71,16 +73,17 @@ public class Boat : MonoBehaviour, IInteractableItem
     {
         boatCam.SetActive(true);
 
+        boatCamera = boatCam.GetComponent<BoatCam>();
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
         isGoToSun = true;
-        boatCamera.enabled = false;
+        boatCam.GetComponent<BoatCam>().enabled = false;
 
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
 
-        boatCamera.enabled = true;
+        boatCam.GetComponent<BoatCam>().enabled = true;
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
 

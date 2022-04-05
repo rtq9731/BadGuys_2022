@@ -7,6 +7,9 @@ using Triggers;
 public class PictureAnswerChecker : MonoBehaviour
 {
     [SerializeField]
+    private ItemInfo keyPiece;
+
+    [SerializeField]
     private PictureInfo[] pictures;
 
     public PictureInfo pictureInfo;
@@ -59,6 +62,8 @@ public class PictureAnswerChecker : MonoBehaviour
                 {
                     storyWall.SetActive(false);
                     lightTrigger.SetActiveGroup(true);
+
+                    //인벤토리에 조각 집어넣기
                 }
             }
         }
