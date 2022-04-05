@@ -59,6 +59,7 @@ public class RotationPuzzle : MonoBehaviour
                 vCamComplete.SetActive(false);
                 completeWall.SetActive(false);
                 lightTrigger.SetActiveGroup(true);
+                //인벤토리에 조각 넣기
                 enabled = false;
                 myScripts.ForEach(item => item.enabled = false);
             });

@@ -24,26 +24,32 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     bool isClearStage = false;
     bool canInteract = true;
 
+    public Material material;
 
+    MeshRenderer mesh;
     private void Start()
     {
         canInteract = true;
+        mesh = GetComponent<MeshRenderer>();
         GetComponent<MeshCollider>().enabled = false;
         transform.GetChild(0).gameObject.SetActive(false);
         if (sceneColor == "R")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
+            mesh.material = material;
         }
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
+            mesh.material = material;
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
+            mesh.material = material;
         }
 
         CheckStageClear();
