@@ -30,6 +30,20 @@ public class PiecePuzzleManager : MonoBehaviour
         StartCoroutine(SetChildrenInList());
     }
 
+    private List<GameObject> ListShuffle(List<GameObject> _list)
+    {
+        for (int i = 0; i < _list.Count; i++)
+        {
+            int rnd = Random.Range(0, i);
+
+            GameObject temp = _list[i];
+            _list[i] = _list[rnd];
+            _list[rnd] = temp;
+        }
+
+        return _list;
+    }
+
     public void PuzzleSetting()
     {
         targetPieceNum = 0;
@@ -89,9 +103,16 @@ public class PiecePuzzleManager : MonoBehaviour
         {
             GameObject piece = transform.GetChild(i).gameObject;
 
-            pieceOriPos.Add(piece.transform.localPosition);
             pieceGameObj.Add(piece);
             piece.SetActive(false);
+        }
+
+        pieceGameObj = ListShuffle(pieceGameObj);
+
+        for (int i = 0; i < pieceGameObj.Count; i++)
+        {
+            GameObject piece = pieceGameObj[i];
+            pieceOriPos.Add(piece.transform.localPosition);
         }
 
         yield return null;

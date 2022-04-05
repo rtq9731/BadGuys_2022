@@ -34,19 +34,16 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
-            transform.GetChild(0).gameObject.SetActive(true);
         }
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
-            transform.GetChild(0).gameObject.SetActive(true);
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             GetComponent<MeshCollider>().enabled = true;
-            transform.GetChild(0).gameObject.SetActive(true);
         }
 
         CheckStageClear();
