@@ -49,10 +49,13 @@ public class ShowInventoryUI : MonoBehaviour
         {
             foreach (var dic in m_keyCallFunc)
             {
-                if (Input.GetKeyDown(dic.Key) )
+                if (Input.GetKeyDown(dic.Key))
                 {
-                    fadeTime = 0;
-                    ShowInventorySlot();
+                    if(transform.childCount > 0)
+                    {
+                        fadeTime = 0;
+                        ShowInventorySlot();
+                    }
                 }
             }
         }
