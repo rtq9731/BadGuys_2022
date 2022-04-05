@@ -47,9 +47,12 @@ public class DialogPanel : MonoBehaviour
 
             text.color = color;
             gameObject.SetActive(active);
-            cor = StartCoroutine(RemovePanel(5f));
 
-            tweens.Add(text.DOText(str, (str.Length * 0.125f)));
+            tweens.Add(text.DOText(str, (str.Length * 0.1f)).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                cor = StartCoroutine(RemovePanel(1f));
+            }));
+
             tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(() =>
             {
                 text.text = str;

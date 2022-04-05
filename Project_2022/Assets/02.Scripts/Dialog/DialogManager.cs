@@ -123,7 +123,7 @@ public class DialogManager : MonoBehaviour
             CreateDialogPanel(data.name, data.str, data.color);
 
             float timer = 0f;
-            while (timer < 3f)
+            while (timer < data.str.Length * 0.1f + 0.5f)
             {
                 if (!GameManager.Instance.IsPause)
                     timer += Time.deltaTime;
