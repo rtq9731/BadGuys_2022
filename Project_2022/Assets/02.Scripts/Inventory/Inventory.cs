@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
     private InventoryContentsSize contentsSize;
     private CreatSlot creatSlot;
     private CreateRenderTextureCam createRender;
+    private ShowInventoryUI showInventory;
 
     public ItemInfo MainItem;
     public int mainItemIndex;
@@ -50,6 +51,7 @@ public class Inventory : MonoBehaviour
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
         creatSlot = GetComponentInChildren<CreatSlot>();
         createRender = FindObjectOfType<CreateRenderTextureCam>();
+        showInventory = GetComponentInChildren<ShowInventoryUI>();
     }
 
     public void PickUpItem(ItemInfo _item, GameObject obj, GameObject whoIsTaker)
@@ -64,6 +66,7 @@ public class Inventory : MonoBehaviour
         }
 
         creatSlot.CreatingSlot();
+        showInventory.ShowInventorySlot();
         //InventoryContentsSize.Instance.SetContentsSize();
 
         slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(_item);
@@ -75,7 +78,6 @@ public class Inventory : MonoBehaviour
         }
 
         StartCoroutine(EatItem(obj));
-        
     }
 
     public void InventoryReset()
