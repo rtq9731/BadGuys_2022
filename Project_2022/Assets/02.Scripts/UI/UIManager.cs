@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,11 +50,33 @@ public class UIManager : MonoBehaviour
         Cursor.visible = display;
     }
 
+    public void RemoveStopMenu()
+    {
+        DisplayCursor(false);
+        GameManager.Instance.IsPause = false;
+        DOTween.PlayAll();
+
+        _stopMenu.transform.DOScale(0, 0.5f).OnComplete(() => { _stopMenu.gameObject.SetActive(false); });
+    }
+
+    public void UpdateStopMenu()
+    {
+        if(_stopMenu.gameObject.activeSelf)
+        {
+            RemoveStopMenu();
+        }
+        else
+        {
+            DisplayStopMenu();
+        }
+    }
+
     public void DisplayStopMenu()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        DisplayCursor(true);
         GameManager.Instance.IsPause = true;
+        DOTween.PauseAll();
+
         _stopMenu.gameObject.SetActive(true);
     }
 }

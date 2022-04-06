@@ -8,14 +8,7 @@ public class PlayerKeyInput : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(!UIStackManager.IsUIStackEmpty())
-            {
-                UIStackManager.RemoveUIOnTop();
-            }
-            else
-            {
-                UIManager._instance.DisplayStopMenu();
-            }
+            UIManager._instance.UpdateStopMenu();
         }
     }
 }

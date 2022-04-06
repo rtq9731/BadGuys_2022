@@ -18,7 +18,7 @@ public class StopMenu : MonoBehaviour
     {
         _btnReturn.onClick.AddListener(() =>
         {
-            UIStackManager.RemoveUIOnTop();
+            UIManager._instance.UpdateStopMenu();
         });
 
         _btnTodo.onClick.AddListener(() =>
@@ -44,18 +44,7 @@ public class StopMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        DOTween.PauseAll();
-        //transform.DOScale(1, 0.5f); // 일시정지의 순서 때문에 한번 더 해줄 필요가 있음.
-    }
-
-    private void OnDisable()
-    {
-        UIManager._instance.DisplayCursor(false);
-
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.IsPause = false;
-        }
-        DOTween.PlayAll();
+        transform.localScale = Vector3.zero;
+        transform.DOScale(1, 0.5f); // 일시정지의 순서 때문에 한번 더 해줄 필요가 있음.
     }
 }
