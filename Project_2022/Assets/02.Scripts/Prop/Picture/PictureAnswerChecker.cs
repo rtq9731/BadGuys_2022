@@ -62,7 +62,7 @@ public class PictureAnswerChecker : MonoBehaviour
             {
                 clearPictureIndex++;
                 if(clearPictureIndex == 3)
-                {   
+                {
                     //Inventory.Instance.PickUpItem(clearReturnItem, clearReturnItemObj);
                     storyWall.SetActive(false);
                     lightTrigger.SetActiveGroup(true);
