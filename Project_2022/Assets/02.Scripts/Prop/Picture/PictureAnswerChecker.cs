@@ -18,6 +18,9 @@ public class PictureAnswerChecker : MonoBehaviour
     [SerializeField]
     GStageLightTrigger lightTrigger = null;
 
+    [SerializeField]
+    ItemInfo clearReturnItem = null;
+
     bool isCorrect = false;
 
     public GameObject storyWall;

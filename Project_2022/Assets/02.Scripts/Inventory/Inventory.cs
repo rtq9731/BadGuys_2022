@@ -118,7 +118,6 @@ public class Inventory : MonoBehaviour
         }
         DOTween.Kill(obj.transform);
         createRender.CreateRenderCam(obj, objScale);
-
     }
 
     //public void ShowItemInfo()

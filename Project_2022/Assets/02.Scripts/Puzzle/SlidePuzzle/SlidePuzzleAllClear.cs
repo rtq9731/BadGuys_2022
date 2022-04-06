@@ -44,6 +44,7 @@ public class SlidePuzzleAllClear : MonoBehaviour
 
     private void InvokeClearEvent()
     {
+        //인벤창에 조각넣기
         StageWall.SetActive(false);
         slideAllClear?.Invoke();
     }

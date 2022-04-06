@@ -43,6 +43,7 @@ public class PiecePuzzleAllClear : MonoBehaviour
 
     private void InvokeClearEvent()
     {
+        //인벤토리에 조각 2개 넣기
         StageWall.SetActive(false);
         pieceAllClear?.Invoke();
     }
