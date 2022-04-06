@@ -49,21 +49,45 @@ public class StateMentOpinionManager : MonoBehaviour
     {
         if (startCameraMove && canCameraMove)
         {
-            if (Input.GetKeyDown(KeyCode.W) && stepNum > 0)
+            Vector2 wheelInput2 = Input.mouseScrollDelta;
+            if (wheelInput2.y > 0)
             {
+                // 휠을 밀어 돌렸을 때의 처리 ↑
+
                 stepNum--;
                 if (stepNum < 0) stepNum = 0;
                 MoveStep(stepNum);
                 Cameramoving.Invoke(stepNum);
-            }
 
-            if (Input.GetKeyDown(KeyCode.S) && stepNum < movePos.Count - 1)
+                wheelInput2.y = 0;
+            }
+            else if (wheelInput2.y < 0)
             {
+                // 휠을 당겨 올렸을 때의 처리 ↓
+
                 stepNum++;
                 if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
                 MoveStep(stepNum);
                 Cameramoving.Invoke(stepNum);
+
+                wheelInput2.y = 0;
             }
+
+            //if (Input.GetKeyDown(KeyCode.W) && stepNum > 0)
+            //{
+            //    stepNum--;
+            //    if (stepNum < 0) stepNum = 0;
+            //    MoveStep(stepNum);
+            //    Cameramoving.Invoke(stepNum);
+            //}
+
+            //if (Input.GetKeyDown(KeyCode.S) && stepNum < movePos.Count - 1)
+            //{
+            //    stepNum++;
+            //    if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
+            //    MoveStep(stepNum);
+            //    Cameramoving.Invoke(stepNum);
+            //}
         }
     }
 

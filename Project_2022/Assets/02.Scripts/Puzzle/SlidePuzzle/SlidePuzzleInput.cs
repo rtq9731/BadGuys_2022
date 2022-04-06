@@ -60,10 +60,4 @@ public class SlidePuzzleInput : MonoBehaviour
                 slideManager.CheatClear();
         }
     }
-
-    private void OnDrawGizmos() //마우스 클릭 위치에 원을 그려줌.
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(hitPos, 0.05f);
-    }
 }
