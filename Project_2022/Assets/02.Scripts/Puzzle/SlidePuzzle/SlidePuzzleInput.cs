@@ -35,7 +35,6 @@ public class SlidePuzzleInput : MonoBehaviour
                 selectPiece = hit.transform.GetComponent<SlidePuzzlePiece>();
                 if(selectPiece != null)
                     selectPiece.Selected(color);
-                
             }
         }
 
