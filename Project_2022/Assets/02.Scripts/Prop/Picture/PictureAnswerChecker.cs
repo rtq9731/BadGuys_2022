@@ -18,6 +18,9 @@ public class PictureAnswerChecker : MonoBehaviour
     [SerializeField]
     GStageLightTrigger lightTrigger = null;
 
+
+    [SerializeField]
+    GameObject clearReturnItemObj = null;
     [SerializeField]
     ItemInfo clearReturnItem = null;
 
@@ -59,7 +62,8 @@ public class PictureAnswerChecker : MonoBehaviour
             {
                 clearPictureIndex++;
                 if(clearPictureIndex == 3)
-                {
+                {   
+                    //Inventory.Instance.PickUpItem(clearReturnItem, clearReturnItemObj);
                     storyWall.SetActive(false);
                     lightTrigger.SetActiveGroup(true);
                 }
