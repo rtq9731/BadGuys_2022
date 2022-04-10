@@ -60,6 +60,15 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
         outline.enabled = false;
     }
 
+    public bool CanInteract(ItemInfo itemInfo)
+    {
+        if (!gameObject.activeSelf || !enabled)
+            return false;
+
+        ColorKeyAndObj obj = colorKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
+        return obj != null;
+    }
+
     [System.Serializable]
     public class ColorKeyAndObj
     {

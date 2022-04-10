@@ -33,7 +33,6 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
 
     public void Interact(ItemInfo itemInfo, GameObject taker)
     {
-
         SculptureKeyAndObj obj = sculptureKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
         if (obj != null)
         {
@@ -70,6 +69,15 @@ public class Sculpture_Puzzle : MonoBehaviour, IInteractAndGetItemObj, IPlayerMo
             return;
 
         outline.enabled = false;
+    }
+
+    public bool CanInteract(ItemInfo itemInfo)
+    {
+        if (!gameObject.activeSelf || !enabled)
+            return false;
+
+        SculptureKeyAndObj obj = sculptureKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
+        return obj != null;
     }
 
     [System.Serializable]

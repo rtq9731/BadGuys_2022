@@ -5,6 +5,14 @@ using DG.Tweening;
 
 public class Chair : ColorRemoveObjParent
 {
+    public override bool CanInteract(ItemInfo itemInfo)
+    {
+        if (!canInteract || !gameObject.activeSelf || !enabled)
+            return false;
+
+        return itemInfo.itemName == keyItem.itemName;
+    }
+
     public override void Interact(ItemInfo itemInfo, GameObject taker)
     {
         if (!canInteract)

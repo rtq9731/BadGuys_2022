@@ -46,4 +46,6 @@ public abstract class ColorRemoveObjParent : MonoBehaviour, IInteractAndGetItemO
     {
         outline.enabled = false;
     }
+
+    public abstract bool CanInteract(ItemInfo itemInfo);
 }

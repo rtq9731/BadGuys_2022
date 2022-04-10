@@ -26,6 +26,7 @@ public class PlayerMouseInput : MonoBehaviour
         _inventoryInput = FindObjectOfType<InventoryInput>();
         _inventory = FindObjectOfType<Inventory>();
 
+        _onItemExitMouse += () => _playerPickUpManager.ShowPickUpIcon(false);
         _onItemOverMouse += _playerPickUpManager.CanPickUpItem;
         _onObjOverMouse += _playerPickUpManager.CanInteractObj;
         _onItemOverMouse += _inventoryInput.RemoveItmeFalse;

@@ -44,11 +44,9 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
                 enabled = false;
                 outline.enabled = false;
                 _onComplete?.Invoke();
-                return;
             }
 
             inventory.PickUpItem(whiteBrushItemInfo, Instantiate(whiteBrushPrefab, transform.position, Quaternion.identity), taker);
-
         }
     }
 
@@ -65,5 +63,14 @@ public class ColorFillObj_prcture : MonoBehaviour, IInteractAndGetItemObj, IPlay
     public void OnPlayerMouseExit()
     {
         outline.enabled = false;
+    }
+
+    public bool CanInteract(ItemInfo itemInfo)
+    {
+        if (!gameObject.activeSelf || !enabled)
+            return false;
+
+        ItemInfo obj = keys.Find(item => item == itemInfo);
+        return obj != null;
     }
 }

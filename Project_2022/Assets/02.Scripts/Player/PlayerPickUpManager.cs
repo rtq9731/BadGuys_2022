@@ -7,11 +7,17 @@ public class PlayerPickUpManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject itemTakePos;
+    [SerializeField]
+    private Image interactImage = null;
+
+    bool isShowedInteractImage = false;
 
     public void CanPickUpItem(IInteractableItem curItem)
     {
+        ShowPickUpIcon(true);
         if (Input.GetKeyDown(KeyCode.E))
         {
+            ShowPickUpIcon(false);
             curItem.Interact(itemTakePos);
             return;
         }
@@ -19,27 +25,29 @@ public class PlayerPickUpManager : MonoBehaviour
 
     public void CanInteractObj(IInteractAndGetItemObj curObj, ItemInfo itemInfo)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (curObj.CanInteract(itemInfo))
         {
-            curObj.Interact(itemInfo, itemTakePos);
-            return;
+            ShowPickUpIcon(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                curObj.Interact(itemInfo, itemTakePos);
+                ShowPickUpIcon(false);
+                return;
+            }
         }
     }
 
     public void ShowPickUpIcon(bool isItemOn)
     {
-        //if(isItemOn)
-        //{
-        //    mouseImage.rectTransform.sizeDelta = new Vector2(64, 64);
-        //    mouseImage.sprite = canUseSprite;
-        //}
-        //else
-        //{
-        //    mouseImage.rectTransform.sizeDelta = new Vector2(16, 16);
-        //    mouseImage.sprite = baseSprite;
-        //}
+        if(isShowedInteractImage == isItemOn)
+        {
+            return;
+        }
+
+        isShowedInteractImage = isItemOn;
+        interactImage.gameObject.SetActive(isItemOn);
     }
 
-    
+
 
 }
