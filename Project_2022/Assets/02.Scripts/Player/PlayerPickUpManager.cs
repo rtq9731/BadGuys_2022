@@ -30,6 +30,7 @@ public class PlayerPickUpManager : MonoBehaviour
             ShowPickUpIcon(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("EEEEEEEEEEEEEEEEEEE");
                 curObj.Interact(itemInfo, itemTakePos);
                 ShowPickUpIcon(false);
                 return;
