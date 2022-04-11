@@ -52,11 +52,16 @@ public class UIManager : MonoBehaviour
 
     public void RemoveStopMenu()
     {
-        DisplayCursor(false);
+        DisplayCursor(true);
+
         GameManager.Instance.IsPause = false;
         DOTween.PlayAll();
 
-        _stopMenu.transform.DOScale(0, 0.5f).OnComplete(() => { _stopMenu.gameObject.SetActive(false); });
+        _stopMenu.transform.DOScale(0, 0.5f).OnComplete(() => { 
+            _stopMenu.gameObject.SetActive(false);
+            DisplayCursor(false);
+        });
+       
     }
 
     public void UpdateStopMenu()

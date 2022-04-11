@@ -43,13 +43,13 @@ public class RotationPuzzleElement : MonoBehaviour
         }
     }
 
-    public void DORotateToAnswer()
+    public void DORotateToAnswer(float rotation)
     {
         if(cor != null)
         {
             StopCoroutine(cor);
         }
-        StartCoroutine(RotateToAnswer());
+        StartCoroutine(RotateToAnswer(rotation));
     }
 
     public float GetPictureRotationZ()
@@ -57,13 +57,13 @@ public class RotationPuzzleElement : MonoBehaviour
         return rotationFinish;
     } 
 
-    IEnumerator RotateToAnswer()
+    IEnumerator RotateToAnswer(float destRot)
     {
         float timer = 0f;
         while (pictureTrm.localRotation.z != 0)
         {
             timer += Time.deltaTime;
-            pictureTrm.localRotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(pictureTrm.localRotation.eulerAngles.z, 0, timer)));
+            pictureTrm.localRotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Lerp(pictureTrm.localRotation.eulerAngles.z, destRot, timer)));
             yield return null;
         }
     }

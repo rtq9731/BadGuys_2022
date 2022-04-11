@@ -29,24 +29,27 @@ public class RotationPuzzle : MonoBehaviour
     private void OnElementRotate()
     {
         List<RotationPuzzleElement> items = new List<RotationPuzzleElement>();
-        items = elements.FindAll(item => Mathf.Abs(item.GetPictureRotationZ() % 360) <= errorRange);
 
-        if (items.ToList().Count == elements.Count)
-        {
-            OnCompletePuzzle();
-        }
+        Debug.Log((int)elements[0].GetPictureRotationZ() % 360 == (int)elements[2].GetPictureRotationZ() % 360);
+        Debug.Log((int)elements[0].GetPictureRotationZ() % 360 == (int)elements[1].GetPictureRotationZ() % 360);
+        if (!((int)elements[0].GetPictureRotationZ() % 360 == (int)elements[1].GetPictureRotationZ() % 360 
+            && (int)elements[0].GetPictureRotationZ() % 360 == (int)elements[2].GetPictureRotationZ() % 360))
+            return;
+
+        OnCompletePuzzle(elements[0].GetPictureRotationZ());
     }
 
-    private void OnCompletePuzzle()
+    private void OnCompletePuzzle(float destRot)
     {
         vCamComplete.SetActive(true);
+        completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, destRot));
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
         UIManager._instance.OnCutScene();
 
         foreach (var item in elements)
         {
-            item.DORotateToAnswer();
+            item.DORotateToAnswer(destRot);
         }
 
         completeSR.material.DOFloat(1, "_DissolveAmount", 3f).OnComplete(() => 
