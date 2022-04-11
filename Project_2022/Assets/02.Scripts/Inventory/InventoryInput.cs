@@ -111,6 +111,10 @@ public class InventoryInput : MonoBehaviour
                     SetMainItem(Inventory.Instance.mainItemIndex);
                 }
             }
+            else
+            {
+                Inventory.Instance.MainItem = null;
+            }
         }
         //}
     }
