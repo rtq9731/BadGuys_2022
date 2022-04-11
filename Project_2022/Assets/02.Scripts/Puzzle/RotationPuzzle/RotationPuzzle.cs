@@ -30,8 +30,8 @@ public class RotationPuzzle : MonoBehaviour
     {
         List<RotationPuzzleElement> items = new List<RotationPuzzleElement>();
 
-        Debug.Log((int)elements[0].GetPictureRotationZ() % 360 == (int)elements[2].GetPictureRotationZ() % 360);
-        Debug.Log((int)elements[0].GetPictureRotationZ() % 360 == (int)elements[1].GetPictureRotationZ() % 360);
+        Debug.Log((int)elements[0].GetPictureRotationZ() == (int)elements[2].GetPictureRotationZ());
+        Debug.Log((int)elements[0].GetPictureRotationZ() == (int)elements[1].GetPictureRotationZ());
         if (!((int)elements[0].GetPictureRotationZ() % 360 == (int)elements[1].GetPictureRotationZ() % 360 
             && (int)elements[0].GetPictureRotationZ() % 360 == (int)elements[2].GetPictureRotationZ() % 360))
             return;
