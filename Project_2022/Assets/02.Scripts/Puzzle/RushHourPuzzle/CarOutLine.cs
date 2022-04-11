@@ -5,8 +5,8 @@ using UnityEngine;
 public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseExitHandler, IGetPlayerMouseHandler
 {
     [SerializeField] OutlineMode outlineMode = OutlineMode.onlyEnterMouse;
-    [SerializeField] Item_RushHourPuzzle rushHour_Item;
-    [SerializeField] Transform SlotParent;
+    [SerializeField] Obj_RushHourPuzzle rushHour_Obj;
+    [SerializeField] Inventory inventory;
     [SerializeField] List<GameObject> carOutLines;
     [SerializeField] GameObject truckOutLine;
 
@@ -27,22 +27,22 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
 
     public void OnPlayerMouseEnter()
     {
+        ItemInfo mainItem = null;
+        if (inventory.MainItem != null)
+            mainItem = inventory.MainItem;
+
         if (outlineMode == OutlineMode.onlyEnterMouse)
         {
-            if (SlotParent.childCount > 0)
+            if (mainItem != null)
             {
-                SlotParent = rushHour_Item.SlotParent;
-                Slot mainItemSlot;
-                mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
-
-                if (Inventory.Instance.MainItem == rushHour_Item.truckInfo) // 트럭을 들고 했다면
+                if (mainItem == rushHour_Obj.truckInfo) // 트럭을 들고 했다면
                 {
                     truckOutLine.SetActive(true);
                     enableOutLine = truckOutLine;
                 }
 
-                else if (mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
-                    CarOutlineEnable(mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial);
+                else if (rushHour_Obj.CheckInfo(mainItem)) // 자동차를 들고 상호작용 했다면 
+                    CarOutlineEnable(rushHour_Obj.ReturnColorInInfo(mainItem).color);
 
                 isCheckChainge = true;
                 StartCoroutine(CheckChainge());
@@ -61,9 +61,9 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
         
     }
 
-    void CarOutlineEnable(Material colorValue)
+    void CarOutlineEnable(string colorName)
     {
-        GameObject target = carOutLines.Find(item => item.GetComponent<CarObj>().carObjMaterial.name == colorValue.name);
+        GameObject target = carOutLines.Find(item => item.GetComponent<CarObj>().carObjMaterial.name == colorName);
 
         if (target != enableOutLine)
             OutLineAllDisable();
@@ -96,12 +96,11 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
     {
         while (isCheckChainge)
         {
-            
-            SlotParent = rushHour_Item.SlotParent;
-            Slot mainItemSlot;
-            mainItemSlot = SlotParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
+            ItemInfo mainItem = null;
+            if (inventory.MainItem != null)
+                mainItem = inventory.MainItem;
 
-            if (Inventory.Instance.MainItem == rushHour_Item.truckInfo) // 트럭을 들고 했다면
+            if (mainItem == rushHour_Obj.truckInfo) // 트럭을 들고 했다면
             {
                 if (enableOutLine != truckOutLine)
                     OutLineAllDisable();
@@ -110,10 +109,10 @@ public class CarOutLine : MonoBehaviour, IPlayerMouseEnterHandler, IPlayerMouseE
                 enableOutLine = truckOutLine;
             }
 
-            else if (mainItemSlot.slotItem.GetComponent<CarObj>() != null) // 자동차를 들고 상호작용 했다면 
+            else if (rushHour_Obj.CheckInfo(mainItem)) // 자동차를 들고 상호작용 했다면 
             {
-                Material name = mainItemSlot.slotItem.GetComponent<CarObj>().carObjMaterial;
-                GameObject target = carOutLines.Find(item => item.GetComponent<CarObj>().carObjMaterial.name == name.name);
+                string name = rushHour_Obj.ReturnColorInInfo(mainItem).color;
+                GameObject target = carOutLines.Find(item => item.GetComponent<CarObj>().carObjMaterial.name == name);
 
                 if (target != truckOutLine)
                     OutLineAllDisable();
