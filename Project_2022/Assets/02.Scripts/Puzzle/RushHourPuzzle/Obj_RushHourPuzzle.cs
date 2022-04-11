@@ -32,6 +32,7 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
     [SerializeField]
     Transform playerMovePos;
 
+    [SerializeField]
     private bool isFullCar;
 
     private void Awake()
@@ -51,17 +52,18 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
     { 
         if (isFullCar) // 모든 자동차가 찼으면
         {
-            Debug.LogWarning("테이블 클릭됨");
-            rushHourCam.gameObject.SetActive(true);
-            UIManager._instance.OnCutScene();
-            rushScript.enabled = true;
+        //    Debug.LogWarning("테이블 클릭됨");
+        //    rushHourCam.gameObject.SetActive(true);
+        //    UIManager._instance.OnCutScene();
+        //    rushScript.enabled = true;
 
-            Debug.Log(Cursor.visible);
-            Debug.Log(Cursor.lockState);
+        //    Debug.Log(Cursor.visible);
+        //    Debug.Log(Cursor.lockState);
 
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            Destroy(GetComponent<Rigidbody>());
+        //    Cursor.visible = true;
+        //    Cursor.lockState = CursorLockMode.None;
+
+        //    Destroy(GetComponent<Rigidbody>());
         }
         else
         {
@@ -88,6 +90,18 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
 
                 gameObject.AddComponent<OutlinerOnMouseEnter>();
                 GetComponent<CarOutLine>().DestroySelf();
+
+                rushHourCam.gameObject.SetActive(true);
+                UIManager._instance.OnCutScene();
+                rushScript.enabled = true;
+
+                Debug.Log(Cursor.visible);
+                Debug.Log(Cursor.lockState);
+
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                Destroy(GetComponent<Rigidbody>());
             }
         }
     }
@@ -99,12 +113,12 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
             mainIteminfo = itemInfo;
             return true;
         }
-        else  if (itemInfo == truckInfo) // 트럭을 들고 했다면
+        else if (itemInfo == truckInfo) // 트럭을 들고 했다면
         {
             mainIteminfo = itemInfo;
             return true;
         }
-        else if (isFullCar)
+        else if (cars.Count == 0 && truck == null)
         {
             mainIteminfo = null;
             return true;
@@ -112,7 +126,7 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
         else
         {
             mainIteminfo = null;
-            return true;
+            return false;
         }
     }
 

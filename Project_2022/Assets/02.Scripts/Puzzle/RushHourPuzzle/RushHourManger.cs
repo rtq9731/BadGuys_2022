@@ -77,7 +77,7 @@ public class RushHourManger : MonoBehaviour
     {
         if (selectedCar != null)
             selectedCar.UnSelected();
-        GetComponent<Item_RushHourPuzzle>().GameClear();
+        GetComponent<Obj_RushHourPuzzle>().GameClear();
     }
 
     public void Btn_Restart()
