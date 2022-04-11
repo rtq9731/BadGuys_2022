@@ -3,40 +3,97 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Emerald : MonoBehaviour ,IInteractableItem
+public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
+    [SerializeField] 
+    List<PieceKeyObj> pieceKeyObjs = new List<PieceKeyObj>();
 
-    public GameObject emeraldCase;
-    public GameObject playerCam;
-    public GameObject emeraldCam;
+    [SerializeField] Outline outline = null;
+    [SerializeField] float removeDuration = 2f;
 
-    public PlayerController playerController;
+    [SerializeField] GameObject caseButton;
+    public event System.Action _onPlayerMouseEnter = null;
+    public event System.Action _onComplete = null;
+
+    Inventory inventory = null;
+    InventoryInput invenInput = null;
 
     BoxCollider boxCollider;
+
     private void Start()
     {
+        inventory = FindObjectOfType<Inventory>();
+        invenInput = FindObjectOfType<InventoryInput>();
+        outline.enabled = false;
         boxCollider = GetComponent<BoxCollider>();
     }
-    public void Interact(GameObject taker)
+    
+
+    public void Interact(ItemInfo itemInfo, GameObject taker)
     {
-        StartCoroutine(ClearStageG());
+        Debug.Log("조각 넣기");
+        PieceKeyObj obj = pieceKeyObjs.Find(item => item.keyItem == inventory.MainItem);
+        if (obj != null)
+        {
+            invenInput.RemoveItem();
+            obj.MakePieceKeyObj(removeDuration, () => { });
+
+            if (pieceKeyObjs.FindAll(item => !item.isComplete).Count < 1)
+            {
+                obj.MakePieceKeyObj(removeDuration, _onComplete);
+                outline.enabled = false;
+                caseButton.SetActive(true);
+                boxCollider.enabled = false;
+                enabled = false;
+            }
+        }
     }
 
-    IEnumerator ClearStageG()
+    public void OnPlayerMouseEnter()
     {
-        emeraldCam.SetActive(true);
-        playerController.enabled = false;
-        boxCollider.enabled = false;
-        while (Vector3.Distance(emeraldCam.transform.position, playerCam.transform.position) >= 0.1f)
+        if (!enabled)
+            return;
+
+        _onPlayerMouseEnter?.Invoke();
+        PieceKeyObj obj = pieceKeyObjs.Find(item => item.keyItem == inventory.MainItem);
+        if (obj != null)
         {
-            yield return null;
+            outline.enabled = true;
         }
+    }
 
-        yield return new WaitForSeconds(0.1f);
+    public void OnPlayerMouseExit()
+    {
+        if (!enabled)
+            return;
 
-        emeraldCase.transform.DOLocalMove(new Vector3(0, 0, -3f), 1f).OnComplete(() =>
+        outline.enabled = false;
+    }
+
+    public bool CanInteract(ItemInfo itemInfo)
+    {
+        if (!gameObject.activeSelf || !enabled)
+            return false;
+
+        PieceKeyObj obj = pieceKeyObjs.Find(item => item.keyItem == inventory.MainItem);
+        return obj != null;
+    }
+
+    [System.Serializable]
+    public class PieceKeyObj
+    {
+        public bool isComplete = false;
+        public ItemInfo keyItem = null;
+        public GameObject pieceKeyObj = null;
+
+        public void MakePieceKeyObj(float duration, System.Action callBack)
         {
-            LoadingTrigger.Instance.Ontrigger(3f);
-        });
+            isComplete = true;
+
+            pieceKeyObj.GetComponent<MeshRenderer>().material.DOFloat(200, "_NoiseStrength", duration).OnComplete(() =>
+            {
+                callBack?.Invoke();
+            });
+        }
     }
 }
