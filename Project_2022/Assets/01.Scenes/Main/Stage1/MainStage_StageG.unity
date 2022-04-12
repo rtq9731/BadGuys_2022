@@ -1114,6 +1114,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89542721}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &93810931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4691523764193339798, guid: 5c4c7d46e275d06458a01e9722b79c22,
+    type: 3}
+  m_PrefabInstance: {fileID: 1758583699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &100738927
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1121,6 +1127,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1705918483}
     m_Modifications:
+    - target: {fileID: 1594730752, guid: 740018d22769e6b4ea8f8d4287e13fef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 302291168360994691, guid: 740018d22769e6b4ea8f8d4287e13fef,
         type: 3}
       propertyPath: m_Layer
@@ -1130,6 +1140,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SlidePuzzle_ChristanMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 4236617422943800584, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: porceClearTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585006720831915559, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5382433041454144162, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: btnLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 5865063553445395070, guid: 740018d22769e6b4ea8f8d4287e13fef,
         type: 3}
@@ -1201,6 +1226,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6958515685751258053, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6958515685751258053, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6971492679976730391, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: slideImage
+      value: 
+      objectReference: {fileID: 661815445}
+    - target: {fileID: 6971492679976730391, guid: 740018d22769e6b4ea8f8d4287e13fef,
+        type: 3}
+      propertyPath: slideButton
+      value: 
+      objectReference: {fileID: 1825670869}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 740018d22769e6b4ea8f8d4287e13fef, type: 3}
 --- !u!114 &100738928 stripped
@@ -4211,6 +4256,12 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &523154765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6638031030886257449, guid: 5c4c7d46e275d06458a01e9722b79c22,
+    type: 3}
+  m_PrefabInstance: {fileID: 1758583699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &523236387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5021,6 +5072,12 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1 &661815445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4921376136261818825, guid: 740018d22769e6b4ea8f8d4287e13fef,
+    type: 3}
+  m_PrefabInstance: {fileID: 100738927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &686779984
 GameObject:
   m_ObjectHideFlags: 0
@@ -7060,6 +7117,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 985442302751689914, guid: e15e6d6ea654def4e917d028e7475956,
+        type: 3}
+      propertyPath: m_Name
+      value: SkipButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2675402287725554371, guid: e15e6d6ea654def4e917d028e7475956,
+        type: 3}
+      propertyPath: slideImage
+      value: 
+      objectReference: {fileID: 1200693783}
+    - target: {fileID: 2675402287725554371, guid: e15e6d6ea654def4e917d028e7475956,
+        type: 3}
+      propertyPath: slideButton
+      value: 
+      objectReference: {fileID: 1784004207}
+    - target: {fileID: 4556716244612969198, guid: e15e6d6ea654def4e917d028e7475956,
+        type: 3}
+      propertyPath: porceClearTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4916777534396712476, guid: e15e6d6ea654def4e917d028e7475956,
         type: 3}
       propertyPath: m_RootOrder
@@ -7134,6 +7211,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SlidePuzzle_SelfDraw
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570649938090478521, guid: e15e6d6ea654def4e917d028e7475956,
+        type: 3}
+      propertyPath: btnLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e15e6d6ea654def4e917d028e7475956, type: 3}
@@ -8905,6 +8987,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186091552}
   m_CullTransparentMesh: 1
+--- !u!1 &1200693783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 19231454979068445, guid: e15e6d6ea654def4e917d028e7475956,
+    type: 3}
+  m_PrefabInstance: {fileID: 883752192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1203307706
 GameObject:
   m_ObjectHideFlags: 0
@@ -11579,6 +11667,36 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -9.18
       objectReference: {fileID: 0}
+    - target: {fileID: 5904240971804326066, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904240971804326066, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904240971804326066, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904240971804326066, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904240971804326066, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904240971804326066, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.075
+      objectReference: {fileID: 0}
     - target: {fileID: 7503832196042100852, guid: 5c4c7d46e275d06458a01e9722b79c22,
         type: 3}
       propertyPath: m_RootOrder
@@ -11649,10 +11767,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7503832196042100855, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: slideImage
+      value: 
+      objectReference: {fileID: 93810931}
+    - target: {fileID: 7503832196042100855, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: slideButton
+      value: 
+      objectReference: {fileID: 523154765}
     - target: {fileID: 7503832196042100856, guid: 5c4c7d46e275d06458a01e9722b79c22,
         type: 3}
       propertyPath: m_Name
       value: SlidePuzzle_CountingStar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503832196130512900, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: porceClearTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7503832196130512901, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: btnLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c4c7d46e275d06458a01e9722b79c22, type: 3}
@@ -11673,6 +11811,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7503832196042100852, guid: 5c4c7d46e275d06458a01e9722b79c22,
     type: 3}
   m_PrefabInstance: {fileID: 1758583699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1784004207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 447331899681973236, guid: e15e6d6ea654def4e917d028e7475956,
+    type: 3}
+  m_PrefabInstance: {fileID: 883752192}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1805594230
 GameObject:
@@ -11850,6 +11994,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   datas: {fileID: 11400000, guid: 7132e63ee8fa87348af4dc552d12dbee, type: 2}
+--- !u!1 &1825670869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7526860633343485091, guid: 740018d22769e6b4ea8f8d4287e13fef,
+    type: 3}
+  m_PrefabInstance: {fileID: 100738927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1828499212
 GameObject:
   m_ObjectHideFlags: 0

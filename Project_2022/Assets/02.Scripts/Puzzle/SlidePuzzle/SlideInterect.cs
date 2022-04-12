@@ -12,10 +12,16 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     private SlidePuzzleManager slideMnager;
     [SerializeField]
     private GameObject myCam;
+    [SerializeField]
+    private GameObject slideImage;
+    [SerializeField]
+    private GameObject slideButton;
 
     private void Start()
     {
         myCam.SetActive(false);
+        slideImage.SetActive(false);
+        slideButton.SetActive(false);
         slideMnager.clearEvent += GameClear_Slide;
         GameSetting_Slide();
     }
@@ -29,11 +35,14 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     private void GameClear_Slide()
     {
         gameClear = true;
+        slideImage.SetActive(false);
+        slideButton.SetActive(false);
         slideMnager.GamePause_Slide();
         CameraOverSetting();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         SlidePuzzleAllClear.Instance.AddClearCount();
+        Destroy(this);
     }
 
     private void CameraGameSetting()
@@ -48,6 +57,11 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
         UIManager._instance.OnCutSceneOverWithoutClearDialog();
     }
 
+    public void SkipBtnOn()
+    {
+        slideButton.SetActive(true);
+    }
+
     public void Interact(GameObject taker)
     {
         if (gameClear)
@@ -60,7 +74,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
 
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-
+            slideImage.SetActive(true);
             slideMnager.enabled = true;
             slideMnager.GameStart_Slide();
 

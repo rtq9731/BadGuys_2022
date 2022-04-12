@@ -12,17 +12,22 @@ public class SlidePuzzlePiece : MonoBehaviour
     private List<Vector3> poses;
     private int myPointNum;
     private Vector3 myPoint;
+    [SerializeField]
+    private Vector3 myOriPoint;
+    private float porceTime;
 
     private void Awake()
     {
+        SPManager = transform.GetComponentInParent<SlidePuzzleManager>();
         myPoint = new Vector3();
         rectTransform = GetComponent<RectTransform>();
-        SPManager = transform.GetComponentInParent<SlidePuzzleManager>();
         speed = SPManager.pieceSpeed;
     }
     private void Start()
     {
         poses = SPManager.GetOriPoses();
+        myOriPoint = SPManager.GetMyOriPos(gameObject);
+        porceTime = SPManager.porceClearTime;
     }
 
     private bool CalculNearByEmpty(int empty)
@@ -56,13 +61,20 @@ public class SlidePuzzlePiece : MonoBehaviour
         GetComponent<Image>().color = new Color(255, 255, 255, 255); // Èò»ö
     }
 
+    public void PorcedClearMove()
+    {
+        transform.DOLocalMoveZ(-0.1f, porceTime / 2);
+        transform.DOLocalMove(myOriPoint, porceTime / 2);
+        //transform.DOLocalMoveZ(-0.1f, porceTime / 4);
+    }
+
     private IEnumerator FindMyPoint()
     {
         for (int i = 0; i < poses.Count; i++)
         {
             if (rectTransform.localPosition == poses[i])
             {
-                myPoint = poses[i];
+                //myPoint = poses[i];
                 myPointNum = i;
                 break;
             }
@@ -90,7 +102,7 @@ public class SlidePuzzlePiece : MonoBehaviour
             yield return new WaitForSeconds(speed);
             SPManager.twoDVector[emptySpace] = true;
             myPointNum = emptySpace;
-            myPoint = poses[emptySpace];
+            //myPoint = poses[emptySpace];
         }
         else
         {

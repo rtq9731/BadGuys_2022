@@ -10,6 +10,8 @@ public class SlidePuzzleInput : MonoBehaviour
     private SlidePuzzleManager slideManager;
     [SerializeField]
     private Color color;
+    [SerializeField]
+    private LayerMask btnLayer;
 
     private LayerMask target; // 그림들 레이어
     private SlidePuzzlePiece selectPiece;
@@ -36,6 +38,12 @@ public class SlidePuzzleInput : MonoBehaviour
                 if(selectPiece != null)
                     selectPiece.Selected(color);
             }
+
+            if (Physics.Raycast(camRay, out hit, depth, btnLayer))
+            {
+                hit.transform.GetComponent<SlidePuzzleBtn>().Selected(color);
+                hit.transform.GetComponent<SlidePuzzleBtn>().Onclick();
+            }
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -57,7 +65,13 @@ public class SlidePuzzleInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             if (cheatOn)
-                slideManager.CheatClear();
+                slideManager.PorceClear();
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (slideManager.moveCount < 50)
+                slideManager.moveCount = 50;
         }
     }
 }
