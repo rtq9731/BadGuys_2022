@@ -1276,6 +1276,8 @@ MonoBehaviour:
   colorName: Blue
   safeMg: {fileID: 83558186}
   canPush: 0
+  normalMat: {fileID: 2100000, guid: 8b7199c00a6655440aba68e42f9426be, type: 2}
+  pushedMat: {fileID: 2100000, guid: 9b43c30564a9c4f4f97a524363cdd050, type: 2}
 --- !u!64 &196504752
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5519,6 +5521,8 @@ MonoBehaviour:
   colorName: Purple
   safeMg: {fileID: 83558186}
   canPush: 0
+  normalMat: {fileID: 2100000, guid: 67e53e2f3d116914a9d380759ca1bc4f, type: 2}
+  pushedMat: {fileID: 2100000, guid: 6f8f400210033de429485d50ad3b4a10, type: 2}
 --- !u!82 &918203217
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8261,6 +8265,8 @@ MonoBehaviour:
   colorName: Yellow
   safeMg: {fileID: 83558186}
   canPush: 0
+  normalMat: {fileID: 2100000, guid: dd53886a12dc3b846858737578138e0d, type: 2}
+  pushedMat: {fileID: 2100000, guid: 6cf67b81cd7b5624e90212167a2fa29d, type: 2}
 --- !u!82 &1329842018
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8779,6 +8785,8 @@ MonoBehaviour:
   colorName: Red
   safeMg: {fileID: 83558186}
   canPush: 0
+  normalMat: {fileID: 2100000, guid: 7b924efc8f1c888488bde1a5da4bc6c5, type: 2}
+  pushedMat: {fileID: 2100000, guid: 0cd20f29f538ec74b90a74b70390e212, type: 2}
 --- !u!82 &1371354258
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11871,7 +11879,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 29.999268, y: 99.99994}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.0000000018626451, y: 0.49999994}
 --- !u!114 &1885759350
 MonoBehaviour:
@@ -13488,6 +13496,8 @@ MonoBehaviour:
   colorName: Green
   safeMg: {fileID: 83558186}
   canPush: 0
+  normalMat: {fileID: 2100000, guid: 058d2c9e7064b19489b2b18dacb79ee3, type: 2}
+  pushedMat: {fileID: 2100000, guid: 00d4a7d4409b66c4593ee5702e2a496a, type: 2}
 --- !u!82 &2069154250
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14034,6 +14044,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 73638582}
     m_Modifications:
+    - target: {fileID: 722792381589451952, guid: 17a0aa1f210005e439c7a7aecb817586,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 722792381589451952, guid: 17a0aa1f210005e439c7a7aecb817586,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1770615452821315528, guid: 17a0aa1f210005e439c7a7aecb817586,
         type: 3}
       propertyPath: m_RootOrder
@@ -14093,6 +14113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RushHourBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770615452821315532, guid: 17a0aa1f210005e439c7a7aecb817586,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1770615452821315533, guid: 17a0aa1f210005e439c7a7aecb817586,
         type: 3}

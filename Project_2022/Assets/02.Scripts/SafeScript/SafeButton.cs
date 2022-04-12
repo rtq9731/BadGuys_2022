@@ -9,10 +9,17 @@ public class SafeButton : MonoBehaviour, IInteractableItem
     private Vector3 firstPos;
     private AudioSource clickSound;
     public bool canPush;
+    [SerializeField]
+    private Material normalMat;
+    [SerializeField]
+    private Material pushedMat;
+    private MeshRenderer myMeshRnd;
 
 
     private void Awake()
     {
+        myMeshRnd = GetComponent<MeshRenderer>();
+        myMeshRnd.material = normalMat;
         clickSound = GetComponent<AudioSource>();
         canPush = true;
         firstPos = transform.position;
@@ -20,6 +27,7 @@ public class SafeButton : MonoBehaviour, IInteractableItem
 
     private void Button_Push()
     {
+        myMeshRnd.material = pushedMat;
         safeMg.SafeButton_Push(colorName); 
     }
 
@@ -30,10 +38,11 @@ public class SafeButton : MonoBehaviour, IInteractableItem
             clickSound.Play();
             transform.localPosition -= new Vector3(0, 0, 0.05f);
             canPush = false;
-            Debug.LogWarning("´­¸²");
+            //Debug.LogWarning("´­¸²");
 
             if (safeMg.buttonCount == 2)
             {
+                myMeshRnd.material = pushedMat;
                 safeMg.Btn_Unable();
                 Invoke("Button_Push", 1f);
             }
@@ -44,8 +53,9 @@ public class SafeButton : MonoBehaviour, IInteractableItem
     public void BackToNunPush()
     {
         transform.position = firstPos;
+        myMeshRnd.material = normalMat;
         canPush = true;
-        Debug.LogWarning("µ¹¾Æ¿È");
+        //Debug.LogWarning("µ¹¾Æ¿È");
     }
 
     public void DestroySelf()
