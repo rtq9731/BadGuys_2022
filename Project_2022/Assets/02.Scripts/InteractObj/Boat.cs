@@ -31,6 +31,7 @@ public class Boat : MonoBehaviour, IInteractableItem
         originPos = transform.position;
         mesh = GetComponent<MeshCollider>();
         anim = GetComponentsInChildren<Animator>();
+        mesh.enabled = false;
     }
     private void Update()
     {
