@@ -60,6 +60,7 @@ public class Inventory : MonoBehaviour
         {
             if (_item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
             {
+                StartCoroutine(OverlapItem(obj));
                 slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
                 return;
             }
@@ -88,6 +89,36 @@ public class Inventory : MonoBehaviour
             Destroy(slotParents.transform.GetChild(i).gameObject);
         }
         //InventoryContentsSize.Instance.SetContentsSize();
+    }
+
+    IEnumerator OverlapItem(GameObject obj)
+    {
+        Collider col = obj.transform.GetComponent<Collider>();
+        if (col != null)
+            col.enabled = false;
+
+        Rigidbody rigid = obj.transform.GetComponent<Rigidbody>();
+        if (rigid != null)
+            rigid.useGravity = false;
+
+        float objScale = obj.transform.localScale.x;
+
+        obj.transform.DOScale(0, 0.4f);
+
+        float t = 0f;
+
+        while (true)
+        {
+            t += Time.deltaTime / 1f;
+            obj.transform.position = Vector3.Lerp(obj.transform.position, itemEatPos.position, t);
+
+            if (Vector3.Distance(obj.transform.position, itemEatPos.position) < 0.1f)
+            {
+                obj.gameObject.SetActive(false);
+                break;
+            }
+            yield return null;
+        }
     }
 
     IEnumerator EatItem(GameObject obj)
@@ -133,4 +164,15 @@ public class Inventory : MonoBehaviour
     //}
 
 
+    public bool FindItemInInventory(ItemInfo itemInfo)
+    {
+        for (int i = 0; i < slotParents.transform.childCount; i++)
+        {
+            if(itemInfo == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

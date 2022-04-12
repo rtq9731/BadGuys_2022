@@ -83,15 +83,20 @@ public class InventoryInput : MonoBehaviour
 
     public void RemoveItem()
     {
-        //if (Input.GetKeyDown(KeyCode.E) && isCanRemove)
-        //{
+        
         if (slotsParent.childCount > 0)
         {
-            GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
-            destroySlot.transform.SetParent(null);
-            Destroy(destroySlot);
-
-            //InventoryContentsSize.Instance.SetContentsSize();
+            if(slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount < 2)
+            {
+                GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
+                destroySlot.transform.SetParent(null);
+                Destroy(destroySlot);
+            }
+            else
+            {
+                slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount--;
+            }
+            
 
             for (int i = 0; i < slotsParent.childCount; i++)
             {
