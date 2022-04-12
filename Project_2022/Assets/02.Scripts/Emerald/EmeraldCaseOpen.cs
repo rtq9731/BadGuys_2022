@@ -11,7 +11,6 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
 
     public PlayerController playerController;
 
-
     float originPosY;
     private void Start()
     {
