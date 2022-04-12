@@ -26,8 +26,7 @@ public class SlidePuzzleManager : MonoBehaviour
 
     public bool[] twoDVector;
     private List<Vector3> nowPos;
-    private string[] fileNames;
-    private string filePath = "Assets/Resources/SlidePuzzleSave";
+    
 
     [SerializeField]
     private SlidePuzzlePiece lastPiece;
@@ -40,7 +39,8 @@ public class SlidePuzzleManager : MonoBehaviour
     public LayerMask target; // 그림들 레이어
     public float rayLength;
     public float pieceSpeed;
-
+    public float porceClearTime;
+    public int moveCount;
     public bool isPieceStop;
 
     private void Awake()
@@ -89,6 +89,25 @@ public class SlidePuzzleManager : MonoBehaviour
     public void ClearCheck()
     {
         StartCoroutine(CheckPiecesPos());
+        moveCount++;
+        if (moveCount >= 50)
+            interectManager.SkipBtnOn();
+    }
+
+    public Vector3 GetMyOriPos(GameObject pieceObj)
+    {
+        int keyNum = 0;
+
+        for (int i = 0; i < pieces.Count; i++)
+        {
+            if (pieces[i] == pieceObj)
+                keyNum = i;
+            else if (i + 1 == pieces.Count)
+                Debug.Log("맞는 조각이 없으");
+        }
+
+        Debug.Log(pieceOriPos[keyNum]);
+        return pieceOriPos[keyNum];
     }
 
     public List<Vector3> GetOriPoses()
@@ -106,10 +125,9 @@ public class SlidePuzzleManager : MonoBehaviour
         return nowPos.ToList();
     }
 
-    public void CheatClear()
+    public void PorceClear()
     {
-        lastPieceMat.DOFloat(1, "_DissolveAmount", 2f);
-        clearEvent.Invoke();
+        StartCoroutine(PorcedClearMoving());
     }
 
     private IEnumerator CheckPiecesPos()
@@ -208,5 +226,18 @@ public class SlidePuzzleManager : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private IEnumerator PorcedClearMoving()
+    {
+        foreach (GameObject item in pieces)
+        {
+            SlidePuzzlePiece objPiece = item.GetComponent<SlidePuzzlePiece>();
+            objPiece.PorcedClearMove();
+        }
+        lastPieceMat.DOFloat(1, "_DissolveAmount", 2f);
+
+        yield return new WaitForSeconds(porceClearTime);
+        clearEvent.Invoke();
     }
 }

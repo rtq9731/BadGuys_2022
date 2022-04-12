@@ -5,6 +5,12 @@ using DG.Tweening;
 
 public class Tent : ColorRemoveObjParent
 {
+    InventoryInput inventoryInput;
+    public override void Start()
+    {
+        base.Start();
+        inventoryInput = FindObjectOfType<InventoryInput>();
+    }
     public override bool CanInteract(ItemInfo itemInfo)
     {
         if (!canInteract || !gameObject.activeSelf || !enabled)
@@ -23,6 +29,7 @@ public class Tent : ColorRemoveObjParent
             DOTween.To(() => dissolveMat.GetFloat("_NoiseStrength"), (float value) => dissolveMat.SetFloat("_NoiseStrength", value), dissolveStrength, dissolveDuration);
             outline.enabled = false;
             itemObj.SetActive(true);
+            inventoryInput.RemoveItem();
             inventory.PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
             onInteract?.Invoke();

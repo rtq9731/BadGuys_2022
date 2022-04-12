@@ -60,6 +60,22 @@ public class Slot : MonoBehaviour
         }
     }
 
+    public void DecreaseItemCount()
+    {
+        itemCount--;
+
+        if (itemCount <= 1)
+        {
+            itemCountText.text = null;
+            Debug.Log("하나바께 없어요");
+        }
+        else
+        {
+            itemCountText.text = $"{itemCount}X";
+            Debug.Log("여러개 있어요");
+        }
+    }
+
     public void DestroyItemSlot()
     {
         if(itemCount <= 0)
