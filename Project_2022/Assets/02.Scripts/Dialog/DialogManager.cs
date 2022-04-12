@@ -115,6 +115,16 @@ public class DialogManager : MonoBehaviour
         }
     }
 
+    public void SetDialog(DialogData data)
+    {
+        lastDialogs.Push(data);
+
+        if (cor == null)
+        {
+            cor = StartCoroutine(PlayDialog());
+        }
+    }
+
     IEnumerator PlayDialog()
     {
         while (lastDialogs.Count > 0)

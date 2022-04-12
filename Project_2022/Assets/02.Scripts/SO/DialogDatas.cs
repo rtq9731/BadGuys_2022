@@ -34,4 +34,12 @@ public class DialogData
     public Color color = Color.white;
     public string str = "";
     public string name = "";
+
+    public DialogData(string name, string str, Color color, int id = 0)
+    {
+        this.name = name;
+        this.str = str;
+        this.color = color;
+        this.id = id;
+    }
 }
