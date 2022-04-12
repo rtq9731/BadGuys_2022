@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Triggers;
 
 public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
 {
@@ -10,6 +11,9 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
     public GameObject emeraldCam;
 
     public PlayerController playerController;
+
+    [SerializeField]
+    StoryTrigger stageGClearTrigger;
 
     float originPosY;
     private void Start()
@@ -21,15 +25,19 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
     {
         emeraldCam.SetActive(true);
         playerController.enabled = false;
+        UIManager._instance.OnCutSceneWithoutPause();
+
         while (Vector3.Distance(emeraldCam.transform.position, playerCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
 
         yield return new WaitForSeconds(0.1f);
+        stageGClearTrigger.OnTriggered();
 
         emeraldCase.transform.DOLocalMove(new Vector3(0, 0, -3f), 1f).OnComplete(() =>
         {
+            UIManager._instance.OnCutSceneOverWithoutClearDialog();
             LoadingTrigger.Instance.Ontrigger(3f);
         });
     }
