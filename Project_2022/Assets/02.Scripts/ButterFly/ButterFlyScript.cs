@@ -17,6 +17,8 @@ public class ButterFlyScript : MonoBehaviour
     [SerializeField] float noiseScale = 0f;
     [SerializeField] float speed = 0f;
 
+    bool isSkip = false;
+
     int hashButterflyFLY = 0;
     int hashButterflyIDLE = 0;
 
@@ -44,6 +46,11 @@ public class ButterFlyScript : MonoBehaviour
 
         StartCoroutine(FlyForDisappear(destination, callBack));
     }
+    
+    public void SkipButterFlyMove()
+    {
+        isSkip = true;
+    }
 
     private IEnumerator FlyForDisappear(Transform dest, System.Action callBack)
     {
@@ -67,8 +74,21 @@ public class ButterFlyScript : MonoBehaviour
                 break;
             }
 
+            if (isSkip)
+            {
+                butterflyDissolveMats.ForEach(item =>
+                {
+                    item.SetFloat("_NoiseStrength", 0);
+                });
+
+                isSkip = false;
+                ps.Play();
+                callBack();
+                break;
+            }
+
             yield return null;
         };
-
+        yield return null;
     }
 }
