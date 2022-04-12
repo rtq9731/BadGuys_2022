@@ -104,8 +104,10 @@ public class DialogManager : MonoBehaviour
 
     public void SetDialaogs(List<DialogData> datas)
     {
+        datas.Sort((x, y) => x.id.CompareTo(y.id));
         foreach (var item in datas)
         {
+            UIManager._instance.SetStopMenuDialog($"{item.name} : {item.str}", item.color);
             lastDialogs.Push(item);
         }
 
@@ -118,6 +120,7 @@ public class DialogManager : MonoBehaviour
     public void SetDialog(DialogData data)
     {
         lastDialogs.Push(data);
+        UIManager._instance.SetStopMenuDialog($"{data.name} : {data.str}", data.color);
 
         if (cor == null)
         {

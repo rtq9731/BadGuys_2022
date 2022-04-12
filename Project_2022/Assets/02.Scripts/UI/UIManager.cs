@@ -25,6 +25,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SetStopMenuDialog(string str, Color color)
+    {
+        _stopMenu.SetStopDialog(str, color);
+    }
+
     public void OnCutScene()
     {
         _mainUI.SetActive(false);

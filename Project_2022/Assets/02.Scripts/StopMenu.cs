@@ -12,7 +12,7 @@ public class StopMenu : MonoBehaviour
     [SerializeField] Button _btnExit = null;
 
     [SerializeField] PanelOption _optionPanel = null;
-    [SerializeField] GameObject _todoPanel = null;
+    [SerializeField] StopMenuDialogPanel _dialogPanel = null;
 
     public void Start()
     {
@@ -23,13 +23,13 @@ public class StopMenu : MonoBehaviour
 
         _btnTodo.onClick.AddListener(() =>
         {
-            _todoPanel.gameObject.SetActive(true);
+            _dialogPanel.gameObject.SetActive(true);
             _optionPanel.gameObject.SetActive(false);
         });
 
         _optionPanel.onChangePanel += () =>
         {
-            _todoPanel.gameObject.SetActive(false);
+            _dialogPanel.gameObject.SetActive(false);
         };
 
         _btnExit.onClick.AddListener(() =>
@@ -40,6 +40,11 @@ public class StopMenu : MonoBehaviour
             Application.Quit();
 #endif
         });
+    }
+
+    public void SetStopDialog(string str, Color color)
+    {
+        _dialogPanel.SetDialog(str, color);
     }
 
     private void OnEnable()
