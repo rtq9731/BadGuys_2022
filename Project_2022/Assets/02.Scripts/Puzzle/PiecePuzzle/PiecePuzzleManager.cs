@@ -22,6 +22,8 @@ public class PiecePuzzleManager : MonoBehaviour
     public bool pieceCanMove;
 
     private PiecePuzzleInput inputSystem;
+    [SerializeField]
+    private PiecePuzzleOutline outlineSystem;
 
     private void Awake()
     {
@@ -82,6 +84,7 @@ public class PiecePuzzleManager : MonoBehaviour
     private void ClearPuzzle()
     {
         Debug.LogWarning("Clear");
+        outlineSystem.OffAllOutline();
         clear.Invoke();
         PiecePuzzleAllClear.Instance.AddClearCount();
         this.enabled = false;
@@ -91,6 +94,7 @@ public class PiecePuzzleManager : MonoBehaviour
     {
         pieceCanMove = false;
         targetPiece = pieceGameObj[targetPieceNum];
+        outlineSystem.OnOutLine(pieceGameObj[targetPieceNum].name);
         targetPiece.SetActive(true);
         targetPiece.transform.localPosition = Vector3.zero;
         targetPiece.GetComponent<PiecePuzzlePiece>().AppearPiece();

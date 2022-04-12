@@ -34,7 +34,7 @@ public class PiecePuzzlePiece : MonoBehaviour
         //Debug.LogWarning(disPos);
         //transform.DOLocalMove(disPos, durTime);
 
-        Debug.LogWarning(new Vector3(pos.x, pos.y, 0));
+        //Debug.LogWarning(new Vector3(pos.x, pos.y, 0));
         
         transform.localPosition = new Vector3(pos.x, pos.y, -0.1f);
     }

@@ -42,7 +42,6 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
             }
 
             ButtonPush();
-            Debug.Log(curColor);
 
             pictureAnswerChecker.pictureInfo = images[0].transform.parent.GetComponent<PictureInfo>();
             pictureAnswerChecker.pictureAnswer = images[0].transform.parent.parent.GetComponentInChildren<PictureAnswer>();

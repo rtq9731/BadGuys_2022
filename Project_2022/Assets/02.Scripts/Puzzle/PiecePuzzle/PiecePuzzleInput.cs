@@ -35,11 +35,11 @@ public class PiecePuzzleInput : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Camera.main.farClipPlane,target))
             {
-                Debug.Log(hit.point);
-                Debug.Log(transform.position);
+                //Debug.Log(hit.point);
+                //Debug.Log(transform.position);
                 
                 Vector3 disPos = (hit.point - transform.position) * 2;
-                Debug.Log(disPos);
+                //Debug.Log(disPos);
                 //Vector3 dis = transform.InverseTransformVector(hit.point);
                 //Debug.Log(dis);
                 //targetPiece.MoveToPos(disPos);
