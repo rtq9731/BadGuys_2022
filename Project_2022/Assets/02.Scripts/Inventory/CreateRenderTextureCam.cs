@@ -29,16 +29,7 @@ public class CreateRenderTextureCam : MonoBehaviour
 
         itemObj.SetActive(true);
 
-        if (itemObj.name == "Truck")
-        {
-            itemObj.transform.rotation = Quaternion.Euler(new Vector3(20, -150, 0));
-        }
-        else
-        {
-            itemObj.transform.rotation = Quaternion.Euler(new Vector3(-20, 44, 0));
-        }
-
-        if(itemObj.transform.childCount > 0)
+        if (itemObj.transform.childCount > 0)
         {
             if (itemObj.transform.GetChild(0).name.Contains("Car") || itemObj.transform.name == "Truck")
             {
@@ -55,6 +46,22 @@ public class CreateRenderTextureCam : MonoBehaviour
             obj.transform.GetChild(0).transform.localPosition = new Vector3(0.23f, 0.1f, 1f);
             itemObj.transform.DOScale(1f, 0.1f);
         }
+
+        if (itemObj.name == "Truck")
+        {
+            itemObj.transform.rotation = Quaternion.Euler(new Vector3(20, -150, 0));
+        }
+        else if (itemObj.name.Contains("case_button_piece"))
+        {
+            itemObj.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            obj.transform.GetChild(0).localPosition = new Vector3(0, 0, 0.6f);
+        }
+        else
+        {
+            itemObj.transform.rotation = Quaternion.Euler(new Vector3(-20, 44, 0));
+        }
+
+        
 
         if(itemObj.name.Contains("sculpture"))
         {
