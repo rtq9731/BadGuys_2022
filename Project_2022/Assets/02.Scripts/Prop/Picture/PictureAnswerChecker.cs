@@ -18,11 +18,8 @@ public class PictureAnswerChecker : MonoBehaviour
     [SerializeField]
     GStageLightTrigger lightTrigger = null;
 
-
     [SerializeField]
-    GameObject clearReturnItemObj = null;
-    [SerializeField]
-    ItemInfo clearReturnItem = null;
+    GameObject keyPiece;
 
     bool isCorrect = false;
 
@@ -63,7 +60,8 @@ public class PictureAnswerChecker : MonoBehaviour
                 clearPictureIndex++;
                 if(clearPictureIndex == 3)
                 {
-                    //Inventory.Instance.PickUpItem(clearReturnItem, clearReturnItemObj);
+                    keyPiece.SetActive(true);
+                    Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);
                     storyWall.SetActive(false);
                     lightTrigger.SetActiveGroup(true);
                 }

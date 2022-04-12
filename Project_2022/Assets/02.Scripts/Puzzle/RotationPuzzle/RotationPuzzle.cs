@@ -18,6 +18,7 @@ public class RotationPuzzle : MonoBehaviour
     [SerializeField] GameObject vCamComplete = null;
     [SerializeField] SpriteRenderer completeSR = null;
 
+    [SerializeField] GameObject keyPiece = null;
     private void Start()
     {
         foreach (var item in elements)
@@ -62,7 +63,8 @@ public class RotationPuzzle : MonoBehaviour
                 vCamComplete.SetActive(false);
                 completeWall.SetActive(false);
                 lightTrigger.SetActiveGroup(true);
-                //인벤토리에 조각 넣기
+                keyPiece.SetActive(true);
+                Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);
                 enabled = false;
                 myScripts.ForEach(item => item.enabled = false);
             });

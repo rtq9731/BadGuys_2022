@@ -22,6 +22,8 @@ public class SlidePuzzleAllClear : MonoBehaviour
     [SerializeField]
     GameObject StageWall;
 
+    [SerializeField]
+    GameObject keyPiece;
     private void Awake()
     {
         if (Instance == null)
@@ -45,6 +47,8 @@ public class SlidePuzzleAllClear : MonoBehaviour
     private void InvokeClearEvent()
     {
         //인벤창에 조각넣기
+        keyPiece.SetActive(true);
+        Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece,keyPiece);
         StageWall.SetActive(false);
         slideAllClear?.Invoke();
     }
