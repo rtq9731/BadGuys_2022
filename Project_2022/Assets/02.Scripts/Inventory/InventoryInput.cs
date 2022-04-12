@@ -86,7 +86,7 @@ public class InventoryInput : MonoBehaviour
         
         if (slotsParent.childCount > 0)
         {
-            if(slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount < 2)
+            if(slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount <= 1)
             {
                 GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
                 destroySlot.transform.SetParent(null);
@@ -94,7 +94,7 @@ public class InventoryInput : MonoBehaviour
             }
             else
             {
-                slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount--;
+                slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().DecreaseItemCount();
             }
             
 
