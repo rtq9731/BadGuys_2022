@@ -31,6 +31,11 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = true;
     }
 
+    public void OnCutSceneWithoutPause()
+    {
+        _mainUI.SetActive(false);
+    }
+
     public void OnCutSceneOver()
     {
         _mainUI.SetActive(true);

@@ -20,7 +20,7 @@ public class ButterflyTrigger : MonoBehaviour
 
             butterfly.transform.position = butterfly_Idle.transform.position;
             
-            UIManager._instance.OnCutScene();
+            UIManager._instance.OnCutSceneWithoutPause();
             
             butterfly.Disappear(destination, () =>
             {
