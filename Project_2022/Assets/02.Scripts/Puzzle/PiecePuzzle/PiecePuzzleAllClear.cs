@@ -48,7 +48,8 @@ public class PiecePuzzleAllClear : MonoBehaviour
     {
         keyPiece.SetActive(true);
         Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);
-        StageWall.SetActive(false);
+        StageWall.GetComponent<WallDissolve>().WallDissolveScene();
+        //StageWall.SetActive(false);
         pieceAllClear?.Invoke();
     }
 }

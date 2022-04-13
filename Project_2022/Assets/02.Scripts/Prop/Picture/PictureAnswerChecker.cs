@@ -64,7 +64,8 @@ public class PictureAnswerChecker : MonoBehaviour
                 {
                     keyPiece.SetActive(true);
                     Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);
-                    storyWall.SetActive(false);
+                    storyWall.GetComponent<WallDissolve>().WallDissolveScene();
+                    //storyWall.SetActive(false);
                     lightTrigger.SetActiveGroup(true);
                 }
             }

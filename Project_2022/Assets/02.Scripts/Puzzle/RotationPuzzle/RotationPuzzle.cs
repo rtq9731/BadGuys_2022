@@ -61,7 +61,8 @@ public class RotationPuzzle : MonoBehaviour
                 completeSR.gameObject.SetActive(false);
                 completeTrigger.OnTriggered();
                 vCamComplete.SetActive(false);
-                completeWall.SetActive(false);
+                completeWall.GetComponent<WallDissolve>().WallDissolveScene();
+                //completeWall.SetActive(false);
                 lightTrigger.SetActiveGroup(true);
                 keyPiece.SetActive(true);
                 Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);

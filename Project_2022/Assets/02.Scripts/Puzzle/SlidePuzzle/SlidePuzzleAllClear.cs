@@ -49,7 +49,8 @@ public class SlidePuzzleAllClear : MonoBehaviour
         //인벤창에 조각넣기
         keyPiece.SetActive(true);
         Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece,keyPiece);
-        StageWall.SetActive(false);
+        //StageWall.SetActive(false);
+        StageWall.GetComponent<WallDissolve>().WallDissolveScene();
         slideAllClear?.Invoke();
     }
 }

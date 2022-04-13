@@ -102,11 +102,8 @@ public class SlidePuzzleManager : MonoBehaviour
         {
             if (pieces[i] == pieceObj)
                 keyNum = i;
-            else if (i + 1 == pieces.Count)
-                Debug.Log("맞는 조각이 없으");
         }
 
-        Debug.Log(pieceOriPos[keyNum]);
         return pieceOriPos[keyNum];
     }
 
