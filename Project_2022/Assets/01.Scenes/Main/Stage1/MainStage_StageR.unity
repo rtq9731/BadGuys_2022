@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 37462849}
   - component: {fileID: 37462851}
   - component: {fileID: 37462850}
+  - component: {fileID: 37462852}
   m_Layer: 0
   m_Name: UnFilled_Lake
   m_TagString: Untagged
@@ -221,6 +222,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &37462852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37462848}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &45803528
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -410,6 +429,7 @@ GameObject:
   - component: {fileID: 62704494}
   - component: {fileID: 62704496}
   - component: {fileID: 62704495}
+  - component: {fileID: 62704497}
   m_Layer: 0
   m_Name: UnFilled_Sky
   m_TagString: Untagged
@@ -495,6 +515,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &62704497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62704493}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &81158085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9171040125158683498, guid: 8a60e6b7ec7de624a83eb49e42a7d38e,
@@ -512,6 +550,7 @@ GameObject:
   - component: {fileID: 86316621}
   - component: {fileID: 86316623}
   - component: {fileID: 86316622}
+  - component: {fileID: 86316624}
   m_Layer: 0
   m_Name: UnFilled_Boat
   m_TagString: Untagged
@@ -597,6 +636,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &86316624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86316620}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &105554750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,10 +2073,13 @@ MonoBehaviour:
   colorKeyAndObjs:
   - keyItem: {fileID: 11400000, guid: 94729ddcbcb83fc488fe0bae4dfe6295, type: 2}
     unFilledObj: {fileID: 86316620}
+    outline: {fileID: 86316624}
   - keyItem: {fileID: 11400000, guid: 5fb58bbb11aef9d4da4bf666ac23849e, type: 2}
     unFilledObj: {fileID: 37462848}
+    outline: {fileID: 37462852}
   - keyItem: {fileID: 11400000, guid: 8a95f86ab87ed9d49a708327be6ab3cf, type: 2}
     unFilledObj: {fileID: 62704493}
+    outline: {fileID: 62704497}
   outline: {fileID: 1737605112}
   removeDuration: 2
 --- !u!114 &318896995
@@ -5619,6 +5679,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1033747238}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1033747240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c761b4d603b38e5489223e9f95d72f4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1033747238}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1033747241
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033747240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2232952877369940510, guid: c761b4d603b38e5489223e9f95d72f4b, type: 3}
 --- !u!4 &1056599539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 116228615110137055, guid: 8b58d6ebae49f68448bf7a69ff9d8d1c,

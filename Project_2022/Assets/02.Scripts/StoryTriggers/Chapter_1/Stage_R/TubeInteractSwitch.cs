@@ -13,6 +13,19 @@ namespace Triggers.Switch.Chapter1.StageR
             GetComponent<Item>().onInteract += Fire;
             GetComponent<Item>().onInteract += () => { mesh.enabled = true; };
             GetComponent<Item>().onInteract += () => { GetComponent<Item>().onInteract -= Fire; };
+            GetComponent<Item>().onInteract += () =>
+            {
+                foreach (var item in FindObjectsOfType<TubeInteractSwitch>())
+                {
+                    item.RemoveActions();
+                }
+            };
         }
+
+        private void RemoveActions()
+        {
+            GetComponent<Item>().onInteract -= Fire;
+        }
+
     }
 }

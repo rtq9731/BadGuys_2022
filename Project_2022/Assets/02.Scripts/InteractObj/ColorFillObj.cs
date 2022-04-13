@@ -35,11 +35,12 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
         colorKeyAndObjs.Remove(obj);
         if (obj != null)
         {
-            if(colorKeyAndObjs.Count < 1)
+            obj.outline.enabled = false;
+            if (colorKeyAndObjs.Count < 1)
             {
                 obj.RemoveUnFilledObj(removeDuration, _onComplete);
+                return;
             }
-
             invenInput.RemoveItem();
             obj.RemoveUnFilledObj(removeDuration, () => { });
         }
@@ -51,13 +52,21 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
         ColorKeyAndObj obj = colorKeyAndObjs.Find(item => item.keyItem == inventory.MainItem);
         if (obj != null)
         {
-            outline.enabled = true;
+            obj.outline.enabled = true;
         }
     }
 
     public void OnPlayerMouseExit()
     {
-        outline.enabled = false;
+        RemoveOutlines();
+    }
+
+    public void RemoveOutlines()
+    {
+        colorKeyAndObjs.ForEach(item =>
+        {
+            item.outline.enabled = false;
+        });
     }
 
     public bool CanInteract(ItemInfo itemInfo)
@@ -74,6 +83,7 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
     {
         public ItemInfo keyItem = null;
         public GameObject unFilledObj = null;
+        public Outline outline = null;
 
         public void RemoveUnFilledObj(float duration, System.Action callBack)
         {
