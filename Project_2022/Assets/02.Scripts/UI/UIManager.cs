@@ -33,12 +33,14 @@ public class UIManager : MonoBehaviour
     public void OnCutScene()
     {
         _mainUI.SetActive(false);
+        FindObjectOfType<PlayerController>().enabled = false;
         GameManager.Instance.IsPause = true;
     }
 
     public void OnCutSceneWithoutPause()
     {
         _mainUI.SetActive(false);
+        FindObjectOfType<PlayerController>().enabled = false;
     }
 
     public void OnCutSceneOver()
@@ -46,12 +48,14 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
+        FindObjectOfType<PlayerController>().enabled = true;
     }
 
     public void OnCutSceneOverWithoutClearDialog()
     {
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
+        FindObjectOfType<PlayerController>().enabled = true;
     }
 
     public void DisplayCursor(bool display)
