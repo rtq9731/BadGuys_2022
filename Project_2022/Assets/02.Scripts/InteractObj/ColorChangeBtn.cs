@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class ColorChangeBtn : MonoBehaviour, IInteractableItem
+public class ColorChangeBtn : MonoBehaviour
 {
     public PictureAnswerChecker pictureAnswerChecker;
     public PictureBtnManager pictureBtnManager;
@@ -14,19 +14,27 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
 
     public List<Image> images = new List<Image>();
 
+    public GameObject mainPicture;
+
+    Button button;
+
     int colorIndex = -1;
 
     bool isCorrect;
 
-    public ColorChangeBtn[] colorChangeBtns;
-
     void Start()
     {
+        button = GetComponent<Button>();
+        button.onClick.AddListener(() =>
+        {
+            Interact();
+        });
+
         curColor = colors[0];
         pictureBtnManager = FindObjectOfType<PictureBtnManager>();
     }
 
-    public void Interact(GameObject taker)
+    public void Interact()
     {   
          if(!isCorrect)
         {
@@ -40,13 +48,6 @@ public class ColorChangeBtn : MonoBehaviour, IInteractableItem
             {
                 item.color = curColor;
             }
-
-            ButtonPush();
-
-            pictureAnswerChecker.pictureInfo = images[0].transform.parent.GetComponent<PictureInfo>();
-            pictureAnswerChecker.pictureAnswer = images[0].transform.parent.parent.GetComponentInChildren<PictureAnswer>();
-            pictureBtnManager.colorChangeBtns = transform.parent.parent.GetComponentsInChildren<ColorChangeBtn>();
-            pictureBtnManager.correctPicture = transform.parent.parent.parent.GetComponentInChildren<PictureAnswer>();
 
             if (pictureAnswerChecker.CheckAnswer())
             {

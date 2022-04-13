@@ -15,6 +15,7 @@ public class PictureAnswerChecker : MonoBehaviour
     public int[] pictureCode;
     public int[] pictureCorrectCode;
 
+    public GameObject pictureCam;
     [SerializeField]
     GStageLightTrigger lightTrigger = null;
 
@@ -41,6 +42,7 @@ public class PictureAnswerChecker : MonoBehaviour
                 if (index == pictureCode.Length)
                 {
                     pictureInfo.isClear = true;
+                    pictureCam.SetActive(false);
                     isCorrect = true;
                     AllClearPicture();
                     return isCorrect;
