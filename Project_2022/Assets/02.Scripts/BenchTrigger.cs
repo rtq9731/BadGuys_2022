@@ -11,9 +11,6 @@ public class BenchTrigger : MonoBehaviour
     [SerializeField] StoryTrigger eachTrigger = null;
     [SerializeField] StoryTrigger attachTrigger = null;
 
-    [SerializeField] GameObject nextButterflyTrigger = null;
-    [SerializeField] GameObject wall = null;
-
     private void Start()
     {
         eachBench.onInteract += OnSelcectEachBench;
@@ -36,9 +33,7 @@ public class BenchTrigger : MonoBehaviour
 
     private void OnCompletePuzzle()
     {
-        wall.SetActive(false);
         eachBench.SetActive(false);
         togetherBench.SetActive(false);
-        nextButterflyTrigger.SetActive(true);
     }
 }
