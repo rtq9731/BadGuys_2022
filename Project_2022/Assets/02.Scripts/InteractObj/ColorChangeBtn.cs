@@ -16,47 +16,23 @@ public class ColorChangeBtn : MonoBehaviour
 
     public GameObject mainPicture;
 
-    Button button;
+    [HideInInspector]
+    public MeshCollider mesh;
+
+
+    public bool isInteract = true;
+
 
     int colorIndex = -1;
 
-    bool isCorrect;
-
     void Start()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(() =>
-        {
-            Interact();
-        });
-
         curColor = colors[0];
         pictureBtnManager = FindObjectOfType<PictureBtnManager>();
+        mesh = GetComponent<MeshCollider>();
+        mesh.enabled = false;
     }
 
-    public void Interact()
-    {   
-         if(!isCorrect)
-        {
-            if (colorIndex == colors.Length - 1)
-                colorIndex = -1;
-
-            colorIndex++;
-            curColor = colors[colorIndex];
-
-            foreach (Image item in images)
-            {
-                item.color = curColor;
-            }
-
-            if (pictureAnswerChecker.CheckAnswer())
-            {
-                isCorrect = true;
-                StartCoroutine(pictureBtnManager.ClearColorPuzzle());
-            }
-        }
-    }
-    
     //버튼 눌리는함수
     void ButtonPush()
     {
@@ -64,5 +40,27 @@ public class ColorChangeBtn : MonoBehaviour
         {
             transform.DOLocalMoveY(0.1f, 0.1f);
         });
+    }
+
+    public void Interact()
+    {
+        if (colorIndex == colors.Length - 1)
+            colorIndex = -1;
+
+        colorIndex++;
+        curColor = colors[colorIndex];
+
+        ButtonPush();
+
+        foreach (Image item in images)
+        {
+            item.color = curColor;
+        }
+
+        if (pictureAnswerChecker.CheckAnswer())
+        {
+            StartCoroutine(pictureBtnManager.ClearColorPuzzle());
+        }
+        isInteract = false;
     }
 }
