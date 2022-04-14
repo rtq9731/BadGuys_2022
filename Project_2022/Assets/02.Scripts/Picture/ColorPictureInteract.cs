@@ -36,6 +36,8 @@ public class ColorPictureInteract : MonoBehaviour , IInteractableItem
     {
         pictureCam.SetActive(true);
 
+        UIManager._instance.OnCutSceneWithoutPause();
+
         pictureAnswerChecker.pictureCam = this.pictureCam;
         pictureAnswerChecker.pictureInfo = mainPicture.GetComponent<PictureInfo>();
         pictureAnswerChecker.pictureAnswer = correctPicture.GetComponent<PictureAnswer>();

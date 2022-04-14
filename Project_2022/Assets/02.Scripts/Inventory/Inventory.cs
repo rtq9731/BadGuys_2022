@@ -62,6 +62,7 @@ public class Inventory : MonoBehaviour
             {
                 StartCoroutine(OverlapItem(obj));
                 slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
+                showInventory.ShowInventorySlot();
                 return;
             }
         }

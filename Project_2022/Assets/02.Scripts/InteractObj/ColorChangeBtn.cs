@@ -59,6 +59,8 @@ public class ColorChangeBtn : MonoBehaviour
 
         if (pictureAnswerChecker.CheckAnswer())
         {
+            mesh.enabled = false;
+            UIManager._instance.OnCutSceneOverWithoutClearDialog();
             StartCoroutine(pictureBtnManager.ClearColorPuzzle());
         }
         isInteract = false;
