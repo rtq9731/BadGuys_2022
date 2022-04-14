@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class EmphasizeCircle : MonoBehaviour
 {
     public GameObject testTarget;
     public float sizeMin;
     public float sizeMax;
+    public float yoyoTime;
     [SerializeField]
     private Color mycol;
 
+    private GameObject sizeObj;
     private Camera mainCam;
     private GameObject targetObj;
     private bool isEmphasize;
@@ -20,6 +23,7 @@ public class EmphasizeCircle : MonoBehaviour
         ColorOff();
         isEmphasize = false;
         mainCam = Camera.main;
+        sizeObj = transform.parent.gameObject;
     }
 
     private void Update()
@@ -67,9 +71,14 @@ public class EmphasizeCircle : MonoBehaviour
     {
         Vector3 targetPos = new Vector3();
         float dis = 0f;
+        float time = 0f;
+        Transform sizeTrn = sizeObj.transform;
+        sizeObj.transform.DOScale(sizeTrn.localScale + new Vector3(0.3f, 0.3f, 0), yoyoTime).SetLoops(-1, LoopType.Yoyo);
 
         while (isEmphasize)
         {
+            
+
             targetPos = mainCam.WorldToScreenPoint(targetObj.transform.position);
             if (targetPos.z < 0)
                 ColorOff();
