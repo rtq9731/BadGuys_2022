@@ -63,7 +63,7 @@ public class PictureAnswerChecker : MonoBehaviour
                 if(clearPictureIndex == 3)
                 {
                     keyPiece.SetActive(true);
-                    Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);
+                    keyPiece.GetComponent<Item>().Interact(keyPiece);
                     storyWall.GetComponent<WallDissolve>().WallDissolveScene();
                     //storyWall.SetActive(false);
                     lightTrigger.SetActiveGroup(true);

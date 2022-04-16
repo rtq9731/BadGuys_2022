@@ -7,34 +7,77 @@ using Triggers;
 
 public class RotationPuzzle : MonoBehaviour
 {
+    [SerializeField] float rotationAmount = 10;
+
     [SerializeField] List<RotationPuzzleElement> elements = new List<RotationPuzzleElement>();
-    [SerializeField] List<MonoBehaviour> myScripts = new List<MonoBehaviour>();
     [SerializeField] StoryTrigger completeTrigger = null;
     [SerializeField] GStageLightTrigger lightTrigger = null;
     [SerializeField] GameObject completeWall = null;
 
-    [SerializeField] float errorRange = 10f;
-
-    [SerializeField] GameObject vCamComplete = null;
+    [SerializeField] GameObject vCamPuzzle = null;
     [SerializeField] SpriteRenderer completeSR = null;
 
     [SerializeField] GameObject keyPiece = null;
-    private void Start()
+
+    bool isOn = false;
+
+    int curLayer = 0;
+
+    private void Update()
     {
-        foreach (var item in elements)
+        if (!isOn)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            item._onRotationChanged += OnElementRotate;
+            curLayer = 0;
+            RefreshOulines(curLayer);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            curLayer = 1;
+            RefreshOulines(curLayer);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            curLayer = 2;
+            RefreshOulines(curLayer);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            elements[curLayer].RotatePicture(-rotationAmount);
+            OnElementRotate();
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            elements[curLayer].RotatePicture(rotationAmount);
+            OnElementRotate();
+        }
+    }
+
+    public void SetPuzzle()
+    {
+        vCamPuzzle.SetActive(true);
+        isOn = true;
+        RefreshOulines(curLayer);
+    }
+
+    private void RefreshOulines(int curLayer)
+    {
+        for (int i = 0; i < elements.Count; i++)
+        {
+            elements[i].outline.enabled = i == curLayer;
         }
     }
 
     private void OnElementRotate()
     {
-        List<RotationPuzzleElement> items = new List<RotationPuzzleElement>();
-
-        Debug.Log((int)elements[0].GetPictureRotationZ() == (int)elements[2].GetPictureRotationZ());
-        Debug.Log((int)elements[0].GetPictureRotationZ() == (int)elements[1].GetPictureRotationZ());
-        if (!((int)elements[0].GetPictureRotationZ() == (int)elements[1].GetPictureRotationZ()
-            && (int)elements[0].GetPictureRotationZ() == (int)elements[2].GetPictureRotationZ()))
+        Debug.Log("0 : " + elements[0].GetPictureRotationZ() % 360 + " == " + "1 : " + elements[1].GetPictureRotationZ() % 360 + " = " + (elements[0].GetPictureRotationZ() == (int)elements[1].GetPictureRotationZ()));
+        Debug.Log("0 : " + elements[0].GetPictureRotationZ() % 360 + " == " + "2 : " + elements[2].GetPictureRotationZ() % 360 + " = " + (elements[0].GetPictureRotationZ() == (int)elements[2].GetPictureRotationZ()));
+        if (!((int)(elements[0].GetPictureRotationZ() % 360) == (int)(elements[1].GetPictureRotationZ() % 360)
+            && (int)(elements[0].GetPictureRotationZ() % 360) == (int)(elements[2].GetPictureRotationZ() % 360)))
             return;
 
         OnCompletePuzzle(elements[0].GetPictureRotationZ());
@@ -42,7 +85,7 @@ public class RotationPuzzle : MonoBehaviour
 
     private void OnCompletePuzzle(float destRot)
     {
-        vCamComplete.SetActive(true);
+        vCamPuzzle.SetActive(true);
         completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, destRot));
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
@@ -57,17 +100,24 @@ public class RotationPuzzle : MonoBehaviour
         {
             completeSR.material.DOFloat(0, "_DissolveAmount", 3f).OnComplete(() =>
             {
+                keyPiece.SetActive(true);
+                keyPiece.GetComponent<Item>().Interact(keyPiece);
+
                 UIManager._instance.OnCutSceneOverWithoutClearDialog();
+
                 completeSR.gameObject.SetActive(false);
                 completeTrigger.OnTriggered();
-                vCamComplete.SetActive(false);
+
+                vCamPuzzle.SetActive(false);
+
                 completeWall.GetComponent<WallDissolve>().WallDissolveScene();
+
                 //completeWall.SetActive(false);
+
+                RefreshOulines(-1);
+
                 lightTrigger.SetActiveGroup(true);
-                keyPiece.SetActive(true);
-                Inventory.Instance.PickUpItem(keyPiece.GetComponent<Item>().itemInfo, keyPiece, keyPiece);
                 enabled = false;
-                myScripts.ForEach(item => item.enabled = false);
             });
         });
 

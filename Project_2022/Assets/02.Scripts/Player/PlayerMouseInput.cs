@@ -13,6 +13,8 @@ public class PlayerMouseInput : MonoBehaviour
     InventoryInput _inventoryInput;
     Inventory _inventory = null;
 
+    public bool isRayToMousePos = false;
+
     Transform _curTouchObj = null;
 
     private Action<IInteractableItem> _onItemOverMouse = (x) => { };
@@ -42,7 +44,7 @@ public class PlayerMouseInput : MonoBehaviour
 
         Vector3 mousePos = Vector3.zero;
         Ray ray;
-        if (UIStackManager.IsUIStackEmpty())
+        if (!isRayToMousePos)
         {
             ray = new Ray(transform.position, transform.forward);
         }
@@ -83,7 +85,6 @@ public class PlayerMouseInput : MonoBehaviour
                 }
             }
 
-            //
             IInteractableItem curItem = hitInfo.transform.GetComponent<Item>();
             if (curItem != null)
             {

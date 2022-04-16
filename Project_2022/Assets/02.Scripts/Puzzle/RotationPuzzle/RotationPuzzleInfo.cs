@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotationPuzzleInfo : MonoBehaviour, IInteractableItem
 {
-    [SerializeField] GameObject vCamInfo = null;
+    [SerializeField] RotationPuzzle puzzle = null;
 
     bool isInteracting = false;
 
@@ -13,16 +13,8 @@ public class RotationPuzzleInfo : MonoBehaviour, IInteractableItem
         if (isInteracting)
             return;
 
-        StartCoroutine(ShowPicture());
-    }
-
-    IEnumerator ShowPicture()
-    {
-        vCamInfo.gameObject.SetActive(true);
-        UIManager._instance.OnCutScene();
-        yield return new WaitForSeconds(2f);
-        vCamInfo.gameObject.SetActive(false);
-        UIManager._instance.OnCutSceneOverWithoutClearDialog();
-        isInteracting = false;
+        isInteracting = true; 
+        puzzle.SetPuzzle();
+        GetComponent<OutlinerOnMouseEnter>().enabled = false;
     }
 }

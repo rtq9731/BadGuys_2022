@@ -46,6 +46,18 @@ public class Inventory : MonoBehaviour
     public ItemInfo MainItem;
     public int mainItemIndex;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         contentsSize = GetComponentInChildren<InventoryContentsSize>();
@@ -54,11 +66,11 @@ public class Inventory : MonoBehaviour
         showInventory = GetComponentInChildren<ShowInventoryUI>();
     }
 
-    public void PickUpItem(ItemInfo _item, GameObject obj, GameObject whoIsTaker)
+    public void PickUpItem(ItemInfo item, GameObject obj, GameObject whoIsTaker)
     {
         for (int i = 0; i < slotParents.transform.childCount; i++)
         {
-            if (_item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
+            if (item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
             {
                 StartCoroutine(OverlapItem(obj));
                 slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
@@ -71,13 +83,15 @@ public class Inventory : MonoBehaviour
         showInventory.ShowInventorySlot();
         //InventoryContentsSize.Instance.SetContentsSize();
 
-        slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(_item);
+        slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(item);
         slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().slotItem = obj;
 
         if (slotParents.transform.childCount == 1)
         {
-            MainItem = _item;
+            MainItem = item;
         }
+
+        ItemInfoPanelManager.Instance.SetDialog(item);
 
         StartCoroutine(EatItem(obj));
     }
