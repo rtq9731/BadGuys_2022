@@ -52,7 +52,7 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        if (isCanInterct && Inventory.Instance.FindItemInInventory(item))
+        if ((isCanInterct && Inventory.Instance.FindItemInInventory(item)) || isSun)
         {
             outline.enabled = false;
             transform.DOKill();
