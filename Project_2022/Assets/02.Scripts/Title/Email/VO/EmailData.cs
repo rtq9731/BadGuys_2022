@@ -33,6 +33,7 @@ public class EmailData : ISerializationCallbackReceiver
 [Serializable]
 public class EmailTextData
 {
+    public int idx;
     public string title;
     public string sender;
     public string partName;

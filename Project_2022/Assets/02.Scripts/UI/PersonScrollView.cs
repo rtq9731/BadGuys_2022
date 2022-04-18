@@ -68,7 +68,6 @@ public class PersonScrollView : MonoBehaviour
         curPanelNum++;
 
         RefreshPanels();
-        Debug.Log(curPanelNum);
     }
 
     private void OnClickSelect()
@@ -78,7 +77,7 @@ public class PersonScrollView : MonoBehaviour
 
     private void RefreshPanels()
     {
-
+        btnSelect.interactable = panels[curPanelNum].canStart;
         int minNum = 0;
         int maxNum = 0;
         for (int i = 0; i < panels.Count; i++)

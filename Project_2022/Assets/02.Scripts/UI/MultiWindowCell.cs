@@ -11,16 +11,4 @@ public class MultiWindowCell : MonoBehaviour
     {
         OnObjEnable?.Invoke();
     }
-
-    private void GameObjectOnOff(bool active)
-    {
-        if (!gameObject.activeSelf)
-        {
-            gameObject.SetActive(true);
-        }
-        else
-        {
-            OnEnable();
-        }
-    }
 }

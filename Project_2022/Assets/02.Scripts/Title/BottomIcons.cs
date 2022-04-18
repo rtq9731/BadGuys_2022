@@ -10,6 +10,7 @@ public class BottomIcons : MonoBehaviour
     [SerializeField] Button btnCredit;
     [SerializeField] Button btnPerson;
     [SerializeField] Button btnMail;
+    [SerializeField] Button btnState;
 
     [SerializeField] Text emailUnreadCount;
     [SerializeField] Text emailUnreadPanelText;
@@ -18,6 +19,7 @@ public class BottomIcons : MonoBehaviour
     [SerializeField] GameObject panelCredit;
     [SerializeField] GameObject panelPatient;
     [SerializeField] GameObject panelEmail;
+    [SerializeField] GameObject panelState;
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class BottomIcons : MonoBehaviour
         btnCredit.onClick.AddListener(OnClickBtnCredit);
         btnPerson.onClick.AddListener(OnClickBtnPerson);
         btnMail.onClick.AddListener(OnClickBtnMail);
+        btnState.onClick.AddListener(OnClickBtnState);
     }
 
     private void OnEnable()
@@ -49,24 +52,30 @@ public class BottomIcons : MonoBehaviour
     private void OnClickBtnQuit()
     {
         multiWindow.SortWindows(panelQuit.GetComponent<MultiWindowCell>());
-        panelQuit.gameObject.SetActive(true);
+        panelQuit.gameObject.SetActive(!panelQuit.gameObject.activeSelf);
     }
 
     private void OnClickBtnCredit()
     {
         multiWindow.SortWindows(panelCredit.GetComponent<MultiWindowCell>());
-        panelCredit.gameObject.SetActive(true);
+        panelCredit.gameObject.SetActive(!panelCredit.gameObject.activeSelf);
     }
 
     private void OnClickBtnPerson()
     {
         multiWindow.SortWindows(panelPatient.GetComponent<MultiWindowCell>());
-        panelPatient.gameObject.SetActive(true);
+        panelPatient.gameObject.SetActive(!panelPatient.gameObject.activeSelf);
     }
 
     private void OnClickBtnMail()
     {
         multiWindow.SortWindows(panelEmail.GetComponent<MultiWindowCell>());
-        panelEmail.gameObject.SetActive(true);
+        panelEmail.gameObject.SetActive(!panelEmail.gameObject.activeSelf);
+    }
+
+    private void OnClickBtnState()
+    {
+        multiWindow.SortWindows(panelState.GetComponent<MultiWindowCell>());
+        panelState.gameObject.SetActive(!panelState.gameObject.activeSelf);
     }
 }

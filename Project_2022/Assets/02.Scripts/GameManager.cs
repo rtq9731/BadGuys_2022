@@ -72,6 +72,16 @@ public class GameManager : MonoBehaviour
         return emailDatas.emailList[id];
     }
 
+    public bool IsReadEmail(int id)
+    {
+        EmailData data = jsonData.emails.Find(item => item.id == id);
+        if (data != null)
+        {
+            return data.isRead;
+        }
+        return false;
+    }
+
     public void SaveEmailData()
     {
         using(StreamWriter sw = new StreamWriter(Application.persistentDataPath + fileName))
