@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -2362,7 +2362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -2619,7 +2619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
@@ -3735,6 +3735,7 @@ MonoBehaviour:
   _whatIsTouchable:
     serializedVersion: 2
     m_Bits: 12087
+  isRayToMousePos: 0
 --- !u!114 &478798136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6360,6 +6361,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 874179988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &874179990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c761b4d603b38e5489223e9f95d72f4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 874179988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &874179991
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874179990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2232952877369940510, guid: c761b4d603b38e5489223e9f95d72f4b, type: 3}
 --- !u!1001 &879769124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7515,6 +7536,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 992548942}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &992548944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c761b4d603b38e5489223e9f95d72f4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 992548942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &992548945
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992548944}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2232952877369940510, guid: c761b4d603b38e5489223e9f95d72f4b, type: 3}
 --- !u!4 &999122599 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 691228469027552336, guid: 3edf05b3e5e0e534fb6d641c4534d4dc,
@@ -8340,7 +8381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 0
+  outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
   precomputeOutline: 0
@@ -10097,6 +10138,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1356563628}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1356563630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c761b4d603b38e5489223e9f95d72f4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1356563628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1356563631
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356563630}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2232952877369940510, guid: c761b4d603b38e5489223e9f95d72f4b, type: 3}
 --- !u!4 &1356860989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 272419887881813089, guid: 380348a977c2f9440824810f62f1261e,
@@ -11493,7 +11554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outlineWidth: 10
   outlineMode: 2
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1600662631
 MonoBehaviour:
   m_ObjectHideFlags: 0
