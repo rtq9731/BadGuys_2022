@@ -6,14 +6,24 @@ using DG.Tweening;
 
 public class GuidePanel : MonoBehaviour
 {
+    [SerializeField] GameObject guidePanel;
+
+    public Text guideText;
+
+    GuidePanelManager guidePanelManager;
+
     RectTransform rect;
 
     Vector3 originPos;
 
-    bool isFirstInput;
+    float timer;
+
+    bool isFirstInput = true;
+    bool isOnPanel = false;
     private void Start()
     {
-        rect = GetComponent<RectTransform>();
+        guidePanelManager = GetComponent<GuidePanelManager>();
+        rect = guidePanel.GetComponent<RectTransform>();
         originPos = rect.anchoredPosition;
     }
     void Update()
@@ -21,6 +31,18 @@ public class GuidePanel : MonoBehaviour
         if (Input.anyKeyDown && isFirstInput)
         {
             ShowGuidePanel();
+            isOnPanel = true;
+        }
+        
+        if(isOnPanel)
+        {
+            timer += Time.deltaTime;
+            if(timer >= 7f)
+            {
+                HideGuidePanel();
+                isOnPanel = false;
+                timer = 0;
+            }
         }
     }
 
@@ -28,13 +50,18 @@ public class GuidePanel : MonoBehaviour
     {
         if(isFirstInput)
         {
-            rect.DOAnchorPos(new Vector3(50, -50, 0), 0.5f);
+            rect.DOAnchorPos(new Vector3(130, -50, 0), 0.5f);
             isFirstInput = false;
         }
     }
 
-    void HideGuidePanel()
+    public void HideGuidePanel()
     {
-        rect.DOAnchorPos(originPos, 0.5f);
+        rect.DOAnchorPos(originPos, 0.5f).OnComplete(() =>
+        {
+            guidePanelManager.ClearGuide();
+            guidePanelManager.SetText();
+            isFirstInput = true;
+        });
     }
 }
