@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using System.IO;
 using System.Linq;
 using DG.Tweening;
 
@@ -26,7 +24,6 @@ public class SlidePuzzleManager : MonoBehaviour
 
     public bool[] twoDVector;
     private List<Vector3> nowPos;
-    
 
     [SerializeField]
     private SlidePuzzlePiece lastPiece;
@@ -40,7 +37,6 @@ public class SlidePuzzleManager : MonoBehaviour
     public float rayLength;
     public float pieceSpeed;
     public float porceClearTime;
-    public int moveCount;
     public bool isPieceStop;
 
     private void Awake()
@@ -55,6 +51,11 @@ public class SlidePuzzleManager : MonoBehaviour
         gridComponent.enabled = false;
         StartCoroutine(GetChildren());
         SetMaxPos(pieceOriPos[0]);
+    }
+
+    private void Start()
+    {
+        ClearCheck();
     }
 
     private void SetMaxPos(Vector3 firstPos)
@@ -89,9 +90,12 @@ public class SlidePuzzleManager : MonoBehaviour
     public void ClearCheck()
     {
         StartCoroutine(CheckPiecesPos());
-        moveCount++;
-        if (moveCount >= 50)
+        SlidePuzzleAllClear.Instance.AddSlideCount();
+        if (SlidePuzzleAllClear.Instance.isWeak)
+        {
             interectManager.SkipBtnOn();
+        }
+            
     }
 
     public Vector3 GetMyOriPos(GameObject pieceObj)
@@ -125,6 +129,11 @@ public class SlidePuzzleManager : MonoBehaviour
     public void PorceClear()
     {
         StartCoroutine(PorcedClearMoving());
+    }
+
+    public void YouAreSoWeak()
+    {
+        SlidePuzzleAllClear.Instance.isWeak = true;
     }
 
     private IEnumerator CheckPiecesPos()

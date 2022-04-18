@@ -11,6 +11,7 @@ public class SlidePuzzleBtn : MonoBehaviour
     public void Onclick()
     {
         manager.PorceClear();
+        this.enabled = false;
     }
 
     public void Selected(Color color)

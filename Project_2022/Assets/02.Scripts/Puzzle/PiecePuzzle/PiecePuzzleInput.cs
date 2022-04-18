@@ -14,6 +14,7 @@ public class PiecePuzzleInput : MonoBehaviour
     [SerializeField]
     private LayerMask target;
     private PiecePuzzlePiece targetPiece;
+    public Color color;
 
     private BoxCollider boxCollider;
     private Vector3 boxSize;
@@ -47,12 +48,14 @@ public class PiecePuzzleInput : MonoBehaviour
                 // 도형 가로, 세로 구하고 /2
                 //localPos.x = Mathf.Clamp(localPos.x, -boxSize.x / 2 + pieceSize / 2, boxSize.x / 2 - pieceSize / 2);
                 //localPos.y = Mathf.Clamp(localPos.y, -boxSize.y / 2 + pieceSize / 2, boxSize.y / 2 - pieceSize / 2);
+                targetPiece.LineOn();
                 targetPiece.MoveToPos(localPos);
             }
         }
 
         if (Input.GetMouseButtonUp(0) && manager.pieceCanMove)
         {
+            targetPiece.LineOff();
             targetPiece.CheckPieceIn();
         }
     }
