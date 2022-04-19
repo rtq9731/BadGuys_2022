@@ -46,7 +46,7 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
 
     private void AblePuzzle()
     {
-        UIManager._instance.OnCutScene();
+        UIManager._instance.OnCutSceneWithoutPause();
         camera.SetActive(true);
         manager.enabled = true;
         input.enabled = true;

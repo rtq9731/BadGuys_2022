@@ -60,6 +60,7 @@ public class RotationPuzzle : MonoBehaviour
     public void SetPuzzle()
     {
         vCamPuzzle.SetActive(true);
+        UIManager._instance.OnCutSceneWithoutPause();
         isOn = true;
         RefreshOulines(curLayer);
     }
@@ -89,7 +90,7 @@ public class RotationPuzzle : MonoBehaviour
         completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 180, destRot));
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
-        UIManager._instance.OnCutScene();
+        UIManager._instance.OnCutSceneWithoutPause();
 
         foreach (var item in elements)
         {
@@ -113,6 +114,7 @@ public class RotationPuzzle : MonoBehaviour
                 completeWall.GetComponent<WallDissolve>().WallDissolveScene();
 
                 //completeWall.SetActive(false);
+                UIManager._instance.OnCutSceneOverWithoutClearDialog();
 
                 RefreshOulines(-1);
 

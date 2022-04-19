@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
 
         ItemInfoPanelManager.Instance.SetDialog(item);
 
-        StartCoroutine(EatItem(obj));
+        UIManager._instance.StartCoroutine(EatItem(obj));
     }
 
     public void InventoryReset()
