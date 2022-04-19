@@ -40,8 +40,6 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
         mesh.enabled = false;
 
-        PlayerPrefs.DeleteAll();
-
         Debug.Log(PlayerPrefs.GetString("MainStage_StageB"));
 
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear")
