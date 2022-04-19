@@ -19,7 +19,7 @@ public class ButterflySkipBtn : MonoBehaviour
     float disappearGauge = 0f;
     float disappearMax = 2f;
 
-    float skipgaugeTime = 3f;
+    float skipgaugeTime = 2f;
     float skipgauge = 0;
 
     void Awake()
