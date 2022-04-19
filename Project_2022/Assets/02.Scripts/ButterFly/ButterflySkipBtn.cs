@@ -27,6 +27,7 @@ public class ButterflySkipBtn : MonoBehaviour
         myRect = GetComponent<RectTransform>();
         originPos = myRect.anchoredPosition;
     }
+
     private void Start()
     {
         butterfly = FindObjectOfType<ButterFlyScript>();
