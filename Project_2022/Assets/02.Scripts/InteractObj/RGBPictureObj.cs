@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class RGBPictureObj : MonoBehaviour, IInteractableItem
+public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
     [SerializeField]
     private string sceneColor;
@@ -20,50 +20,84 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     private GameObject loadImage;
     [SerializeField]
     private Image blindImage;
-
+    
     bool isClearStage = false;
     bool canInteract = true;
+
+    Outline outline;
 
     public Material material;
 
     MeshRenderer mesh;
+
+    MeshCollider collider;
     private void Start()
     {
-        canInteract = true;
         mesh = GetComponent<MeshRenderer>();
-        GetComponent<MeshCollider>().enabled = false;
-        transform.GetChild(0).gameObject.SetActive(false);
+        outline = GetComponent<Outline>();
+        collider = GetComponent<MeshCollider>();
+
+        outline.enabled = false;
+        enabled = false;
+
+        collider.enabled = false;
+
         if (sceneColor == "R")
         {
             isClearStage = true;
-            GetComponent<MeshCollider>().enabled = true;
+            enabled = true;
+            collider.enabled = true;
             mesh.material = material;
         }
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
-            GetComponent<MeshCollider>().enabled = true;
+            enabled = true;
+            collider.enabled = true;
             mesh.material = material;
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
-            GetComponent<MeshCollider>().enabled = true;
+            enabled = true;
+            collider.enabled = true;
             mesh.material = material;
         }
 
         CheckStageClear();
     }
 
+
     public void Interact(GameObject taker)
     {
-        if(isClearStage && canInteract)
+        if (isClearStage && canInteract)
         {
             Debug.Log("그림 상호작용");
             pictureCam.SetActive(true);
             StartCoroutine(CameraMove());
             canInteract = false;
+
+            outline.enabled = false;
         }
+    }
+
+    public void OnPlayerMouseEnter()
+    {
+        if (!enabled)
+            return;
+
+        if (isClearStage)
+            outline.enabled = true;
+        else
+            outline.enabled = false;
+    }
+
+    public void OnPlayerMouseExit()
+    {
+        if (!enabled)
+            return;
+
+        outline.enabled = false;
     }
 
     IEnumerator CameraMove()
@@ -90,18 +124,18 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
     {   
         if(PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "R")
         {
-            Destroy(this);
-            Destroy(GetComponent<Outline>());
+            enabled = false;
+            outline.enabled = false;
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "G")
         {
-            Destroy(this);
-            Destroy(GetComponent<Outline>());
+            enabled = false;
+            outline.enabled = false;
         }
         if (PlayerPrefs.GetString("MainStage_StageB") == "Clear" && sceneColor == "B")
         {
-            Destroy(this);
-            Destroy(GetComponent<Outline>());
+            enabled = false;
+            outline.enabled = false;
         }
     }
 }

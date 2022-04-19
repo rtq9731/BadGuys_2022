@@ -11,6 +11,11 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
     [SerializeField] Image blindImage = null;
 
+    [SerializeField]
+    GameObject[] mainPictures;
+    [SerializeField]
+    GameObject mainPicture;
+
     MeshCollider mesh;
 
     public void Interact(GameObject taker)
@@ -35,10 +40,21 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
         mesh.enabled = false;
 
+        PlayerPrefs.DeleteAll();
+
         Debug.Log(PlayerPrefs.GetString("MainStage_StageB"));
 
+        if (PlayerPrefs.GetString("MainStage_StageR") == "Clear")
+        {
+            mainPictures[0].gameObject.SetActive(true);
+        }
+        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear")
+        {
+            mainPictures[1].gameObject.SetActive(true);
+        }
         if (PlayerPrefs.GetString("MainStage_StageB") == "Clear") 
-        { 
+        {
+            mainPicture.SetActive(true);
             isAllClear = true;
             mesh.enabled = true;
         }
