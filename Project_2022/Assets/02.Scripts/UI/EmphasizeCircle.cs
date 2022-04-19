@@ -28,17 +28,17 @@ public class EmphasizeCircle : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            if (isEmphasize)
-            {
-                EmphasizeOff();
-            }
-            else
-            {
-                EmphasizeOn(testTarget);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    if (isEmphasize)
+        //    {
+        //        EmphasizeOff();
+        //    }
+        //    else
+        //    {
+        //        EmphasizeOn(testTarget);
+        //    }
+        //}
     }
 
     public void EmphasizeOn(GameObject target)

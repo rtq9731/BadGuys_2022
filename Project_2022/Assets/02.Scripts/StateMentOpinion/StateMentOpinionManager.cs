@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class StateMentOpinionManager : MonoBehaviour
 {
     public static StateMentOpinionManager Instance;
+    [SerializeField]
+    private List<GameObject> movePos;
+    [SerializeField]
+    private GameObject paper;
+    [SerializeField]
+    private float movingTime = 3f;
+
+    public int opinionStep = 1;
+    public List<Text> texts;
+    public bool canCameraMove = true;
+    public bool isChoose = false;
+    public float moveAmount = 10f;
+
+    private bool startCameraMove;
 
     private void Awake()
     {
@@ -21,29 +35,9 @@ public class StateMentOpinionManager : MonoBehaviour
 
         startCameraMove = false;
         isChoose = false;
-        MoveStep(0);
-        stepNum = 0;
+        paper.transform.DOMove(movePos[0].transform.position, movingTime);
         StartCoroutine(TextClear());
     }
-
-    [SerializeField]
-    private List<GameObject> movePos;
-    [SerializeField]
-    private GameObject paper;
-    [SerializeField]
-    private float movingTime = 3f;
-
-    //[SerializeField]
-    //private float typingSpeed = 2f;
-
-    public int stepNum;
-    public int opinionStep = 1;
-    public UnityEvent<int> Cameramoving;
-    public List<Text> texts;
-    public bool canCameraMove = true;
-    public bool isChoose = false;
-
-    private bool startCameraMove;
 
     private void Update()
     {
@@ -53,41 +47,15 @@ public class StateMentOpinionManager : MonoBehaviour
             if (wheelInput2.y > 0)
             {
                 // 휠을 밀어 돌렸을 때의 처리 ↑
-
-                stepNum--;
-                if (stepNum < 0) stepNum = 0;
-                MoveStep(stepNum);
-                Cameramoving.Invoke(stepNum);
-
+                MoveYPos(-moveAmount);
                 wheelInput2.y = 0;
             }
             else if (wheelInput2.y < 0)
             {
                 // 휠을 당겨 올렸을 때의 처리 ↓
-
-                stepNum++;
-                if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
-                MoveStep(stepNum);
-                Cameramoving.Invoke(stepNum);
-
+                MoveYPos(moveAmount);
                 wheelInput2.y = 0;
             }
-
-            //if (Input.GetKeyDown(KeyCode.W) && stepNum > 0)
-            //{
-            //    stepNum--;
-            //    if (stepNum < 0) stepNum = 0;
-            //    MoveStep(stepNum);
-            //    Cameramoving.Invoke(stepNum);
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.S) && stepNum < movePos.Count - 1)
-            //{
-            //    stepNum++;
-            //    if (stepNum > movePos.Count - 1) stepNum = movePos.Count - 1;
-            //    MoveStep(stepNum);
-            //    Cameramoving.Invoke(stepNum);
-            //}
         }
     }
 
@@ -122,10 +90,21 @@ public class StateMentOpinionManager : MonoBehaviour
         Debug.Log(textNum + " = " + textContent);
     }
 
-    public void MoveStep(int num)
+    public void MoveYPos(float amount)
     {
-        paper.transform.DOMove(movePos[num].transform.position, movingTime);
-        Debug.Log("paper tranform = " + movePos[num].transform.position);
+        Debug.Log("asdf");
+        Vector3 paperPos = paper.transform.position;
+
+        //if (paperPos.y + amount <= movePos[0].transform.position.y) // 최대로 올라갔는데 더 올라갈 경우
+        //    return;
+        //amount = movePos[0].transform.position.y - paperPos.y;
+        //if (paperPos.y + amount >= movePos[movePos.Count - 1].transform.position.y) // 최대로 내려갔는데 더 내랴갈 경우
+        //    return;
+        //amount = movePos[movePos.Count - 1].transform.position.z - paperPos.y;
+
+        Vector3 toPos = new Vector3(paperPos.x, paperPos.y + amount, paperPos.z);
+        float distance = Mathf.Abs(Mathf.Abs(paperPos.y) - Mathf.Abs(amount));
+        paper.transform.DOMove(toPos, distance / movingTime);
     }
 
     public IEnumerator TextClear()
@@ -144,8 +123,6 @@ public class StateMentOpinionManager : MonoBehaviour
         paper.transform.DOMove(movePos[opinionStep].transform.position, downSec);
         yield return new WaitForSeconds(downSec);
         startCameraMove = true;
-        stepNum = opinionStep;
-        Cameramoving.Invoke(stepNum);
     }
 
     private IEnumerator TextTyping(Text targetText, string content)
@@ -160,41 +137,4 @@ public class StateMentOpinionManager : MonoBehaviour
         }
 
     }
-
-    //public void SetPlayerName(string name)
-    //{
-    //    Text playerName = texts.Find(item => item.transform.name == "Player_name");
-
-    //    if (playerName == null) playerName = transform.Find("Player_name").GetComponent<Text>();
-
-    //    playerName.text = name;
-    //    Debug.Log("playerName = " + name);
-    //}
-
-    //public void SetPatientName(string name)
-    //{
-    //    Text patientName = texts.Find(item => item.transform.name == "Patient_name");
-
-    //    if (patientName == null) patientName = transform.Find("Patient_name").GetComponent<Text>();
-
-    //    patientName.text = name;
-    //    Debug.Log("patientName = " + name);
-    //}
-
-    //public void SetPatientSocialSecurityNumber(string name)
-    //{
-    //    Text socialSecurityNumber = 
-    //        texts.Find(item => item.transform.name == "Patient_SocialSecurityNumber");
-
-    //    if (socialSecurityNumber == null) socialSecurityNumber = 
-    //            transform.Find("Patient_SocialSecurityNumber").GetComponent<Text>();
-
-    //    socialSecurityNumber.text = name;
-    //    Debug.Log("socialSecurityNumber = " + name);
-    //}
-
-    //public void SetPatientAddress(string address)
-    //{
-        
-    //}
 }

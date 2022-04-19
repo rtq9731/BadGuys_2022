@@ -8,35 +8,17 @@ public class OpinionBtnManager : MonoBehaviour
 {
     [SerializeField]
     private ParentsBtn[] Btns;
-    [SerializeField]
-    private int camStep;
-
-    private void Awake()
-    {
-        camStep = StateMentOpinionManager.Instance.opinionStep;
-    }
 
     private void Start()
     {
-        StateMentOpinionManager.Instance.Cameramoving.AddListener(BtnOnOffFunc);
-    }
+        BtnsOn();
+    }   
 
-    private void BtnOnOffFunc(int camStepNum)
+    private void BtnsOn()
     {
-        if (camStepNum == camStep)
+        for (int i = 0; i < Btns.Length; i++)
         {
-            for (int i = 0; i < Btns.Length; i++)
-            {
                 Btns[i].GetComponent<Button>().interactable = true;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < Btns.Length; i++)
-            {
-                CloseAllParents();
-                Btns[i].GetComponent<Button>().interactable = false;
-            }
         }
     }
 

@@ -27,29 +27,15 @@ public class FinaleManager : MonoBehaviour
     private void Awake()
     {
         stampSound = GetComponent<AudioSource>();
-        freeComent.enabled = false;
+        freeComent.enabled = true;
         stampImg.SetActive(false);
         checkPanel.SetActive(false);
-        endBtn.interactable = false;
+        endBtn.interactable = true;
     }
 
     private void Start()
     {
-        StateMentOpinionManager.Instance.Cameramoving.AddListener(BtnOnOffFunc);
-    }
 
-    private void BtnOnOffFunc(int camStepNum)
-    {
-        if (camStepNum == camStep)
-        {
-            endBtn.interactable = true;
-            freeComent.enabled = true;
-        }
-        else
-        {
-            endBtn.interactable = false;
-            freeComent.enabled = false;
-        } 
     }
 
     public void Finish()

@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
-  m_LineType: 0
+  m_LineType: 2
   m_HideMobileInput: 0
   m_CharacterValidation: 0
   m_CharacterLimit: 0
@@ -1609,7 +1609,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
@@ -2928,7 +2928,6 @@ RectTransform:
   - {fileID: 1248941649510324743}
   - {fileID: 3333796722702088081}
   - {fileID: 1437059802321134489}
-  - {fileID: 65807099906174657}
   m_Father: {fileID: 7346756856548683194}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3034,11 +3033,7 @@ MonoBehaviour:
   - {fileID: 7346756857861262091}
   paper: {fileID: 7346756856234603179}
   movingTime: 1
-  stepNum: 0
   opinionStep: 1
-  Cameramoving:
-    m_PersistentCalls:
-      m_Calls: []
   texts:
   - {fileID: 7346756856567358371}
   - {fileID: 7346756856420024121}
@@ -3061,6 +3056,7 @@ MonoBehaviour:
   - {fileID: 0}
   canCameraMove: 1
   isChoose: 0
+  moveAmount: 10
 --- !u!114 &7346756856548683192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3323,19 +3319,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8478250862845258263}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1597039073}
   - {fileID: 1918873026}
   - {fileID: 1909522233}
-  m_Father: {fileID: 7346756856234603178}
-  m_RootOrder: 12
+  m_Father: {fileID: 1437059802321134489}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.2799, y: -906.9645}
+  m_AnchoredPosition: {x: -153.2799, y: -702.64545}
   m_SizeDelta: {x: 1735.7, y: 354.5668}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6800943873303301474
@@ -3649,6 +3645,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2946470845560946340}
+  - {fileID: 65807099906174657}
   m_Father: {fileID: 7346756856234603178}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3698,14 +3695,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAE40\uB300\uC131\uC528 ( \uC774\uD558 \uD658\uC790 ) \uC758 \uC99D\uC0C1\uC758
-    \uC6D0\uC778\uC73C\uB85C \uBCF4\uC774\uB294 \uAC83\uC740 \uD658\uC790\uAC00 \uB9CC\uB0AC\uB358
-    [Case_1] \uC640\uC758 \uC88B\uC9C0 \uBABB\uD55C \uAE30\uC5B5\uC73C\uB85C \uBCF4\uC774\uBA70,
-    \uD568\uAED8 \uADF8\uB838\uB358 \uADF8\uB9BC\uC744 [Case_2]\uC73C\uB85C \uD6FC\uC190\uD588\uB358
-    \uAE30\uC5B5\uB4E4\uC774 \uD604\uC7AC \uD658\uC790\uC758 \uBB34\uC758\uC2DD\uC5D0
-    \uB0A8\uC544, \uADF8\uB9BC\uC744 \uADF8\uB9AC\uAC70\uB098 \uD560 \uB54C [Case_3]
-    \uC5D0 \uB300\uD574\uC11C \uBD88\uD3B8\uD568\uC744 \uB290\uB07C\uB294 \uAC83\uC73C\uB85C
-    \uBCF4\uC784. "
+  m_Text: 
 --- !u!1 &9119433387849188166
 GameObject:
   m_ObjectHideFlags: 0
