@@ -102,7 +102,7 @@ public class RotationPuzzle : MonoBehaviour
     {
         isOn = false;
         vCamPuzzle.SetActive(true);
-        completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 180, destRot));
+        completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, destRot));
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
         UIManager._instance.OnCutSceneWithoutPause();
