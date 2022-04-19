@@ -68,9 +68,12 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
     {
         if (!enabled || !gameObject.activeSelf)
             return false;
+
+
         if ((isCanInterct && Inventory.Instance.FindItemInInventory(item)) || isSun)
             return true;
-        else return false;
+        else 
+            return false;
     }
     public void OnPlayerMouseEnter()
     {
@@ -126,6 +129,31 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
         });
     }
 
+    
+    //돌리는 함수
+    private void TurnBoat(bool isGo)
+    {
+        if (isGo)
+        {
+            SetPaddleAnim(true);
+            isCanInterct = false;
+            isSun = false;
+            transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
+            {
+                
+                float duration = Vector2.Distance(transform.position, originPos);
+
+                transform.DOMove(originPos, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
+                {
+                    TakeOffBoat();
+                    isCanInterct = true;
+                    
+                });
+            });
+        }
+    }
+
+
     // 보트에서 내리는 함수
     private void TakeOffBoat()
     {
@@ -141,26 +169,5 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
         });
     }
 
-    //돌리는 함수
-    private void TurnBoat(bool isGo)
-    {
-        isCanInterct = false;
-        SetPaddleAnim(true);
-        if (isGo)
-        {
-            transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
-            {
-                isCanInterct = true;
-                float duration = Vector2.Distance(transform.position, originPos);
 
-                transform.DOMove(originPos, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
-                {
-                    TakeOffBoat();
-                    isSun = false;
-                });
-            });
-        }
-    }
-
-    
 }
