@@ -13,14 +13,17 @@ public class PersonScrollView : MonoBehaviour
 
     int curPanelNum = 0;
 
+    private void Awake()
+    {
+        btnLeft.onClick.AddListener(OnClickLeft);
+        btnRight.onClick.AddListener(OnClickRight);
+        btnSelect.onClick.AddListener(OnClickSelect);
+    }
+
     private void OnEnable()
     {
         panels.ForEach(item => item.transform.DOComplete());
         // RefreshPanels();
-
-        btnLeft.onClick.AddListener(OnClickLeft);
-        btnRight.onClick.AddListener(OnClickRight);
-        btnSelect.onClick.AddListener(OnClickSelect);
     }
 
     public void MakePatientInfoPanel(PatientInfoList data)
