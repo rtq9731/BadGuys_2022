@@ -16,6 +16,8 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
     StoryTrigger stageGClearTrigger;
 
     float originPosY;
+
+    bool isClear;
     private void Start()
     {
         originPosY = transform.position.y;
@@ -44,11 +46,15 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        Debug.Log("asd");
-        transform.DOLocalMoveY(-0.58f, 0.2f).OnComplete(() =>
+        if (!isClear)
         {
-            transform.DOMoveY(originPosY, 0.2f);
-            StartCoroutine(ClearStageG());
-        });
+            Debug.Log("asd");
+            isClear = true;
+            transform.DOLocalMoveY(-0.58f, 0.2f).OnComplete(() =>
+            {
+                transform.DOMoveY(originPosY, 0.2f);
+                StartCoroutine(ClearStageG());
+            });
+        }
     }
 }

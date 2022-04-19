@@ -21,7 +21,7 @@ public class CreateRenderTextureCam : MonoBehaviour
             x += 5;
         }
 
-        GameObject obj = Instantiate(renderCam, new Vector3(50+x,50,50), Quaternion.identity);
+        GameObject obj = Instantiate(renderCam, new Vector3(50+x,-500,50), Quaternion.identity);
 
         obj.transform.SetParent(camParent);
         

@@ -30,7 +30,7 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
 
     MeshRenderer mesh;
 
-    MeshCollider collider;
+    MeshCollider collider = null;
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
@@ -126,16 +126,19 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
         {
             enabled = false;
             outline.enabled = false;
+            collider.enabled = false;
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "G")
         {
             enabled = false;
             outline.enabled = false;
+            collider.enabled = false;
         }
         if (PlayerPrefs.GetString("MainStage_StageB") == "Clear" && sceneColor == "B")
         {
             enabled = false;
             outline.enabled = false;
+            collider.enabled = false;
         }
     }
 }
