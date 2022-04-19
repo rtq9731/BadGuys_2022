@@ -38,6 +38,16 @@ public class Item_Paint : Item, IPlayerMouseEnterHandler, IPlayerMouseExitHandle
         }
     }
 
+    public override bool CanInteract()
+    {
+        if(!enabled || !gameObject.activeSelf)
+        {
+            return false;
+        }
+
+        return keys.Find(item => inventory.MainItem == item);
+    }
+
     public void OnPlayerMouseEnter()
     {
         _onPlayerMouseEnter?.Invoke();

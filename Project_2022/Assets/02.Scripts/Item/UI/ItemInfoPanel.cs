@@ -12,6 +12,7 @@ public class ItemInfoPanel : MonoBehaviour
     public RectTransform rect = null;
 
     Coroutine cor = null;
+    Color imageColor = new Color(0,0,0, (float)170/255);
 
     Image image = null;
     private void Awake()
@@ -22,7 +23,7 @@ public class ItemInfoPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        rect.sizeDelta = new Vector2(256, 100);
+        rect.sizeDelta = new Vector2(350, 80);
         StartCoroutine(RemoveCorutine());
     }
 
@@ -43,7 +44,7 @@ public class ItemInfoPanel : MonoBehaviour
 
         this.uiText.text = text;
         
-        GetComponent<Image>().color = Color.white;
+        GetComponent<Image>().color = imageColor;
     }
 
     IEnumerator RemoveCorutine()

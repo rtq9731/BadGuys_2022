@@ -19,7 +19,7 @@ public class Item : MonoBehaviour, IInteractableItem
         }
     }
 
-    public bool CanInteract()
+    public virtual bool CanInteract()
     {
         if (!enabled || !gameObject.activeSelf)
             return false;
