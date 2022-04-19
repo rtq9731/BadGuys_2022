@@ -30,37 +30,31 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
 
     MeshRenderer mesh;
 
-    MeshCollider collider = null;
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
         outline = GetComponent<Outline>();
-        collider = GetComponent<MeshCollider>();
 
         outline.enabled = false;
         enabled = false;
 
-        collider.enabled = false;
 
         if (sceneColor == "R")
         {
             isClearStage = true;
             enabled = true;
-            collider.enabled = true;
             mesh.material = material;
         }
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             enabled = true;
-            collider.enabled = true;
             mesh.material = material;
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             enabled = true;
-            collider.enabled = true;
             mesh.material = material;
         }
 
@@ -80,7 +74,16 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
             outline.enabled = false;
         }
     }
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
 
+        if (isClearStage)
+            return true;
+        else
+            return false;
+    }
     public void OnPlayerMouseEnter()
     {
         if (!enabled)
@@ -121,32 +124,27 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
     }
 
     void CheckStageClear()
-    {   
+    {
+
         if(PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "R")
         {
             enabled = false;
             outline.enabled = false;
-            collider.enabled = false;
+            isClearStage = false;
         }
         if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "G")
         {
             enabled = false;
             outline.enabled = false;
-            collider.enabled = false;
+            isClearStage = false;
         }
         if (PlayerPrefs.GetString("MainStage_StageB") == "Clear" && sceneColor == "B")
         {
             enabled = false;
             outline.enabled = false;
-            collider.enabled = false;
+            isClearStage = false;
         }
     }
 
-    public bool CanInteract()
-    {
-        if (!enabled || !gameObject.activeSelf)
-            return false;
-
-        return true;
-    }
+    
 }

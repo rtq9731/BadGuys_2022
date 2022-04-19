@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Boat : MonoBehaviour, IInteractableItem
+public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
     [SerializeField]
     private GameObject boatCam;
@@ -23,15 +23,12 @@ public class Boat : MonoBehaviour, IInteractableItem
 
     bool isPause = false;
 
-    MeshCollider mesh;
     Animator[] anim;
     BoatCam boatCamera;
     private void Start()
     {
         originPos = transform.position;
-        mesh = GetComponent<MeshCollider>();
         anim = GetComponentsInChildren<Animator>();
-        mesh.enabled = false;
     }
     private void Update()
     {
@@ -67,6 +64,33 @@ public class Boat : MonoBehaviour, IInteractableItem
             }
         }
     }
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+        if ((isCanInterct && Inventory.Instance.FindItemInInventory(item)) || isSun)
+            return true;
+        else return false;
+    }
+    public void OnPlayerMouseEnter()
+    {
+        if (!enabled)
+            return;
+
+        if ((isCanInterct && Inventory.Instance.FindItemInInventory(item)) || isSun)
+            outline.enabled = true;
+        else
+            outline.enabled = false;
+    }
+
+    public void OnPlayerMouseExit()
+    {
+        if (!enabled)
+            return;
+
+        outline.enabled = false;
+    }
+
 
     void SetPaddleAnim(bool isMove)
     {
@@ -84,7 +108,6 @@ public class Boat : MonoBehaviour, IInteractableItem
         boatCamera = boatCam.GetComponent<BoatCam>();
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
         boatCamera.enabled = false;
-        mesh.enabled = false;
 
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
@@ -99,7 +122,6 @@ public class Boat : MonoBehaviour, IInteractableItem
         {
             SetPaddleAnim(false);
             isCanInterct = true;
-            mesh.enabled = true;
             isSun = true;
         });
     }
@@ -112,7 +134,6 @@ public class Boat : MonoBehaviour, IInteractableItem
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
             isCanInterct = true;
-            mesh.enabled = true;
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);
             boatCam.SetActive(false);
@@ -127,7 +148,6 @@ public class Boat : MonoBehaviour, IInteractableItem
         SetPaddleAnim(true);
         if (isGo)
         {
-            mesh.enabled = false;
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
                 isCanInterct = true;
@@ -142,11 +162,5 @@ public class Boat : MonoBehaviour, IInteractableItem
         }
     }
 
-    public bool CanInteract()
-    {
-        if (!enabled || !gameObject.activeSelf)
-            return false;
-
-        return true;
-    }
+    
 }

@@ -39,15 +39,14 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
         if (!enabled || !gameObject.activeSelf)
             return false;
 
-        return true;
+        if (isAllClear)
+            return true;
+        else
+            return false;
     }
 
     void Start()
     {
-        mesh = GetComponent<MeshCollider>();
-
-        mesh.enabled = false;
-
         Debug.Log(PlayerPrefs.GetString("MainStage_StageB"));
 
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear")
@@ -62,7 +61,6 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
         {
             mainPicture.SetActive(true);
             isAllClear = true;
-            mesh.enabled = true;
         }
     }
 }
