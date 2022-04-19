@@ -9,6 +9,9 @@ public class SlidePuzzleAllClear : MonoBehaviour
     public static SlidePuzzleAllClear Instance;
     public Action slideAllClear;
     public List<TextAsset> patterns;
+    public int maxCount = 100;
+    public int slideCount;
+    public bool isWeak;
 
     [SerializeField]
     private int clearCount;
@@ -33,8 +36,18 @@ public class SlidePuzzleAllClear : MonoBehaviour
 
         //slideAllClear += completeTrigger.OnTriggered;
         slideAllClear += () => lightTrigger.SetActiveGroup(true);
-
+        isWeak = false;
+        slideCount = 0;
         clearCount = 0;
+    }
+
+    public void AddSlideCount()
+    {
+        slideCount++;
+        if (slideCount >= maxCount)
+        {
+            isWeak = true;
+        }
     }
 
     public void AddClearCount()

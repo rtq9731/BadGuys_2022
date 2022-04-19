@@ -17,6 +17,8 @@ public class SlidePuzzleInput : MonoBehaviour
     private SlidePuzzlePiece selectPiece;
     private Vector3 hitPos;
     private bool cheatOn;
+    private bool btnClick;
+   
 
     private void Awake()
     {
@@ -39,8 +41,9 @@ public class SlidePuzzleInput : MonoBehaviour
                     selectPiece.Selected(color);
             }
 
-            if (Physics.Raycast(camRay, out hit, depth, btnLayer))
+            if (Physics.Raycast(camRay, out hit, depth, btnLayer) && !btnClick)
             {
+                btnClick = true;
                 hit.transform.GetComponent<SlidePuzzleBtn>().Selected(color);
                 hit.transform.GetComponent<SlidePuzzleBtn>().Onclick();
             }
@@ -70,8 +73,8 @@ public class SlidePuzzleInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (slideManager.moveCount < 50)
-                slideManager.moveCount = 50;
+            if (SlidePuzzleAllClear.Instance.isWeak == false && cheatOn)
+                SlidePuzzleAllClear.Instance.slideCount += 100;
         }
     }
 }

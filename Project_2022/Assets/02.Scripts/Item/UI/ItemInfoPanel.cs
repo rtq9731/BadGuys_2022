@@ -18,7 +18,6 @@ public class ItemInfoPanel : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
         image = GetComponent<Image>();
-        Debug.Log(rect.sizeDelta);
     }
 
     private void OnEnable()

@@ -17,7 +17,6 @@ public class WallDissolve : MonoBehaviour
         myVCam.SetActive(false);
         myMeshRnd = GetComponent<MeshRenderer>();
         myMat = myMeshRnd.material;
-        Debug.Log(Time.deltaTime);
     }
 
     //private void Update()

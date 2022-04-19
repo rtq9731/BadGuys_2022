@@ -8,6 +8,8 @@ public class PiecePuzzlePiece : MonoBehaviour
     private PiecePuzzleManager manager;
     [SerializeField]
     private Vector3 myClearPos;
+    [SerializeField]
+    private Outline myLine;
     private float durTime;
     private float clearDis;
     private MeshRenderer myMesh;
@@ -15,6 +17,8 @@ public class PiecePuzzlePiece : MonoBehaviour
 
     private void Awake()
     {
+        myLine = GetComponent<Outline>();
+        myLine.enabled = false;
         manager = GetComponentInParent<PiecePuzzleManager>();
         durTime = manager.durationTime;
         clearDis = manager.clearDistance;
@@ -58,6 +62,16 @@ public class PiecePuzzlePiece : MonoBehaviour
     public void AppearPiece()
     {
         StartCoroutine(Appear());
+    }
+
+    public void LineOn()
+    {
+        myLine.enabled = true;
+    }
+
+    public void LineOff()
+    {
+        myLine.enabled = false;
     }
 
     private IEnumerator Appear()
