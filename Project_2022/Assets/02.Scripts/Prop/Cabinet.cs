@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Cabinet : MonoBehaviour, IInteractableItem
 {
-    public bool isOpen = false;
+    public bool _isOpen = false;
 
     Animator anim;
 
@@ -16,20 +16,28 @@ public class Cabinet : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        OpenCabinet(isOpen);
+        OpenCabinet(_isOpen);
     }
 
-    void OpenCabinet(bool _isOpen)
+    void OpenCabinet(bool isOpen)
     {
-        if (_isOpen)
+        if (isOpen)
         {
-            isOpen = false;
+            this._isOpen = false;
             anim.SetTrigger("IsClose");
         }
         else
         {
-            isOpen = true;
+            this._isOpen = true;
             anim.SetTrigger("IsOpen");
         }
+    }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
     }
 }

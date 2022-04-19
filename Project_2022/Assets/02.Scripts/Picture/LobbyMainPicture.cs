@@ -34,6 +34,14 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
         });
     }
 
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
+
     void Start()
     {
         mesh = GetComponent<MeshCollider>();

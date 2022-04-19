@@ -18,4 +18,12 @@ public class Item : MonoBehaviour, IInteractableItem
             DialogManager.Instance.SetDialaogs(dialogs);
         }
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

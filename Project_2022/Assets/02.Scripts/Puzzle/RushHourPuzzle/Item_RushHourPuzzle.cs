@@ -138,4 +138,12 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         player.transform.position = playerMovePos.position;
         Destroy(GetComponent<Item_RushHourPuzzle>());
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

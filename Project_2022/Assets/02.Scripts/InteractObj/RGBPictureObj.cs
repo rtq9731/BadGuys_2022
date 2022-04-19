@@ -141,4 +141,12 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
             collider.enabled = false;
         }
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

@@ -46,6 +46,13 @@ public class Bench : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler,
     }
 
 
+
+    public void SetActive(bool active)
+    {
+        enabled = active;
+        isActive = active;
+    }
+
     public void Interact(GameObject taker)
     {
         if (!isActive)
@@ -56,9 +63,11 @@ public class Bench : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler,
         onInteract?.Invoke();
     }
 
-    public void SetActive(bool active)
+    public bool CanInteract()
     {
-        enabled = active;
-        isActive = active;
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
     }
 }

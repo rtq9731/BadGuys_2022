@@ -141,4 +141,12 @@ public class Boat : MonoBehaviour, IInteractableItem
             });
         }
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

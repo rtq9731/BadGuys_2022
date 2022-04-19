@@ -42,4 +42,12 @@ public class StoneLightSign : MonoBehaviour, IInteractableItem
         }
         isProgress = false;
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

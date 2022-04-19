@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IInteractableItem
 {
     public void Interact(GameObject taker);
+    public bool CanInteract();
 }

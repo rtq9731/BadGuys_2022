@@ -8,6 +8,14 @@ public class RotationPuzzleInfo : MonoBehaviour, IInteractableItem
 
     bool isInteracting = false;
 
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
+
     public void Interact(GameObject taker)
     {
         if (isInteracting)

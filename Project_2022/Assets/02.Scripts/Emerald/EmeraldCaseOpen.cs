@@ -57,4 +57,12 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
             });
         }
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

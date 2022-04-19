@@ -15,7 +15,6 @@ public class SafeButton : MonoBehaviour, IInteractableItem
     private Material pushedMat;
     private MeshRenderer myMeshRnd;
 
-
     private void Awake()
     {
         myMeshRnd = GetComponent<MeshRenderer>();
@@ -49,6 +48,13 @@ public class SafeButton : MonoBehaviour, IInteractableItem
             else Button_Push();
         }
     }
+    public bool CanInteract()
+    {
+        if (!canPush || !gameObject.activeSelf || !enabled)
+            return false;
+
+        return true;
+    }
 
     public void BackToNunPush()
     {
@@ -64,4 +70,5 @@ public class SafeButton : MonoBehaviour, IInteractableItem
         Destroy(gameObject.GetComponent<Outline>());
         Destroy(gameObject.GetComponent<SafeButton>());
     }
+
 }

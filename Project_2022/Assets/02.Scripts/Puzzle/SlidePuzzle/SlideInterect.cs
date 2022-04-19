@@ -81,4 +81,12 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
             this.enabled = false;
         }
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

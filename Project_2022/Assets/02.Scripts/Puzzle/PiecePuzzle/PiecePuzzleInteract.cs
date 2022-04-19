@@ -73,4 +73,12 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
             Cursor.lockState = CursorLockMode.None;
         }
     }
+
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
 }

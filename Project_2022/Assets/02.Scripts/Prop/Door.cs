@@ -19,6 +19,14 @@ public class Door : MonoBehaviour, IInteractableItem
         OpenDoor(isOpen);
     }
 
+    public bool CanInteract()
+    {
+        if (!enabled || !gameObject.activeSelf)
+            return false;
+
+        return true;
+    }
+
     void OpenDoor(bool _isOpen)
     {
         if (_isOpen)
