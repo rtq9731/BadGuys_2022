@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class ColorChangeBtn : MonoBehaviour
 {
+    public ClearParticle clearParticle;
     public PictureAnswerChecker pictureAnswerChecker;
     public PictureBtnManager pictureBtnManager;
 
@@ -60,6 +61,7 @@ public class ColorChangeBtn : MonoBehaviour
         if (pictureAnswerChecker.CheckAnswer())
         {
             mesh.enabled = false;
+            clearParticle.ParticleOn();
             UIManager._instance.OnCutSceneOverWithoutClearDialog();
             StartCoroutine(pictureBtnManager.ClearColorPuzzle());
         }

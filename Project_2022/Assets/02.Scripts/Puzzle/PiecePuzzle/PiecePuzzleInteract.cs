@@ -11,6 +11,8 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
     private PiecePuzzleInput input;
     [SerializeField]
     private GameObject camera;
+    [SerializeField]
+    private ClearParticle clearParticle;
 
     public BoxCollider myCol;
     [SerializeField]
@@ -37,6 +39,7 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
         camera.SetActive(false);
         manager.enabled = false;
 
+        clearParticle.ParticleOn();
         UIManager._instance.OnCutSceneOverWithoutClearDialog();
 
         Cursor.visible = false;
