@@ -39,6 +39,7 @@ public class ColorFillObj : MonoBehaviour, IInteractAndGetItemObj, IPlayerMouseE
             if (colorKeyAndObjs.Count < 1)
             {
                 obj.RemoveUnFilledObj(removeDuration, _onComplete);
+                invenInput.RemoveItem();
                 return;
             }
             invenInput.RemoveItem();

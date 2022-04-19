@@ -74,8 +74,8 @@ public class RotationPuzzle : MonoBehaviour
 
     private void OnElementRotate()
     {
-        Debug.Log("0 : " + elements[0].GetPictureRotationZ() % 360 + " == " + "1 : " + elements[1].GetPictureRotationZ() % 360 + " = " + (elements[0].GetPictureRotationZ() == (int)elements[1].GetPictureRotationZ()));
-        Debug.Log("0 : " + elements[0].GetPictureRotationZ() % 360 + " == " + "2 : " + elements[2].GetPictureRotationZ() % 360 + " = " + (elements[0].GetPictureRotationZ() == (int)elements[2].GetPictureRotationZ()));
+        Debug.Log("0 : " + (int)elements[0].GetPictureRotationZ() % 360 + " == " + "1 : " + (int)elements[1].GetPictureRotationZ() % 360 + " = " + ((int)elements[0].GetPictureRotationZ() == (int)elements[1].GetPictureRotationZ()));
+        Debug.Log("0 : " + (int)elements[0].GetPictureRotationZ() % 360 + " == " + "2 : " + (int)elements[2].GetPictureRotationZ() % 360 + " = " + ((int)elements[0].GetPictureRotationZ() == (int)elements[2].GetPictureRotationZ()));
         if (!((int)(elements[0].GetPictureRotationZ() % 360) == (int)(elements[1].GetPictureRotationZ() % 360)
             && (int)(elements[0].GetPictureRotationZ() % 360) == (int)(elements[2].GetPictureRotationZ() % 360)))
             return;
