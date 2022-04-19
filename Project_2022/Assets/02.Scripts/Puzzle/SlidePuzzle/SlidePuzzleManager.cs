@@ -128,6 +128,7 @@ public class SlidePuzzleManager : MonoBehaviour
 
     public void PorceClear()
     {
+        inputManager.enabled = false;
         StartCoroutine(PorcedClearMoving());
     }
 

@@ -16,6 +16,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     private GameObject slideImage;
     [SerializeField]
     private GameObject slideButton;
+    
 
     private void Start()
     {
@@ -34,6 +35,8 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
 
     private void GameClear_Slide()
     {
+        Destroy(GetComponent<OutlinerOnMouseEnter>());
+        GetComponent<Outline>().enabled = false;
         gameClear = true;
         slideImage.SetActive(false);
         slideButton.SetActive(false);
