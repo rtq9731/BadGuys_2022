@@ -17,12 +17,9 @@ public class TitleBtns : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!EventSystem.current.IsPointerOverGameObject(0))
-        {
-            panelInfo.gameObject.SetActive(true);
-            panelInfo.GetComponentInChildren<Text>().text = infoString;
-            panelInfo.anchoredPosition = myRect.anchoredPosition + Vector2.up * 115;
-        }
+        panelInfo.gameObject.SetActive(true);
+        panelInfo.GetComponentInChildren<Text>().text = infoString;
+        panelInfo.anchoredPosition = myRect.anchoredPosition + Vector2.up * 115;
     }
 
     public void OnPointerExit(PointerEventData eventData)
