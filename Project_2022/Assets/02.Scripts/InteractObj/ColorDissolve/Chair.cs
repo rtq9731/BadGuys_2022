@@ -7,6 +7,7 @@ public class Chair : ColorRemoveObjParent
 {
 
     InventoryInput inventoryInput;
+    public ColorGathering colGather;
 
     public override void Start()
     {
@@ -32,6 +33,7 @@ public class Chair : ColorRemoveObjParent
             outline.enabled = false;
             itemObj.SetActive(true);
             inventoryInput.RemoveItem();
+            colGather.ParticleOn(GameObject.Find("Player"));
             inventory.PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
             onInteract?.Invoke();

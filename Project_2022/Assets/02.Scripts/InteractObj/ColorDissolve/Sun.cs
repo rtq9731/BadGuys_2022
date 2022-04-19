@@ -6,6 +6,8 @@ using DG.Tweening;
 public class Sun : ColorRemoveObjParent
 {
     InventoryInput inventoryInput;
+    public ColorGathering colGather;
+
     public override void Start()
     {
         base.Start();
@@ -30,6 +32,7 @@ public class Sun : ColorRemoveObjParent
             outline.enabled = false;
             itemObj.SetActive(true);
             inventoryInput.RemoveItem();
+            colGather.ParticleOn(GameObject.Find("ColorPos"));
             inventory.PickUpItem(returnItem, itemObj, taker);
             canInteract = false;
             onInteract?.Invoke();
