@@ -18,14 +18,12 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
     Inventory inventory = null;
     InventoryInput invenInput = null;
 
-    BoxCollider boxCollider;
 
     private void Start()
     {
         inventory = FindObjectOfType<Inventory>();
         invenInput = FindObjectOfType<InventoryInput>();
         outline.enabled = false;
-        boxCollider = GetComponent<BoxCollider>();
     }
     
 
@@ -43,7 +41,6 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
                 obj.MakePieceKeyObj(removeDuration, _onComplete);
                 outline.enabled = false;
                 caseButton.SetActive(true);
-                boxCollider.enabled = false;
                 enabled = false;
             }
         }
@@ -76,6 +73,9 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
             return false;
 
         PieceKeyObj obj = pieceKeyObjs.Find(item => item.keyItem == inventory.MainItem);
+
+        if (obj == null)
+            outline.enabled = false;
         return obj != null;
     }
 
