@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
+public class RGBPictureObj : MonoBehaviour, IInteractableItem
 {
     [SerializeField]
     private string sceneColor;

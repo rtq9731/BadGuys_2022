@@ -11,13 +11,12 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
     [SerializeField] Image blindImage = null;
 
-    [SerializeField]
-    GameObject[] mainPictures;
-    [SerializeField]
-    GameObject mainPicture;
+    [SerializeField] GameObject[] mainPictures;
+    [SerializeField] GameObject mainPicture;
 
-    MeshCollider mesh;
+    [SerializeField] Outline outline = null;
 
+    
     public void Interact(GameObject taker)
     {
         if (isComplete)
@@ -42,11 +41,15 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
         if (isAllClear)
             return true;
         else
+        {
+            outline.enabled = false;
             return false;
+        }
     }
 
     void Start()
     {
+
         Debug.Log(PlayerPrefs.GetString("MainStage_StageB"));
 
         if (PlayerPrefs.GetString("MainStage_StageR") == "Clear")
