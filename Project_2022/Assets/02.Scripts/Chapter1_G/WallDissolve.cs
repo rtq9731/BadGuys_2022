@@ -29,13 +29,16 @@ public class WallDissolve : MonoBehaviour
 
     public void WallDissolveScene()
     {
-        myVCam.SetActive(true);
-        UIManager._instance.OnCutScene();
+        
         StartCoroutine(WallAlphaDown());
     }
 
     IEnumerator WallAlphaDown()
     {
+        yield return new WaitForSeconds(1f);
+
+        myVCam.SetActive(true);
+        UIManager._instance.OnCutScene();
         while (Vector3.Distance(Camera.main.transform.position, myVCam.transform.position) >= 0.01)
         {
             yield return null;

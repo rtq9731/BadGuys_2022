@@ -9,6 +9,7 @@ public class PictureAnswerChecker : MonoBehaviour
     [SerializeField]
     private PictureInfo[] pictures;
 
+    public ClearParticle clearParticle;
     public PictureInfo pictureInfo;
     public PictureAnswer pictureAnswer;
 

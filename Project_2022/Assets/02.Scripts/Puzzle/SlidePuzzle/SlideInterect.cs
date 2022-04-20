@@ -16,6 +16,8 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     private GameObject slideImage;
     [SerializeField]
     private GameObject slideButton;
+    [SerializeField]
+    private ClearParticle clearParticle;
     
 
     private void Start()
@@ -44,6 +46,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
         CameraOverSetting();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        clearParticle.ParticleOn();
         SlidePuzzleAllClear.Instance.AddClearCount();
         Destroy(this);
     }

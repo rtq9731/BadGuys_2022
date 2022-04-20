@@ -5,7 +5,6 @@ using UnityEngine;
 public class ChangeBtnManager : MonoBehaviour
 {
     public Camera mainCamera;
-
     public GameObject curObj;
 
     void Start()

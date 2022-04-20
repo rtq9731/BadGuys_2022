@@ -18,6 +18,7 @@ public class RotationPuzzle : MonoBehaviour
     [SerializeField] SpriteRenderer completeSR = null;
 
     [SerializeField] GameObject keyPiece = null;
+    [SerializeField] ClearParticle clearParticle;
 
     bool isOn = false;
 
@@ -121,6 +122,7 @@ public class RotationPuzzle : MonoBehaviour
 
                 vCamPuzzle.SetActive(false);
 
+                clearParticle.ParticleOn();
                 completeWall.GetComponent<WallDissolve>().WallDissolveScene();
 
                 //completeWall.SetActive(false);
