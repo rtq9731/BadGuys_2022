@@ -12,7 +12,6 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
     [SerializeField] float removeDuration = 2f;
 
     [SerializeField] GameObject caseButton;
-    public event System.Action _onPlayerMouseEnter = null;
     public event System.Action _onComplete = null;
 
     Inventory inventory = null;
@@ -40,9 +39,10 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
             if (pieceKeyObjs.FindAll(item => !item.isComplete).Count < 1)
             {
                 obj.MakePieceKeyObj(removeDuration, _onComplete);
-                outline.enabled = false;
                 caseButton.SetActive(true);
                 isCorrect = true;
+                outline.enabled = false;
+                Destroy(this);
             }
         }
     }
@@ -52,7 +52,6 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
         if (!enabled)
             return;
 
-        _onPlayerMouseEnter?.Invoke();
         PieceKeyObj obj = pieceKeyObjs.Find(item => item.keyItem == inventory.MainItem);
         if (obj != null)
         {
