@@ -42,11 +42,9 @@ public class Emerald : MonoBehaviour , IInteractAndGetItemObj, IPlayerMouseEnter
                 caseButton.SetActive(true);
                 isCorrect = true;
                 outline.enabled = false;
-                Destroy(this);
             }
         }
     }
-
     public void OnPlayerMouseEnter()
     {
         if (!enabled)
