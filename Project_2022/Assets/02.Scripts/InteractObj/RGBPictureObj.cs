@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class RGBPictureObj : MonoBehaviour, IInteractableItem
+public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
     [SerializeField]
     private string sceneColor;
@@ -37,7 +37,6 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem
 
         outline.enabled = false;
         enabled = false;
-
 
         if (sceneColor == "R")
         {
