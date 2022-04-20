@@ -14,6 +14,9 @@ public class ColorGathering : MonoBehaviour
     public Color particleColor;
     public GameObject testTarget;
 
+    public float randomSizeMin;
+    public float randomSizeMax;
+
     private GameObject target;
 
     private void Awake()
