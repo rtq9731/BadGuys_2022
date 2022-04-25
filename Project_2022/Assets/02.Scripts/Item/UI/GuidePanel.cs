@@ -50,7 +50,7 @@ public class GuidePanel : MonoBehaviour
     {
         if(isFirstInput)
         {
-            rect.DOAnchorPos(new Vector3(130, -50, 0), 0.5f);
+            rect.DOAnchorPos(new Vector3(482, -32, 0), 0.5f);
             isFirstInput = false;
         }
     }
