@@ -10,9 +10,14 @@ public class InventoryItemPanel : MonoBehaviour
     [SerializeField] GameObject itemIconCamParent;
     [SerializeField] RawImage itemImage;
     [SerializeField] Text itemRole;
+    [SerializeField] GameObject guidePanel;
+    [SerializeField] GameObject pickUpPanel;
 
     ShowInventoryUI inventoryUI;
     bool isActive = false;
+
+    GameObject currentObj = null;
+    Vector3 originRotate;
 
     float speed = 5f;
 
@@ -28,14 +33,13 @@ public class InventoryItemPanel : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                Debug.Log("asd");
 
                 itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
                     GetComponentInChildren<Item>().gameObject.transform.
                     Rotate(0f, -Input.GetAxis("Mouse X") * speed, 0f, Space.World);
                 itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
                     GetComponentInChildren<Item>().gameObject.transform.
-                    Rotate(-Input.GetAxis("Mouse Y") * speed, 0f, 0f);
+                    Rotate(Input.GetAxis("Mouse Y") * speed, 0f, 0f);
             }
         }
 
@@ -54,6 +58,9 @@ public class InventoryItemPanel : MonoBehaviour
                 UIManager._instance.DisplayCursor(true);
 
                 itemInfoPanel.SetActive(true);
+                guidePanel.SetActive(false);
+                pickUpPanel.SetActive(false);
+
                 itemInfoPanel.transform.DOScale(1f, 0.1f);
 
 
@@ -61,6 +68,11 @@ public class InventoryItemPanel : MonoBehaviour
                     GetComponent<Camera>().targetTexture;
                 itemRole.text = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
                     GetComponentInChildren<Item>().itemInfo.itemRole;
+                currentObj = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
+                    GetComponentInChildren<Item>().gameObject;
+
+
+                originRotate = currentObj.transform.rotation.eulerAngles;
             }
             else
             {
@@ -69,10 +81,14 @@ public class InventoryItemPanel : MonoBehaviour
                 GameManager.Instance.IsPause = false;
                 UIManager._instance.DisplayCursor(false);
 
+                currentObj.transform.rotation = Quaternion.Euler(originRotate);
+
                 itemInfoPanel.transform.DOScale(0f, 0.1f).OnComplete(() =>
                 {
                     itemImage.texture = null;
                     itemInfoPanel.SetActive(false);
+                    guidePanel.SetActive(true);
+                    pickUpPanel.SetActive(true);
                 });
             }
         }
@@ -80,9 +96,12 @@ public class InventoryItemPanel : MonoBehaviour
 
     public void UpdateItemIcon()
     {
+        currentObj.transform.rotation = Quaternion.Euler(originRotate);
         itemImage.texture = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
                     GetComponent<Camera>().targetTexture;
         itemRole.text = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
             GetComponentInChildren<Item>().itemInfo.itemRole;
+        currentObj = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
+            GetComponentInChildren<Item>().gameObject;
     }
 }
