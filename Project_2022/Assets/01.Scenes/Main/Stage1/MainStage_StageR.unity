@@ -3804,6 +3804,7 @@ GameObject:
   - component: {fileID: 642104660}
   - component: {fileID: 642104659}
   - component: {fileID: 642104658}
+  - component: {fileID: 642104662}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3841,6 +3842,7 @@ MonoBehaviour:
   _runningSpeed: 5
   _gravityScale: 1
   _isPaused: 0
+  _isMove: 0
 --- !u!143 &642104660
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3874,6 +3876,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 323.2, z: 0}
+--- !u!114 &642104662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642104657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc973ef7eccb4b43af5583abad57357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCam: {fileID: 199038223}
+  playerCon: {fileID: 642104659}
+  walkPower: 0.1
+  runPower: 0.1
+  walkTime: 0.5
+  runTime: 0.4
+  walkVibrato: 1
+  runVibrato: 1
+  fadeOut: 0
 --- !u!1 &709894677
 GameObject:
   m_ObjectHideFlags: 0
@@ -5712,6 +5735,7 @@ MonoBehaviour:
   fadeTime: 0
   originRectTrm: {x: 0, y: 0, z: 0}
   isInventoryDown: 0
+  isOnInventory: 0
 --- !u!114 &1075288460
 MonoBehaviour:
   m_ObjectHideFlags: 0
