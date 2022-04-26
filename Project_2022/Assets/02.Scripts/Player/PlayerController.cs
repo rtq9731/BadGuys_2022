@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     float _verticalAngle = 0f;
 
     public bool _isPaused = false;
+    public bool _isMove = false;
 
     CharacterController _characterController = null;
 
@@ -36,8 +37,20 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+
+        if (move != Vector3.zero)
+        {
+            _isMove = true;
+        }
+        else
+        {
+            _isMove = false;
+        }
+
         if (move.sqrMagnitude > 1.0f)
             move.Normalize();
+
+            
 
         if (Input.GetButton("Run"))
         {
