@@ -40,13 +40,7 @@ public class QTEManager : MonoBehaviour
         {
             if (Input.anyKeyDown)
             {
-                if (QTEKeys.pressType == QTEPressType.Single)
-                {
-                    CheckQTEResult();
-                    Debug.Log("asda");
-                }
-                else if (QTEKeys.pressType == QTEPressType.Simultaneously && keys.Count > 1)
-                    CheckQTEResult();
+                
             }
         }
     }
@@ -68,30 +62,40 @@ public class QTEManager : MonoBehaviour
 
     public void CheckQTEResult()
     {
+        Debug.Log(QTEKeys.QTEKey[QTEIndex]);
         if (QTEKeys.QTEKey[QTEIndex] == keys[QTEIndex])
         {
-            Debug.Log("fuck");
-            keys.Clear();
+            Debug.Log("¸ÂÃã!");
             QTEIndex++;
         }
         else
         {
-            Debug.Log("fuck2");
+            QTEIndex = 0;
+            Debug.Log("¸ø¸ÂÃã!");
             keys.Clear();
         }
     }
 
     private void OnGUI()
     {
-        if (Input.anyKeyDown)
+        if (isSpawnQTE)
         {
-            Event e = Event.current;
-            if (e.isKey)
+            if (Input.anyKeyDown)
             {
-                if (e.keyCode == KeyCode.None) return;
+                Event e = Event.current;
+                if (e.isKey)
+                {
+                    if (e.keyCode == KeyCode.None) return;
 
-                keys.Add(e.keyCode);
-                isSpawnQTE = false;
+                   
+
+                    keys.Add(e.keyCode);
+                    isSpawnQTE = false;
+
+                    CheckQTEResult();
+                    if (QTEKeys.pressType == QTEPressType.Simultaneously && keys.Count > 1)
+                        CheckQTEResult();
+                }
             }
         }
     }
