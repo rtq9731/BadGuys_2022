@@ -4,19 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "PatientInfoListSO", menuName = "ScriptableObject/PatientInfoList")]
-public class PatientInfoList : ScriptableObject
+public class PersonInfoList : ScriptableObject
 {
-    public List<PatientInfo> patientInfos = new List<PatientInfo>();
+    public List<PersonInfo> patientInfos = new List<PersonInfo>();
 }
 
 [System.Serializable]
-public class PatientInfo
+public class PersonInfo
 {
     public string sceneName = "";
-    public Sprite patientImage = null;
+    public Sprite personImage = null;
     public string name = "이름 입력되지 않음.";
     public int triggerEmailNum = 0;
 
     [TextArea]
-    public string hurt = "증상 입력되지 않음."; 
+    public string need = "요구 사항 입력되지 않음."; 
 }

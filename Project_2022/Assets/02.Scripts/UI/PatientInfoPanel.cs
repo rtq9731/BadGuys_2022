@@ -9,7 +9,7 @@ public class PatientInfoPanel : MonoBehaviour
     [SerializeField] RectTransform offImage = null;
     [SerializeField] Text textName = null;
     [SerializeField] Text textHurt = null;
-    PatientInfo info = null;
+    PersonInfo info = null;
 
     bool isInited = false;
     public bool canStart = false;
@@ -28,13 +28,13 @@ public class PatientInfoPanel : MonoBehaviour
         GetComponent<PatientTrigger>().OnSelect(info.sceneName);
     }
 
-    public void InitPatientInfoPanel(PatientInfo info)
+    public void InitPatientInfoPanel(PersonInfo info)
     {
         isInited = true;
         this.info = info;
-        patiantImage.sprite = info.patientImage;
-        textName.text = "환자 이름 : " + info.name;
-        textHurt.text = "증상 정보 : " + info.hurt;
+        patiantImage.sprite = info.personImage;
+        textName.text = "요청 기관 : " + info.name;
+        textHurt.text = "요구 사항 : " + info.need;
         canStart = GameManager.Instance.IsReadEmail(info.triggerEmailNum);
         offImage.gameObject.SetActive(!canStart);
     }

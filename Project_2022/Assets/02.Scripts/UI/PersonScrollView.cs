@@ -26,7 +26,7 @@ public class PersonScrollView : MonoBehaviour
         // RefreshPanels();
     }
 
-    public void MakePatientInfoPanel(PatientInfoList data)
+    public void MakePatientInfoPanel(PersonInfoList data)
     {
         panels.ForEach(item => Destroy(item.gameObject));
         panels.Clear();
@@ -39,7 +39,7 @@ public class PersonScrollView : MonoBehaviour
         RefreshPanels();
     }
 
-    private PatientInfoPanel GetNewPanel(PatientInfo data)
+    private PatientInfoPanel GetNewPanel(PersonInfo data)
     {
         PatientInfoPanel result = null;
         
