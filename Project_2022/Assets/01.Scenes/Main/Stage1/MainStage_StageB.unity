@@ -8973,6 +8973,7 @@ GameObject:
   - component: {fileID: 344589522}
   - component: {fileID: 344589521}
   - component: {fileID: 344589525}
+  - component: {fileID: 344589526}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -9010,6 +9011,7 @@ MonoBehaviour:
   _runningSpeed: 12
   _gravityScale: 1
   _isPaused: 0
+  _isMove: 0
 --- !u!143 &344589523
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9055,6 +9057,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0f5ff00db5f3e42a0c076ff425bc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &344589526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344589520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc973ef7eccb4b43af5583abad57357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCam: {fileID: 465043040}
+  playerCon: {fileID: 344589522}
+  walkPower: 0.15
+  runPower: 0.15
+  walkTime: 0.5
+  runTime: 0.4
+  walkVibrato: 1
+  runVibrato: 1
+  fadeOut: 0
 --- !u!1001 &345408511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18154,6 +18177,7 @@ MonoBehaviour:
   fadeTime: 0
   originRectTrm: {x: 0, y: 0, z: 0}
   isInventoryDown: 0
+  isOnInventory: 0
 --- !u!114 &664168029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23494,8 +23518,8 @@ RectTransform:
   - {fileID: 1054132439}
   - {fileID: 337688829}
   - {fileID: 645641508}
-  - {fileID: 897850447}
   - {fileID: 1331282339}
+  - {fileID: 897850447}
   m_Father: {fileID: 892050032}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36868,7 +36892,7 @@ PrefabInstance:
     - target: {fileID: 5115492195024587632, guid: 9e2c504d303bffe4abcf5b33b1e88459,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5115492195024587632, guid: 9e2c504d303bffe4abcf5b33b1e88459,
         type: 3}
