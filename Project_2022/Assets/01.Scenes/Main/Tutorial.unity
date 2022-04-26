@@ -13474,6 +13474,7 @@ GameObject:
   - component: {fileID: 1973491188}
   - component: {fileID: 1973491187}
   - component: {fileID: 1973491186}
+  - component: {fileID: 1973491190}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -13511,6 +13512,7 @@ MonoBehaviour:
   _runningSpeed: 7
   _gravityScale: 1
   _isPaused: 0
+  _isMove: 0
 --- !u!143 &1973491188
 CharacterController:
   m_ObjectHideFlags: 0
@@ -13544,6 +13546,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1973491190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973491185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc973ef7eccb4b43af5583abad57357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCam: {fileID: 1635360816}
+  playerCon: {fileID: 1973491187}
+  walkPower: 0.1
+  runPower: 0.1
+  walkTime: 0.5
+  runTime: 0.4
+  walkVibrato: 1
+  runVibrato: 1
+  fadeOut: 0
 --- !u!4 &1980612635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2130234204341834370, guid: 7dcf608f1c1348443b81d8440de96d0a,

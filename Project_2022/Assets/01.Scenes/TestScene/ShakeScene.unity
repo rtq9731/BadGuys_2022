@@ -470,8 +470,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.001
-  far clip plane: 300
+  near clip plane: 0.3
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -497,8 +497,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173741219}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 4}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 3.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -582,13 +582,14 @@ GameObject:
   - component: {fileID: 203228810}
   - component: {fileID: 203228809}
   - component: {fileID: 203228808}
+  - component: {fileID: 203228812}
   m_Layer: 6
   m_Name: Player_Tutoroal
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &203228808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,6 +654,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &203228812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203228807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc973ef7eccb4b43af5583abad57357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCam: {fileID: 2007838904}
+  playerCon: {fileID: 203228809}
+  walkPower: 0.1
+  runPower: 0.1
+  walkTime: 0.5
+  runTime: 0.4
+  walkVibrato: 1
+  runVibrato: 1
+  fadeOut: 0
 --- !u!1 &244658409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,6 +2042,7 @@ MonoBehaviour:
   fadeTime: 0
   originRectTrm: {x: 0, y: 0, z: 0}
   isInventoryDown: 0
+  isOnInventory: 0
 --- !u!114 &828549899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4048,7 +4071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1614225960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4141,10 +4164,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 121597833}
   playerCon: {fileID: 1614225961}
-  power: 0.1
+  walkPower: 0
+  runPower: 0
   walkTime: 0.5
   runTime: 0.35
-  vibrato: 1
+  walkVibrato: 0
   runVibrato: 1
   fadeOut: 0
 --- !u!1 &1628103616
