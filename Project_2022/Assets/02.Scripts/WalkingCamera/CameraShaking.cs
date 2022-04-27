@@ -9,7 +9,6 @@ public class CameraShaking : MonoBehaviour
     private GameObject myCam;
     [SerializeField]
     private PlayerController playerCon;
-
     private bool isRun;
     private Vector3 shakePower;
     private int vibra;
@@ -49,6 +48,8 @@ public class CameraShaking : MonoBehaviour
 
     IEnumerator Shaking()
     {
+        GameManager manager = GameManager.Instance;
+
         while (gameObject != null)
         {
             shakePower = new Vector3(0, walkPower, 0);
@@ -80,10 +81,15 @@ public class CameraShaking : MonoBehaviour
                 }
             }
                 
-            if (playerCon._isMove == false)
+            if (!playerCon._isMove)
             {
                 myCam.transform.DOKill();
                 myCam.transform.DOLocalMove(camOriPos, time/2);
+            }
+            if (manager != null && GameManager.Instance.IsPause)
+            {
+                myCam.transform.DOKill();
+                myCam.transform.DOLocalMove(camOriPos, time / 2);
             }
 
             yield return null;
