@@ -10,7 +10,6 @@ public class InventoryItemPanel : MonoBehaviour
     [SerializeField] GameObject itemIconCamParent;
     [SerializeField] RawImage itemImage;
     [SerializeField] Text itemRole;
-    [SerializeField] GameObject guidePanel;
     [SerializeField] GameObject pickUpPanel;
 
     ShowInventoryUI inventoryUI;
@@ -58,7 +57,6 @@ public class InventoryItemPanel : MonoBehaviour
                 UIManager._instance.DisplayCursor(true);
 
                 itemInfoPanel.SetActive(true);
-                guidePanel.SetActive(false);
                 pickUpPanel.SetActive(false);
 
                 itemInfoPanel.transform.DOScale(1f, 0.1f);
@@ -87,7 +85,6 @@ public class InventoryItemPanel : MonoBehaviour
                 {
                     itemImage.texture = null;
                     itemInfoPanel.SetActive(false);
-                    guidePanel.SetActive(true);
                     pickUpPanel.SetActive(true);
                 });
             }
