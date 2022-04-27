@@ -41,10 +41,12 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero)
         {
             _isMove = true;
+            SoundManager.Instance.LoopSound("AsphaltSound");
         }
         else
         {
             _isMove = false;
+            SoundManager.Instance.StopLoopSound();
         }
 
         if (move.sqrMagnitude > 1.0f)
