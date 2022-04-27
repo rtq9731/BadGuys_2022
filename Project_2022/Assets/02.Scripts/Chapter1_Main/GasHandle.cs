@@ -10,9 +10,13 @@ public class GasHandle : MonoBehaviour, IInteractableItem
     [SerializeField]
     private AudioSource sound;
     [SerializeField]
-    private Vector3 oriRot;
+    private GameObject anotherHandle;
+    [SerializeField]
+    private float time = 0.5f;
     [SerializeField]
     private float tatataTime = 0.3f;
+
+    private bool ready;
 
     private void Awake()
     {
@@ -25,27 +29,35 @@ public class GasHandle : MonoBehaviour, IInteractableItem
             fire.SetActive(false);
         }
 
-        oriRot = transform.localEulerAngles;
+        ready = true;
     }
 
     private void TurnOntheFire()
     {
         fire.SetActive(!fire.activeSelf);
+        ready = true;
     }
 
     public void Interact(GameObject taker)
     {
-        if (fire.activeSelf)
+        if (ready)
         {
-            Invoke("TurnOntheFire", tatataTime);
-            //transform.DOLocalRotate(oriRot, time);
-            //sound.Stop();
-        }
-        else
-        {
-            Invoke("TurnOntheFire", tatataTime);
-            //transform.DOLocalRotate(new Vector3(130, oriRot.y, oriRot.z), time);
-            //sound.Play();
+            if (fire.activeSelf)
+            {
+                ready = false;
+                Invoke("TurnOntheFire", tatataTime);
+                anotherHandle.SetActive(!anotherHandle.activeSelf);
+                gameObject.SetActive(!gameObject.activeSelf);
+                //sound.Stop();
+            }
+            else
+            {
+                ready = false;
+                Invoke("TurnOntheFire", tatataTime);
+                anotherHandle.SetActive(!anotherHandle.activeSelf);
+                gameObject.SetActive(!gameObject.activeSelf);
+                //sound.Play();
+            }
         }
     }
 
