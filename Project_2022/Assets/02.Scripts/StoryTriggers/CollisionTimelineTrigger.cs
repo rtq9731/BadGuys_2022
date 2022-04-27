@@ -8,7 +8,7 @@ using UnityEngine.Timeline;
 public class CollisionTimelineTrigger : MonoBehaviour
 {
     [SerializeField] GameObject timeLineObj = null;
-    [SerializeField] SignalReceiver receiver = null;
+    SignalReceiver receiver = null;
 
     [SerializeField] SignalAsset startSignal = null;
     [SerializeField] SignalAsset endSignal = null;
