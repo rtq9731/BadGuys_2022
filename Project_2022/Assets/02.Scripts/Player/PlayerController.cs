@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool _isPaused = false;
     public bool _isMove = false;
 
+    SoundManager soundManager;
     CharacterController _characterController = null;
 
     private void Awake()
@@ -41,12 +42,14 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero)
         {
             _isMove = true;
-            SoundManager.Instance.LoopSound("AsphaltSound");
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.LoopSound("AsphaltSound");
         }
         else
         {
             _isMove = false;
-            SoundManager.Instance.StopLoopSound();
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.StopLoopSound();
         }
 
         if (move.sqrMagnitude > 1.0f)

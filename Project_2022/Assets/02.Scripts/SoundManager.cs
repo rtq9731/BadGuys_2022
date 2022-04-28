@@ -12,12 +12,12 @@ public class SoundManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<SoundManager>();
-                if(Instance == null)
-                {
-                    GameObject obj = Instantiate(new GameObject());
-                    instance = obj.AddComponent<SoundManager>();
-                }
+                //instance = FindObjectOfType<SoundManager>();
+                //if(Instance == null)
+                //{
+                //    GameObject obj = Instantiate(new GameObject());
+                //    instance = obj.AddComponent<SoundManager>();
+                //}
             }
             return instance;
         }
