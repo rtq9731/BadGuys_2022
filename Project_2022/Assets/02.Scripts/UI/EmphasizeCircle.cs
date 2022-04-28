@@ -16,7 +16,7 @@ public class EmphasizeCircle : MonoBehaviour
     private GameObject sizeObj;
     private Camera mainCam;
     private GameObject targetObj;
-    private bool isEmphasize;
+    public bool isEmphasize;
 
     private void Awake()
     {
@@ -55,13 +55,13 @@ public class EmphasizeCircle : MonoBehaviour
         ColorOff();
     }
 
-    public void ColorOn()
+    private void ColorOn()
     {
         GetComponent<Image>().color = new Color(mycol.r, mycol.g, mycol.b, 1);
         //Debug.Log("color On");
     }
     
-    public void ColorOff()
+    private void ColorOff()
     {
         GetComponent<Image>().color = new Color(mycol.r, mycol.g, mycol.b, -1);
         //Debug.Log("color Off");
@@ -77,8 +77,12 @@ public class EmphasizeCircle : MonoBehaviour
 
         while (isEmphasize)
         {
-            
-
+            if (targetObj.activeSelf == false || targetObj == null)
+            {
+                EmphasizeOff();
+                break;
+            }
+               
             targetPos = mainCam.WorldToScreenPoint(targetObj.transform.position);
             if (targetPos.z < 0)
                 ColorOff();

@@ -23,6 +23,7 @@ public class CollisionTimelineTrigger : MonoBehaviour
     {
         Debug.Log("타임라인 시작!");
         UIManager._instance.OnCutScene();
+        Debug.Log(UIManager._instance.isOnCutScene);
         vCamCutScene.SetActive(true);
     }
 
@@ -31,6 +32,7 @@ public class CollisionTimelineTrigger : MonoBehaviour
         Debug.Log("타임라인 끝!");
         vCamCutScene.SetActive(false);
         UIManager._instance.OnCutSceneOverWithoutClearDialog();
+        Debug.Log(UIManager._instance.isOnCutScene);
     }
 
     private void OnTriggerEnter(Collider other)

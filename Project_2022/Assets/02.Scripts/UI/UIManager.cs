@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>().enabled = false;
         GameManager.Instance.IsPause = true;
+        isOnCutScene = true;
         SoundManager.Instance.StopLoopSound();
     }
 
@@ -42,6 +43,7 @@ public class UIManager : MonoBehaviour
     {
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>().enabled = false;
+        isOnCutScene = true;
         SoundManager.Instance.StopLoopSound();
     }
 
@@ -50,6 +52,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
+        isOnCutScene = false;
         FindObjectOfType<PlayerController>().enabled = true;
 
     }
@@ -58,6 +61,7 @@ public class UIManager : MonoBehaviour
     {
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
+        isOnCutScene = false;
         FindObjectOfType<PlayerController>().enabled = true;
     }
 
