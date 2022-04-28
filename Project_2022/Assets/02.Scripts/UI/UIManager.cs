@@ -35,12 +35,14 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>().enabled = false;
         GameManager.Instance.IsPause = true;
+        SoundManager.Instance.StopLoopSound();
     }
 
     public void OnCutSceneWithoutPause()
     {
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>().enabled = false;
+        SoundManager.Instance.StopLoopSound();
     }
 
     public void OnCutSceneOver()
@@ -49,6 +51,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
         FindObjectOfType<PlayerController>().enabled = true;
+
     }
 
     public void OnCutSceneOverWithoutClearDialog()
