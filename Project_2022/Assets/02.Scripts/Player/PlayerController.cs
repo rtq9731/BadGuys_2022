@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public bool _isPaused = false;
     public bool _isMove = false;
 
-    SoundManager soundManager;
     CharacterController _characterController = null;
 
     private void Awake()

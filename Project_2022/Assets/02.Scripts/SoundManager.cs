@@ -44,90 +44,116 @@ public class SoundManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+
         soundClip = FindObjectOfType<Sound>();
 
-        audioCilp = soundClip.mapSounds;
-        BGMCilp = soundClip.mapBGMsound;
+        if (soundClip != null)
+        {
+            audioCilp = soundClip.mapSounds;
+            BGMCilp = soundClip.mapBGMsound;
 
-        instance = this;
-        DontDestroyOnLoad(instance.gameObject);
+            instance = this;
+            DontDestroyOnLoad(instance.gameObject);
+        }
     }
 
     private void Start()
     {
-        soundPlayer = GetComponent<AudioSource>();
-
-        foreach (AudioClip a in audioCilp)
+        if(soundClip != null)
         {
-            audioClipDic.Add(a.name, a);
+            soundPlayer = GetComponent<AudioSource>();
+
+            foreach (AudioClip a in audioCilp)
+            {
+                audioClipDic.Add(a.name, a);
+            }
         }
+        
     }
 
     public void PlaySound(string name, float a_volume = 1f)
     {
-        if (audioClipDic.ContainsKey(name) == false)
+        if (soundClip != null)
         {
-            Debug.Log(name + "없음");
-            return;
+            if (audioClipDic.ContainsKey(name) == false)
+            {
+                Debug.Log(name + "없음");
+                return;
+            }
+            soundPlayer.PlayOneShot(audioClipDic[name], a_volume * sfxVolume);
         }
-        soundPlayer.PlayOneShot(audioClipDic[name], a_volume * sfxVolume);
     }
 
     public void LoopSound(string name)
     {
-        if (isLoop)
-            return;
-
-        if(curLoopObj == null)
+        if (soundClip != null)
         {
-            GameObject loopObj = new GameObject("LoopSound");
-            curLoopObj = loopObj;
-            AudioSource source = loopObj.AddComponent<AudioSource>();
-            source.clip = audioClipDic[name];
-            source.volume = sfxVolume;
-            source.loop = true;
-            source.Play();
-        }
-        else
-        {
-            AudioSource source = curLoopObj.GetComponent<AudioSource>();
-            source.clip = audioClipDic[name];
-            source.volume = sfxVolume;
-            source.loop = true;
-            source.Play();
-        }
+            if (isLoop)
+                return;
 
-        isLoop = true;
+            if (curLoopObj == null)
+            {
+                GameObject loopObj = new GameObject("LoopSound");
+                curLoopObj = loopObj;
+                AudioSource source = loopObj.AddComponent<AudioSource>();
+                source.clip = audioClipDic[name];
+                source.volume = sfxVolume;
+                source.loop = true;
+                source.Play();
+            }
+            else
+            {
+                AudioSource source = curLoopObj.GetComponent<AudioSource>();
+                source.clip = audioClipDic[name];
+                source.volume = sfxVolume;
+                source.loop = true;
+                source.Play();
+            }
+
+            isLoop = true;
+        }
     }
 
     public void StopLoopSound()
     {
-        if(isLoop)
+        if (soundClip != null)
         {
-            AudioSource source = curLoopObj.GetComponent<AudioSource>();
-            isLoop = false;
-            source.Stop();
+            if (isLoop)
+            {
+                AudioSource source = curLoopObj.GetComponent<AudioSource>();
+                isLoop = false;
+                source.Stop();
+            }
         }
     }
     public void SetLoopPitch(float pitch)
     {
-        AudioSource source = curLoopObj.GetComponent<AudioSource>();
-        source.pitch = pitch;
+        if (soundClip != null)
+        {
+            AudioSource source = curLoopObj.GetComponent<AudioSource>();
+            source.pitch = pitch;
+        }
     }
 
     //챕터나 스테이지 전환 시 그 챕터에서 쓰는 사운드 받아오는 코드
     public void SetStageSound()
     {
-        soundClip = FindObjectOfType<Sound>();
+        if (soundClip != null)
+        {
+            soundClip = FindObjectOfType<Sound>();
 
-        audioCilp = soundClip.mapSounds;
-        BGMCilp = soundClip.mapBGMsound;
+            audioCilp = soundClip.mapSounds;
+            BGMCilp = soundClip.mapBGMsound;
+        }
     }
     
     public IEnumerator PlayDelaySound(float delay, string name)
     {
-        yield return new WaitForSeconds(delay);
+        if (soundClip != null)
+        {
+            yield return new WaitForSeconds(delay);
 
-        LoopSound(name);
+            LoopSound(name);
+        }
     }
 }
