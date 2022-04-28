@@ -10,15 +10,15 @@ public class SoundManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
-            {
-                //instance = FindObjectOfType<SoundManager>();
-                //if(Instance == null)
-                //{
-                //    GameObject obj = Instantiate(new GameObject());
-                //    instance = obj.AddComponent<SoundManager>();
-                //}
-            }
+            //if (instance == null)
+            //{
+            //    //instance = FindObjectOfType<SoundManager>();
+            //    //if(Instance == null)
+            //    //{
+            //    //    GameObject obj = Instantiate(new GameObject());
+            //    //    instance = obj.AddComponent<SoundManager>();
+            //    //}
+            //}
             return instance;
         }
     }
@@ -34,6 +34,15 @@ public class SoundManager : MonoBehaviour
 
     public GameObject curLoopObj = null;
     bool isLoop = false;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
     private void Start()
     {
         soundPlayer = GetComponent<AudioSource>();
