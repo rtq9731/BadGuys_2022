@@ -76,6 +76,10 @@ public class PersonScrollView : MonoBehaviour
     private void OnClickSelect()
     {
         panels[curPanelNum].OnPatientSelect();
+
+        btnLeft.interactable = false;
+        btnRight.interactable = false;
+        btnSelect.interactable = false;
     }
 
     private void RefreshPanels()

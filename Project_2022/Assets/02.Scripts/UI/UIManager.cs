@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public static UIManager _instance = null;
 
     public bool isOnCutScene = false;
+    public bool isEsc = false;
 
     private void Awake()
     {
