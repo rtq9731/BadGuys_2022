@@ -15,7 +15,7 @@ public class StageManager : MonoBehaviour
 
     public void StageChange()
     {
-        FindObjectOfType<PlayerKeyInput>().gameObject.SetActive(false);
+        FindObjectOfType<PlayerKeyInput>(true).gameObject.SetActive(false);
         panelHide.gameObject.SetActive(true);
         stageMsgText.text = "";
         aiMsgText.text = "";

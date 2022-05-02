@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
     public void OnCutScene()
     {
         _mainUI.SetActive(false);
-        FindObjectOfType<PlayerController>().enabled = false;
+        FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
         SoundManager.Instance.StopLoopSound();
@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
     public void OnCutSceneWithoutPause()
     {
         _mainUI.SetActive(false);
-        FindObjectOfType<PlayerController>().enabled = false;
+        FindObjectOfType<PlayerController>(true).enabled = false;
         isOnCutScene = true;
         SoundManager.Instance.StopLoopSound();
     }
@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
         isOnCutScene = false;
-        FindObjectOfType<PlayerController>().enabled = true;
+        FindObjectOfType<PlayerController>(true).enabled = true;
 
     }
 
@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
         isOnCutScene = false;
-        FindObjectOfType<PlayerController>().enabled = true;
+        FindObjectOfType<PlayerController>(true).enabled = true;
     }
 
     public void DisplayCursor(bool display)
