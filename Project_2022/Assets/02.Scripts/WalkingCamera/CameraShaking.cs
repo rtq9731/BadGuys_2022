@@ -25,8 +25,6 @@ public class CameraShaking : MonoBehaviour
 
     private void Awake()
     {
-        if (myCam == null)
-            myCam = Camera.main.gameObject;
         if (playerCon == null)
             transform.GetComponent<PlayerController>();
     }
@@ -34,6 +32,10 @@ public class CameraShaking : MonoBehaviour
     private void Start()
     {
         camOriPos = myCam.transform.localPosition;
+
+        myCam.SetActive(false);
+        myCam.SetActive(true);
+
         StartCoroutine(Shaking());
 
         //Vector3 shakePower = new Vector3(0, power, 0);
@@ -42,8 +44,20 @@ public class CameraShaking : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-            myCam.transform.DOKill();
+        if (Vector3.Distance(Camera.main.transform.position, (myCam.transform.localPosition + transform.position)) >= 0.1)
+        {
+            CameraOff();
+            Debug.Log(false);
+            Debug.LogWarning(Vector3.Distance(Camera.main.transform.position, (myCam.transform.localPosition + transform.position)));
+        }
+
+        //Debug.LogWarning(myCam.transform.localPosition + transform.position);
+    }
+
+    private void CameraOff()
+    {
+        myCam.transform.DOKill();
+        myCam.transform.DOLocalMove(camOriPos, time / 2);
     }
 
     IEnumerator Shaking()
@@ -82,15 +96,10 @@ public class CameraShaking : MonoBehaviour
             }
                 
             if (!playerCon._isMove)
-            {
-                myCam.transform.DOKill();
-                myCam.transform.DOLocalMove(camOriPos, time/2);
-            }
+                CameraOff();
+
             if (manager != null && GameManager.Instance.IsPause)
-            {
-                myCam.transform.DOKill();
-                myCam.transform.DOLocalMove(camOriPos, time / 2);
-            }
+                CameraOff();
 
             yield return null;
         }
