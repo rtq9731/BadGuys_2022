@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
 
     public void StageChange()
     {
+        FindObjectOfType<PlayerKeyInput>().gameObject.SetActive(false);
         panelHide.gameObject.SetActive(true);
         stageMsgText.text = "";
         aiMsgText.text = "";
@@ -31,6 +32,7 @@ public class StageManager : MonoBehaviour
                 {
                     panelHide.rectTransform.DOAnchorPosY(panelHide.rectTransform.rect.height / 2, 0.5f).OnComplete(() =>
                     {
+                        FindObjectOfType<PlayerKeyInput>(true).gameObject.SetActive(true);
                         panelHide.gameObject.SetActive(false);
                         UIManager._instance.OnCutSceneOver();
                     });
