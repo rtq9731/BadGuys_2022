@@ -39,7 +39,7 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
 
         emeraldCase.transform.DOLocalMove(new Vector3(0, 0, -3f), 1f).OnComplete(() =>
         {
-            UIManager._instance.OnCutSceneOverWithoutClearDialog();
+            //UIManager._instance.OnCutSceneOverWithoutClearDialog();
             LoadingTrigger.Instance.Ontrigger(3f);
         });
     }
