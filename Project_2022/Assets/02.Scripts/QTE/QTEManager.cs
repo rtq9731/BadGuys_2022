@@ -2,56 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
-public enum QTEPressType
-{
-    Single,
-    Simultaneously
-}
-
-[Serializable]
-public class QTEKeys
-{
-    public List<KeyCode> QTEKey = new List<KeyCode>();
-    public QTEPressType pressType;
-}
 
 public class QTEManager : MonoBehaviour
 {
-    public QTEKeys QTEKeys;
     public List<KeyCode> keys = new List<KeyCode>();
 
-    public float time = 3f;
+    public float time = 0f;
 
     public bool isSpawnQTE = false;
 
+    QTEEvents events;
 
     int QTEIndex = 0;
     private void Start()
     {
         StartCoroutine(GetPressKey());
+        events = GetComponent<QTEEvents>();
     }
-
-    void Update()
-    {
-        if (GameManager.Instance.IsPause) return;
-
-        if (isSpawnQTE)
-        {
-            if (Input.anyKeyDown)
-            {
-                
-            }
-        }
-    }
-
     IEnumerator GetPressKey()
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
+
 
             GenerateQTEEvent();
+            
+        }
+    }
+    private void Update()
+    {
+        if(isSpawnQTE)
+        {
+            time += Time.deltaTime;
+
+            if (time >= 3f)
+            {
+                time = 0;
+                isSpawnQTE = false;
+                QTEResult(false);
+                events.QTEKeys.RemoveAt(0);
+                Debug.Log("½ÇÆÐ!!");
+            }
         }
     }
 
@@ -60,24 +54,65 @@ public class QTEManager : MonoBehaviour
         isSpawnQTE = true;
     }
 
-    public void CheckQTEResult()
+    public void CheckSingleQTE()
     {
-        Debug.Log(QTEKeys.QTEKey[QTEIndex]);
-        if (QTEKeys.QTEKey[QTEIndex] == keys[QTEIndex])
+        if (events.QTEKeys[0].QTEKey[0] == keys[0])
         {
-            Debug.Log("¸ÂÃã!");
-            QTEIndex++;
+            QTEResult(true);
         }
         else
         {
-            QTEIndex = 0;
-            Debug.Log("¸ø¸ÂÃã!");
-            keys.Clear();
+            QTEResult(false);
+        }
+    }
+
+    public void CheckMultiQTE()
+    {
+        if (keys.Count(x => events.QTEKeys[0].QTEKey.Contains(x)) == events.QTEKeys[0].QTEKey.Count)
+        {
+            QTEResult(true);
+        }
+        else
+        {
+            QTEResult(false);
+        }
+    }
+
+    public void CheckQTEResult()
+    {
+        if(events.QTEKeys[0].pressType == QTEPressType.Simultaneously)
+        {
+            CheckMultiQTE();
+            
+        }
+        else
+        {
+            CheckSingleQTE();
+        }
+
+        keys.Clear();
+        events.QTEKeys.RemoveAt(0);
+        Debug.Log("Ã¼Å©");
+    }
+
+    void QTEResult(bool isCorret)
+    {
+        if(isCorret)
+        {
+            Debug.Log("¸Â¾ÒÀ½");
+            time = 0f;
+        }
+        else
+        {
+            Debug.Log("Æ²·ÈÀ½");
+            time = 0f;
         }
     }
 
     private void OnGUI()
     {
+        if (GameManager.Instance.IsPause) return;
+
         if (isSpawnQTE)
         {
             if (Input.anyKeyDown)
@@ -87,14 +122,23 @@ public class QTEManager : MonoBehaviour
                 {
                     if (e.keyCode == KeyCode.None) return;
 
-                   
+                    if (events.QTEKeys[0].pressType == QTEPressType.Simultaneously)
+                    {
+                        keys.Add(e.keyCode);
+                        Debug.Log(keys.Count);
+                        Debug.Log(events.QTEKeys[0].QTEKey.Count);
+                        if (keys.Count != events.QTEKeys[0].QTEKey.Count)
+                        {
+                            return;
+                        }
+                    }
 
-                    keys.Add(e.keyCode);
+                    
                     isSpawnQTE = false;
 
+                    
+
                     CheckQTEResult();
-                    if (QTEKeys.pressType == QTEPressType.Simultaneously && keys.Count > 1)
-                        CheckQTEResult();
                 }
             }
         }

@@ -41,14 +41,14 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero)
         {
             _isMove = true;
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.LoopSound("AsphaltSound");
+            //if (SoundManager.Instance != null)
+            //    SoundManager.Instance.LoopSound("AsphaltSound");
         }
         else
         {
             _isMove = false;
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.StopLoopSound();
+            //if (SoundManager.Instance != null)
+            //    SoundManager.Instance.StopLoopSound();
         }
 
         if (move.sqrMagnitude > 1.0f)
@@ -64,14 +64,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Run"))
             {
                 move = move * _runningSpeed * Time.deltaTime;
-                if (SoundManager.Instance != null)
-                    SoundManager.Instance.SetLoopPitch(1.3f);
+                //if (SoundManager.Instance != null)
+                //    SoundManager.Instance.SetLoopPitch(1.3f);
             }
             else
             {
                 move = move * _playerSpeed * Time.deltaTime;
-                if (SoundManager.Instance != null)
-                    SoundManager.Instance.SetLoopPitch(1f);
+                //if (SoundManager.Instance != null)
+                //    SoundManager.Instance.SetLoopPitch(1f);
             }
         }
 
