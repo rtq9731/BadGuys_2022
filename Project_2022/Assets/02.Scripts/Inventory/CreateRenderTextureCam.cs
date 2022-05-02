@@ -21,7 +21,10 @@ public class CreateRenderTextureCam : MonoBehaviour
             x += 5;
         }
 
-        GameObject obj = Instantiate(renderCam, new Vector3(50+x,-500,50), Quaternion.identity);
+        if (transform.childCount >= 1)
+            x += transform.GetChild(transform.childCount - 1).gameObject.transform.position.x + 50;
+
+        GameObject obj = Instantiate(renderCam, new Vector3(x ,-500,50), Quaternion.identity);
 
         obj.transform.SetParent(camParent);
         
@@ -31,9 +34,15 @@ public class CreateRenderTextureCam : MonoBehaviour
 
         if (itemObj.transform.childCount > 0)
         {
-            if (itemObj.transform.GetChild(0).name.Contains("Car") || itemObj.transform.name == "Truck")
+            if (itemObj.transform.GetChild(0).name.Contains("car"))
             {
                 itemObj.transform.DOScale(originScale, 0.1f);
+                obj.transform.GetChild(0).transform.localPosition = new Vector3(0,0,1);
+            }
+            else if(itemObj.transform.name == "Truck")
+            {
+                itemObj.transform.DOScale(originScale, 0.1f);
+                obj.transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 1.2f);
             }
             else
             {

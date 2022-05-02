@@ -10,6 +10,8 @@ public class InventoryInput : MonoBehaviour
     private int itemIndex = 0;
 
     public ShowMainItem showMainItem;
+    [SerializeField]
+    GameObject iconCamParent;
 
     bool isCanRemove;
 
@@ -90,6 +92,7 @@ public class InventoryInput : MonoBehaviour
             {
                 GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
                 destroySlot.transform.SetParent(null);
+                Destroy(iconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).gameObject);
                 Destroy(destroySlot);
             }
             else
@@ -121,7 +124,6 @@ public class InventoryInput : MonoBehaviour
                 Inventory.Instance.MainItem = null;
             }
         }
-        //}
     }
 
     void SetMainItem(int _mainItemIndex)
