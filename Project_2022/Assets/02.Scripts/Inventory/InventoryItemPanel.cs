@@ -85,7 +85,6 @@ public class InventoryItemPanel : MonoBehaviour
                 {
                     itemImage.texture = null;
                     itemInfoPanel.SetActive(false);
-                    pickUpPanel.SetActive(true);
                 });
             }
         }
