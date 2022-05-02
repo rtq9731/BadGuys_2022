@@ -7591,6 +7591,7 @@ MonoBehaviour:
   _stopMenu: {fileID: 1074975903}
   _mainUI: {fileID: 1890404339}
   isOnCutScene: 0
+  isEsc: 0
 --- !u!114 &1092208280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11745,8 +11746,8 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
-    NearClipPlane: 0.3
-    FarClipPlane: 100
+    NearClipPlane: 0.001
+    FarClipPlane: 300
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
@@ -14268,8 +14269,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 100
+  near clip plane: 0.001
+  far clip plane: 300
   field of view: 60
   orthographic: 0
   orthographic size: 5
