@@ -46,6 +46,9 @@ public class Inventory : MonoBehaviour
     public ItemInfo MainItem;
     public int mainItemIndex;
 
+    public bool isInteract = true;
+    public float interactCooltime = 0f;
+
     private void Awake()
     {
         if (instance == null)
@@ -66,34 +69,50 @@ public class Inventory : MonoBehaviour
         showInventory = GetComponentInChildren<ShowInventoryUI>();
     }
 
+    private void Update()
+    {
+        if (!isInteract)
+            interactCooltime += Time.deltaTime;
+        if (interactCooltime > 0.25f)
+        {
+            isInteract = true;
+            interactCooltime = 0;
+        }
+    }
+
     public void PickUpItem(ItemInfo item, GameObject obj, GameObject whoIsTaker)
     {
-        for (int i = 0; i < slotParents.transform.childCount; i++)
+        if(isInteract)
         {
-            if (item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
+            isInteract = !isInteract;
+
+            for (int i = 0; i < slotParents.transform.childCount; i++)
             {
-                StartCoroutine(OverlapItem(obj));
-                slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
-                showInventory.ShowInventorySlot();
-                return;
+                if (item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)
+                {
+                    StartCoroutine(OverlapItem(obj));
+                    slotParents.transform.GetChild(i).GetComponent<Slot>().UpdateItemSlot();
+                    showInventory.ShowInventorySlot();
+                    return;
+                }
             }
+
+            creatSlot.CreatingSlot();
+            showInventory.ShowInventorySlot();
+            //InventoryContentsSize.Instance.SetContentsSize();
+
+            slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(item);
+            slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().slotItem = obj;
+
+            if (slotParents.transform.childCount == 1)
+            {
+                MainItem = item;
+            }
+
+            ItemInfoPanelManager.Instance.SetDialog(item);
+
+            UIManager._instance.StartCoroutine(EatItem(obj));
         }
-
-        creatSlot.CreatingSlot();
-        showInventory.ShowInventorySlot();
-        //InventoryContentsSize.Instance.SetContentsSize();
-
-        slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(item);
-        slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().slotItem = obj;
-
-        if (slotParents.transform.childCount == 1)
-        {
-            MainItem = item;
-        }
-
-        ItemInfoPanelManager.Instance.SetDialog(item);
-
-        UIManager._instance.StartCoroutine(EatItem(obj));
     }
 
     public void InventoryReset()

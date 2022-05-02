@@ -112,6 +112,5 @@ public class CreateRenderTextureCam : MonoBehaviour
             itemObj.transform.localPosition = new Vector3(-2.75f, -1.35f, -0.6f);
         else if (itemObj.name == "sculpture_4")
             itemObj.transform.localPosition = new Vector3(-2.4f, -1.35f, -1.35f);
-
     }
 }
