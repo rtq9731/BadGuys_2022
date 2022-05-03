@@ -92,7 +92,8 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
                 GetComponent<CarOutLine>().DestroySelf();
 
                 rushHourCam.gameObject.SetActive(true);
-                UIManager.Instance.OnCutScene();
+                //UIManager.Instance.OnCutScene();
+                UIManager.Instance.OnPuzzleUI();
                 rushScript.enabled = true;
 
                 Debug.Log(Cursor.visible);
@@ -134,7 +135,6 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        this.gameObject.AddComponent<Rigidbody>();
 
         rushHourCam.gameObject.SetActive(false);
         rushScript.enabled = false;
@@ -143,10 +143,11 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
         Destroy(GetComponent<OutlinerOnMouseEnter>());
         Destroy(GetComponent<Outline>());
 
-        UIManager.Instance.OnCutSceneOver();
+        //UIManager.Instance.OnCutSceneOver();
+        UIManager.Instance.OffPuzzleUI();
+        player.transform.position = playerMovePos.position;
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
 
-        player.transform.position = playerMovePos.position;
         Destroy(GetComponent<Item_RushHourPuzzle>());
     }
 

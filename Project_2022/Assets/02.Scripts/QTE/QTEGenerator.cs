@@ -11,7 +11,7 @@ public class QTEGenerator : MonoBehaviour
 
     [SerializeField] GameObject QTEEventUIRoll;
     [SerializeField] GameObject QTEEventUISingle;
-    
+
     RectTransform uiPosition;
 
     Image fillImage;
@@ -33,9 +33,9 @@ public class QTEGenerator : MonoBehaviour
 
     private void Update()
     {
-        if(isOnQTE)
+        if (isOnQTE)
         {
-            if(events.QTEKeys[0].pressType == QTEPressType.Single)
+            if (events.QTEKeys[0].pressType == QTEPressType.Single)
             {
                 qteGauge -= Time.deltaTime;
                 fillImage.fillAmount = qteGauge / qteTime;
@@ -47,7 +47,7 @@ public class QTEGenerator : MonoBehaviour
             else
             {
                 qteGauge -= Time.deltaTime;
-                if(qteGauge <= 0)
+                if (qteGauge <= 0)
                 {
                     RemoveQTE();
                 }
@@ -59,8 +59,8 @@ public class QTEGenerator : MonoBehaviour
     {
         if (events.QTEKeys.Count <= 0)
             return;
-            
-        if(events.QTEKeys[0].pressType == QTEPressType.Single)
+
+        if (events.QTEKeys[0].pressType == QTEPressType.Single)
         {
             GameObject qte = Instantiate(QTEEventUISingle);
             SetQTE(qte);
@@ -84,10 +84,6 @@ public class QTEGenerator : MonoBehaviour
         {
             fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
         }
-        else
-        {
-            
-        }
 
         buttonText = qteObj.transform.GetComponentInChildren<Text>();
         uiPosition = qteObj.GetComponent<RectTransform>();
@@ -96,16 +92,18 @@ public class QTEGenerator : MonoBehaviour
         uiPosition.anchoredPosition = new Vector3(0, 0, 0);
     }
 
-    public void RemoveQTE()
+    public void RollBtn()
     {
         curQTEObj.transform.DOScale(1.2f, 0.2f).OnComplete(() =>
         {
-            curQTEObj.transform.DOScale(1.0f, 0.1f).OnComplete(() =>
-            {
-                Destroy(curQTEObj);
-                qteGauge = 2.5f;
-                isOnQTE = false;
-            });
+            curQTEObj.transform.DOScale(1.0f, 0.1f);
         });
+    }
+
+    public void RemoveQTE()
+    {
+        isOnQTE = false;
+        qteGauge = 2.5f;
+        Destroy(curQTEObj, 0.3f);
     }
 }

@@ -25,13 +25,17 @@ public class UIManager : MonoBehaviour
 
     private static UIManager _instance = null;
 
+    public GameObject aimPoint;
+
     public bool isOnCutScene = false;
     public bool isEsc = false;
-    private bool isCursor = false;
+    public bool isCursor = false;
 
     private void Awake()
     {
         _instance = this;
+        isCursor = false;
+        aimPoint = _mainUI.transform.Find("MouseImage").gameObject;
     }
 
     private void OnDestroy()
@@ -82,26 +86,23 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = true;
     }
 
+    public void OnPuzzleUI()
+    {
+        aimPoint.SetActive(false);
+        isCursor = true;
+    }
+
+    public void OffPuzzleUI()
+    {
+        aimPoint.SetActive(true);
+        isCursor = false;
+    }
+
     public void DisplayCursor(bool display)
     {
         Cursor.lockState = display ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = display;
     }
-
-    private bool CheckCuror()
-    {
-        bool isLockState = false;
-        bool isVisible = false;
-
-        if (Cursor.lockState == CursorLockMode.Locked)
-            isLockState = false;
-        else
-            isLockState = true;
-
-        isVisible = Cursor.visible;
-        return isVisible && isLockState;
-    }
-
 
     public void RemoveStopMenu()
     {
@@ -131,7 +132,6 @@ public class UIManager : MonoBehaviour
 
     public void DisplayStopMenu()
     {
-        isCursor = CheckCuror();
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();

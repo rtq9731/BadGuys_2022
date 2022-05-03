@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QTEKeys:
   - QTEKey: 78000000
-    pressType: 0
+    pressType: 1
   - QTEKey: 65000000
     pressType: 0
   - QTEKey: 64000000
@@ -286,7 +286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 1936070932}
-  QTEEventUI: {fileID: 8119924093496651119, guid: 2a2821b3367a90049ad555f96fbbc96a,
+  QTEEventUIRoll: {fileID: 8119924093496651119, guid: bbe742c713aa34d4ebb3db90458a0880,
+    type: 3}
+  QTEEventUISingle: {fileID: 8119924093496651119, guid: 2a2821b3367a90049ad555f96fbbc96a,
     type: 3}
   curQTEObj: {fileID: 0}
 --- !u!1 &134780340
@@ -2905,8 +2907,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stopMenu: {fileID: 969499811}
   _mainUI: {fileID: 1545188961}
+  aimPoint: {fileID: 0}
   isOnCutScene: 0
   isEsc: 0
+  isCursor: 0
 --- !u!114 &1936070934
 MonoBehaviour:
   m_ObjectHideFlags: 0
