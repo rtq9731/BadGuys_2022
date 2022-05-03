@@ -6,6 +6,7 @@ public class Chapter2FirstCutSceneTrigger : CollisionTimelineTrigger
 {
     [SerializeField] GameObject kidnapper = null;
     [SerializeField] GameObject aiObj = null;
+    [SerializeField] GameObject blackCar = null;
 
     public override void OnStart()
     {
@@ -16,6 +17,7 @@ public class Chapter2FirstCutSceneTrigger : CollisionTimelineTrigger
     {
         base.OnComplete();
         kidnapper.SetActive(false);
+        blackCar.SetActive(false);
         aiObj.SetActive(true);
     }
 }

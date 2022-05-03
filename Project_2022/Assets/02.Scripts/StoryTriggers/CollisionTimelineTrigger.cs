@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 
 public class CollisionTimelineTrigger : MonoBehaviour
 {
-    [SerializeField] GameObject timeline = null;
+    public GameObject timeline = null;
 
     virtual public void OnStart()
     {
@@ -16,6 +16,7 @@ public class CollisionTimelineTrigger : MonoBehaviour
     virtual public void OnComplete()
     {
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+        timeline.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
