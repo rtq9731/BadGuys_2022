@@ -40,7 +40,7 @@ public class QTEManager : MonoBehaviour
     {
         if(isSpawnQTE)
         {
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
 
             if (time >= 3f)
             {
@@ -55,7 +55,11 @@ public class QTEManager : MonoBehaviour
 
     public void GenerateQTEEvent()
     {
+        if(events.QTEKeys.Count > 0)
+        { 
+        }
         generator.Generation();
+        Time.timeScale = 0.2f;
         isSpawnQTE = true;
     }
 
@@ -111,7 +115,8 @@ public class QTEManager : MonoBehaviour
             Debug.Log("∆≤∑»¿Ω");
             time = 0f;
         }
-        generator.RemoveQTE();
+        generator.RemoveQTE(); 
+        Time.timeScale = 1f;
     }
 
     private void OnGUI()
