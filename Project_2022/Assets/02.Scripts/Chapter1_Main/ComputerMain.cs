@@ -12,7 +12,7 @@ public class ComputerMain : MonoBehaviour, IInteractableItem
     private void Awake()
     {
         if (screenObj == null)
-            Debug.LogWarning("스크린 캔버스 세팅 안되어있음");
+            Debug.LogWarning("스크린 오브젝트 안 설정되어 있음");
         else
             screenObj.SetActive(false);
     }
