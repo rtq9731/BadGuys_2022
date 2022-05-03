@@ -1196,6 +1196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showMainItem: {fileID: 191018247}
+  iconCamParent: {fileID: 0}
   slotsParent: {fileID: 1885759349}
 --- !u!114 &191018249
 MonoBehaviour:
@@ -1214,6 +1215,8 @@ MonoBehaviour:
   itemEatPos: {fileID: 1718044194}
   MainItem: {fileID: 0}
   mainItemIndex: 0
+  isInteract: 1
+  interactCooltime: 0
 --- !u!114 &191018250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,7 +1271,6 @@ MonoBehaviour:
   itemIconCamParent: {fileID: 797912470}
   itemImage: {fileID: 1650937753}
   itemRole: {fileID: 1209288845}
-  guidePanel: {fileID: 1288596056}
   pickUpPanel: {fileID: 1494977332}
 --- !u!1 &196504746 stripped
 GameObject:
@@ -4756,6 +4758,7 @@ MonoBehaviour:
   sizeMax: 3.5
   yoyoTime: 1
   mycol: {r: 1, g: 1, b: 1, a: 1}
+  isEmphasize: 0
 --- !u!1001 &745131098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7077,6 +7080,7 @@ MonoBehaviour:
   _stopMenu: {fileID: 1074975903}
   _mainUI: {fileID: 1890404339}
   isOnCutScene: 0
+  isEsc: 0
 --- !u!114 &1092208280
 MonoBehaviour:
   m_ObjectHideFlags: 0
