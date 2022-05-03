@@ -27,14 +27,11 @@ public class QTEManager : MonoBehaviour
     }
     IEnumerator GetPressKey()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(4f);
 
 
-            GenerateQTEEvent();
+        GenerateQTEEvent();
             
-        }
     }
     private void Update()
     {
@@ -56,11 +53,11 @@ public class QTEManager : MonoBehaviour
     public void GenerateQTEEvent()
     {
         if(events.QTEKeys.Count > 0)
-        { 
+        {
+            generator.Generation();
+            Time.timeScale = 0.2f;
+            isSpawnQTE = true;
         }
-        generator.Generation();
-        Time.timeScale = 0.2f;
-        isSpawnQTE = true;
     }
 
     public void CheckSingleQTE()
@@ -100,7 +97,6 @@ public class QTEManager : MonoBehaviour
 
         keys.Clear();
         events.QTEKeys.RemoveAt(0);
-        Debug.Log("체크");
     }
 
     void QTEResult(bool isCorret)
@@ -108,15 +104,22 @@ public class QTEManager : MonoBehaviour
         if(isCorret)
         {
             Debug.Log("맞았음");
-            time = 0f;
+
+            //맞게했을때 행동 
+
         }
         else
         {
             Debug.Log("틀렸음");
-            time = 0f;
+            generator.FailQTE();
+
+            //실패했을때 행동
+
         }
+        time = 0f;
         generator.RemoveQTE(); 
         Time.timeScale = 1f;
+        StartCoroutine(GetPressKey());
     }
 
     private void OnGUI()

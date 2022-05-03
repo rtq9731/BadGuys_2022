@@ -12,6 +12,8 @@ public class QTEGenerator : MonoBehaviour
     [SerializeField] GameObject QTEEventUIRoll;
     [SerializeField] GameObject QTEEventUISingle;
 
+    [SerializeField] GameObject QTEFailedImage;
+
     RectTransform uiPosition;
 
     Image fillImage;
@@ -53,6 +55,12 @@ public class QTEGenerator : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void FailQTE()
+    {
+        GameObject obj = Instantiate(QTEFailedImage);
+        SetQTE(obj);
     }
 
     public void Generation()
@@ -104,6 +112,6 @@ public class QTEGenerator : MonoBehaviour
     {
         isOnQTE = false;
         qteGauge = 2.5f;
-        Destroy(curQTEObj, 0.3f);
+        Destroy(curQTEObj);
     }
 }
