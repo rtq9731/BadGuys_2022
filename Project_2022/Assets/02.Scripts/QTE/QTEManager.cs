@@ -17,6 +17,8 @@ public class QTEManager : MonoBehaviour
     QTEGenerator generator;
 
     int QTEIndex = 0;
+
+    int rollCount = 10;
     private void Start()
     {
         StartCoroutine(GetPressKey());
@@ -69,23 +71,23 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    //public void CheckMultiQTE()
-    //{
-    //    if (keys.Count(x => events.QTEKeys[0].QTEKey.Contains(x)) == events.QTEKeys[0].QTEKey.Count)
-    //    {
-    //        QTEResult(true);
-    //    }
-    //    else
-    //    {
-    //        QTEResult(false);
-    //    }
-    //}
+    public void CheckRollQTE()
+    {
+        if (keys.Count(x => events.QTEKeys[0].QTEKey.Contains(x)) >= rollCount)
+        {
+            QTEResult(true);
+        }
+        else
+        {
+            QTEResult(false);
+        }
+    }
 
     public void CheckQTEResult()
     {
         if(events.QTEKeys[0].pressType == QTEPressType.Roll)
         {
-            //CheckMultiQTE();
+            CheckRollQTE();
         }
         else
         {
@@ -128,15 +130,21 @@ public class QTEManager : MonoBehaviour
                     if (events.QTEKeys[0].pressType == QTEPressType.Roll)
                     {
                         keys.Add(e.keyCode);
-                        Debug.Log(keys.Count);
-                        Debug.Log(events.QTEKeys[0].QTEKey.Count);
-                        if (keys.Count != events.QTEKeys[0].QTEKey.Count)
-                        {
+                        generator.RollBtn();
+
+                        if (keys[0] != keys[keys.Count - 1])
+                            CheckRollQTE();
+                        if (keys[0] != events.QTEKeys[0].QTEKey[0])
+                            CheckRollQTE();
+                        if (keys.Count != rollCount)
                             return;
-                        }
+                    }
+                    else
+                    {
+                        keys.Add(e.keyCode);
                     }
 
-                    keys.Add(e.keyCode);
+                    generator.RollBtn();
 
                     isSpawnQTE = false;
 
