@@ -55,7 +55,7 @@ public class SlidePuzzleManager : MonoBehaviour
 
     private void Start()
     {
-        ClearCheck();
+
     }
 
     private void SetMaxPos(Vector3 firstPos)
