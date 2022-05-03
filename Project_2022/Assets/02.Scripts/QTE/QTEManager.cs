@@ -14,12 +14,14 @@ public class QTEManager : MonoBehaviour
     public bool isSpawnQTE = false;
 
     QTEEvents events;
+    QTEGenerator generator;
 
     int QTEIndex = 0;
     private void Start()
     {
         StartCoroutine(GetPressKey());
         events = GetComponent<QTEEvents>();
+        generator = GetComponent<QTEGenerator>();
     }
     IEnumerator GetPressKey()
     {
@@ -51,6 +53,7 @@ public class QTEManager : MonoBehaviour
 
     public void GenerateQTEEvent()
     {
+        generator.Generation();
         isSpawnQTE = true;
     }
 
@@ -80,7 +83,7 @@ public class QTEManager : MonoBehaviour
 
     public void CheckQTEResult()
     {
-        if(events.QTEKeys[0].pressType == QTEPressType.Simultaneously)
+        if(events.QTEKeys[0].pressType == QTEPressType.Roll)
         {
             CheckMultiQTE();
             
@@ -107,6 +110,7 @@ public class QTEManager : MonoBehaviour
             Debug.Log("∆≤∑»¿Ω");
             time = 0f;
         }
+        generator.RemoveQTE();
     }
 
     private void OnGUI()
@@ -122,7 +126,7 @@ public class QTEManager : MonoBehaviour
                 {
                     if (e.keyCode == KeyCode.None) return;
 
-                    if (events.QTEKeys[0].pressType == QTEPressType.Simultaneously)
+                    if (events.QTEKeys[0].pressType == QTEPressType.Roll)
                     {
                         keys.Add(e.keyCode);
                         Debug.Log(keys.Count);
@@ -133,10 +137,7 @@ public class QTEManager : MonoBehaviour
                         }
                     }
 
-                    
                     isSpawnQTE = false;
-
-                    
 
                     CheckQTEResult();
                 }

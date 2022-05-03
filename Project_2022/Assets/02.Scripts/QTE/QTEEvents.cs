@@ -6,7 +6,7 @@ using System;
 public enum QTEPressType
 {
     Single,
-    Simultaneously
+    Roll,
 }
 
 [Serializable]
