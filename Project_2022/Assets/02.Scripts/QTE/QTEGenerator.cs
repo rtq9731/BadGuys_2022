@@ -8,7 +8,9 @@ public class QTEGenerator : MonoBehaviour
 {
 
     [SerializeField] Transform canvas;
-    [SerializeField] GameObject QTEEventUI;
+
+    [SerializeField] GameObject QTEEventUIRoll;
+    [SerializeField] GameObject QTEEventUISingle;
     
     RectTransform uiPosition;
 
@@ -33,11 +35,22 @@ public class QTEGenerator : MonoBehaviour
     {
         if(isOnQTE)
         {
-            qteGauge -= Time.deltaTime;
-            fillImage.fillAmount = qteGauge / qteTime;
-            if (fillImage.fillAmount <= 0)
+            if(events.QTEKeys[0].pressType == QTEPressType.Single)
             {
-                RemoveQTE();
+                qteGauge -= Time.deltaTime;
+                fillImage.fillAmount = qteGauge / qteTime;
+                if (fillImage.fillAmount <= 0)
+                {
+                    RemoveQTE();
+                }
+            }
+            else
+            {
+                qteGauge -= Time.deltaTime;
+                if(qteGauge <= 0)
+                {
+                    RemoveQTE();
+                }
             }
         }
     }
@@ -46,22 +59,41 @@ public class QTEGenerator : MonoBehaviour
     {
         if (events.QTEKeys.Count <= 0)
             return;
-
-        GameObject qte = Instantiate(QTEEventUI);
-        SetQTE(qte);
-        isOnQTE = true;
-        curQTEObj = qte;
+            
+        if(events.QTEKeys[0].pressType == QTEPressType.Single)
+        {
+            GameObject qte = Instantiate(QTEEventUISingle);
+            SetQTE(qte);
+            isOnQTE = true;
+            curQTEObj = qte;
+        }
+        else
+        {
+            GameObject qte = Instantiate(QTEEventUIRoll);
+            SetQTE(qte);
+            isOnQTE = true;
+            curQTEObj = qte;
+        }
     }
 
     void SetQTE(GameObject qteObj)
     {
         qteObj.transform.SetParent(canvas);
 
+        if (events.QTEKeys[0].pressType == QTEPressType.Single)
+        {
+            fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
+        }
+        else
+        {
+            
+        }
+
         buttonText = qteObj.transform.GetComponentInChildren<Text>();
         uiPosition = qteObj.GetComponent<RectTransform>();
-        fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
 
         buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+        uiPosition.anchoredPosition = new Vector3(0, 0, 0);
     }
 
     public void RemoveQTE()
@@ -70,16 +102,10 @@ public class QTEGenerator : MonoBehaviour
         {
             curQTEObj.transform.DOScale(1.0f, 0.1f).OnComplete(() =>
             {
-                CheckAnswer();
                 Destroy(curQTEObj);
                 qteGauge = 2.5f;
                 isOnQTE = false;
             });
         });
-    }
-
-    void CheckAnswer()
-    {
-        
     }
 }

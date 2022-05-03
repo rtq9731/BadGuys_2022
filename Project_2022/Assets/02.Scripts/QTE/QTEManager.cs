@@ -69,24 +69,23 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    public void CheckMultiQTE()
-    {
-        if (keys.Count(x => events.QTEKeys[0].QTEKey.Contains(x)) == events.QTEKeys[0].QTEKey.Count)
-        {
-            QTEResult(true);
-        }
-        else
-        {
-            QTEResult(false);
-        }
-    }
+    //public void CheckMultiQTE()
+    //{
+    //    if (keys.Count(x => events.QTEKeys[0].QTEKey.Contains(x)) == events.QTEKeys[0].QTEKey.Count)
+    //    {
+    //        QTEResult(true);
+    //    }
+    //    else
+    //    {
+    //        QTEResult(false);
+    //    }
+    //}
 
     public void CheckQTEResult()
     {
         if(events.QTEKeys[0].pressType == QTEPressType.Roll)
         {
-            CheckMultiQTE();
-            
+            //CheckMultiQTE();
         }
         else
         {
@@ -136,6 +135,8 @@ public class QTEManager : MonoBehaviour
                             return;
                         }
                     }
+
+                    keys.Add(e.keyCode);
 
                     isSpawnQTE = false;
 
