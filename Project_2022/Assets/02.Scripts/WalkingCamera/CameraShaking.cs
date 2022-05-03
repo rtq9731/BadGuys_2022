@@ -15,6 +15,7 @@ public class CameraShaking : MonoBehaviour
     private float time;
     private Vector3 camOriPos;
 
+    public float maxDistance = 0.2f;
     public float walkPower;
     public float runPower;
     public float walkTime;
@@ -44,11 +45,11 @@ public class CameraShaking : MonoBehaviour
 
     private void Update()
     {
-        if (Vector3.Distance(Camera.main.transform.position, (myCam.transform.localPosition + transform.position)) >= 0.1)
+        if (Vector3.Distance(Camera.main.transform.position, (myCam.transform.position)) >= maxDistance)
         {
             CameraOff();
-            Debug.Log(false);
-            Debug.LogWarning(Vector3.Distance(Camera.main.transform.position, (myCam.transform.localPosition + transform.position)));
+            //Debug.Log(false);
+            //Debug.LogWarning(Vector3.Distance(Camera.main.transform.position, myCam.transform.position));
         }
 
         //Debug.LogWarning(myCam.transform.localPosition + transform.position);
