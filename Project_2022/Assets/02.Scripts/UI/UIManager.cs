@@ -27,11 +27,12 @@ public class UIManager : MonoBehaviour
 
     public bool isOnCutScene = false;
     public bool isEsc = false;
-    private bool isCursor = false;
+    public bool isCursor = false;
 
     private void Awake()
     {
         _instance = this;
+        isCursor = false;
     }
 
     private void OnDestroy()
@@ -131,7 +132,6 @@ public class UIManager : MonoBehaviour
 
     public void DisplayStopMenu()
     {
-        isCursor = CheckCuror();
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();
