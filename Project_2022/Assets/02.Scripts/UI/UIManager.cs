@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
 
     public bool isOnCutScene = false;
     public bool isEsc = false;
+    private bool isCursor = false;
 
     private void Awake()
     {
@@ -87,6 +88,21 @@ public class UIManager : MonoBehaviour
         Cursor.visible = display;
     }
 
+    private bool CheckCuror()
+    {
+        bool isLockState = false;
+        bool isVisible = false;
+
+        if (Cursor.lockState == CursorLockMode.Locked)
+            isLockState = false;
+        else
+            isLockState = true;
+
+        isVisible = Cursor.visible;
+        return isVisible && isLockState;
+    }
+
+
     public void RemoveStopMenu()
     {
         DisplayCursor(true);
@@ -96,7 +112,7 @@ public class UIManager : MonoBehaviour
 
         _stopMenu.transform.DOScale(0, 0.5f).OnComplete(() => { 
             _stopMenu.gameObject.SetActive(false);
-            DisplayCursor(false);
+            DisplayCursor(isCursor);
         });
        
     }
@@ -115,6 +131,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayStopMenu()
     {
+        isCursor = CheckCuror();
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();

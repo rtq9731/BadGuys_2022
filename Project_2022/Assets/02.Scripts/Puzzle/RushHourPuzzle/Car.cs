@@ -250,15 +250,12 @@ public class Car : MonoBehaviour
     private void MoveToPos(Vector3 thatPos)
     {
         transform.localPosition = thatPos;
-        Debug.LogWarning(thatPos);
     }
 
     private bool ShotRay(Vector3 dir)
     {
         RaycastHit hit;
         float size = RushHourManger.Instance.truesize;
-        //Debug.LogWarning(size);
-        Debug.DrawRay(transform.position, dir * 3.5f * size, Color.red);
 
         if (!isThree) // 2
         {
