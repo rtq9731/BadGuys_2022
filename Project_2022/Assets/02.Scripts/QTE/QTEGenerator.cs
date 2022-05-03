@@ -37,7 +37,7 @@ public class QTEGenerator : MonoBehaviour
         {
             if (events.QTEKeys[0].pressType == QTEPressType.Single)
             {
-                qteGauge -= Time.deltaTime;
+                qteGauge -= Time.unscaledDeltaTime;
                 fillImage.fillAmount = qteGauge / qteTime;
                 if (fillImage.fillAmount <= 0)
                 {
@@ -46,7 +46,7 @@ public class QTEGenerator : MonoBehaviour
             }
             else
             {
-                qteGauge -= Time.deltaTime;
+                qteGauge -= Time.unscaledDeltaTime;
                 if (qteGauge <= 0)
                 {
                     RemoveQTE();
@@ -96,8 +96,8 @@ public class QTEGenerator : MonoBehaviour
     {
         curQTEObj.transform.DOScale(1.2f, 0.2f).OnComplete(() =>
         {
-            curQTEObj.transform.DOScale(1.0f, 0.1f);
-        });
+            curQTEObj.transform.DOScale(1.0f, 0.1f).SetUpdate(true);
+        }).SetUpdate(true);
     }
 
     public void RemoveQTE()

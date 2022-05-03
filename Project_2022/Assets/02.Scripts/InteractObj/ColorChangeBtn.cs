@@ -62,7 +62,7 @@ public class ColorChangeBtn : MonoBehaviour
         {
             mesh.enabled = false;
             clearParticle.ParticleOn();
-            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+            UIManager.Instance.OffPuzzleUI();
             StartCoroutine(pictureBtnManager.ClearColorPuzzle());
         }
         isInteract = false;
