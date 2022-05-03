@@ -93,7 +93,7 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
 
                 rushHourCam.gameObject.SetActive(true);
                 //UIManager.Instance.OnCutScene();
-                UIManager.Instance.isCursor = true;
+                UIManager.Instance.OnPuzzleUI();
                 rushScript.enabled = true;
 
                 Debug.Log(Cursor.visible);
@@ -144,7 +144,7 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
         Destroy(GetComponent<Outline>());
 
         //UIManager.Instance.OnCutSceneOver();
-        UIManager.Instance.isCursor = false;
+        UIManager.Instance.OffPuzzleUI();
         player.transform.position = playerMovePos.position;
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
 
