@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        UIManager._instance.DisplayCursor(false);
+        UIManager.Instance.DisplayCursor(false);
     }
 
     private void Update()

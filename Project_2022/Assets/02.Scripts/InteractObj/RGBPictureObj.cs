@@ -104,7 +104,7 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
 
     IEnumerator CameraMove()
     {
-        UIManager._instance.OnCutScene();
+        UIManager.Instance.OnCutScene();
         while (Vector3.Distance(pictureCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
@@ -116,7 +116,7 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
 
         blindImage.DOFade(1f, 1f).OnComplete(() =>
         {
-            UIManager._instance.OnCutSceneOverWithoutClearDialog();
+            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
             loadImage.SetActive(true);
             StartCoroutine(LoadingSceneManager.LoadStage(sceneColor));
         });

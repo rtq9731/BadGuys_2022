@@ -43,7 +43,7 @@ public class InventoryItemPanel : MonoBehaviour
 
         if(isActive)
         {
-            if(UIManager._instance.isEsc)
+            if(UIManager.Instance.isEsc)
             {
                 isActive = !isActive;
                 inventoryUI.isOnInventory = false;
@@ -63,7 +63,7 @@ public class InventoryItemPanel : MonoBehaviour
             if (Inventory.Instance.MainItem == null)
                 return;
 
-            if (UIManager._instance.isEsc)
+            if (UIManager.Instance.isEsc)
                 return;
 
             if(!isActive)
@@ -71,7 +71,7 @@ public class InventoryItemPanel : MonoBehaviour
                 isActive = !isActive;
                 inventoryUI.isOnInventory = true;
                 GameManager.Instance.IsPause = true;
-                UIManager._instance.DisplayCursor(true);
+                UIManager.Instance.DisplayCursor(true);
 
                 itemInfoPanel.SetActive(true);
                 pickUpPanel.SetActive(false);
@@ -94,7 +94,7 @@ public class InventoryItemPanel : MonoBehaviour
                 isActive = !isActive;
                 inventoryUI.isOnInventory = false;
                 GameManager.Instance.IsPause = false;
-                UIManager._instance.DisplayCursor(false);
+                UIManager.Instance.DisplayCursor(false);
 
                 currentObj.transform.rotation = Quaternion.Euler(originRotate);
 

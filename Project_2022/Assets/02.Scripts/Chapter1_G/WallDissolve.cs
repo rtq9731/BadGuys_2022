@@ -38,7 +38,7 @@ public class WallDissolve : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         myVCam.SetActive(true);
-        UIManager._instance.OnCutScene();
+        UIManager.Instance.OnCutScene();
         while (Vector3.Distance(Camera.main.transform.position, myVCam.transform.position) >= 0.01)
         {
             yield return null;
@@ -55,7 +55,7 @@ public class WallDissolve : MonoBehaviour
             myMat.SetColor("Color_C277ACA6", new Color(mC.r, mC.g, mC.b, i));
         }
 
-        UIManager._instance.OnCutSceneOver();
+        UIManager.Instance.OnCutSceneOver();
         gameObject.SetActive(false);
         myVCam.SetActive(false);
         Destroy(this);

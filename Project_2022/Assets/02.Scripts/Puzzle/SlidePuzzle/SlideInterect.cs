@@ -54,13 +54,13 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     private void CameraGameSetting()
     {
         myCam.SetActive(true);
-        UIManager._instance.OnCutSceneWithoutPause();
+        UIManager.Instance.OnCutSceneWithoutPause();
     }
 
     private void CameraOverSetting()
     {
         myCam.SetActive(false);
-        UIManager._instance.OnCutSceneOverWithoutClearDialog();
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
     }
 
     public void SkipBtnOn()

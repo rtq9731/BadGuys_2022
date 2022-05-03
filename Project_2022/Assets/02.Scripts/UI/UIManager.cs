@@ -8,7 +8,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] StopMenu _stopMenu = null;
     [SerializeField] GameObject _mainUI = null;
 
-    public static UIManager _instance = null;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = Instantiate<GameObject>(null).AddComponent<UIManager>();
+                _instance._mainUI = GameObject.Find("MainUIs");
+                _instance._stopMenu = FindObjectOfType<StopMenu>(true);
+            }
+
+            return _instance;
+        }
+    }
+
+    private static UIManager _instance = null;
 
     public bool isOnCutScene = false;
     public bool isEsc = false;

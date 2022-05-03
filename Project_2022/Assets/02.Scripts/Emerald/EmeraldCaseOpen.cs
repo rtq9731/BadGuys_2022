@@ -27,7 +27,7 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
     {
         emeraldCam.SetActive(true);
         playerController.enabled = false;
-        UIManager._instance.OnCutSceneWithoutPause();
+        UIManager.Instance.OnCutSceneWithoutPause();
 
         while (Vector3.Distance(emeraldCam.transform.position, playerCam.transform.position) >= 0.1f)
         {

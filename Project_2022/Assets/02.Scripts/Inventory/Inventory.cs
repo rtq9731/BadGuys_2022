@@ -111,7 +111,7 @@ public class Inventory : MonoBehaviour
 
             ItemInfoPanelManager.Instance.SetDialog(item);
 
-            UIManager._instance.StartCoroutine(EatItem(obj));
+            UIManager.Instance.StartCoroutine(EatItem(obj));
         }
     }
 

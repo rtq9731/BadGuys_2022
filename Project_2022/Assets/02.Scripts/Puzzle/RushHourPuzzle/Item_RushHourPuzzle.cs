@@ -76,7 +76,7 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         {
             Debug.LogWarning("테이블 클릭됨");
             rushHourCam.gameObject.SetActive(true);
-            UIManager._instance.OnCutScene();
+            UIManager.Instance.OnCutScene();
             rushScript.enabled = true;
 
             Debug.Log(Cursor.visible);
@@ -132,7 +132,7 @@ public class Item_RushHourPuzzle : MonoBehaviour, IInteractableItem
         Destroy(GetComponent<OutlinerOnMouseEnter>());
         Destroy(GetComponent<Outline>());
 
-        UIManager._instance.OnCutSceneOver();
+        UIManager.Instance.OnCutSceneOver();
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
 
         player.transform.position = playerMovePos.position;

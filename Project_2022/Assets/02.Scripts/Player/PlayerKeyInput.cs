@@ -8,7 +8,7 @@ public class PlayerKeyInput : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            UIManager._instance.UpdateStopMenu();
+            UIManager.Instance.UpdateStopMenu();
         }
     }
 }

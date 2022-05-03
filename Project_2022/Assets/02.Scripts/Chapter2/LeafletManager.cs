@@ -60,7 +60,7 @@ public class LeafletManager : MonoBehaviour
 
         while (CheckActive())
         {
-            if (UIManager._instance.isOnCutScene)
+            if (UIManager.Instance.isOnCutScene)
             {
                 circle.EmphasizeOff();
                 Debug.Log("¿ø ²¨Áü");

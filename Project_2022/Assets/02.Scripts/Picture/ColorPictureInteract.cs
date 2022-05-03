@@ -36,7 +36,7 @@ public class ColorPictureInteract : MonoBehaviour , IInteractableItem
     {
         pictureCam.SetActive(true);
 
-        UIManager._instance.OnCutSceneWithoutPause();
+        UIManager.Instance.OnCutSceneWithoutPause();
 
         pictureAnswerChecker.pictureCam = this.pictureCam;
         pictureAnswerChecker.pictureInfo = mainPicture.GetComponent<PictureInfo>();
@@ -63,7 +63,7 @@ public class ColorPictureInteract : MonoBehaviour , IInteractableItem
             yield return null;
         }
 
-        UIManager._instance.DisplayCursor(true);
+        UIManager.Instance.DisplayCursor(true);
 
         btnParent.transform.DOLocalMoveZ(-11.05f, 1f);
         foreach (var item in colorChangeBtns)

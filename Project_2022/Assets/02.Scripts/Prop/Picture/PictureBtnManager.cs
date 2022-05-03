@@ -9,7 +9,7 @@ public class PictureBtnManager : MonoBehaviour
 
     public IEnumerator ClearColorPuzzle()
     {
-        UIManager._instance.DisplayCursor(false);
+        UIManager.Instance.DisplayCursor(false);
         yield return new WaitForSeconds(0.3f);
         foreach (var item in colorChangeBtns)
         {

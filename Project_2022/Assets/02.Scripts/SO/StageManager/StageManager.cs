@@ -19,7 +19,7 @@ public class StageManager : MonoBehaviour
         panelHide.gameObject.SetActive(true);
         stageMsgText.text = "";
         aiMsgText.text = "";
-        UIManager._instance.OnCutScene();
+        UIManager.Instance.OnCutScene();
         panelHide.rectTransform.DOAnchorPosY(-panelHide.rectTransform.rect.height, 2f).OnComplete(()=>
         {
             // 글자당 0.125f 초
@@ -34,7 +34,7 @@ public class StageManager : MonoBehaviour
                     {
                         FindObjectOfType<PlayerKeyInput>(true).gameObject.SetActive(true);
                         panelHide.gameObject.SetActive(false);
-                        UIManager._instance.OnCutSceneOver();
+                        UIManager.Instance.OnCutSceneOver();
                     });
                 });
             });
