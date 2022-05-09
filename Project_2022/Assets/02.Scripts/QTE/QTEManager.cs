@@ -7,7 +7,11 @@ using System.Linq;
 
 public class QTEManager : MonoBehaviour
 {
+    [SerializeField] GameObject[] successPlayerableDirector;
+    [SerializeField] GameObject[] failedPlayerableDirector;
+
     public List<KeyCode> keys = new List<KeyCode>();
+
 
     public float time = 0f;
 
@@ -21,18 +25,10 @@ public class QTEManager : MonoBehaviour
     int rollCount = 10;
     private void Start()
     {
-        StartCoroutine(GetPressKey());
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
-    }
-    IEnumerator GetPressKey()
-    {
-        yield return new WaitForSeconds(4f);
-
-
-        GenerateQTEEvent();
-            
-    }
+    }   
+    
     private void Update()
     {
         if(isSpawnQTE)
@@ -44,6 +40,7 @@ public class QTEManager : MonoBehaviour
                 time = 0;
                 isSpawnQTE = false;
                 QTEResult(false);
+                
                 events.QTEKeys.RemoveAt(0);
                 Debug.Log("실패!!");
             }
@@ -106,7 +103,7 @@ public class QTEManager : MonoBehaviour
             Debug.Log("맞았음");
 
             //맞게했을때 행동 
-
+            successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
         else
         {
@@ -114,18 +111,19 @@ public class QTEManager : MonoBehaviour
             generator.FailQTE();
 
             //실패했을때 행동
+            failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
 
         }
+
+        QTEIndex++;
+        Debug.Log(QTEIndex);
         time = 0f;
         generator.RemoveQTE(); 
         Time.timeScale = 1f;
-        StartCoroutine(GetPressKey());
     }
 
     private void OnGUI()
     {
-        if (GameManager.Instance.IsPause) return;
-
         if (isSpawnQTE)
         {
             if (Input.anyKeyDown)
