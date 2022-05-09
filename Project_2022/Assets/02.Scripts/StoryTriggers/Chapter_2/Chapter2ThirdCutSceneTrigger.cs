@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chapter2ScondCutSceneTrigger : CollisionTimelineTrigger
+public class Chapter2ThirdCutSceneTrigger : CollisionTimelineTrigger
 {
     [SerializeField] GameObject kidnapperForCutScene = null;
-    [SerializeField] GameObject kidnapperForNextCutScene = null;
 
     public override void OnStart()
     {
@@ -15,11 +14,14 @@ public class Chapter2ScondCutSceneTrigger : CollisionTimelineTrigger
     public override void OnComplete()
     {
         base.OnComplete();
-        kidnapperForCutScene.SetActive(false);
+
         ChaseKidnapperAI ai = FindObjectOfType<ChaseKidnapperAI>(true);
-        ai.SetDestination(1, () =>
+
+        kidnapperForCutScene.SetActive(false);
+        ai.gameObject.SetActive(true);
+        ai.SetDestination(2, () =>
         {
-            kidnapperForNextCutScene.SetActive(true);
+            Debug.Log("세번째 목적지 도착!");
             ai.gameObject.SetActive(false);
         });
     }
