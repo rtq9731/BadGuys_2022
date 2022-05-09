@@ -7,6 +7,7 @@ public enum QTEPressType
 {
     Single,
     Roll,
+    Shoot
 }
 
 [Serializable]

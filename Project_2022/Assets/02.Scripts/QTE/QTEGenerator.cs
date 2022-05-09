@@ -37,22 +37,30 @@ public class QTEGenerator : MonoBehaviour
     {
         if (isOnQTE)
         {
-            if (events.QTEKeys[0].pressType == QTEPressType.Single)
+
+            switch(events.QTEKeys[0].pressType)
             {
-                qteGauge -= Time.unscaledDeltaTime;
-                fillImage.fillAmount = qteGauge / qteTime;
-                if (fillImage.fillAmount <= 0)
-                {
-                    RemoveQTE();
-                }
-            }
-            else
-            {
-                qteGauge -= Time.unscaledDeltaTime;
-                if (qteGauge <= 0)
-                {
-                    RemoveQTE();
-                }
+                case QTEPressType.Single:
+                    {
+                        qteGauge -= Time.unscaledDeltaTime;
+                        fillImage.fillAmount = qteGauge / qteTime;
+                        if (fillImage.fillAmount <= 0)
+                        {
+                            RemoveQTE();
+                        }
+                    }
+                    break;
+                case QTEPressType.Roll:
+                    {
+                        qteGauge -= Time.unscaledDeltaTime;
+                        if (qteGauge <= 0)
+                        {
+                            RemoveQTE();
+                        }
+                    }
+                    break;
+                case QTEPressType.Shoot:
+                    break;
             }
         }
     }
@@ -68,19 +76,26 @@ public class QTEGenerator : MonoBehaviour
         if (events.QTEKeys.Count <= 0)
             return;
 
-        if (events.QTEKeys[0].pressType == QTEPressType.Single)
+        switch (events.QTEKeys[0].pressType)
         {
-            GameObject qte = Instantiate(QTEEventUISingle);
-            SetQTE(qte);
-            isOnQTE = true;
-            curQTEObj = qte;
-        }
-        else
-        {
-            GameObject qte = Instantiate(QTEEventUIRoll);
-            SetQTE(qte);
-            isOnQTE = true;
-            curQTEObj = qte;
+            case QTEPressType.Single:
+                {
+                    GameObject qte = Instantiate(QTEEventUISingle);
+                    SetQTE(qte);
+                    isOnQTE = true;
+                    curQTEObj = qte;
+                }
+                break;
+            case QTEPressType.Roll:
+                {
+                    GameObject qte = Instantiate(QTEEventUIRoll);
+                    SetQTE(qte);
+                    isOnQTE = true;
+                    curQTEObj = qte;
+                }
+                break;
+            case QTEPressType.Shoot:
+                break;
         }
     }
 
