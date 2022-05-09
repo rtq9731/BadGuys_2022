@@ -10,8 +10,9 @@ public class QTEManager : MonoBehaviour
     [SerializeField] GameObject[] successPlayerableDirector;
     [SerializeField] GameObject[] failedPlayerableDirector;
 
-    public List<KeyCode> keys = new List<KeyCode>();
+    [SerializeField] CollisionTimelineTrigger[] timelineTriggers;
 
+    public List<KeyCode> keys = new List<KeyCode>();
 
     public float time = 0f;
 
@@ -19,6 +20,7 @@ public class QTEManager : MonoBehaviour
 
     QTEEvents events;
     QTEGenerator generator;
+    
 
     int QTEIndex = 0;
 
@@ -27,8 +29,17 @@ public class QTEManager : MonoBehaviour
     {
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
-    }   
-    
+
+        for (int i = 0; i < timelineTriggers.Length; i++)
+        {
+            int y = i;
+            timelineTriggers[i]._onComplete += () => {
+                QTEIndex = y;
+                GenerateQTEEvent(); 
+            };
+        }
+    }
+
     private void Update()
     {
         if(isSpawnQTE)
@@ -103,6 +114,7 @@ public class QTEManager : MonoBehaviour
             Debug.Log("맞았음");
 
             //맞게했을때 행동 
+
             successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
         else
@@ -112,15 +124,13 @@ public class QTEManager : MonoBehaviour
 
             //실패했을때 행동
             failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
-
         }
 
-        QTEIndex++;
-        Debug.Log(QTEIndex);
         time = 0f;
         generator.RemoveQTE(); 
         Time.timeScale = 1f;
     }
+
 
     private void OnGUI()
     {
