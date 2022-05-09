@@ -25,6 +25,7 @@ public class ChaseKidnapperAI : MonoBehaviour
         SetDestination(0, () =>
         {
             gameObject.SetActive(false);
+            transform.position = destinations[0].position;
             transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
         });
     }
