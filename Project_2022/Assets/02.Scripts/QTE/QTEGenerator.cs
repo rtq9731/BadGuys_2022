@@ -144,13 +144,16 @@ public class QTEGenerator : MonoBehaviour
 
                     //uiPosition.anchoredPosition = new Vector2(ranX, ranY);
 
-                    qteObj.transform.DOScale(1f, 0.2f);
+                    qteObj.transform.DOScale(1f, 0.2f).OnComplete(() =>
+                    {
+                        qteObj.GetComponent<ShootingTarget>().FadeTarget();
+                    });
 
                     qteObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(ranX, ranY);
                 }
                 break;
         }
-        uiPosition.anchoredPosition = new Vector2(0, 0);
+        //uiPosition.anchoredPosition = new Vector2(0, 0);
     }
 
 
