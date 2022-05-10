@@ -11,6 +11,7 @@ public class QTEGenerator : MonoBehaviour
 
     [SerializeField] GameObject QTEEventUIRoll;
     [SerializeField] GameObject QTEEventUISingle;
+    [SerializeField] GameObject QTEEventUIShoot;
 
     [SerializeField] GameObject QTEFailedImage;
 
@@ -20,6 +21,7 @@ public class QTEGenerator : MonoBehaviour
     Text buttonText;
 
     QTEEvents events;
+    QTEShooting shooting;
 
     float qteTime = 3f;
     float qteGauge = 3f;
@@ -31,6 +33,7 @@ public class QTEGenerator : MonoBehaviour
     private void Start()
     {
         events = GetComponent<QTEEvents>();
+        shooting = FindObjectOfType<QTEShooting>();
     }
 
     private void Update()
@@ -68,7 +71,12 @@ public class QTEGenerator : MonoBehaviour
     public void FailQTE()
     {
         GameObject obj = Instantiate(QTEFailedImage);
-        SetQTE(obj);
+
+        //obj.GetComponent<RectTransform>().anchoredPosition = uiPosition.anchoredPosition;
+        buttonText = obj.transform.GetComponentInChildren<Text>();
+        uiPosition = obj.GetComponent<RectTransform>();
+
+        buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
     }
 
     public void Generation()
@@ -81,7 +89,7 @@ public class QTEGenerator : MonoBehaviour
             case QTEPressType.Single:
                 {
                     GameObject qte = Instantiate(QTEEventUISingle);
-                    SetQTE(qte);
+                    SetQTE(qte, QTEPressType.Single);
                     isOnQTE = true;
                     curQTEObj = qte;
                 }
@@ -89,31 +97,62 @@ public class QTEGenerator : MonoBehaviour
             case QTEPressType.Roll:
                 {
                     GameObject qte = Instantiate(QTEEventUIRoll);
-                    SetQTE(qte);
+                    SetQTE(qte, QTEPressType.Roll);
                     isOnQTE = true;
                     curQTEObj = qte;
                 }
                 break;
             case QTEPressType.Shoot:
+                {
+                    GameObject qte = Instantiate(QTEEventUIShoot);
+                    SetQTE(qte, QTEPressType.Shoot);
+                    isOnQTE = true;
+                    curQTEObj = qte;
+                    shooting.targetObj = curQTEObj;
+                }
                 break;
         }
     }
 
-    void SetQTE(GameObject qteObj)
+    void SetQTE(GameObject qteObj, QTEPressType key)
     {
         qteObj.transform.SetParent(canvas);
 
-        if (events.QTEKeys[0].pressType == QTEPressType.Single)
+        switch (key)
         {
-            fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
+            case QTEPressType.Single:
+                {
+                    fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
+                    buttonText = qteObj.transform.GetComponentInChildren<Text>();
+                    uiPosition = qteObj.GetComponent<RectTransform>();
+
+                    buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+                }
+                break;
+            case QTEPressType.Roll:
+                {
+                    buttonText = qteObj.transform.GetComponentInChildren<Text>();
+                    uiPosition = qteObj.GetComponent<RectTransform>();
+
+                    buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+                }
+                break;
+            case QTEPressType.Shoot:
+                {
+                    int ranX = Random.Range(-777, 777);
+                    int ranY = Random.Range(-356, 357);
+
+                    //uiPosition.anchoredPosition = new Vector2(ranX, ranY);
+
+                    qteObj.transform.DOScale(1f, 0.2f);
+
+                    qteObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(ranX, ranY);
+                }
+                break;
         }
-
-        buttonText = qteObj.transform.GetComponentInChildren<Text>();
-        uiPosition = qteObj.GetComponent<RectTransform>();
-
-        buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
-        uiPosition.anchoredPosition = new Vector3(0, 0, 0);
+        uiPosition.anchoredPosition = new Vector2(0, 0);
     }
+
 
     public void RollBtn()
     {

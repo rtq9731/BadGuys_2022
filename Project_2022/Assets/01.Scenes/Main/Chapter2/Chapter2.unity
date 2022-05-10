@@ -37961,7 +37961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &685405288
 Transform:
   m_ObjectHideFlags: 0
@@ -59300,10 +59300,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   successPlayerableDirector:
   - {fileID: 1988654843}
+  - {fileID: 1628479716}
   failedPlayerableDirector:
   - {fileID: 1536363241}
+  - {fileID: 1579773933}
   timelineTriggers:
   - {fileID: 1221744951}
+  - {fileID: 28907942}
   keys: 
   time: 0
   isSpawnQTE: 0
@@ -59324,6 +59327,7 @@ MonoBehaviour:
     type: 3}
   QTEEventUISingle: {fileID: 8119924093496651119, guid: 2a2821b3367a90049ad555f96fbbc96a,
     type: 3}
+  QTEEventUIShoot: {fileID: 0}
   QTEFailedImage: {fileID: 8119924093496651119, guid: a8a3291ad3304c34baa5896a733cd029,
     type: 3}
   curQTEObj: {fileID: 0}
@@ -59341,6 +59345,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QTEKeys:
   - QTEKey: 78000000
+    pressType: 0
+  - QTEKey: 65000000
     pressType: 0
 --- !u!4 &1080914745
 Transform:
@@ -86569,7 +86575,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1646400136
 Transform:
   m_ObjectHideFlags: 0

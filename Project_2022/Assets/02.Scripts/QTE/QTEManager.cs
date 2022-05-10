@@ -7,15 +7,15 @@ using System.Linq;
 
 public class QTEManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] successPlayerableDirector;
-    [SerializeField] GameObject[] failedPlayerableDirector;
+    [SerializeField] GameObject[] successPlayerableDirector = null;
+    [SerializeField] GameObject[] failedPlayerableDirector = null;
 
-    [SerializeField] CollisionTimelineTrigger[] timelineTriggers;
+    [SerializeField] CollisionTimelineTrigger[] timelineTriggers = null;
 
     public List<KeyCode> keys = new List<KeyCode>();
 
     public float time = 0f;
-
+    
     public bool isSpawnQTE = false;
 
     QTEEvents events;
@@ -160,7 +160,9 @@ public class QTEManager : MonoBehaviour
                         keys.Add(e.keyCode);
                     }
 
-                    generator.RollBtn();
+
+                    if(events.QTEKeys[0].pressType != QTEPressType.Shoot)
+                        generator.RollBtn();
 
                     isSpawnQTE = false;
 
