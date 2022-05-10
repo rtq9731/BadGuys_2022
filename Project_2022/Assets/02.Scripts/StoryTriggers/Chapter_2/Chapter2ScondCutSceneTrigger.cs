@@ -17,8 +17,9 @@ public class Chapter2ScondCutSceneTrigger : CollisionTimelineTrigger
         base.OnComplete();
         kidnapperForCutScene.SetActive(false);
         ChaseKidnapperAI ai = FindObjectOfType<ChaseKidnapperAI>(true);
-        ai.SetDestination(1, () =>
+        ai.SetDestination(2, () =>
         {
+            ai.SetPos(3);
             kidnapperForNextCutScene.SetActive(true);
             ai.gameObject.SetActive(false);
         });

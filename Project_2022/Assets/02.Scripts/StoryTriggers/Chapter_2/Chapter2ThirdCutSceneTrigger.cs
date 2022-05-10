@@ -19,9 +19,8 @@ public class Chapter2ThirdCutSceneTrigger : CollisionTimelineTrigger
 
         kidnapperForCutScene.SetActive(false);
         ai.gameObject.SetActive(true);
-        ai.SetDestination(2, () =>
+        ai.SetDestination(4, () =>
         {
-            Debug.Log("세번째 목적지 도착!");
             ai.gameObject.SetActive(false);
         });
     }
