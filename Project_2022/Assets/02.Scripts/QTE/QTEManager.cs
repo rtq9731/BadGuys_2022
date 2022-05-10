@@ -30,7 +30,7 @@ public class QTEManager : MonoBehaviour
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
 
-        Invoke("GenerateQTEEvent", 2f);
+        // Invoke("GenerateQTEEvent", 2f);
 
         for (int i = 0; i < timelineTriggers.Length; i++)
         {

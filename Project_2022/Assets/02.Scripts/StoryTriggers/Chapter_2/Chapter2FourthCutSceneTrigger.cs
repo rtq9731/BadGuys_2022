@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Chapter2FourthCutSceneTrigger : CollisionTimelineTrigger
 {
+    [SerializeField] GameObject kidnapperForCutScene = null;
     public override void OnStart()
     {
         base.OnStart();
@@ -15,6 +16,7 @@ public class Chapter2FourthCutSceneTrigger : CollisionTimelineTrigger
 
         ChaseKidnapperAI ai = FindObjectOfType<ChaseKidnapperAI>(true);
 
+        kidnapperForCutScene.SetActive(false);
         ai.gameObject.SetActive(true);
         ai.SetDestination(6, () =>
         {
