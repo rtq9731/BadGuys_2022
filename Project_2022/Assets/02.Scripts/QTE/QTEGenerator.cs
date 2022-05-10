@@ -127,6 +127,8 @@ public class QTEGenerator : MonoBehaviour
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
                     buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+
+                    uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
                 break;
             case QTEPressType.Roll:
@@ -135,6 +137,8 @@ public class QTEGenerator : MonoBehaviour
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
                     buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+
+                    uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
                 break;
             case QTEPressType.Shoot:
@@ -153,7 +157,6 @@ public class QTEGenerator : MonoBehaviour
                 }
                 break;
         }
-        //uiPosition.anchoredPosition = new Vector2(0, 0);
     }
 
 
