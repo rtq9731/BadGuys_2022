@@ -26,32 +26,31 @@ public class QTEShooting : MonoBehaviour
         shootDelay += Time.unscaledDeltaTime;
 
         Shoot();
-
-        if (Input.GetKey(KeyCode.W))
+        
+        if(crosshair.activeSelf)
         {
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + speed * Time.unscaledDeltaTime);
-            Debug.Log("W");
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + -(speed * Time.unscaledDeltaTime), rect.anchoredPosition.y);
-            Debug.Log("A");
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + -(speed * Time.unscaledDeltaTime));
-            Debug.Log("S");
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + speed * Time.unscaledDeltaTime, rect.anchoredPosition.y);
-            Debug.Log("D");
+            if (Input.GetKey(KeyCode.W))
+            {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + speed * Time.unscaledDeltaTime);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + -(speed * Time.unscaledDeltaTime), rect.anchoredPosition.y);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y + -(speed * Time.unscaledDeltaTime));
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + speed * Time.unscaledDeltaTime, rect.anchoredPosition.y);
+            }
         }
     }
 
     void Shoot()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && targetObj != null)
         {
             shootDelay = 0;
             Debug.Log("shoot");
@@ -69,7 +68,6 @@ public class QTEShooting : MonoBehaviour
                 generator.Generation();
                 Debug.Log("¸ÂÃã");
             }
-
         }
     }
 

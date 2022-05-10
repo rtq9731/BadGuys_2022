@@ -6,11 +6,6 @@ public class ShootingTarget : MonoBehaviour
 {
     float limitTime = 4f;
 
-    private void Start()
-    {
-        
-    }
-
     public void FadeTarget()
     {
         transform.DOScale(0, limitTime).OnComplete(() =>
