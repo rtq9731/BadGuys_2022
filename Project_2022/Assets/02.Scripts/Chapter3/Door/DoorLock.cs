@@ -8,13 +8,17 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     [Header("Values")]
     public float time = 1f;
 
-    [Header("Objects")]
+    [SerializeField]
+    private bool isLock;
+    [SerializeField]
+    private bool isOpen;
+
+    [Header("Components")]
+    public Animator anim;
     public ItemInfo key;
     public DoorLockPuzzle puzzleMgr;
     public GameObject puzzleObj;
 
-    private bool isLock;
-    private bool isOpen;
 
     private void Awake()
     {
@@ -30,7 +34,6 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         }
     }
 
-
     public void Interact(GameObject taker)
     {
         if (isLock)
@@ -39,16 +42,25 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         }
         else
         {
-            if (!isOpen)
-                transform.DOLocalRotate(new Vector3(0, 90, 0), time);
+            if (isOpen)
+            {
+                anim.SetTrigger("IsClose");
+                isOpen = false;
+            }
+                
             else
-                transform.DOLocalRotate(new Vector3(0, 0, 0), time);
+            {
+                anim.SetTrigger("IsOpen");
+                isOpen = true;
+            }
         }
     }
 
     public bool CanInteract()
     {
-        if (Inventory.Instance.MainItem == key || isLock)
+        bool iskey = Inventory.Instance.MainItem != null ? iskey = (Inventory.Instance.MainItem == key) : iskey = false;
+
+        if ( iskey|| !isLock)
         {
             return true;
         }
