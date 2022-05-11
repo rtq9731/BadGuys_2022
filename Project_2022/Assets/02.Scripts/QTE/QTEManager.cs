@@ -20,7 +20,6 @@ public class QTEManager : MonoBehaviour
 
     QTEEvents events;
     QTEGenerator generator;
-    
 
     int QTEIndex = 0;
 
@@ -29,8 +28,6 @@ public class QTEManager : MonoBehaviour
     {
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
-
-        // Invoke("GenerateQTEEvent", 2f);
 
         for (int i = 0; i < timelineTriggers.Length; i++)
         {
@@ -96,13 +93,20 @@ public class QTEManager : MonoBehaviour
 
     public void CheckQTEResult()
     {
-        if(events.QTEKeys[0].pressType == QTEPressType.Roll)
+        switch (events.QTEKeys[0].pressType)
         {
-            CheckRollQTE();
-        }
-        else
-        {
-            CheckSingleQTE();
+            case QTEPressType.Roll:
+                {
+                    CheckRollQTE();
+                }
+                break;
+            case QTEPressType.Single:
+                {
+                    CheckSingleQTE();
+                }
+                break;
+            case QTEPressType.Shoot:
+                break;
         }
 
         keys.Clear();
@@ -116,6 +120,9 @@ public class QTEManager : MonoBehaviour
             Debug.Log("맞았음");
 
             //맞게했을때 행동 
+            //맞았을 때 이펙트
+
+            generator.SuccessQTE();
 
             successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
@@ -125,6 +132,9 @@ public class QTEManager : MonoBehaviour
             generator.FailQTE();
 
             //실패했을때 행동
+            //실패했을때 이펙트
+            generator.FailedQTE();
+
             failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
 
@@ -145,26 +155,31 @@ public class QTEManager : MonoBehaviour
                 {
                     if (e.keyCode == KeyCode.None) return;
 
-                    if (events.QTEKeys[0].pressType == QTEPressType.Roll)
+
+                    switch(events.QTEKeys[0].pressType)
                     {
-                        keys.Add(e.keyCode);
-                        generator.RollBtn();
+                        case QTEPressType.Roll:
+                            {
+                                keys.Add(e.keyCode);
+                                generator.RollBtn();
 
-                        if (keys[0] != keys[keys.Count - 1])
-                            CheckRollQTE();
-                        if (keys[0] != events.QTEKeys[0].QTEKey[0])
-                            CheckRollQTE();
-                        if (keys.Count != rollCount)
-                            return;
+                                if (keys[0] != keys[keys.Count - 1])
+                                    CheckRollQTE();
+                                if (keys[0] != events.QTEKeys[0].QTEKey[0])
+                                    CheckRollQTE();
+                                if (keys.Count != rollCount)
+                                    return;
+                            }
+                            break;
+                        case QTEPressType.Single:
+                            {
+                                keys.Add(e.keyCode);
+                                generator.RollBtn();
+                            }
+                            break;
+                        case QTEPressType.Shoot:
+                            break;
                     }
-                    else
-                    {
-                        keys.Add(e.keyCode);
-                    }
-
-
-                    if(events.QTEKeys[0].pressType != QTEPressType.Shoot)
-                        generator.RollBtn();
 
                     isSpawnQTE = false;
 

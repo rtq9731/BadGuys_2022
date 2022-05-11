@@ -19,7 +19,8 @@ public class ShootingQTEStart : MonoBehaviour
             StartCoroutine(CameraMove());
             UIManager.Instance.OnCutScene();
             playerController.enabled = false;
-            QTEUi.SetActive(true);
+            GetComponent<BoxCollider>().enabled = false;
+            
         }
     }
 
@@ -31,7 +32,7 @@ public class ShootingQTEStart : MonoBehaviour
             yield return null;
         }
 
-
+        QTEUi.SetActive(true);
         manager.GenerateQTEEvent();
     }
 }

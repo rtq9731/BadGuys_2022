@@ -5,15 +5,18 @@ using UnityEngine;
 public class QTEShooting : MonoBehaviour
 {
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject shootingCam;
 
     public GameObject targetObj;
 
     QTEGenerator generator;
     RectTransform rect;
 
-    float speed = 200;
+    float speed = 350f;
 
-    float shootDelay = 1f;
+    int shootIndex = 0;
+
+    bool isShooting = true;
 
     private void Start()
     {
@@ -23,8 +26,6 @@ public class QTEShooting : MonoBehaviour
 
     private void Update()
     {
-        shootDelay += Time.unscaledDeltaTime;
-
         Shoot();
         
         if(crosshair.activeSelf)
@@ -50,26 +51,42 @@ public class QTEShooting : MonoBehaviour
 
     void Shoot()
     {
-        if(Input.GetMouseButtonDown(0) && targetObj != null)
+        if(isShooting)
         {
-            shootDelay = 0;
-            Debug.Log("shoot");
-            RectTransform targetRect = null;
-            targetRect = targetObj.GetComponent<RectTransform>();
-            if(targetRect.anchoredPosition.x - 80  <= rect.anchoredPosition.x &&
-                targetRect.anchoredPosition.x + 80 >= rect.anchoredPosition.x &&
-                targetRect.anchoredPosition.y - 80 <= rect.anchoredPosition.y &&
-                targetRect.anchoredPosition.y + 80 >= rect.anchoredPosition.y)
+            if (Input.GetMouseButtonDown(0) && targetObj != null)
             {
+                Debug.Log("shoot");
+                RectTransform targetRect = null;
+                targetRect = targetObj.GetComponent<RectTransform>();
+                if (targetRect.anchoredPosition.x - 80 <= rect.anchoredPosition.x &&
+                    targetRect.anchoredPosition.x + 80 >= rect.anchoredPosition.x &&
+                    targetRect.anchoredPosition.y - 80 <= rect.anchoredPosition.y &&
+                    targetRect.anchoredPosition.y + 80 >= rect.anchoredPosition.y)
+                {
+                    generator.RollBtn();
 
-                generator.RollBtn();
+                    Debug.Log("맞춤");
+
+                    // 성공 타임라인 들어갈듯 
+                }
+                else
+                {
+                    // 실패 타임라인 들어갈듯 
+                }
+                EndShootingQTE();
                 Destroy(targetObj, 0.1f);
-
-                generator.Generation();
-                Debug.Log("맞춤");
             }
         }
     }
 
-   
+    void EndShootingQTE()
+    {
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+        FindObjectOfType<PlayerController>().enabled = true;
+        crosshair.SetActive(false);
+        shootingCam.SetActive(false);
+
+        Time.timeScale = 1;
+        isShooting = false;
+    }
 }
