@@ -20,7 +20,6 @@ public class QTEManager : MonoBehaviour
 
     QTEEvents events;
     QTEGenerator generator;
-    
 
     int QTEIndex = 0;
 
@@ -29,8 +28,6 @@ public class QTEManager : MonoBehaviour
     {
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
-
-        // Invoke("GenerateQTEEvent", 2f);
 
         for (int i = 0; i < timelineTriggers.Length; i++)
         {
@@ -123,6 +120,9 @@ public class QTEManager : MonoBehaviour
             Debug.Log("맞았음");
 
             //맞게했을때 행동 
+            //맞았을 때 이펙트
+
+            generator.SuccessQTE();
 
             successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
@@ -132,6 +132,9 @@ public class QTEManager : MonoBehaviour
             generator.FailQTE();
 
             //실패했을때 행동
+            //실패했을때 이펙트
+            generator.FailedQTE();
+
             failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
 

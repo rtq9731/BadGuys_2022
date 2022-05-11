@@ -13,7 +13,11 @@ public class QTEGenerator : MonoBehaviour
     [SerializeField] GameObject QTEEventUISingle;
     [SerializeField] GameObject QTEEventUIShoot;
 
+
     [SerializeField] GameObject QTEFailedImage;
+
+    [SerializeField] Image successEffect;
+    [SerializeField] Image failedEffect;
 
     RectTransform uiPosition;
 
@@ -104,10 +108,10 @@ public class QTEGenerator : MonoBehaviour
                 break;
             case QTEPressType.Shoot:
                 {
-                    GameObject qte = Instantiate(QTEEventUIShoot);
-                    SetQTE(qte, QTEPressType.Shoot);
+                    QTEEventUIShoot.SetActive(true);
+                    SetQTE(QTEEventUIShoot, QTEPressType.Shoot);
                     isOnQTE = true;
-                    curQTEObj = qte;
+                    curQTEObj = QTEEventUIShoot;
                     shooting.targetObj = curQTEObj;
                 }
                 break;
@@ -143,20 +147,30 @@ public class QTEGenerator : MonoBehaviour
                 break;
             case QTEPressType.Shoot:
                 {
-                    int ranX = Random.Range(-777, 777);
-                    int ranY = Random.Range(-356, 357);
-
-                    //uiPosition.anchoredPosition = new Vector2(ranX, ranY);
-
                     qteObj.transform.DOScale(1f, 0.2f).OnComplete(() =>
                     {
                         qteObj.GetComponent<ShootingTarget>().FadeTarget();
                     });
-
-                    qteObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(ranX, ranY);
                 }
                 break;
         }
+    }
+
+
+    public void FailedQTE()
+    {
+        failedEffect.DOFade(0.4f, 0f).OnComplete(() =>
+        {
+            failedEffect.DOFade(0, 0.2f);
+        });
+    }
+
+    public void SuccessQTE()
+    {
+        successEffect.DOFade(0.4f, 0f).OnComplete(() =>
+        {
+            successEffect.DOFade(0, 0.2f);
+        });
     }
 
 

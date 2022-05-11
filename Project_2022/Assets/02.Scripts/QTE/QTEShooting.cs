@@ -12,9 +12,7 @@ public class QTEShooting : MonoBehaviour
     QTEGenerator generator;
     RectTransform rect;
 
-    float speed = 200;
-
-    float shootDelay = 1f;
+    float speed = 350f;
 
     int shootIndex = 0;
 
@@ -28,8 +26,6 @@ public class QTEShooting : MonoBehaviour
 
     private void Update()
     {
-        shootDelay += Time.unscaledDeltaTime;
-
         Shoot();
         
         if(crosshair.activeSelf)
@@ -59,7 +55,6 @@ public class QTEShooting : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && targetObj != null)
             {
-                shootDelay = 0;
                 Debug.Log("shoot");
                 RectTransform targetRect = null;
                 targetRect = targetObj.GetComponent<RectTransform>();
@@ -68,25 +63,18 @@ public class QTEShooting : MonoBehaviour
                     targetRect.anchoredPosition.y - 80 <= rect.anchoredPosition.y &&
                     targetRect.anchoredPosition.y + 80 >= rect.anchoredPosition.y)
                 {
-                    if (shootIndex > 3)
-                    {
-                        EndShootingQTE(); 
-                        generator.RollBtn();
-                        Destroy(targetObj, 0.1f);
-                        return;
-                    }
-
-
                     generator.RollBtn();
-                    Destroy(targetObj, 0.1f);
 
-                    generator.Generation();
                     Debug.Log("맞춤");
 
-                    shootIndex++;
-
-                    Debug.Log(shootIndex);
+                    // 성공 타임라인 들어갈듯 
                 }
+                else
+                {
+                    // 실패 타임라인 들어갈듯 
+                }
+                EndShootingQTE();
+                Destroy(targetObj, 0.1f);
             }
         }
     }
