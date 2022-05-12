@@ -19,10 +19,13 @@ public class QTEGenerator : MonoBehaviour
     [SerializeField] Image successEffect;
     [SerializeField] Image failedEffect;
 
+    [SerializeField] Sprite[] QTESprites;
+
     RectTransform uiPosition;
 
     Image fillImage;
-    Text buttonText;
+    Image buttonImage;
+
 
     QTEEvents events;
     QTEShooting shooting;
@@ -33,6 +36,8 @@ public class QTEGenerator : MonoBehaviour
     public bool isOnQTE = false;
 
     public GameObject curQTEObj;
+
+    int qteUiIndex = 0;
 
     private void Start()
     {
@@ -76,10 +81,10 @@ public class QTEGenerator : MonoBehaviour
         GameObject obj = Instantiate(QTEFailedImage);
 
         //obj.GetComponent<RectTransform>().anchoredPosition = uiPosition.anchoredPosition;
-        buttonText = obj.transform.GetComponentInChildren<Text>();
+        
         uiPosition = obj.GetComponent<RectTransform>();
 
-        buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+        
     }
 
     public void Generation()
@@ -126,20 +131,25 @@ public class QTEGenerator : MonoBehaviour
             case QTEPressType.Single:
                 {
                     fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
-                    buttonText = qteObj.transform.GetComponentInChildren<Text>();
+                    buttonImage = qteObj.transform.GetChild(2).GetChild(0).GetComponent<Image>();
+                    
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
-                    buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+                    buttonImage.sprite = QTESprites[qteUiIndex];
+                    qteUiIndex++;
 
                     uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
                 break;
             case QTEPressType.Roll:
                 {
-                    buttonText = qteObj.transform.GetComponentInChildren<Text>();
+                    fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
+                    buttonImage = qteObj.transform.GetChild(1).GetChild(0).GetComponent<Image>();
+
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
-                    buttonText.text = events.QTEKeys[0].QTEKey[0].ToString();
+                    buttonImage.sprite = QTESprites[qteUiIndex];
+                    qteUiIndex++;
 
                     uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
