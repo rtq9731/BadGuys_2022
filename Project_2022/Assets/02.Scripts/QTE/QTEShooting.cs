@@ -14,14 +14,15 @@ public class QTEShooting : MonoBehaviour
 
     float speed = 350f;
 
-    int shootIndex = 0;
-
     bool isShooting = true;
+
+    QTEEvents events;
 
     private void Start()
     {
         rect = crosshair.GetComponent<RectTransform>();
         generator = FindObjectOfType<QTEGenerator>();
+        events = FindObjectOfType<QTEEvents>();
     }
 
     private void Update()
@@ -74,17 +75,20 @@ public class QTEShooting : MonoBehaviour
                     // 실패 타임라인 들어갈듯 
                 }
                 EndShootingQTE();
+                
                 Destroy(targetObj, 0.1f);
             }
         }
     }
 
-    void EndShootingQTE()
+    public void EndShootingQTE()
     {
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         FindObjectOfType<PlayerController>().enabled = true;
         crosshair.SetActive(false);
         shootingCam.SetActive(false);
+
+        events.QTEKeys.RemoveAt(0);
 
         Time.timeScale = 1;
         isShooting = false;

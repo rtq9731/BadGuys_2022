@@ -20,8 +20,13 @@ public class ShootingQTEStart : MonoBehaviour
             UIManager.Instance.OnCutScene();
             playerController.enabled = false;
             GetComponent<BoxCollider>().enabled = false;
-            
         }
+    }
+
+    void ZoomInShootingCam()
+    {
+        QTECamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView = 
+            Mathf.Lerp(QTECamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView, 10, 3);
     }
 
     IEnumerator CameraMove()
@@ -32,6 +37,7 @@ public class ShootingQTEStart : MonoBehaviour
             yield return null;
         }
 
+        ZoomInShootingCam();
         QTEUi.SetActive(true);
         manager.GenerateQTEEvent();
     }

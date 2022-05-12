@@ -30,7 +30,7 @@ public class QTEGenerator : MonoBehaviour
     float qteTime = 3f;
     float qteGauge = 3f;
 
-    bool isOnQTE = false;
+    public bool isOnQTE = false;
 
     public GameObject curQTEObj;
 
@@ -44,7 +44,6 @@ public class QTEGenerator : MonoBehaviour
     {
         if (isOnQTE)
         {
-
             switch(events.QTEKeys[0].pressType)
             {
                 case QTEPressType.Single:

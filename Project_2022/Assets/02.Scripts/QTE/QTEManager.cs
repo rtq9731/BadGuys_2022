@@ -106,7 +106,9 @@ public class QTEManager : MonoBehaviour
                 }
                 break;
             case QTEPressType.Shoot:
-                break;
+                keys.Clear();
+                generator.isOnQTE = false;
+                return;
         }
 
         keys.Clear();

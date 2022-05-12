@@ -4,13 +4,13 @@ using UnityEngine;
 using DG.Tweening;
 public class ShootingTarget : MonoBehaviour
 {
-    float limitTime = 4f;
-
     public void FadeTarget()
     {
-        transform.DOScale(0, limitTime).OnComplete(() =>
+        transform.DOScale(0, 3f).SetUpdate(true).OnComplete(() =>
         {
             Debug.Log("½ÇÆÐ!!");
+
+            FindObjectOfType<QTEShooting>().EndShootingQTE();
             Destroy(this.gameObject);
         });
     }
