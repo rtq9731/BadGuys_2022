@@ -20,6 +20,7 @@ public class Chapter2FourthCutSceneTrigger : CollisionTimelineTrigger
         ai.gameObject.SetActive(true);
         ai.SetDestination(6, () =>
         {
+            ai.SetPos(7);
             ai.gameObject.SetActive(false);
         });
     }
