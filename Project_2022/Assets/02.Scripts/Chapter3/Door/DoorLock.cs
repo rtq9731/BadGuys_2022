@@ -21,6 +21,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     public LockPickPuzzle puzzleMgr;
     public Collider handle;
     public Collider door;
+    public GameObject itemSlot;
 
 
     private void Awake()
@@ -28,6 +29,11 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         isLock = true;
         isOpen = false;
         isTest = false;
+    }
+
+    private void Start()
+    {
+        puzzleMgr.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -43,6 +49,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         if (isLock)
         {
             isPuzzle = true;
+            puzzleMgr.gameObject.SetActive(true);
             puzzleMgr.PuzzleOn();
             handle.enabled = false;
             door.enabled = false;
@@ -63,9 +70,24 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         }
     }
 
+    private bool CheckMainitem()
+    {
+        if (Inventory.Instance.MainItem == key)
+        {
+            Slot mainSlot = itemSlot.transform.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>();
+
+            if (mainSlot.itemCount >= 2)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool CanInteract()
     {
-        bool iskey = Inventory.Instance.MainItem != null ? iskey = (Inventory.Instance.MainItem == key) : iskey = false;
+        bool iskey = Inventory.Instance.MainItem != null ? iskey = CheckMainitem() : iskey = false;
 
         if(isPuzzle)
         {
