@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour
     private CreatSlot creatSlot;
     private CreateRenderTextureCam createRender;
     private ShowInventoryUI showInventory;
+    private TutorialEmphasis tutorialEmphasis;
 
     public ItemInfo MainItem;
     public int mainItemIndex;
@@ -85,6 +86,8 @@ public class Inventory : MonoBehaviour
         if(isInteract)
         {
             isInteract = !isInteract;
+
+            
 
             for (int i = 0; i < slotParents.transform.childCount; i++)
             {
