@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chapter2FivethCutSceneTrigger : MonoBehaviour
+public class Chapter2FivethCutSceneTrigger : CollisionTimelineTrigger
 {
     // Start is called before the first frame update
     void Start()
