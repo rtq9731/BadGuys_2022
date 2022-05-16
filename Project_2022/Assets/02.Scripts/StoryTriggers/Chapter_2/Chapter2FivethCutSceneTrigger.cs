@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Chapter2FivethCutSceneTrigger : CollisionTimelineTrigger
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStart()
     {
-        
+        base.OnStart();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnComplete()
     {
-        
+        base.OnComplete();
+        ChaseKidnapperAI ai = FindObjectOfType<ChaseKidnapperAI>(true);
+        ai.SetDestination(8, () =>
+        {
+            ai.SetDestination(9, () => 
+            {
+                ai.gameObject.SetActive(false);
+            });
+            
+        });
     }
 }
