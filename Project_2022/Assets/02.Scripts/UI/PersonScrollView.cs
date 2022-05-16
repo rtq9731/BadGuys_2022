@@ -8,22 +8,16 @@ public class PersonScrollView : MonoBehaviour
 {
     [SerializeField] List<PatientInfoPanel> panels = new List<PatientInfoPanel>();
     [SerializeField] PatientInfoPanel panelPrefab = null;
+    [SerializeField] RectTransform numberBtnPrefab = null;
 
-    [SerializeField] Button btnLeft, btnRight, btnSelect;
+    [SerializeField] List<Button> numberBtns = new List<Button>();
+    [SerializeField] Button btnSelect = null;
 
     int curPanelNum = 0;
 
     private void Awake()
     {
-        btnLeft.onClick.AddListener(OnClickLeft);
-        btnRight.onClick.AddListener(OnClickRight);
         btnSelect.onClick.AddListener(OnClickSelect);
-    }
-
-    private void OnEnable()
-    {
-        panels.ForEach(item => item.transform.DOComplete());
-        // RefreshPanels();
     }
 
     public void MakePatientInfoPanel(PersonInfoList data)
@@ -31,6 +25,7 @@ public class PersonScrollView : MonoBehaviour
         panels.ForEach(item => Destroy(item.gameObject));
         panels.Clear();
 
+        curPanelNum = 0;
         foreach (var item in data.patientInfos)
         {
             panels.Add(GetNewPanel(item));
@@ -41,9 +36,7 @@ public class PersonScrollView : MonoBehaviour
 
     private PatientInfoPanel GetNewPanel(PersonInfo data)
     {
-        PatientInfoPanel result = null;
-        
-        result = Instantiate<PatientInfoPanel>(panelPrefab, transform);
+        PatientInfoPanel result = Instantiate<PatientInfoPanel>(panelPrefab, transform);
         result.InitPatientInfoPanel(data);
 
         return result;
@@ -77,8 +70,6 @@ public class PersonScrollView : MonoBehaviour
     {
         panels[curPanelNum].OnPatientSelect();
 
-        btnLeft.interactable = false;
-        btnRight.interactable = false;
         btnSelect.interactable = false;
     }
 
@@ -87,6 +78,12 @@ public class PersonScrollView : MonoBehaviour
         btnSelect.interactable = panels[curPanelNum].canStart;
         int minNum = 0;
         int maxNum = 0;
+
+        for (int i = 0; i < numberBtns.Count; i++)
+        {
+
+        }
+
         for (int i = 0; i < panels.Count; i++)
         {
             int posNumber = i - curPanelNum;
@@ -102,9 +99,7 @@ public class PersonScrollView : MonoBehaviour
                 panels[i].transform.SetAsFirstSibling();
             }
 
-            int absPosNumber = Mathf.Abs(posNumber); // Y 위치를 대칭으로 맞추려면 절댓값이 필요함
-
-            panels[i].GetComponent<RectTransform>().DOAnchorPos(new Vector3(375 * posNumber, 64 * absPosNumber - 1, 0), 0.5f);
+            panels[i].GetComponent<RectTransform>().DOAnchorPos(new Vector3(175 * posNumber, 600 * posNumber, 0), 0.5f);
 
             if (i == curPanelNum)
             {
