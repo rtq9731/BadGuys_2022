@@ -12,25 +12,29 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     private bool isLock;
     [SerializeField]
     private bool isOpen;
+    private bool isPuzzle;
+    private bool isTest;
 
     [Header("Components")]
     public Animator anim;
     public ItemInfo key;
-    public DoorLockPuzzle puzzleMgr;
-    public GameObject puzzleObj;
+    public LockPickPuzzle puzzleMgr;
+    public Collider handle;
+    public Collider door;
 
 
     private void Awake()
     {
         isLock = true;
         isOpen = false;
+        isTest = false;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            isLock = false;
+            isTest = true;
         }
     }
 
@@ -38,7 +42,10 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     {
         if (isLock)
         {
-
+            isPuzzle = true;
+            puzzleMgr.PuzzleOn();
+            handle.enabled = false;
+            door.enabled = false;
         }
         else
         {
@@ -60,7 +67,12 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     {
         bool iskey = Inventory.Instance.MainItem != null ? iskey = (Inventory.Instance.MainItem == key) : iskey = false;
 
-        if ( iskey|| !isLock)
+        if(isPuzzle)
+        {
+            return false;
+        }
+
+        if ( iskey || !isLock || isTest)
         {
             return true;
         }
@@ -68,5 +80,13 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         {
             return false;
         }
+    }
+
+    public void PuzzleCLear()
+    {
+        isPuzzle = false;
+        isLock = false;
+        handle.enabled = true;
+        door.enabled = true;
     }
 }

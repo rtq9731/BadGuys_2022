@@ -15,7 +15,6 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
     [Header("Component")]
     public GameObject peekCam;
     public GameObject peekUI;
-    public Collider doorCol;
     public Image fadeImg;
 
     private void Awake()
@@ -45,6 +44,8 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         {
             isPeek = true;
             isMoving = true;
+            UIManager.Instance.OnCutScene();
+            UIManager.Instance.OnPuzzleUI();
             StartCoroutine(Fading());
         }
     }
@@ -62,12 +63,6 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         float value = 0;
         float a = 0;
         Color col = fadeImg.color;
-
-        if (isPeek)
-        {
-            UIManager.Instance.OnCutScene();
-            UIManager.Instance.OnPuzzleUI();
-        }
 
         while (isOver == false)
         {
