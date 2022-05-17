@@ -96,7 +96,7 @@ public class LoadingSceneManager : MonoBehaviour
 
             if (timer >= loadingTime)
             {
-                SceneManager.LoadScene("MainStage_Stage" + _sceneColor, LoadSceneMode.Additive);
+                SceneManager.LoadScene("Chapter_1_Stage" + _sceneColor, LoadSceneMode.Additive);
                 async.allowSceneActivation = true;
                 yield break;
             }

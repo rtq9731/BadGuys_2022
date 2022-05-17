@@ -12,7 +12,8 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
     [SerializeField] Image blindImage = null;
 
     [SerializeField] GameObject[] mainPictures;
-    [SerializeField] GameObject mainPicture;
+
+    [SerializeField] GameObject vcamCutScene;
 
     [SerializeField] Outline outline = null;
 
@@ -47,23 +48,45 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
         }
     }
 
+    private void StartCutScene(int pictureIdx)
+    {
+        UIManager.Instance.OnCutScene();
+        vcamCutScene.SetActive(true);
+        for (int i = 0; i < pictureIdx; i++)
+        {
+            mainPictures[i].gameObject.SetActive(true);
+            mainPictures[i].GetComponent<SpriteRenderer>().material.SetFloat("_DissolveAmount", 1f);
+        }
+
+        mainPictures[pictureIdx].gameObject.SetActive(true);
+        mainPictures[pictureIdx].GetComponent<SpriteRenderer>().material.DOFloat(1, "_DissolveAmount", 3f).OnComplete(() =>
+        {
+            vcamCutScene.SetActive(false);
+            UIManager.Instance.OnCutSceneOver();
+        });
+    }
+
     void Start()
     {
+        StartCoroutine(StartCheckCorutine());
+    }
 
-        Debug.Log(PlayerPrefs.GetString("MainStage_StageB"));
+    private IEnumerator StartCheckCorutine()
+    {
+        yield return new WaitForSeconds(0.1f);
 
-        if (PlayerPrefs.GetString("MainStage_StageR") == "Clear")
+        if (PlayerPrefs.GetString("Chapter_1_StageB") == "Clear")
         {
-            mainPictures[0].gameObject.SetActive(true);
-        }
-        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear")
-        {
-            mainPictures[1].gameObject.SetActive(true);
-        }
-        if (PlayerPrefs.GetString("MainStage_StageB") == "Clear") 
-        {
-            mainPicture.SetActive(true);
+            StartCutScene(2);
             isAllClear = true;
+        }
+        else if (PlayerPrefs.GetString("Chapter_1_StageG") == "Clear")
+        {
+            StartCutScene(1);
+        }
+        else if (PlayerPrefs.GetString("Chapter_1_StageR") == "Clear")
+        {
+            StartCutScene(0);
         }
     }
 }

@@ -44,13 +44,13 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
             enabled = true;
             mesh.material = material;
         }
-        if (PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "G")
+        if (PlayerPrefs.GetString("Chapter_1_StageR") == "Clear" && sceneColor == "G")
         {
             isClearStage = true;
             enabled = true;
             mesh.material = material;
         }
-        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "B")
+        if (PlayerPrefs.GetString("Chapter_1_StageG") == "Clear" && sceneColor == "B")
         {
             isClearStage = true;
             enabled = true;
@@ -125,19 +125,19 @@ public class RGBPictureObj : MonoBehaviour, IInteractableItem, IPlayerMouseEnter
     void CheckStageClear()
     {
 
-        if(PlayerPrefs.GetString("MainStage_StageR") == "Clear" && sceneColor == "R")
+        if(PlayerPrefs.GetString("Chapter_1_StageR") == "Clear" && sceneColor == "R")
         {
             enabled = false;
             outline.enabled = false;
             isClearStage = false;
         }
-        if (PlayerPrefs.GetString("MainStage_StageG") == "Clear" && sceneColor == "G")
+        if (PlayerPrefs.GetString("Chapter_1_StageG") == "Clear" && sceneColor == "G")
         {
             enabled = false;
             outline.enabled = false;
             isClearStage = false;
         }
-        if (PlayerPrefs.GetString("MainStage_StageB") == "Clear" && sceneColor == "B")
+        if (PlayerPrefs.GetString("Chapter_1_StageB") == "Clear" && sceneColor == "B")
         {
             enabled = false;
             outline.enabled = false;

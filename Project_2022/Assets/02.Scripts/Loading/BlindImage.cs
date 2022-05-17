@@ -24,7 +24,7 @@ public class BlindImage : MonoBehaviour
     {
         if(loadingType == LoadingType.Stage)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainStage_Stage" + LoadingSceneManager.sceneColor));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Chapter_1_Stage" + LoadingSceneManager.sceneColor));
             blindImageBlack.gameObject.SetActive(false);
             blindImageWhite.DOFade(0f, 1f).OnComplete(() =>
             {
@@ -33,7 +33,7 @@ public class BlindImage : MonoBehaviour
         }
         else if(loadingType == LoadingType.Lobby)
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainStage_stage1"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Chapter_1"));
             blindImageBlack.gameObject.SetActive(false);
             blindImageWhite.DOFade(0f, 1f).OnComplete(() =>
             {

@@ -60,7 +60,7 @@ public class LoadingTrigger : MonoBehaviour
 
             if (timer >= loadingTime)
             {
-                SceneManager.LoadScene("MainStage_stage1", LoadSceneMode.Additive);
+                SceneManager.LoadScene("Chapter_1", LoadSceneMode.Additive);
                 async.allowSceneActivation = true;
                 yield break;
             }
