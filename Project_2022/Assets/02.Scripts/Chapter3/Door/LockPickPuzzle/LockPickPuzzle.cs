@@ -78,10 +78,6 @@ public class LockPickPuzzle : MonoBehaviour
 
         float result = degz - answerDeg;
 
-        Debug.LogWarning(Mathf.Abs(result));
-        Debug.LogWarning(degz);
-        Debug.LogWarning(answerDeg);
-
         if (Mathf.Abs(result) <= 5)
         {
             return 180;
