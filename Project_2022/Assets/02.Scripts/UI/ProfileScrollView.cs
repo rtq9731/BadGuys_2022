@@ -26,6 +26,8 @@ public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpH
     float inputCool = 0.5f;
     float lastInputCool = 0f;
 
+    bool isTipNeed = false;
+
     private void Awake()
     {
         btnSelect.onClick.AddListener(OnClickSelect);
@@ -42,6 +44,7 @@ public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpH
     {
         infoPanel.InitPatientInfoPanel(info.patientInfos[0]);
         ResizeBtns(0);
+        isTipNeed = true;
     }
 
     private void Update()
@@ -76,13 +79,25 @@ public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     private void OnClickNumberBtn(int idx)
     {
-        infoPanel.FadeInOut(0.3f, () => infoPanel.InitPatientInfoPanel(info.patientInfos[idx]));
+        int lastPanelNum = curPanelNum;
         curPanelNum = idx;
+
+        if (lastPanelNum == curPanelNum)
+            return;
+        infoPanel.FadeInOut(0.3f, () => infoPanel.InitPatientInfoPanel(info.patientInfos[idx]));
+
+
         ResizeBtns(idx);
     }
 
     private void ResizeBtns(int idx)
     {
+        if(isTipNeed)
+        {
+            Destroy(transform.parent.GetComponent<UIInteractHelpPanelCaller>());
+            isTipNeed = false;
+        }
+
         for (int i = 0; i < numberBtns.Count; i++)
         {
             if (i != idx)
