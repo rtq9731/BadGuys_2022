@@ -84,8 +84,8 @@ public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
         if (lastPanelNum == curPanelNum)
             return;
-        infoPanel.FadeInOut(0.3f, () => infoPanel.InitPatientInfoPanel(info.patientInfos[idx]));
 
+        infoPanel.FadeInOut(0.3f, () => infoPanel.InitPatientInfoPanel(info.patientInfos[idx]));
 
         ResizeBtns(idx);
     }

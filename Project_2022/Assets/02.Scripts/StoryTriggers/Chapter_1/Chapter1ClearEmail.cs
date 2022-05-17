@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Triggers.Title
+namespace Triggers.Chapter1
 {
-    public class TutorialClearEmail : EmailTrigger
+    public class Chapter1ClearEmail : EmailTrigger
     {
-        private void OnDestroy()
+        public override void OnTriggered()
         {
             if (GameManager.Instance.jsonData.emails.Find(item => item.id == data.id) == null)
             {
-                OnTriggered();
+                base.OnTriggered();
             }
         }
     }

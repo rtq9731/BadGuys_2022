@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Triggers;
 
 public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 {
@@ -77,6 +78,11 @@ public class LobbyMainPicture : MonoBehaviour, IInteractableItem
 
         if (PlayerPrefs.GetString("Chapter_1_StageB") == "Clear")
         {
+            foreach (var item in FindObjectsOfType<EmailTrigger>())
+            {
+                item.OnTriggered();
+            }
+           
             StartCutScene(2);
             isAllClear = true;
         }
