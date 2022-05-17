@@ -12,6 +12,8 @@ public class ChaseKidnapperAI : MonoBehaviour
 
     Queue<Action> callBackQueue = new Queue<Action>();
 
+    Transform player = null;
+
     int runningHash = 0;
     bool isArrived = false;
 
@@ -19,6 +21,7 @@ public class ChaseKidnapperAI : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         ai = GetComponent<NavMeshAgent>();
+        player = FindObjectOfType<PlayerController>(true).transform;
 
         runningHash = Animator.StringToHash("isRunning");
 

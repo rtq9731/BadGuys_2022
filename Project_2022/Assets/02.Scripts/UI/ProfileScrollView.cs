@@ -53,34 +53,28 @@ public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpH
         
         if(lastInputCool + inputCool <= Time.time)
         {
-            int lastPanelNum = curPanelNum;
             if (wheelInput > 0)
             {
-                curPanelNum--;
                 curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
 
-                if (lastPanelNum == curPanelNum)
-                    return;
-
-                OnClickNumberBtn(curPanelNum);
+                OnClickNumberBtn(curPanelNum -1);
             }
             else if (wheelInput < 0)
             {
-                curPanelNum++;
                 curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
 
-                if (lastPanelNum == curPanelNum)
-                    return;
-
-                OnClickNumberBtn(curPanelNum);
+                OnClickNumberBtn(curPanelNum + 1);
             }
         }
     }
 
     private void OnClickNumberBtn(int idx)
     {
+
         int lastPanelNum = curPanelNum;
+
         curPanelNum = idx;
+        curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
 
         if (lastPanelNum == curPanelNum)
             return;
@@ -134,23 +128,11 @@ public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
         if (dragStartPos.y - dragEndPos.y > 0)
         {
-            curPanelNum--;
-            curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
-
-            if (lastPanelNum == curPanelNum)
-                return;
-
-            OnClickNumberBtn(curPanelNum);
+            OnClickNumberBtn(curPanelNum - 1);
         }
         else if (dragStartPos.y - dragEndPos.y < 0)
         {
-            curPanelNum++;
-            curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
-
-            if (lastPanelNum == curPanelNum)
-                return;
-
-            OnClickNumberBtn(curPanelNum);
+            OnClickNumberBtn(curPanelNum + 1);
         }
     }
 }
