@@ -17,17 +17,21 @@ public class LockPickPuzzle : MonoBehaviour
     public GameObject puzzleCam;
     public GameObject puzzleObj;
 
+    public GameObject puzzleUI;
+
     [SerializeField]
     private int answerDeg;
     public float tryDur;
     public float resetDur;
     private bool isClear;
     private bool isReset;
+    private bool isUpDis;
 
     private void Awake()
     {
         puzzleCam.SetActive(false);
         puzzleObj.SetActive(false);
+        puzzleUI.SetActive(false);
     }
 
     public void PuzzleOn()
@@ -42,11 +46,15 @@ public class LockPickPuzzle : MonoBehaviour
         puzzleObj.SetActive(true);
         AnswerSetting();
         upsidePin.PuzzleStart();
+        isUpDis = true;
+        StartCoroutine(UIMoving());
     }
 
     public void PuzzleOver()
     {
         isClear = true;
+        isUpDis = false;
+        StartCoroutine(UIMoving());
         upsidePin.PuzzleOver();
         puzzleCam.SetActive(false);
         puzzleObj.SetActive(false);
@@ -97,7 +105,6 @@ public class LockPickPuzzle : MonoBehaviour
     {
         if (!isClear)
         {
-            // 시작하자 마자 끝남
             if (Input.GetKey(KeyCode.E) && !isReset)
             {
                 float z = keyhole.transform.eulerAngles.z + (Time.deltaTime / tryDur * 90);
@@ -130,5 +137,26 @@ public class LockPickPuzzle : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator UIMoving()
+    {
+        Vector3 startVector = puzzleUI.transform.localPosition + new Vector3(0, -400, 0);
+        Vector3 DesVector = puzzleUI.transform.localPosition;
+
+        if (isUpDis)
+        {
+            puzzleUI.transform.localPosition = startVector;
+            puzzleUI.SetActive(true);
+            puzzleUI.transform.DOLocalMove(DesVector, 1f);
+        }
+        else
+        {
+            puzzleUI.transform.DOLocalMove(startVector, 1f);
+            yield return new WaitForSeconds(1f);
+            puzzleUI.SetActive(false);
+        }
+
+        yield return null;
     }
 }

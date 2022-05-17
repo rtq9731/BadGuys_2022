@@ -14,7 +14,6 @@ public class IronDrawer : MonoBehaviour, IInteractableItem
     {
         isOpen = false;
         myOriPos = transform.localPosition;
-        Debug.Log(myOriPos);
     }
 
     private bool isDoTween()
@@ -30,7 +29,6 @@ public class IronDrawer : MonoBehaviour, IInteractableItem
             {
                 isOpen = false;
                 transform.DOLocalMove(myOriPos, 1f);
-                Debug.Log(myOriPos);
             }
             else
             {
