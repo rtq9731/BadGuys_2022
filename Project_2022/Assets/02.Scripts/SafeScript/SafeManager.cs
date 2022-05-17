@@ -22,6 +22,8 @@ public class SafeManager : MonoBehaviour
     [SerializeField]
     public AudioClip clearSound;
 
+    private int wrongCount = 0;
+
     private void Awake()
     {
         audio = GetComponent<AudioSource>();
@@ -53,6 +55,11 @@ public class SafeManager : MonoBehaviour
 
         audio.clip = wrongSound;
         audio.Play();
+
+        if (wrongCount >= 2)
+            FindObjectOfType<GuidePanel>().OnGuide();
+
+        wrongCount++;
 
         for (int i = 0; i < 5; i++)
         {

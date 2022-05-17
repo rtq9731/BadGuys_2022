@@ -90,10 +90,14 @@ public class PlayerMouseInput : MonoBehaviour
             if (curItem != null)
             {
                 _onItemOverMouse(curItem);
-                if(!isFirstInterect)
+
+                if(FindObjectOfType<GuidePanel>()!=null)
                 {
-                    FindObjectOfType<GuidePanel>().OnGuide();
-                    isFirstInterect = true;
+                    if (!isFirstInterect)
+                    {
+                        FindObjectOfType<GuidePanel>().OnGuide();
+                        isFirstInterect = true;
+                    }
                 }
             }
             else if (hitInfo.transform.GetComponent<IInteractableItem>() != null)
