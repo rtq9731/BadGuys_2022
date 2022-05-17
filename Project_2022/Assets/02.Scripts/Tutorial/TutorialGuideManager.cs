@@ -21,7 +21,7 @@ public class TutorialGuideManager : MonoBehaviour
     {
         if(IsGetAllCarWithoutRed() && !isAllItem)
         {
-            guidePanel.OnGuide();
+            guidePanel.OnGuide(1);
             Debug.Log("아이템 빨간자동차 빼고 다 먹었음");
             isAllItem = true;
         }

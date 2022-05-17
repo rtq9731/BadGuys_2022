@@ -95,7 +95,7 @@ public class PlayerMouseInput : MonoBehaviour
                 {
                     if (!isFirstInterect)
                     {
-                        FindObjectOfType<GuidePanel>().OnGuide();
+                        FindObjectOfType<GuidePanel>().OnGuide(0);
                         isFirstInterect = true;
                     }
                 }

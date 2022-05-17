@@ -38,7 +38,7 @@ public class GuidePanel : MonoBehaviour
         }
     }
 
-    public void OnGuide()
+    public void OnGuide(int idx)
     {
         if(!isOnPanel)
         {
@@ -53,9 +53,9 @@ public class GuidePanel : MonoBehaviour
             falseImage.gameObject.SetActive(true);
             falseImage.DOFade(0, 0.5f).SetLoops(-1, LoopType.Yoyo);
 
-            guideDetail[detailIdx].SetActive(true);
+            guideDetail[idx].SetActive(true);
 
-            detailIdx++;
+            detailIdx = idx;
         }
     }
 
@@ -63,7 +63,7 @@ public class GuidePanel : MonoBehaviour
     {
         isOnPanel = false;
         falseImage.gameObject.SetActive(false);
-        guideDetail[detailIdx-1].SetActive(false);
+        guideDetail[detailIdx].SetActive(false);
         guidePanel.transform.DOScale(0f, 0.2f).OnComplete(() =>
         {
             guidePanel.SetActive(false);

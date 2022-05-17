@@ -57,7 +57,7 @@ public class SafeManager : MonoBehaviour
         audio.Play();
 
         if (wrongCount >= 2)
-            FindObjectOfType<GuidePanel>().OnGuide();
+            FindObjectOfType<GuidePanel>().OnGuide(2);
 
         wrongCount++;
 
