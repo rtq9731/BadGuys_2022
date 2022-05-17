@@ -33,6 +33,8 @@ public class SafeManager : MonoBehaviour
     {
         Debug.LogWarning("금고 클리어");
 
+        FindObjectOfType<TutorialEmphasis>().idx++;
+        FindObjectOfType<TutorialEmphasis>().circle.isChangeObj = true;
         audio.clip = clearSound;
         audio.Play();
 

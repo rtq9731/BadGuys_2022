@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TutorialEmphasis : MonoBehaviour
 {
-    [SerializeField] EmphasizeCircle circle;
+    [SerializeField] public EmphasizeCircle circle;
 
     [SerializeField] List<GameObject> emphasisObjs = new List<GameObject>();
     [SerializeField] List<Vector3> objsPosition = new List<Vector3>();
@@ -29,9 +29,9 @@ public class TutorialEmphasis : MonoBehaviour
         {
             if (UIManager.Instance.isOnCutScene)
             {
-                circle.EmphasizeOff();
-                Debug.Log("¿ø ²¨Áü");
-                break;
+                //circle.EmphasizeOff();
+                //Debug.Log("¿ø ²¨Áü");
+                //break;
             }
 
             posX = emphasisObjs[idx].transform.position.x;
@@ -41,6 +41,8 @@ public class TutorialEmphasis : MonoBehaviour
             {
                 idx++;
 
+                circle.isChangeObj = true;
+
                 if (idx >= emphasisObjs.Count)
                     break;
             }
@@ -48,7 +50,6 @@ public class TutorialEmphasis : MonoBehaviour
             if (!circle.isEmphasize)
             {
                 circle.EmphasizeOn(emphasisObjs[idx]);
-                Debug.Log("asd");
             }
 
             yield return null;

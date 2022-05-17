@@ -13,7 +13,6 @@ public class GuidePanelManager : MonoBehaviour
     void Start()
     {
         guide = GetComponent<GuidePanel>();
-        SetText();
     }
 
     public void ClearGuide()
@@ -21,10 +20,7 @@ public class GuidePanelManager : MonoBehaviour
         guideIndex++;
     }
 
-    public void SetText()
-    {
-        guide.guideText.text = guides[guideIndex].guideStr;
-    }
+    
 
     [System.Serializable]
     public class Guides

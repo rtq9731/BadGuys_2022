@@ -18,6 +18,7 @@ public class EmphasizeCircle : MonoBehaviour
     public GameObject targetObj;
     public bool isEmphasize;
 
+    public bool isChangeObj = false;
     private void Awake()
     {
         ColorOff();
@@ -77,9 +78,10 @@ public class EmphasizeCircle : MonoBehaviour
 
         while (isEmphasize)
         {
-            if (targetObj.activeSelf == false || targetObj == null)
+            if (targetObj.activeSelf == false || targetObj == null || isChangeObj == true)
             {
                 EmphasizeOff();
+                isChangeObj = false;
                 break;
             }
                

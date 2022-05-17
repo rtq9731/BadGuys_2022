@@ -14,6 +14,7 @@ public class PlayerMouseInput : MonoBehaviour
     Inventory _inventory = null;
 
     public bool isRayToMousePos = false;
+    bool isFirstInterect = false;
 
     Transform _curTouchObj = null;
 
@@ -89,6 +90,11 @@ public class PlayerMouseInput : MonoBehaviour
             if (curItem != null)
             {
                 _onItemOverMouse(curItem);
+                if(!isFirstInterect)
+                {
+                    FindObjectOfType<GuidePanel>().OnGuide();
+                    isFirstInterect = true;
+                }
             }
             else if (hitInfo.transform.GetComponent<IInteractableItem>() != null)
             {
