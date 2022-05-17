@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class ProfileScrollView : MonoBehaviour
+public class ProfileScrollView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] PersonInfoList info;
 
@@ -16,7 +18,13 @@ public class ProfileScrollView : MonoBehaviour
     [SerializeField] List<Button> numberBtns = new List<Button>();
     [SerializeField] Button btnSelect = null;
 
+    Vector2 dragStartPos = Vector2.zero;
+    Vector2 dragEndPos = Vector2.zero;
+
     int curPanelNum = 0;
+
+    float inputCool = 0.5f;
+    float lastInputCool = 0f;
 
     private void Awake()
     {
@@ -36,9 +44,40 @@ public class ProfileScrollView : MonoBehaviour
         ResizeBtns(0);
     }
 
+    private void Update()
+    {
+        float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+        
+        if(lastInputCool + inputCool <= Time.time)
+        {
+            int lastPanelNum = curPanelNum;
+            if (wheelInput > 0)
+            {
+                curPanelNum--;
+                curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
+
+                if (lastPanelNum == curPanelNum)
+                    return;
+
+                OnClickNumberBtn(curPanelNum);
+            }
+            else if (wheelInput < 0)
+            {
+                curPanelNum++;
+                curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
+
+                if (lastPanelNum == curPanelNum)
+                    return;
+
+                OnClickNumberBtn(curPanelNum);
+            }
+        }
+    }
+
     private void OnClickNumberBtn(int idx)
     {
         infoPanel.FadeInOut(0.3f, () => infoPanel.InitPatientInfoPanel(info.patientInfos[idx]));
+        curPanelNum = idx;
         ResizeBtns(idx);
     }
 
@@ -64,6 +103,39 @@ public class ProfileScrollView : MonoBehaviour
         for (int i = 0; i < numberBtns.Count; i++)
         {
             numberBtns[i].interactable = false;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        dragStartPos = eventData.position;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        dragEndPos = eventData.position;
+
+        int lastPanelNum = curPanelNum;
+
+        if (dragStartPos.y - dragEndPos.y > 0)
+        {
+            curPanelNum--;
+            curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
+
+            if (lastPanelNum == curPanelNum)
+                return;
+
+            OnClickNumberBtn(curPanelNum);
+        }
+        else if (dragStartPos.y - dragEndPos.y < 0)
+        {
+            curPanelNum++;
+            curPanelNum = Mathf.Clamp(curPanelNum, 0, numberBtns.Count - 1);
+
+            if (lastPanelNum == curPanelNum)
+                return;
+
+            OnClickNumberBtn(curPanelNum);
         }
     }
 }
