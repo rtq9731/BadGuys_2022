@@ -22,7 +22,6 @@ public class GuidePanel : MonoBehaviour
     bool isOnPanel = false;
     private void Start()
     {
-        guidePanelManager = GetComponent<GuidePanelManager>();
         rect = guidePanel.GetComponent<RectTransform>();
         originPos = rect.anchoredPosition;
     }
@@ -30,7 +29,7 @@ public class GuidePanel : MonoBehaviour
     {
         if (Input.anyKeyDown && isFirstInput)
         {
-            ShowGuidePanel();
+            FirstGuide();
             isOnPanel = true;
         }
         
@@ -39,29 +38,15 @@ public class GuidePanel : MonoBehaviour
             timer += Time.deltaTime;
             if(timer >= 7f)
             {
-                HideGuidePanel();
                 isOnPanel = false;
                 timer = 0;
             }
         }
     }
 
-    void ShowGuidePanel()
+    void FirstGuide()
     {
-        if(isFirstInput)
-        {
-            rect.DOAnchorPos(new Vector3(482, -32, 0), 0.5f);
-            isFirstInput = false;
-        }
+        guidePanel.gameObject.SetActive(true);
     }
 
-    public void HideGuidePanel()
-    {
-        rect.DOAnchorPos(originPos, 0.5f).OnComplete(() =>
-        {
-            guidePanelManager.ClearGuide();
-            guidePanelManager.SetText();
-            isFirstInput = true;
-        });
-    }
 }

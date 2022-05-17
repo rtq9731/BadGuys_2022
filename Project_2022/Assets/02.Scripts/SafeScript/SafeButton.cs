@@ -14,12 +14,14 @@ public class SafeButton : MonoBehaviour, IInteractableItem
     [SerializeField]
     private Material pushedMat;
     private MeshRenderer myMeshRnd;
+    private Outline outline;
 
     private void Awake()
     {
         myMeshRnd = GetComponent<MeshRenderer>();
         myMeshRnd.material = normalMat;
         clickSound = GetComponent<AudioSource>();
+        outline = GetComponent<Outline>();
         canPush = true;
         firstPos = transform.position;
     }
@@ -37,6 +39,8 @@ public class SafeButton : MonoBehaviour, IInteractableItem
             clickSound.Play();
             transform.localPosition -= new Vector3(0, 0, 0.05f);
             canPush = false;
+            transform.GetComponent<OutlinerOnMouseEnter>().enabled = false;
+            outline.enabled = false;
             //Debug.LogWarning("´­¸²");
 
             if (safeMg.buttonCount == 2)
@@ -61,6 +65,7 @@ public class SafeButton : MonoBehaviour, IInteractableItem
         transform.position = firstPos;
         myMeshRnd.material = normalMat;
         canPush = true;
+        transform.GetComponent<OutlinerOnMouseEnter>().enabled = true;
         //Debug.LogWarning("µ¹¾Æ¿È");
     }
 

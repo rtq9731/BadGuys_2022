@@ -15,7 +15,7 @@ public class EmphasizeCircle : MonoBehaviour
 
     private GameObject sizeObj;
     private Camera mainCam;
-    private GameObject targetObj;
+    public GameObject targetObj;
     public bool isEmphasize;
 
     private void Awake()
