@@ -87,8 +87,6 @@ public class Inventory : MonoBehaviour
         {
             isInteract = !isInteract;
 
-            
-
             for (int i = 0; i < slotParents.transform.childCount; i++)
             {
                 if (item == slotParents.transform.GetChild(i).GetComponent<Slot>().item)

@@ -12,6 +12,8 @@ public class PlayerPickUpManager : MonoBehaviour
 
     bool isShowedInteractImage = false;
 
+    float pickUpCoolTime = 0f;
+
     public void CanPickUpItem(IInteractableItem curItem)
     {
         if(curItem.CanInteract())
@@ -26,16 +28,26 @@ public class PlayerPickUpManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        pickUpCoolTime += Time.deltaTime;
+    }
+
     public void CanInteractObj(IInteractAndGetItemObj curObj, ItemInfo itemInfo)
     {
         if (curObj.CanInteract(itemInfo))
         {
             ShowPickUpIcon(true);
-            if (Input.GetKeyDown(KeyCode.E))
+
+            if(pickUpCoolTime >= 0.5f)
             {
-                curObj.Interact(itemInfo, itemTakePos);
-                ShowPickUpIcon(false);
-                return;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    pickUpCoolTime = 0;
+                    curObj.Interact(itemInfo, itemTakePos);
+                    ShowPickUpIcon(false);
+                    return;
+                }
             }
         }
     }

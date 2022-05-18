@@ -34,7 +34,6 @@ public class InventoryInput : MonoBehaviour
              {KeyCode.Alpha9, 9}
         };
 
-
         itemPanel = FindObjectOfType<InventoryItemPanel>();
     }
 
@@ -96,8 +95,15 @@ public class InventoryInput : MonoBehaviour
         
         if (slotsParent.childCount > 0)
         {
-            if(slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount <= 1)
+            if(slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().itemCount == 1)
             {
+                if (iconCamParent.transform.childCount <= 0)
+                {
+                    Debug.Log("¾Èµé¾î¿È");
+                }
+
+
+                Debug.Log("µé¾î¿È");
                 GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
                 destroySlot.transform.SetParent(null);
                 Destroy(iconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).gameObject);
@@ -107,7 +113,6 @@ public class InventoryInput : MonoBehaviour
             {
                 slotsParent.GetChild(Inventory.Instance.mainItemIndex).GetComponent<Slot>().DecreaseItemCount();
             }
-            
 
             for (int i = 0; i < slotsParent.childCount; i++)
             {
