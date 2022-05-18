@@ -13,8 +13,11 @@ public class UIInteractHelpPanelCaller : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (enabled)
+        if (gameObject.activeSelf)
+        {
+            Debug.Log(gameObject);
             Destroy(this);
+        }
     }
 
     private void Update()
