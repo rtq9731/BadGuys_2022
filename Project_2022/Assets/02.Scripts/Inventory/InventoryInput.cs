@@ -17,6 +17,8 @@ public class InventoryInput : MonoBehaviour
 
     [SerializeField]
     Transform slotsParent;
+
+    InventoryItemPanel itemPanel;
     void Start()
     {
         keyDic = new Dictionary<KeyCode, int>()
@@ -31,6 +33,9 @@ public class InventoryInput : MonoBehaviour
              {KeyCode.Alpha8, 8},
              {KeyCode.Alpha9, 9}
         };
+
+
+        itemPanel = FindObjectOfType<InventoryItemPanel>();
     }
 
     private void Update()
@@ -51,6 +56,7 @@ public class InventoryInput : MonoBehaviour
                         itemIndex = dic.Value - 1;
 
                         showMainItem.MoveMainItemPanel(itemIndex);
+                        itemPanel.UpdateItemIcon();
                     }
                 }
             }
@@ -61,6 +67,7 @@ public class InventoryInput : MonoBehaviour
                 itemIndex = Mathf.Clamp(itemIndex, 0, slotsParent.childCount - 1);
                 ChangeSlot(itemIndex);
                 showMainItem.MoveMainItemPanel(itemIndex);
+                itemPanel.UpdateItemIcon();
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0)
@@ -69,6 +76,7 @@ public class InventoryInput : MonoBehaviour
                 itemIndex = Mathf.Clamp(itemIndex, 0, slotsParent.childCount - 1);
                 ChangeSlot(itemIndex);
                 showMainItem.MoveMainItemPanel(itemIndex);
+                itemPanel.UpdateItemIcon();
             }
         }
     }

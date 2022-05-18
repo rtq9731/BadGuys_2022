@@ -34,7 +34,10 @@ public class StageManager : MonoBehaviour
                     {
                         FindObjectOfType<PlayerKeyInput>(true).gameObject.SetActive(true);
                         panelHide.gameObject.SetActive(false);
-                        UIManager.Instance.OnCutSceneOver();
+                        //UIManager.Instance.OnCutSceneOver();
+                        FindObjectOfType<PlayerController>().gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 30, 0));
+                        FindObjectOfType<GuidePanel>().OnGuide(3);
+                        
                     });
                 });
             });

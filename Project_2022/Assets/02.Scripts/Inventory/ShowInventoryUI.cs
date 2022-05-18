@@ -16,13 +16,11 @@ public class ShowInventoryUI : MonoBehaviour
     public bool isInventoryDown = false;
     public bool isOnInventory = false;
 
-    InventoryItemPanel itemPanel;
 
     private void Start()
     {
         rectTrm = GetComponent<RectTransform>();
-        itemPanel = FindObjectOfType<InventoryItemPanel>();
-
+        
         originRectTrm = rectTrm.anchoredPosition;
 
         m_keyCallFunc = new Dictionary<KeyCode, int>()
@@ -61,8 +59,6 @@ public class ShowInventoryUI : MonoBehaviour
                     {
                         fadeTime = 0;
                         ShowInventorySlot();
-                        if(isOnInventory)
-                            itemPanel.UpdateItemIcon();
                     }
                 }
             }
@@ -72,8 +68,6 @@ public class ShowInventoryUI : MonoBehaviour
         {
             fadeTime = 0;
             ShowInventorySlot();
-            if (isOnInventory)
-                itemPanel.UpdateItemIcon();
         }
     }
 

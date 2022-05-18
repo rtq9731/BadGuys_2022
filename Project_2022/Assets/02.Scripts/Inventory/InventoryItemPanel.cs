@@ -27,7 +27,7 @@ public class InventoryItemPanel : MonoBehaviour
 
     void Update()
     {
-
+        if (inventoryUI.isOnInventory)
         if (inventoryUI.isOnInventory)
         {
             if (Input.GetMouseButton(0))

@@ -146,6 +146,7 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
         //UIManager.Instance.OnCutSceneOver();
         UIManager.Instance.OffPuzzleUI();
         player.transform.position = playerMovePos.position;
+        player.transform.rotation = Quaternion.Euler(new Vector3(0f, 30f, 0));
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
 
         Destroy(GetComponent<Item_RushHourPuzzle>());
