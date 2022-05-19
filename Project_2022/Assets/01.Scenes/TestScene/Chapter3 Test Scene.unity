@@ -5174,7 +5174,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.39215687}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5464,7 +5464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &675420238
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9765,6 +9765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 1.5
   fadeImg: {fileID: 1325433563}
+  fadeObj: {fileID: 2138171560}
   bootingPanel: {fileID: 897902604}
   loginPanel: {fileID: 675420237}
   mainPanel: {fileID: 769424328}
@@ -10280,7 +10281,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1325433561}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2138171560}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -15187,6 +15188,12 @@ MonoBehaviour:
   outlineWidth: 10
   outlineMode: 2
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &2138171560 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3255862824561215211, guid: c9647e691d1b3b349972895a70a909df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1325433561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &543450653498473183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 866894742531477229, guid: 04742e307c760d440ab76781446d0188,

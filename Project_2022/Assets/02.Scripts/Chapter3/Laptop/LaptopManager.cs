@@ -10,6 +10,7 @@ public class LaptopManager : MonoBehaviour
     [Header("Fade")]
     public float fadeTime = 1f;
     public Image fadeImg;
+    public GameObject fadeObj;
 
     [Header("Panel")]
     public GameObject bootingPanel;
@@ -83,7 +84,8 @@ public class LaptopManager : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
-        float value = 0;
+        fadeObj.SetActive(true);
+        float value = 1;
         float a = 0;
         Color col = fadeImg.color;
 
@@ -97,9 +99,11 @@ public class LaptopManager : MonoBehaviour
 
             if (a == 0) break;
         }
+        fadeObj.SetActive(false);
     }
     public IEnumerator FadeIn()
     {
+        fadeObj.SetActive(true);
         float value = 0;
         float a = 0;
         Color col = fadeImg.color;
@@ -115,6 +119,7 @@ public class LaptopManager : MonoBehaviour
 
             if (a == 1) break;
         }
+        fadeObj.SetActive(false);
     }
 
     private IEnumerator BootingScene()
@@ -124,9 +129,9 @@ public class LaptopManager : MonoBehaviour
         bootingPanel.SetActive(true);
         StartCoroutine(FadeOut());
         yield return new WaitForSeconds(fadeTime + 2f);
-        bootingPanel.SetActive(false);
         StartCoroutine(FadeIn());
         yield return new WaitForSeconds(fadeTime);
+        bootingPanel.SetActive(false);
         LoginPanelOn();
         yield return new WaitForSeconds(fadeTime);
     }
