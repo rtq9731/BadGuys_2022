@@ -72,6 +72,7 @@ public class QTEShooting : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("못맞췄음");
                     // 실패 타임라인 들어갈듯 
                 }
                 EndShootingQTE();

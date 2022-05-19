@@ -29,6 +29,7 @@ public class CollisionTimelineTrigger : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             timeline.gameObject.SetActive(true);
+            transform.gameObject.SetActive(false);
         }
     }
 }
