@@ -12,7 +12,7 @@ public class PlayerPickUpManager : MonoBehaviour
 
     bool isShowedInteractImage = false;
 
-    float pickUpCoolTime = 0f;
+    public float pickUpCoolTime = 0f;
 
     public void CanPickUpItem(IInteractableItem curItem)
     {
@@ -23,6 +23,7 @@ public class PlayerPickUpManager : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    pickUpCoolTime = 0;
                     ShowPickUpIcon(false);
                     curItem.Interact(itemTakePos);
                     return;
