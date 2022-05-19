@@ -19,11 +19,14 @@ public class PlayerPickUpManager : MonoBehaviour
         if(curItem.CanInteract())
         {
             ShowPickUpIcon(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (pickUpCoolTime >= 0.5f)
             {
-                ShowPickUpIcon(false);
-                curItem.Interact(itemTakePos);
-                return;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    ShowPickUpIcon(false);
+                    curItem.Interact(itemTakePos);
+                    return;
+                }
             }
         }
     }

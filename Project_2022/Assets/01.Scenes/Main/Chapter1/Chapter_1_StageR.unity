@@ -4047,6 +4047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 199038223}
   playerCon: {fileID: 642104659}
+  maxDistance: 0.2
   walkPower: 0.1
   runPower: 0.1
   walkTime: 0.5
@@ -4824,6 +4825,8 @@ MonoBehaviour:
   itemEatPos: {fileID: 726520621}
   MainItem: {fileID: 0}
   mainItemIndex: 0
+  isInteract: 1
+  interactCooltime: 0
 --- !u!114 &833974260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8973,8 +8976,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stopMenu: {fileID: 474888845}
   _mainUI: {fileID: 154078669}
+  aimPoint: {fileID: 0}
   isOnCutScene: 0
   isEsc: 0
+  isCursor: 0
 --- !u!114 &1697869526
 MonoBehaviour:
   m_ObjectHideFlags: 0
