@@ -63,13 +63,20 @@ public class LaptopManager : MonoBehaviour
 
     public void MainPanelOn()
     {
+        OffAllPanel();
         mainPanel.SetActive(true);
         laptopMain.MainPanelSetting();
         StartCoroutine(FadeOut());
     }
 
+    public void LoginSuccess()
+    {
+        StartCoroutine(LoginScene());
+    }
+
     private void LoginPanelOn()
     {
+        OffAllPanel();
         loginPanel.SetActive(true);
         laptopLogin.LoginPannelSetting();
         StartCoroutine(FadeOut());
@@ -133,6 +140,16 @@ public class LaptopManager : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         bootingPanel.SetActive(false);
         LoginPanelOn();
+        yield return new WaitForSeconds(fadeTime);
+    }
+
+    private IEnumerator LoginScene()
+    {
+        StartCoroutine(FadeIn());
+        yield return new WaitForSeconds(fadeTime);
+        OffAllPanel();
+        isPass = true;
+        MainPanelOn();
         yield return new WaitForSeconds(fadeTime);
     }
 
