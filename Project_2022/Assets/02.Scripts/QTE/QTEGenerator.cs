@@ -143,8 +143,11 @@ public class QTEGenerator : MonoBehaviour
                 break;
             case QTEPressType.Roll:
                 {
-                    fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
-                    buttonImage = qteObj.transform.GetChild(1).GetChild(0).GetComponent<Image>();
+                    Animation anim = qteObj.transform.GetChild(0).GetComponent<Animation>();
+                    anim.Play();
+
+                    fillImage = qteObj.transform.GetChild(2).GetComponent<Image>();
+                    buttonImage = qteObj.transform.GetChild(3).GetChild(0).GetComponent<Image>();
 
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
