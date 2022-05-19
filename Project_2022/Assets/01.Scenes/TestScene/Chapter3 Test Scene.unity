@@ -5234,7 +5234,7 @@ RectTransform:
   - {fileID: 421808816}
   - {fileID: 1774550980}
   m_Father: {fileID: 2058418863}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9763,8 +9763,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eefc983f3a4be745aab70a5475fc507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: 1
-  fadeImg: {fileID: 0}
+  fadeTime: 1.5
+  fadeImg: {fileID: 1325433563}
   bootingPanel: {fileID: 897902604}
   loginPanel: {fileID: 675420237}
   mainPanel: {fileID: 769424328}
@@ -10149,8 +10149,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 2058418863}
+    m_TransformParent: {fileID: 1638324077}
     m_Modifications:
+    - target: {fileID: 3255862824561215205, guid: c9647e691d1b3b349972895a70a909df,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10164,7 +10169,7 @@ PrefabInstance:
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
@@ -10189,12 +10194,12 @@ PrefabInstance:
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1820
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 980
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
@@ -11954,6 +11959,7 @@ RectTransform:
   - {fileID: 886455083}
   - {fileID: 2058418863}
   - {fileID: 1305736871}
+  - {fileID: 1325433562}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14766,7 +14772,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 860160478}
-  - {fileID: 1325433562}
   - {fileID: 630687599}
   m_Father: {fileID: 1638324077}
   m_RootOrder: 4

@@ -124,7 +124,7 @@ public class LaptopManager : MonoBehaviour
         bootingPanel.SetActive(true);
         StartCoroutine(FadeOut());
         yield return new WaitForSeconds(fadeTime + 2f);
-
+        bootingPanel.SetActive(false);
         StartCoroutine(FadeIn());
         yield return new WaitForSeconds(fadeTime);
         LoginPanelOn();
