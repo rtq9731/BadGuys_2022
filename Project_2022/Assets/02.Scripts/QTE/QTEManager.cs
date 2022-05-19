@@ -126,7 +126,8 @@ public class QTEManager : MonoBehaviour
 
             generator.SuccessQTE();
 
-            successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
+            if(events.QTEKeys[0].pressType != QTEPressType.Shoot)
+                successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
         else
         {
@@ -137,7 +138,8 @@ public class QTEManager : MonoBehaviour
             //실패했을때 이펙트
             generator.FailedQTE();
 
-            failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
+            if (events.QTEKeys[0].pressType != QTEPressType.Shoot)
+                failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
         }
 
         time = 0f;
