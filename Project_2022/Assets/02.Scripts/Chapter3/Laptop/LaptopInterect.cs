@@ -10,13 +10,13 @@ public class LaptopInterect : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
-        isUIOn = true;
+        LaptopManager.Instance.isUIUse = true;
         LaptopManager.Instance.LapTopOn();
 
     }
 
     public bool CanInteract()
     {
-        return !isUIOn;
+        return !LaptopManager.Instance.isUIUse;
     }
 }
