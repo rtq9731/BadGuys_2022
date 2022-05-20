@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Timeline;
 
-public class CollisionTimelineTrigger : MonoBehaviour
+public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
 {
     public GameObject timeline = null;
     public Action _onStart;
@@ -22,6 +22,7 @@ public class CollisionTimelineTrigger : MonoBehaviour
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         timeline.gameObject.SetActive(false);
         _onComplete?.Invoke();
+        LoadingManager.LoadScene("Title", true);
     }
 
     private void OnTriggerEnter(Collider other)

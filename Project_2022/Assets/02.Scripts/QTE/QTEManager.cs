@@ -10,7 +10,7 @@ public class QTEManager : MonoBehaviour
     [SerializeField] GameObject[] successPlayerableDirector = null;
     [SerializeField] GameObject[] failedPlayerableDirector = null;
 
-    [SerializeField] CollisionTimelineTrigger[] timelineTriggers = null;
+    [SerializeField] Chapter2_FinalCutSceneTrigger[] timelineTriggers = null;
 
     public List<KeyCode> keys = new List<KeyCode>();
 
