@@ -53,6 +53,7 @@ public class QTEManager : MonoBehaviour
         }
     }
 
+    //이거로 생성하시면 됩니다
     public void GenerateQTEEvent(QTEPressType qTEPressType, KeyCode key,
         Action successCallback, Action failedCallback)
     {
