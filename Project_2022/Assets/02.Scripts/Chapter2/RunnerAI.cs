@@ -10,7 +10,7 @@ public class RunnerAI : MonoBehaviour
     Animator anim = null;
     [SerializeField] TimelineDestination[] destinations = null;
 
-    Action arriveAct = null;
+    Queue<Action> arriveActQueue = new Queue<Action>();
 
     Transform player = null;
 
@@ -43,8 +43,10 @@ public class RunnerAI : MonoBehaviour
             {
                 isArrived = true;
 
-                arriveAct?.Invoke();
-                arriveAct = null;
+                if(arriveActQueue.Count > 0)
+                {
+                    arriveActQueue.Dequeue()?.Invoke();
+                }
             }
         }
     }
@@ -62,20 +64,29 @@ public class RunnerAI : MonoBehaviour
         ai.SetDestination(destinations[idx].destination.position);
         ai.isStopped = false;
 
+        if (idx == destinations.Length - 1)
+        {
+            arriveActQueue.Enqueue(() => gameObject.SetActive(false));
+        }
+
         if (destinations[idx].timeLine != null)
         {
-            arriveAct += () =>
+            arriveActQueue.Enqueue(() =>
             {
                 ai.gameObject.SetActive(false);
-                destinations[idx].timeLine.SetTrigger(() => SetDestination(idx + 1));
-            };
+                destinations[idx].timeLine.SetTrigger(() =>
+                {
+                    SetDestination(idx + 2);
+                    SetPos(idx + 1);
+                });
+            });
         }
         else
         {
-            arriveAct += () =>
+            arriveActQueue.Enqueue(() =>
             {
                 SetDestination(idx + 1);
-            };
+            });
         }
     }
 }
