@@ -70,6 +70,13 @@ public class RunnerAI : MonoBehaviour
                 destinations[idx].timeLine.SetTrigger(() => SetDestination(idx + 1));
             };
         }
+        else
+        {
+            arriveAct += () =>
+            {
+                SetDestination(idx + 1);
+            };
+        }
     }
 }
 
