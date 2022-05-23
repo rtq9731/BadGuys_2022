@@ -51,6 +51,13 @@ public class LaptopManager : MonoBehaviour
         }
     }
 
+    public void CloseLaptop()
+    {
+        if (!isSetting) return;
+        isSetting = false;
+        StartCoroutine(OutScene());
+    }
+
     public void LapTopOn()
     {
         isSetting = false;
