@@ -11,6 +11,7 @@ public class LaptopLogin : MonoBehaviour
     public GameObject loginName;
     public GameObject loginHintBtn;
     public GameObject loginHintTxt;
+    public GameObject logWrong;
     public InputField passwordIPF;
     public Text outputText;
 
@@ -26,21 +27,19 @@ public class LaptopLogin : MonoBehaviour
         loginName.SetActive(true);
         passwordIPF.onValueChanged.AddListener((word) => WordUpdate(word));
         loginHintTxt.SetActive(false);
+        logWrong.SetActive(false);
+
+        passwordIPF.text = "";
+        passwordTxt = "";
+        outputText.text = "";
+        wordCount = 0;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            string value = passwordIPF.text;
-            if (value.CompareTo("" + LaptopManager.Instance.password) == 0)
-            {
-                LaptopManager.Instance.LoginSuccess();
-            }
-            else
-            {
-                passwordIPF.text = "";
-            }
+            TryLogin();
         }
     }
 
@@ -64,5 +63,22 @@ public class LaptopLogin : MonoBehaviour
     {
         loginHintTxt.SetActive(true);
         loginHintBtn.SetActive(false);
+    }
+
+    public void TryLogin()
+    {
+        string value = passwordIPF.text;
+        if (value.CompareTo("" + LaptopManager.Instance.password) == 0)
+        {
+            LaptopManager.Instance.LoginSuccess();
+        }
+        else
+        {
+            passwordIPF.text = "";
+            wordCount = 0;
+            passwordTxt = "";
+            outputText.text = "";
+            logWrong.SetActive(true);
+        }
     }
 }

@@ -27,6 +27,9 @@ public class LaptopManager : MonoBehaviour
     [Header("Value")]
     public bool isPass;
     public int password;
+    public bool isUIUse;
+
+    private bool isSetting;
 
     private void Awake()
     {
@@ -35,10 +38,22 @@ public class LaptopManager : MonoBehaviour
         bootingPanel.SetActive(false);
         loginPanel.SetActive(false);
         mainPanel.SetActive(false);
+        isSetting = false;
+        isUIUse = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && isSetting)
+        {
+            isSetting = false;
+            StartCoroutine(OutScene());
+        }
     }
 
     public void LapTopOn()
     {
+        isSetting = false;
         UIManager.Instance.OnCutScene();
         UIManager.Instance.OnPuzzleUI();
         Cursor.visible = true;
@@ -51,8 +66,7 @@ public class LaptopManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(FadeIn());
-            Invoke("MainPanelOn", fadeTime);
+            StartCoroutine(ReturnMain());
         }
     }
 
@@ -71,6 +85,7 @@ public class LaptopManager : MonoBehaviour
 
     public void LoginSuccess()
     {
+        isSetting = false;
         StartCoroutine(LoginScene());
     }
 
@@ -141,6 +156,7 @@ public class LaptopManager : MonoBehaviour
         bootingPanel.SetActive(false);
         LoginPanelOn();
         yield return new WaitForSeconds(fadeTime);
+        isSetting = true;
     }
 
     private IEnumerator LoginScene()
@@ -151,6 +167,17 @@ public class LaptopManager : MonoBehaviour
         isPass = true;
         MainPanelOn();
         yield return new WaitForSeconds(fadeTime);
+        isSetting = true;
+    }
+
+    private IEnumerator ReturnMain()
+    {
+        StartCoroutine(FadeIn());
+        yield return new WaitForSeconds(fadeTime);
+        OffAllPanel();
+        MainPanelOn();
+        yield return new WaitForSeconds(fadeTime);
+        isSetting = true;
     }
 
     private IEnumerator OutScene()
@@ -159,8 +186,12 @@ public class LaptopManager : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         OffAllPanel();
         laptopCam.SetActive(false);
-        yield return new WaitForSeconds(fadeTime);
+        UIManager.Instance.OnCutSceneOver();
+        UIManager.Instance.OffPuzzleUI();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         StartCoroutine(FadeOut());
         yield return new WaitForSeconds(fadeTime);
+        isUIUse = false;
     }
 }
