@@ -5,11 +5,23 @@ using UnityEngine.Playables;
 
 public class TimelineSelector : MonoBehaviour
 {
-    
+    [SerializeField] PlayableDirector[] timelines = null;
 
-    // Update is called once per frame
-    void Update()
+    System.Action act = null;
+
+    public void SetTimelineSelector(System.Action onComplete)
     {
-        
+        act = onComplete;
+    }
+
+    public void PlayTimeline(int idx, bool isEnd)
+    {
+        timelines[idx].Play();
+
+        if(isEnd)
+        {
+            act?.Invoke();
+            act = null;
+        }
     }
 }

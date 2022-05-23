@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(UnityEngine.Playables.PlayableDirector))]
+[RequireComponent(typeof(TimelineSelector))]
 public class TimelineCollisonTrigger : MonoBehaviour
 {
-    UnityEngine.Playables.PlayableDirector timelineDirector = null;
+    TimelineSelector selector = null;
 
-
+    [SerializeField] int timelineIdx;
 
     private void Awake()
     {
-        timelineDirector = GetComponent<UnityEngine.Playables.PlayableDirector>();
+        selector = GetComponent<TimelineSelector>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-            timelineDirector.Play();
+        if(other.CompareTag("Player"))
+        {
+            selector.PlayTimeline(timelineIdx, false);
+        }
     }
 }
