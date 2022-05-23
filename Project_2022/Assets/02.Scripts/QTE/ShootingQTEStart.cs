@@ -39,6 +39,6 @@ public class ShootingQTEStart : MonoBehaviour
 
         ZoomInShootingCam();
         QTEUi.SetActive(true);
-        manager.GenerateQTEEvent();
+        //manager.GenerateQTEEvent();
     }
 }

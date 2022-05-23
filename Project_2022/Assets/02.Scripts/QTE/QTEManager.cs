@@ -15,8 +15,11 @@ public class QTEManager : MonoBehaviour
     public List<KeyCode> keys = new List<KeyCode>();
 
     public float time = 0f;
-    
+
     public bool isSpawnQTE = false;
+
+    Action _successCallback;
+    Action _failedCallback;
 
     QTEEvents events;
     QTEGenerator generator;
@@ -29,42 +32,38 @@ public class QTEManager : MonoBehaviour
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
 
-        for (int i = 0; i < timelineTriggers.Length; i++)
-        {
-            int y = i;
-            timelineTriggers[i]._onComplete += () => {
-                QTEIndex = y;
-                GenerateQTEEvent(); 
-            };
-        }
+
     }
 
     private void Update()
     {
-        if(isSpawnQTE)
+        if (isSpawnQTE)
         {
             time += Time.unscaledDeltaTime;
 
-            if (time >= 3f)
+            if (time >= 10f)
             {
                 time = 0;
                 isSpawnQTE = false;
                 QTEResult(false);
-                
+
                 events.QTEKeys.RemoveAt(0);
                 Debug.Log("실패!!");
             }
         }
     }
 
-    public void GenerateQTEEvent()
+    //이거로 생성하시면 됩니다
+    public void GenerateQTEEvent(QTEPressType qTEPressType, KeyCode key,
+        Action successCallback, Action failedCallback)
     {
-        if(events.QTEKeys.Count > 0)
-        {
-            generator.Generation();
-            Time.timeScale = 0.2f;
-            isSpawnQTE = true;
-        }
+
+        _successCallback = successCallback;
+        _failedCallback = failedCallback;
+
+        generator.Generation(qTEPressType, key);
+        Time.timeScale = 0.2f;
+        isSpawnQTE = true;
     }
 
     public void CheckSingleQTE()
@@ -115,9 +114,11 @@ public class QTEManager : MonoBehaviour
         events.QTEKeys.RemoveAt(0);
     }
 
+
+    // 결과 처리
     void QTEResult(bool isCorret)
     {
-        if(isCorret)
+        if (isCorret)
         {
             Debug.Log("맞았음");
 
@@ -126,8 +127,10 @@ public class QTEManager : MonoBehaviour
 
             generator.SuccessQTE();
 
-            if(events.QTEKeys[0].pressType != QTEPressType.Shoot)
-                successPlayerableDirector[QTEIndex].gameObject.SetActive(true);
+            _successCallback?.Invoke();
+            _successCallback = null;
+
+            
         }
         else
         {
@@ -138,16 +141,17 @@ public class QTEManager : MonoBehaviour
             //실패했을때 이펙트
             generator.FailedQTE();
 
-            if (events.QTEKeys[0].pressType != QTEPressType.Shoot)
-                failedPlayerableDirector[QTEIndex].gameObject.SetActive(true);
+            _failedCallback?.Invoke();
+            _failedCallback = null;
+
         }
 
         time = 0f;
-        generator.RemoveQTE(); 
+        generator.RemoveQTE();
         Time.timeScale = 1f;
     }
 
-
+    // 입력 처리 
     private void OnGUI()
     {
         if (isSpawnQTE)
@@ -160,7 +164,7 @@ public class QTEManager : MonoBehaviour
                     if (e.keyCode == KeyCode.None) return;
 
 
-                    switch(events.QTEKeys[0].pressType)
+                    switch (events.QTEKeys[0].pressType)
                     {
                         case QTEPressType.Roll:
                             {

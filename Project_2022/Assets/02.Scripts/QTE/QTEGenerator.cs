@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 public class QTEGenerator : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class QTEGenerator : MonoBehaviour
     QTEEvents events;
     QTEShooting shooting;
 
-    float qteTime = 3f;
-    float qteGauge = 3f;
+    float qteTime = 5f;
+    float qteGauge = 5f;
 
     public bool isOnQTE = false;
 
@@ -39,7 +40,7 @@ public class QTEGenerator : MonoBehaviour
 
     int qteUiIndex = 0;
 
-    private void Start()
+    private void Awake()
     {
         events = GetComponent<QTEEvents>();
         shooting = FindObjectOfType<QTEShooting>();
@@ -57,7 +58,7 @@ public class QTEGenerator : MonoBehaviour
                         fillImage.fillAmount = qteGauge / qteTime;
                         if (fillImage.fillAmount <= 0)
                         {
-                            RemoveQTE();
+                            //RemoveQTE();
                         }
                     }
                     break;
@@ -66,7 +67,7 @@ public class QTEGenerator : MonoBehaviour
                         qteGauge -= Time.unscaledDeltaTime;
                         if (qteGauge <= 0)
                         {
-                            RemoveQTE();
+                            //RemoveQTE();
                         }
                     }
                     break;
@@ -87,17 +88,14 @@ public class QTEGenerator : MonoBehaviour
         
     }
 
-    public void Generation()
+    public void Generation(QTEPressType qTEPressType, KeyCode key)
     {
-        if (events.QTEKeys.Count <= 0)
-            return;
-
-        switch (events.QTEKeys[0].pressType)
+        switch (qTEPressType)
         {
             case QTEPressType.Single:
                 {
                     GameObject qte = Instantiate(QTEEventUISingle);
-                    SetQTE(qte, QTEPressType.Single);
+                    SetQTE(qte, QTEPressType.Single, key);
                     isOnQTE = true;
                     curQTEObj = qte;
                 }
@@ -105,7 +103,7 @@ public class QTEGenerator : MonoBehaviour
             case QTEPressType.Roll:
                 {
                     GameObject qte = Instantiate(QTEEventUIRoll);
-                    SetQTE(qte, QTEPressType.Roll);
+                    SetQTE(qte, QTEPressType.Roll, key);
                     isOnQTE = true;
                     curQTEObj = qte;
                 }
@@ -113,7 +111,7 @@ public class QTEGenerator : MonoBehaviour
             case QTEPressType.Shoot:
                 {
                     QTEEventUIShoot.SetActive(true);
-                    SetQTE(QTEEventUIShoot, QTEPressType.Shoot);
+                    SetQTE(QTEEventUIShoot, QTEPressType.Shoot, key);
                     isOnQTE = true;
                     curQTEObj = QTEEventUIShoot;
                     shooting.targetObj = curQTEObj;
@@ -121,18 +119,24 @@ public class QTEGenerator : MonoBehaviour
                 break;
         }
     }
+    
+    
 
-    void SetQTE(GameObject qteObj, QTEPressType key)
+    void SetQTE(GameObject qteObj, QTEPressType keyType, KeyCode key)
     {
         qteObj.transform.SetParent(canvas);
 
-        switch (key)
+        switch (keyType)
         {
             case QTEPressType.Single:
                 {
+
                     fillImage = qteObj.transform.GetChild(1).GetComponent<Image>();
                     buttonImage = qteObj.transform.GetChild(2).GetChild(0).GetComponent<Image>();
-                    
+
+                    events.QTEKeys[0].QTEKey[0] = key;
+                    events.QTEKeys[0].pressType = keyType;
+
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
                     buttonImage.sprite = QTESprites[qteUiIndex];
@@ -148,6 +152,9 @@ public class QTEGenerator : MonoBehaviour
 
                     fillImage = qteObj.transform.GetChild(2).GetComponent<Image>();
                     buttonImage = qteObj.transform.GetChild(3).GetChild(0).GetComponent<Image>();
+
+                    events.QTEKeys[0].QTEKey.Add(key);
+                    events.QTEKeys[0].pressType = keyType;
 
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
@@ -198,6 +205,7 @@ public class QTEGenerator : MonoBehaviour
     {
         isOnQTE = false;
         qteGauge = 2.5f;
+        Debug.Log("asd");
         Destroy(curQTEObj);
     }
 }
