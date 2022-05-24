@@ -20,7 +20,10 @@ public class QTEGenerator : MonoBehaviour
     [SerializeField] Image successEffect;
     [SerializeField] Image failedEffect;
 
-    [SerializeField] Sprite[] QTESprites;
+    [SerializeField] Sprite wSprite;
+    [SerializeField] Sprite eSprite;
+    [SerializeField] Sprite aSprite;
+    [SerializeField] Sprite dSprite;
 
     RectTransform uiPosition;
 
@@ -58,7 +61,7 @@ public class QTEGenerator : MonoBehaviour
                         fillImage.fillAmount = qteGauge / qteTime;
                         if (fillImage.fillAmount <= 0)
                         {
-                            //RemoveQTE();
+                            RemoveQTE();
                         }
                     }
                     break;
@@ -67,11 +70,9 @@ public class QTEGenerator : MonoBehaviour
                         qteGauge -= Time.unscaledDeltaTime;
                         if (qteGauge <= 0)
                         {
-                            //RemoveQTE();
+                            RemoveQTE();
                         }
                     }
-                    break;
-                case QTEPressType.Shoot:
                     break;
             }
         }
@@ -108,15 +109,7 @@ public class QTEGenerator : MonoBehaviour
                     curQTEObj = qte;
                 }
                 break;
-            case QTEPressType.Shoot:
-                {
-                    QTEEventUIShoot.SetActive(true);
-                    SetQTE(QTEEventUIShoot, QTEPressType.Shoot, key);
-                    isOnQTE = true;
-                    curQTEObj = QTEEventUIShoot;
-                    shooting.targetObj = curQTEObj;
-                }
-                break;
+            
         }
     }
     
@@ -139,7 +132,6 @@ public class QTEGenerator : MonoBehaviour
 
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
-                    buttonImage.sprite = QTESprites[qteUiIndex];
                     qteUiIndex++;
 
                     uiPosition.anchoredPosition = new Vector2(0, 0);
@@ -158,23 +150,34 @@ public class QTEGenerator : MonoBehaviour
 
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
-                    buttonImage.sprite = QTESprites[qteUiIndex];
                     qteUiIndex++;
 
                     uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
                 break;
-            case QTEPressType.Shoot:
-                {
-                    qteObj.transform.DOScale(1f, 0.2f).OnComplete(() =>
-                    {
-                        qteObj.GetComponent<ShootingTarget>().FadeTarget();
-                    });
-                }
+            
+        }
+        SetSprite(key);
+    }
+
+    void SetSprite(KeyCode key)
+    {
+        switch(key)
+        {
+            case KeyCode.W:
+                buttonImage.sprite = wSprite;
+                break;
+            case KeyCode.E:
+                buttonImage.sprite = eSprite;
+                break;
+            case KeyCode.A:
+                buttonImage.sprite = aSprite;
+                break;
+            case KeyCode.D:
+                buttonImage.sprite = dSprite;
                 break;
         }
     }
-
 
     public void FailedQTE()
     {

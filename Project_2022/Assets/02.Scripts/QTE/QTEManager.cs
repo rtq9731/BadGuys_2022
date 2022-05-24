@@ -104,10 +104,7 @@ public class QTEManager : MonoBehaviour
                     CheckSingleQTE();
                 }
                 break;
-            case QTEPressType.Shoot:
-                keys.Clear();
-                generator.isOnQTE = false;
-                return;
+           
         }
 
         keys.Clear();
@@ -184,8 +181,6 @@ public class QTEManager : MonoBehaviour
                                 keys.Add(e.keyCode);
                                 generator.RollBtn();
                             }
-                            break;
-                        case QTEPressType.Shoot:
                             break;
                     }
 
