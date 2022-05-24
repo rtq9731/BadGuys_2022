@@ -21,10 +21,29 @@ public class TutorialGuideManager : MonoBehaviour
     {
         if(IsGetAllCarWithoutRed() && !isAllItem)
         {
-            guidePanel.OnGuide(1);
-            Debug.Log("¾ÆÀÌÅÛ »¡°£ÀÚµ¿Â÷ »©°í ´Ù ¸Ô¾úÀ½");
+            Debug.Log("asd");
+            guidePanel.OnGuide(4);
             isAllItem = true;
         }
+
+        if(IsFirstInterect())
+        {
+            guidePanel.OnGuide(1);
+        }
+    }
+
+    bool IsFirstInterect()
+    {
+        if(!isFirstItem)
+        {
+            if (Inventory.Instance.MainItem != null)
+            {
+                Debug.Log("tlqkf");
+                isFirstItem = true;
+                return true;
+            }
+        }
+        return false;
     }
 
     bool IsGetAllCarWithoutRed()

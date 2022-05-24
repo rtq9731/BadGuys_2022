@@ -103,7 +103,6 @@ public class InventoryInput : MonoBehaviour
                 }
 
 
-                Debug.Log("µé¾î¿È");
                 GameObject destroySlot = slotsParent.GetChild(Inventory.Instance.mainItemIndex).gameObject;
                 destroySlot.transform.SetParent(null);
                 Destroy(iconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).gameObject);
