@@ -19,7 +19,7 @@ public class PlayerPickUpManager : MonoBehaviour
         if(curItem.CanInteract())
         {
             ShowPickUpIcon(true);
-            if (pickUpCoolTime >= 0.5f)
+            if (pickUpCoolTime >= 0.3f)
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -43,7 +43,7 @@ public class PlayerPickUpManager : MonoBehaviour
         {
             ShowPickUpIcon(true);
 
-            if(pickUpCoolTime >= 0.5f)
+            if(pickUpCoolTime >= 0.3f)
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
