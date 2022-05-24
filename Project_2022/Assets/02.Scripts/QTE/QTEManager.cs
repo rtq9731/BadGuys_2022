@@ -7,11 +7,6 @@ using System.Linq;
 
 public class QTEManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] successPlayerableDirector = null;
-    [SerializeField] GameObject[] failedPlayerableDirector = null;
-
-    [SerializeField] Chapter2_FinalCutSceneTrigger[] timelineTriggers = null;
-
     public List<KeyCode> keys = new List<KeyCode>();
 
     public float time = 0f;
@@ -23,8 +18,6 @@ public class QTEManager : MonoBehaviour
 
     QTEEvents events;
     QTEGenerator generator;
-
-    int QTEIndex = 0;
 
     int rollCount = 10;
     private void Start()
@@ -41,7 +34,7 @@ public class QTEManager : MonoBehaviour
         {
             time += Time.unscaledDeltaTime;
 
-            if (time >= 10f)
+            if (time >= 3f)
             {
                 time = 0;
                 isSpawnQTE = false;

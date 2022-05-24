@@ -19,7 +19,7 @@ public class QTECollisionTrigger_2 : QTE_CollisionTrigger
     {
         selector.PlayTimeline(1, () => 
         {
-            qm.GenerateQTEEvent(QTEPressType.Single, KeyCode.C, OnFailedSuccessQTE, OnFailedFailedQTE);
+            qm.GenerateQTEEvent(QTEPressType.Single, KeyCode.W, OnFailedSuccessQTE, OnFailedFailedQTE);
         });
     }
     private void OnFailedSuccessQTE()

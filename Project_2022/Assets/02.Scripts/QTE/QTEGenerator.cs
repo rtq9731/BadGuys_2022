@@ -30,12 +30,10 @@ public class QTEGenerator : MonoBehaviour
     Image fillImage;
     Image buttonImage;
 
-
     QTEEvents events;
-    QTEShooting shooting;
 
-    float qteTime = 5f;
-    float qteGauge = 5f;
+    float qteTime = 3f;
+    float qteGauge = 3f;
 
     public bool isOnQTE = false;
 
@@ -46,7 +44,6 @@ public class QTEGenerator : MonoBehaviour
     private void Awake()
     {
         events = GetComponent<QTEEvents>();
-        shooting = FindObjectOfType<QTEShooting>();
     }
 
     private void Update()

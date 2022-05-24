@@ -21,9 +21,9 @@ public class PatrolAI : MonoBehaviour
 
     private NavMeshAgent agent;
     
-    Transform[] normalDestinations;
-    Transform[] goOutDestinations;
-    Transform[] come; 
+    [SerializeField] Transform[] normalDestinations;
+    [SerializeField] Transform[] goOutDestinations;
+    [SerializeField] Transform[] come; 
 
     public float normalTime = 10f;
     public float goOutTime = 30f;
