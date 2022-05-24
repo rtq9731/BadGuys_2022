@@ -11,6 +11,11 @@ public class ChaseHPSystem : MonoBehaviour
     [SerializeField] float damage = 1f;
 
     float hp = 100f;
+    public float HP
+    {
+        get { return hp; }
+        set { hp = Mathf.Clamp(value, 0, 100); }
+    }
 
     private void Awake()
     {
@@ -28,6 +33,6 @@ public class ChaseHPSystem : MonoBehaviour
 
     public static void PlusHP(float heal)
     {
-        FindObjectOfType<ChaseHPSystem>().hp += heal;
+        FindObjectOfType<ChaseHPSystem>().HP += heal;
     }
 }

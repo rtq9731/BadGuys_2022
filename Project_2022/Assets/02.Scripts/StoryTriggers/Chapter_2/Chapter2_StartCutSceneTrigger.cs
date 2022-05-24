@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Chapter2_StartCutSceneTrigger : MonoBehaviour
 {
+    [SerializeField] GameObject chaseHPUI = null;
     public GameObject timeline = null;
     public RunnerAI ai = null;
 
@@ -17,6 +18,7 @@ public class Chapter2_StartCutSceneTrigger : MonoBehaviour
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         timeline.gameObject.SetActive(false);
         ai.gameObject.SetActive(true);
+        chaseHPUI.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)
