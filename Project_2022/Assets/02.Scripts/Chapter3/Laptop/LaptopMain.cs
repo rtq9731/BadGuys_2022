@@ -6,6 +6,7 @@ public class LaptopMain : MonoBehaviour
 {
     public GameObject mainPanel;
     public GameObject documentPanel;
+    public GameObject guidePannel;
 
     private bool grabUpside;
 
@@ -33,14 +34,14 @@ public class LaptopMain : MonoBehaviour
         documentPanel.SetActive(false);
     }
 
-    public void DocumentBtn()
+    public void DocumentBtn(GameObject pannel)
     {
-        documentPanel.SetActive(true);
+        pannel.SetActive(true);
     }
 
-    public void DocumentBtnClose()
+    public void DocumentBtnClose(GameObject pannel)
     {
-        documentPanel.SetActive(false);
+        pannel.SetActive(false);
     }
 
     //public void UpsideBar()
