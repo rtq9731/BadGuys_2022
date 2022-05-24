@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class QTE_CollisionTrigger : MonoBehaviour
 {
+    [SerializeField] protected float heal = 30f;
+
     protected QTEManager qm = null;
     protected TimelineSelector selector = null;
 

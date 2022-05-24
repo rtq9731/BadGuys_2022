@@ -49,9 +49,9 @@ public class StopMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.localScale = Vector3.zero;
+        transform.Find("PanelStopMenu").transform.localScale = Vector3.zero;
         UIManager.Instance.isEsc = true;
-        transform.DOScale(1, 0.5f); // 일시정지의 순서 때문에 한번 더 해줄 필요가 있음.
+        transform.Find("PanelStopMenu").transform.DOScale(1, 0.5f); // 일시정지의 순서 때문에 한번 더 해줄 필요가 있음.
     }
 
     private void OnDisable()
