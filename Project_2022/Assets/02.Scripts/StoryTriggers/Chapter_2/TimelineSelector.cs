@@ -9,19 +9,15 @@ public class TimelineSelector : MonoBehaviour
 
     System.Action act = null;
 
-    public void SetTimelineSelector(System.Action onComplete)
-    {
-        act = onComplete;
-    }
-
-    public void PlayTimeline(int idx, bool isEnd)
+    public void PlayTimeline(int idx, System.Action callBack = null)
     {
         timelines[idx].Play();
+        act = callBack;
+    }
 
-        if(isEnd)
-        {
-            act?.Invoke();
-            act = null;
-        }
+    public void OnCompelete()
+    {
+        act?.Invoke();
+        act = null;
     }
 }

@@ -11,12 +11,12 @@ public class QTECollisionTrigger_1 : QTE_CollisionTrigger
 
     private void OnSuccessQTE()
     {
-        selector.PlayTimeline(0, true);
+        selector.PlayTimeline(0);
         ChaseHPSystem.PlusHP(heal);
     }
 
     private void OnFailedQTE()
     {
-        selector.PlayTimeline(1, true);
+        selector.PlayTimeline(1);
     }
 }
