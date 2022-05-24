@@ -6,6 +6,6 @@ public class QTECollisionTrigger_1 : QTE_CollisionTrigger
 {
     protected override void OnTriggered()
     {
-        qm.GenerateQTEEvent(QTEPressType.Shoot, KeyCode.E, () => selector.PlayTimeline(0, true), () => selector.PlayTimeline(1, true));
+        qm.GenerateQTEEvent(QTEPressType.Single, KeyCode.E, () => selector.PlayTimeline(0, true), () => selector.PlayTimeline(1, true));
     }
 }
