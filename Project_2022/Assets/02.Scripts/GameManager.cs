@@ -95,7 +95,16 @@ public class GameManager : MonoBehaviour
         using(StreamReader sr = new StreamReader(Application.persistentDataPath + fileName))
         {
             Debug.Log(Application.persistentDataPath + fileName);
-            return jsonData = JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
+            if(sr == null)
+            {
+                jsonData = new EmailJsonData();
+            }
+            else
+            {
+                JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
+            }
+
+            return jsonData;
         }
     }
 

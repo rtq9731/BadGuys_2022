@@ -6,6 +6,8 @@ public abstract class QTE_CollisionTrigger : MonoBehaviour
 {
     [SerializeField] protected float heal = 30f;
 
+    bool isTriggerd = false;
+
     protected QTEManager qm = null;
     protected TimelineSelector selector = null;
 
@@ -15,10 +17,14 @@ public abstract class QTE_CollisionTrigger : MonoBehaviour
         qm = FindObjectOfType<QTEManager>();
     }
 
-    protected void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
+        if (isTriggerd)
+            return;
+
         if(other.CompareTag("Player"))
         {
+            isTriggerd = true;
             OnTriggered();
         }
     }
