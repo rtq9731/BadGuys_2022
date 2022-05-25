@@ -12,6 +12,8 @@ public class RunnerAI : MonoBehaviour
 
     Queue<Action> arriveActQueue = new Queue<Action>();
 
+    float initSpeed = 0f;
+
     Transform player = null;
 
     int runningHash = 0;
@@ -22,6 +24,7 @@ public class RunnerAI : MonoBehaviour
         anim = GetComponent<Animator>();
         ai = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<PlayerController>(true).transform;
+        initSpeed = ai.speed;
 
         runningHash = Animator.StringToHash("isRunning");
 
@@ -34,6 +37,8 @@ public class RunnerAI : MonoBehaviour
     private void Update()
     {
         anim.SetBool(runningHash, !ai.isStopped);
+
+        ai.speed = GameManager.Instance.IsPause ? 0 : initSpeed;
 
         if(Vector3.Distance(ai.destination, transform.position) <= 0.1f)
         {

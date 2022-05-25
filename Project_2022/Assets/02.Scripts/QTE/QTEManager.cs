@@ -54,6 +54,8 @@ public class QTEManager : MonoBehaviour
         _successCallback = successCallback;
         _failedCallback = failedCallback;
 
+        UIManager.Instance.OnCutSceneWithoutPause();
+
         generator.Generation(qTEPressType, key);
         Time.timeScale = 0.2f;
         isSpawnQTE = true;
@@ -136,6 +138,7 @@ public class QTEManager : MonoBehaviour
 
         }
 
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         time = 0f;
         generator.RemoveQTE();
         Time.timeScale = 1f;
