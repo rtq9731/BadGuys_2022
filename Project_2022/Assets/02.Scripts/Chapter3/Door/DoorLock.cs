@@ -34,6 +34,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     private void Start()
     {
         puzzleMgr.gameObject.SetActive(false);
+        PatrolCheck.Instanse.isDoorClose = true;
     }
 
     private void Update()
@@ -60,12 +61,14 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             {
                 anim.SetTrigger("IsClose");
                 isOpen = false;
+                PatrolCheck.Instanse.isDoorClose = true;
             }
                 
             else
             {
                 anim.SetTrigger("IsOpen");
                 isOpen = true;
+                PatrolCheck.Instanse.isDoorClose = false;
             }
         }
     }
