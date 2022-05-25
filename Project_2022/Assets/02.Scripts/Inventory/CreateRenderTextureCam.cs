@@ -52,7 +52,8 @@ public class CreateRenderTextureCam : MonoBehaviour
         }
         else
         {
-            obj.transform.GetChild(0).transform.localPosition = new Vector3(0.23f, 0.1f, 1f);
+            //obj.transform.GetChild(0).transform.localPosition = new Vector3(0.23f, 0.1f, 1f);
+            obj.transform.GetChild(0).transform.localPosition = new Vector3(0f, 0f, 1f);
             itemObj.transform.DOScale(1f, 0.1f);
         }
 

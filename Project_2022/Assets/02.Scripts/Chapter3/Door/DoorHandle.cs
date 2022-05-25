@@ -64,6 +64,11 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         float a = 0;
         Color col = fadeImg.color;
 
+        if (fadeImg.gameObject.activeSelf == false)
+        {
+            fadeImg.gameObject.SetActive(true);
+        }
+
         while (isOver == false)
         {
             //Debug.Log(a);
