@@ -14,6 +14,9 @@ public class InventoryItemPanel : MonoBehaviour
 
     ShowInventoryUI inventoryUI;
     bool isActive = false;
+    bool isDontEat = false;
+
+    GameObject dontEatObj = null;
 
     GameObject currentObj = null;
     Vector3 originRotate;
@@ -102,6 +105,11 @@ public class InventoryItemPanel : MonoBehaviour
                     itemImage.texture = null;
                     itemInfoPanel.SetActive(false);
                 });
+
+                if (isDontEat)
+                {
+
+                }
             }
         }
     }
@@ -120,4 +128,23 @@ public class InventoryItemPanel : MonoBehaviour
 
         inventoryUI.isOnInventory = true;
     }
+
+    //public void OnItemPanel(Transform itemIconChild, ItemInfo itemInfo, GameObject itemObj)
+    //{
+    //    isActive = !isActive;
+    //    inventoryUI.isOnInventory = true;
+    //    GameManager.Instance.IsPause = true;
+    //    UIManager.Instance.DisplayCursor(true);
+
+    //    itemInfoPanel.SetActive(true);
+    //    pickUpPanel.SetActive(false);
+
+    //    itemInfoPanel.transform.DOScale(1f, 0.1f);
+
+    //    itemImage.texture = itemIconChild.GetComponent<Camera>().targetTexture;
+    //    itemRole.text = itemInfo.itemRole;
+    //    currentObj = itemObj;
+
+    //    originRotate = currentObj.transform.rotation.eulerAngles;
+    //}
 }

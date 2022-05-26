@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IInteractableItem
 {
-    [SerializeField] List<DialogData> dialogs = null;
+    public List<DialogData> dialogs = null;
     public ItemInfo itemInfo;
     public event Action onInteract = () => { };
 

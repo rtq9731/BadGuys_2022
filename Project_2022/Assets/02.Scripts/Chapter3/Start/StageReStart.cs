@@ -65,7 +65,7 @@ public class StageReStart : MonoBehaviour
             restartTxt.DOText("M.A.M : 기억 재구성중...", 3f).OnComplete(() =>
             {
                 restartTxt.text = "";
-                restartTxt.DOText("M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.", 6f).OnComplete(() =>
+                restartTxt.DOText("M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.", 7f).OnComplete(() =>
                 {
                     UIManager.Instance.OnCutSceneOver();
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
