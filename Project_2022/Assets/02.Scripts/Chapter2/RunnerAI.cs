@@ -74,6 +74,18 @@ public class RunnerAI : MonoBehaviour
             arriveActQueue.Enqueue(() => gameObject.SetActive(false));
         }
 
+        DestinationWaitpoint waitpoint = destinations[idx].destination.GetComponent<DestinationWaitpoint>();
+        
+        if (waitpoint)
+        {
+            arriveActQueue.Enqueue(() =>
+            {
+                waitpoint.SetWait(() => SetDestination(idx + 1));
+                return;
+            });
+        }
+
+
         if (destinations[idx].timeLine != null)
         {
             arriveActQueue.Enqueue(() =>
