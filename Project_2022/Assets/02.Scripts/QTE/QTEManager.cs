@@ -99,7 +99,6 @@ public class QTEManager : MonoBehaviour
                     CheckSingleQTE();
                 }
                 break;
-           
         }
 
         keys.Clear();
@@ -164,10 +163,8 @@ public class QTEManager : MonoBehaviour
                                 keys.Add(e.keyCode);
                                 generator.RollBtn();
 
-                                if (keys[0] != keys[keys.Count - 1])
-                                    CheckRollQTE();
-                                if (keys[0] != events.QTEKeys[0].QTEKey[0])
-                                    CheckRollQTE();
+
+                                
                                 if (keys.Count != rollCount)
                                     return;
                             }

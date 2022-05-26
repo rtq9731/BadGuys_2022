@@ -11,16 +11,16 @@ public class QTECollisionTrigger_4 : QTE_CollisionTrigger
 
     private void OnSuccessQTE()
     {
-        selector.PlayTimeline(0);
+        selector.PlayTimeline(0, () =>
+        {
+            qm.GenerateQTEEvent(QTEPressType.Roll, KeyCode.E, OnSuccesSuccessQTE, OnSuccesFailedQTE);
+        });
         ChaseHPSystem.PlusHP(heal);
     }
 
     private void OnFailedQTE()
     {
-        selector.PlayTimeline(1, () =>
-        {
-            qm.GenerateQTEEvent(QTEPressType.Roll, KeyCode.E, OnSuccesSuccessQTE, OnSuccesFailedQTE);
-        });
+        selector.PlayTimeline(1);
     }
 
     private void OnSuccesSuccessQTE()

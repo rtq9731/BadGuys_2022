@@ -20,19 +20,22 @@ public class PatrolAI : MonoBehaviour
     public AIStates _states = AIStates.Normal;
 
     private NavMeshAgent agent;
-    
+    private Animator anim;
+
     [SerializeField] Transform[] normalDestinations;
     [SerializeField] Transform[] goOutDestinations;
-    [SerializeField] Transform[] come; 
+    [SerializeField] Transform[] come;
 
-    public float normalTime = 10f;
-    public float goOutTime = 30f;
+    [SerializeField] Transform chair;
+
+    public float normalTime = 6f;
+    public float goOutTime = 10f;
 
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        anim = GetComponent<Animator>();
         StartStates(AIStates.Normal);
     }
 
@@ -71,7 +74,7 @@ public class PatrolAI : MonoBehaviour
                     if (normalTime <= 0)
                     {
                         StartStates(AIStates.GoOut);
-                        normalTime = 10f;
+                        normalTime = 5;
                     }
                 }
                 break;
@@ -81,14 +84,14 @@ public class PatrolAI : MonoBehaviour
                     if (goOutTime <= 0)
                     {
                         StartStates(AIStates.ComeIn);
-                        goOutTime = 30f;
+                        goOutTime = 10f;
                     }
                 }
                 break;
             case AIStates.ComeIn:
                 {
                     // 만약 들어왔다면 다시 앉아버리기 
-                    StartStates(AIStates.Normal);
+                    //StartStates(AIStates.Normal);
                 }
                 break;
             case AIStates.Detection:
@@ -102,19 +105,32 @@ public class PatrolAI : MonoBehaviour
     void Normal()
     {
         Debug.Log("앉기");
-        //
+        anim.SetBool("IsSitting", true);
     }
 
     void GoOut()
     {
-        Debug.Log("밖으로 나가기");
-        //밖으로 나가기
+        //일단 일어나고 
+        anim.SetTrigger("StandUp");
+
+
+        anim.SetBool("IsWalk", true);
+        anim.SetBool("IsSitting", false);
     }
 
     void ComeIn()
     {
         Debug.Log("안으로 들어오기");
+        anim.SetBool("IsWalk", true);
         //안으로 들어오기
+
+        //앉기
+
+        if (Vector3.Distance(transform.position, chair.position) <= 0.1f)
+        {
+            anim.SetTrigger("SitDown");
+            anim.SetBool("IsWalk", false);
+        }
     }
 
     void DetectionPlayer()
