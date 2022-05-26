@@ -49,6 +49,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     {
         if (isLock)
         {
+            DialogManager.Instance.ClearALLDialog();
             isPuzzle = true;
             puzzleMgr.gameObject.SetActive(true);
             puzzleMgr.PuzzleOn();
