@@ -6,14 +6,14 @@ public class DestinationWaitpoint : MonoBehaviour
 {
     [SerializeField] PlayerCollisionTrigger trigger = null;
 
-    RunnerAI runner = null;
+    public bool isTriggered = false;
 
     private void Start()
     {
-        runner = FindObjectOfType<RunnerAI>(true);
+        trigger.onTrigger += () => isTriggered = true;
     }
 
-    public void SetWait(System.Action callBack)
+    public void SetWait(RunnerAI runner, System.Action callBack)
     {
         runner.gameObject.SetActive(false);
         

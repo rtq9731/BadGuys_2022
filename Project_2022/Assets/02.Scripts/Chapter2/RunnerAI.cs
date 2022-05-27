@@ -40,7 +40,8 @@ public class RunnerAI : MonoBehaviour
 
         ai.speed = GameManager.Instance.IsPause ? 0 : initSpeed;
 
-        if(Vector3.Distance(ai.destination, transform.position) <= 0.1f)
+        // Debug.Log((Vector3.Distance(ai.destination, transform.position)) <= 0.1f);
+        if (Vector3.Distance(ai.destination, transform.position) <= 2f)
         {
             ai.isStopped = true;
 
@@ -78,11 +79,23 @@ public class RunnerAI : MonoBehaviour
         
         if (waitpoint)
         {
+            if(waitpoint.isTriggered)
+            {
+                arriveActQueue.Enqueue(() =>
+                {
+                    SetDestination(idx + 1);
+                });
+
+                return;
+            }
+
+            Debug.Log(ai.destination);
             arriveActQueue.Enqueue(() =>
             {
-                waitpoint.SetWait(() => SetDestination(idx + 1));
-                return;
+                Debug.Log("Waitpoint 1 Callback");
+                waitpoint.SetWait(this, () => SetDestination(idx + 1));
             });
+            return;
         }
 
 
