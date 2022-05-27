@@ -19,6 +19,8 @@ public class LockPickPuzzle : MonoBehaviour
 
     public GameObject puzzleUI;
 
+    public DialogDatas dialog;
+
     [SerializeField]
     private int answerDeg;
     public float tryDur;
@@ -26,9 +28,11 @@ public class LockPickPuzzle : MonoBehaviour
     private bool isClear;
     private bool isReset;
     private bool isUpDis;
+    private bool isDialog;
 
     private void Awake()
     {
+        isDialog = false;
         puzzleCam.SetActive(false);
         puzzleObj.SetActive(false);
         puzzleUI.SetActive(false);
@@ -36,7 +40,6 @@ public class LockPickPuzzle : MonoBehaviour
 
     public void PuzzleOn()
     {
-        UIManager.Instance.OnCutScene();
         UIManager.Instance.OnPuzzleUI();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -63,7 +66,6 @@ public class LockPickPuzzle : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        UIManager.Instance.OnCutSceneOver();
         UIManager.Instance.OffPuzzleUI();
     }
 
@@ -120,6 +122,11 @@ public class LockPickPuzzle : MonoBehaviour
                 if (z >= 90)
                 {
                     Debug.Log("¿­¼è°¡ ´Ù µ¹¾Æ°¬´Ù!");
+                    if(!isDialog)
+                    {
+                        isDialog = true;
+                        DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+                    }
                     PuzzleOver();
                 }
             }

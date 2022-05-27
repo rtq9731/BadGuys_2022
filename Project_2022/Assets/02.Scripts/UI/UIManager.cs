@@ -68,6 +68,14 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.StopLoopSound();
     }
 
+    public void OnCutSceneWithMainUI()
+    {
+        FindObjectOfType<PlayerController>(true).enabled = false;
+        GameManager.Instance.IsPause = true;
+        isOnCutScene = true;
+        SoundManager.Instance.StopLoopSound();
+    }
+
     public void OnCutSceneOver()
     {
         _mainUI.SetActive(true);

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class DoorHandle : MonoBehaviour, IInteractableItem
 {
     [Header("Value")]
@@ -16,9 +15,13 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
     public GameObject peekCam;
     public GameObject peekUI;
     public Image fadeImg;
+    public DialogDatas dialog;
+
+    private bool isDialog;
 
     private void Awake()
     {
+        isDialog = false;
         peekCam.SetActive(false);
         peekUI.SetActive(false);
         fadeImg.color = new Color(0, 0, 0, 0);
@@ -44,9 +47,10 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         {
             isPeek = true;
             isMoving = true;
-            UIManager.Instance.OnCutScene();
+            UIManager.Instance.OnCutSceneWithMainUI();
             UIManager.Instance.OnPuzzleUI();
             StartCoroutine(Fading());
+            
         }
     }
 
@@ -106,9 +110,15 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
             yield return null;
         }
 
+        if (!isDialog)
+        {
+            isDialog = true;
+            DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+        }
+
         if (!isPeek)
         {
-            UIManager.Instance.OnCutSceneOver();
+            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
             UIManager.Instance.OffPuzzleUI();
         }
 
