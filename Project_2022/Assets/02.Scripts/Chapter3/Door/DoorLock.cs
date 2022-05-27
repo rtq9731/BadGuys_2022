@@ -14,6 +14,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     private bool isOpen;
     private bool isPuzzle;
     private bool isTest;
+    private bool isDialog;
 
     [Header("Components")]
     public Animator anim;
@@ -22,6 +23,8 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     public Collider handle;
     public Collider door;
     public GameObject itemSlot;
+    public DialogDatas puzzleDialog;
+    public DialogDatas tryDialog;
 
 
     private void Awake()
@@ -29,6 +32,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         isLock = true;
         isOpen = false;
         isTest = false;
+        isDialog = false;
     }
 
     private void Start()
@@ -47,14 +51,32 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
     public void Interact(GameObject taker)
     {
+        bool iskey = Inventory.Instance.MainItem != null ? iskey = CheckMainitem() : iskey = false;
+        
+        if (iskey || !isLock || isTest)
+        {
+            
+        }
+        else
+        {
+            if (!isDialog)
+            {
+                isDialog = true;
+                DialogManager.Instance.SetDialaogs(tryDialog.GetDialogs());
+            }
+            return;
+        }
+        
+
         if (isLock)
         {
-            DialogManager.Instance.ClearALLDialog();
             isPuzzle = true;
             puzzleMgr.gameObject.SetActive(true);
             puzzleMgr.PuzzleOn();
             handle.enabled = false;
             door.enabled = false;
+
+            DialogManager.Instance.SetDialaogs(puzzleDialog.GetDialogs());
         }
         else
         {
@@ -91,20 +113,13 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
     public bool CanInteract()
     {
-        bool iskey = Inventory.Instance.MainItem != null ? iskey = CheckMainitem() : iskey = false;
-
         if(isPuzzle)
         {
             return false;
         }
-
-        if ( iskey || !isLock || isTest)
-        {
-            return true;
-        }
         else
         {
-            return false;
+            return true;
         }
     }
 
