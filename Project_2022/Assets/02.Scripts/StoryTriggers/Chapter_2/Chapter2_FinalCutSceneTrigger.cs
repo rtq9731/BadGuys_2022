@@ -27,6 +27,6 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
         {
             timeline.gameObject.SetActive(true);
             transform.gameObject.SetActive(false);
-        }
+        }   
     }
 }
