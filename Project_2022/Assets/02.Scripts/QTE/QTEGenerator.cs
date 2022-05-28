@@ -39,8 +39,6 @@ public class QTEGenerator : MonoBehaviour
 
     public GameObject curQTEObj;
 
-    int qteUiIndex = 0;
-
     private void Awake()
     {
         events = GetComponent<QTEEvents>();
@@ -129,8 +127,6 @@ public class QTEGenerator : MonoBehaviour
 
                     uiPosition = qteObj.GetComponent<RectTransform>();
 
-                    qteUiIndex++;
-
                     uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
                 break;
@@ -146,8 +142,6 @@ public class QTEGenerator : MonoBehaviour
                     events.QTEKeys[0].pressType = keyType;
 
                     uiPosition = qteObj.GetComponent<RectTransform>();
-
-                    qteUiIndex++;
 
                     uiPosition.anchoredPosition = new Vector2(0, 0);
                 }
@@ -172,6 +166,9 @@ public class QTEGenerator : MonoBehaviour
                 break;
             case KeyCode.D:
                 buttonImage.sprite = dSprite;
+                break;
+            default:
+                Debug.LogWarning("지정 되지 않은 키입니다!");
                 break;
         }
     }
