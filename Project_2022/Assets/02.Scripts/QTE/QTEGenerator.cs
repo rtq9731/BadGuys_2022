@@ -172,6 +172,10 @@ public class QTEGenerator : MonoBehaviour
                 break;
         }
     }
+    public void RollImage(int rollCount, int curCount)
+    {
+        fillImage.fillAmount = curCount / rollCount;
+    }
 
     public void FailedQTE()
     {

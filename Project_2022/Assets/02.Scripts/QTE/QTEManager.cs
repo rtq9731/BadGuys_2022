@@ -162,8 +162,7 @@ public class QTEManager : MonoBehaviour
                             {
                                 keys.Add(e.keyCode);
                                 generator.RollBtn();
-
-
+                                generator.RollImage(rollCount, keys.Count);
                                 
                                 if (keys.Count != rollCount)
                                     return;
