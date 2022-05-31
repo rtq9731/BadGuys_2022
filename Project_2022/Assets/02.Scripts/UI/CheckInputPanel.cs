@@ -17,6 +17,7 @@ public class CheckInputPanel : MonoBehaviour
     bool isOn = false;
 
     System.Action onCancel;
+    System.Action onOK;
 
     private void Start()
     {
@@ -52,13 +53,28 @@ public class CheckInputPanel : MonoBehaviour
         }
     }
 
-    public void InitInputPanel(System.Action onCancel)
+    public void InitInputPanel(System.Action onCancel, System.Action onOK)
     {
         countText.text = $"{cancelCool - lastTime}초 후에 원래 설정으로 돌아갑니다.";
         gameObject.SetActive(true);
         isOn = true;
+
+
         this.onCancel = onCancel;
-        onCancel += () => onCancel = null;
+
+        this.onCancel += () =>
+        {
+            this.onCancel = null;
+            this.onOK = null;
+        };
+
+        this.onOK = onOK;
+
+        this.onOK += () =>
+        {
+            this.onCancel = null;
+            this.onOK = null;
+        };
     }
 
     public void CheckInput(bool value)
@@ -67,8 +83,17 @@ public class CheckInputPanel : MonoBehaviour
         {
             onCancel?.Invoke();
         }
+        else
+        {
+            onOK?.Invoke();
+        }
 
         isOn = false;
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        onCancel?.Invoke();
     }
 }

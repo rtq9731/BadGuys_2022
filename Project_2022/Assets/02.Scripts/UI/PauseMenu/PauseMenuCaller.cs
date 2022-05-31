@@ -24,21 +24,30 @@ public class PauseMenuCaller : MonoBehaviour
 
     public void CallPanelGroup(PaenlGroupKind kind)
     {
+
         Sequence seq = DOTween.Sequence();
 
-        foreach (var item in panels.FindAll(item => gameObject.activeSelf && !panelGroups[(int)kind].panles.Contains(item)))
-        {
-            seq.Join(item.DOScaleX(0, 0.2f).OnComplete(() => item.gameObject.SetActive(false)));
-        }
+        List<RectTransform> rects = panels.FindAll(item => gameObject.activeSelf && !panelGroups[(int)kind].panles.Contains(item));
 
-        seq.AppendInterval(0.01f);
+        rects.Sort((x, y) => y.GetSiblingIndex().CompareTo(x.GetSiblingIndex()));
+
+        foreach (var item in rects)
+        {
+            seq.Append(item.DOScaleX(0, 0.05f));
+        }
 
         seq.OnComplete(() =>
         {
+            foreach (var item in rects)
+            {
+                item.gameObject.SetActive(false);
+            }
+
+            Sequence seq2 = DOTween.Sequence();
             foreach (var item in panelGroups[(int)kind].panles)
             {
                 item.gameObject.SetActive(true);
-                item.DOScaleX(1, 0.2f);
+                seq2.Append(item.DOScaleX(1, 0.05f));
             }
         });
     }

@@ -19,20 +19,20 @@ public class SettingManager : MonoBehaviour
     {
         get
         {
+            onChangeSetting?.Invoke();
             return _setting;
         }
     }
     public static System.Action onChangeSetting;
 
-    readonly string fileName = "settings.sav";
+    static readonly string fileName = "settings.sav";
 
     private void Start()
     {
         LoadSettingInfo();
     }
 
-
-    public void SaveSettingInfo()
+    public static void SaveSettingInfo()
     {
         using (StreamWriter sw = new StreamWriter(Application.persistentDataPath + fileName))
         {
@@ -40,7 +40,7 @@ public class SettingManager : MonoBehaviour
         }
     }
 
-    public void LoadSettingInfo()
+    public static void LoadSettingInfo()
     {
         using (StreamReader sr = new StreamReader(Application.persistentDataPath + fileName))
         {
