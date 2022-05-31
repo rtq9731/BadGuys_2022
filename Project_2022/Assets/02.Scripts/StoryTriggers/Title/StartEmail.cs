@@ -8,7 +8,11 @@ namespace Triggers.Title
     {
         private void Start()
         {
-            OnTriggered();
+            Debug.Log(GameManager.Instance.jsonData.emails.Find(item => item.id == data.id));
+            if (GameManager.Instance.jsonData.emails.Find(item => item.id == data.id) == null)
+            {
+                base.OnTriggered();
+            }
         }
     }
 }

@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
+                jsonData = JsonUtility.FromJson<EmailJsonData>(sr.ReadToEnd());
             }
 
             return jsonData;
