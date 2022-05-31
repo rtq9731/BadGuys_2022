@@ -23,13 +23,17 @@ public class LaptopManager : MonoBehaviour
 
     [Header("Other")]
     public GameObject laptopCam;
+    public DialogDatas dialog;
 
     [Header("Value")]
-    public bool isPass;
+    public float dialogTime;
     public int password;
+    public bool isPass;
     public bool isUIUse;
 
+
     private bool isSetting;
+    private bool isDialog;
 
     private void Awake()
     {
@@ -61,10 +65,9 @@ public class LaptopManager : MonoBehaviour
     public void LapTopOn()
     {
         isSetting = false;
-        UIManager.Instance.OnCutScene();
+        UIManager.Instance.OnCutSceneWithMainUI();
         UIManager.Instance.OnPuzzleUI();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        UIManager.Instance.DisplayCursor(true);
         laptopCam.SetActive(true);
 
         if (!isPass)
@@ -153,6 +156,14 @@ public class LaptopManager : MonoBehaviour
 
     private IEnumerator BootingScene()
     {
+        if (!isDialog)
+        {
+            DialogManager.Instance.ClearALLDialog();
+            DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+            yield return new WaitForSeconds(dialogTime);
+            DialogManager.Instance.ClearALLDialog();
+        }
+
         StartCoroutine(FadeIn());
         yield return new WaitForSeconds(fadeTime);
         bootingPanel.SetActive(true);
@@ -193,10 +204,9 @@ public class LaptopManager : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         OffAllPanel();
         laptopCam.SetActive(false);
-        UIManager.Instance.OnCutSceneOver();
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         UIManager.Instance.OffPuzzleUI();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        UIManager.Instance.DisplayCursor(false);
         StartCoroutine(FadeOut());
         yield return new WaitForSeconds(fadeTime);
         isUIUse = false;
