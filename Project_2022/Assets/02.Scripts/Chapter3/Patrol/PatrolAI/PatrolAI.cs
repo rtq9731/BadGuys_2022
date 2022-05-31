@@ -12,6 +12,12 @@ public enum AIStates
     Detection
 }
 
+public enum Kinds
+{
+    Man1 = 0,
+    Man2 = 1,
+}
+
 
 public class PatrolAI : MonoBehaviour
 {
