@@ -76,6 +76,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
         }
         else
         {
+            GetComponent<Collider>().enabled = false;
             CameraGameSetting();
 
             Cursor.visible = true;
