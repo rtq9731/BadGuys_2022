@@ -22,14 +22,15 @@ public class OptionRatio : MonoBehaviour
     FullScreenMode lastFullScreenMode;
     Resolution lastReslution;
 
-    Array fullscreenModes;
-
     private void Start()
     {
         ratioDropdown.ClearOptions();
         fullScreenDropdown.ClearOptions();
 
         resolutions = Screen.resolutions.ToList();
+
+        lastReslution = Screen.currentResolution;
+        lastFullScreenMode = Screen.fullScreenMode;
 
         Dropdown.OptionDataList optionRatioDatas = new Dropdown.OptionDataList();
 
@@ -45,17 +46,31 @@ public class OptionRatio : MonoBehaviour
 
         Dropdown.OptionDataList optionFullScreenModeDatas = new Dropdown.OptionDataList();
 
-        fullscreenModes = Enum.GetValues(typeof(FullScreenMode));
-        Array fullscreenModeNames = Enum.GetNames(typeof(FullScreenMode));
-
-        for (int i = 0; i < fullscreenModes.Length; i++)
+        string[] fullScreenNames =
         {
-            optionFullScreenModeDatas.options.Add(new Dropdown.OptionData($"{fullscreenModeNames.GetValue(i)}"));
+            "전체화면",
+            "테두리 없는 창모드",
+            "창모드"
+        };
 
-            if(Screen.fullScreenMode == (FullScreenMode)fullscreenModes.GetValue(i))
-            {
-                lastFullScreenValue = i;
-            }
+        for (int i = 0; i < fullScreenNames.Length; i++)
+        {
+            optionFullScreenModeDatas.options.Add(new Dropdown.OptionData($"{fullScreenNames[i]}"));
+        }
+
+        switch (Screen.fullScreenMode)
+        {
+            case FullScreenMode.ExclusiveFullScreen:
+                lastFullScreenValue = 0;
+                break;
+            case FullScreenMode.FullScreenWindow:
+                lastFullScreenValue = 1;
+                break;
+            case FullScreenMode.Windowed:
+                lastFullScreenValue = 2;
+                break;
+            default:
+                break;
         }
 
         fullScreenDropdown.AddOptions(optionFullScreenModeDatas.options);
@@ -70,7 +85,7 @@ public class OptionRatio : MonoBehaviour
 
     void OnChangeValueScreenRatio(int value)
     {
-        if(canChangeOption)
+        if (canChangeOption)
         {
             canChangeOption = false;
 
@@ -82,15 +97,20 @@ public class OptionRatio : MonoBehaviour
 
             inputPanel.InitInputPanel(() =>
             {
+                lastRatioValue = temp;
                 ratioDropdown.value = temp;
                 canChangeOption = true;
                 Screen.SetResolution(lastReslution.width, lastReslution.height, lastFullScreenMode, lastReslution.refreshRate);
-            }, () => canChangeOption = true);
+                lastReslution = Screen.currentResolution;
+            },
+            () =>
+            {
+                canChangeOption = true;
+                lastRatioValue = value;
+                lastReslution = Screen.currentResolution;
+            });
 
         }
-
-        lastRatioValue = value;
-        lastReslution = Screen.currentResolution;
     }
 
     void OnChangeValueFullscreenMode(int value)
@@ -102,17 +122,39 @@ public class OptionRatio : MonoBehaviour
             FullScreenMode fullScreen = lastFullScreenMode;
             int temp = lastFullScreenValue;
 
-            Screen.SetResolution(lastReslution.width, lastReslution.height, (FullScreenMode)(fullScreenDropdown.value), lastReslution.refreshRate);
+            FullScreenMode targetFullScreenMode;
+            switch (value)
+            {
+                case 0:
+                    targetFullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                    break;
+                case 1:
+                    targetFullScreenMode = FullScreenMode.FullScreenWindow;
+                    break;
+                case 2:
+                    targetFullScreenMode = FullScreenMode.Windowed;
+                    break;
+                default:
+                    targetFullScreenMode = FullScreenMode.FullScreenWindow;
+                    break;
+            }
+
+            Screen.SetResolution(lastReslution.width, lastReslution.height, targetFullScreenMode, lastReslution.refreshRate);
 
             inputPanel.InitInputPanel(() =>
             {
                 fullScreenDropdown.value = temp;
                 canChangeOption = true;
                 Screen.SetResolution(lastReslution.width, lastReslution.height, fullScreen, lastReslution.refreshRate);
-            }, () => canChangeOption = true);
+                lastFullScreenMode = targetFullScreenMode;
+            }, 
+            () => 
+            {
+                canChangeOption = true;
+                lastFullScreenValue = value;
+                lastFullScreenMode = targetFullScreenMode;
+            });
         }
 
-        lastFullScreenValue = value;
-        lastFullScreenMode = (FullScreenMode)(fullScreenDropdown.value);
     }
 }
