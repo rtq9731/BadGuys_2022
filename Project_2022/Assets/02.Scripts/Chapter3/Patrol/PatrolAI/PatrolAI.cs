@@ -41,6 +41,8 @@ public class PatrolAI : MonoBehaviour
     float extraRotationSpeed = 5f;
     public float timingTime = 0f;
 
+
+    bool isGoOut = true;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -55,7 +57,7 @@ public class PatrolAI : MonoBehaviour
 
         timingTime += Time.deltaTime;
 
-        if (isMove && destIndex != goOutDestinations.Length-1)
+        if (isMove)
         {
             Vector3 lookrotation = agent.steeringTarget - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
@@ -106,10 +108,15 @@ public class PatrolAI : MonoBehaviour
             case AIStates.ComeIn:
                 {
                     comeInTime -= Time.deltaTime;
-                    StartStates(_states);
+                    isMove = false;
+
                     if (comeInTime <= 0)
                     {
-                        comeInTime = 10f;
+                        if (destIndex == goOutDestinations.Length -1 )
+                            destIndex = -1;
+                        isMove = true;
+                        
+                        StartStates(_states);
                     }
                 }
                 break;
@@ -130,37 +137,41 @@ public class PatrolAI : MonoBehaviour
     void GoOut()
     {
         //일단 일어나고 
-        if (isSit)
+        if(isGoOut)
         {
-            anim.SetTrigger("StandUp");
-            chair.transform.DOMoveZ(transform.position.z - 0.5f, 1.5f).OnComplete(() =>
+            if (isSit)
             {
-                SetDestinations(0, true);
-                anim.SetBool("IsSitting", false);
-            });
-            isSit = false;
-        }
-
-        DoorAnimTiming(goOutDestinations);
-
-        if (Vector3.Distance(transform.position, goOutDestinations[goOutDestinations.Length - 1].position) <= 0.1f)
-        {
-            StartStates(AIStates.ComeIn);
-        }
-
-        if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
-        {
-            if (destIndex == goOutDestinations.Length - 2)
-            {
-                OpenDoor();
-                isMove = false;
-                return;
+                anim.SetTrigger("StandUp");
+                chair.transform.DOMoveZ(transform.position.z - 0.5f, 1.5f).OnComplete(() =>
+                {
+                    SetDestinations(0, true);
+                    anim.SetBool("IsSitting", false);
+                });
+                isSit = false;
             }
 
-            if (destIndex >= goOutDestinations.Length - 2)
-                return;
-            destIndex++;
-            SetDestinations(destIndex, true);
+            DoorAnimTiming(goOutDestinations);
+
+            if (Vector3.Distance(transform.position, goOutDestinations[goOutDestinations.Length - 1].position) <= 0.1f)
+            {
+                _states = AIStates.ComeIn;
+                isGoOut = false;
+            }
+
+            if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
+            {
+                if (destIndex == goOutDestinations.Length - 2)
+                {
+                    OpenDoor();
+                    isMove = false;
+                    return;
+                }
+
+                if (destIndex >= goOutDestinations.Length - 2)
+                    return;
+                destIndex++;
+                SetDestinations(destIndex, true);
+            }
         }
     }
 
@@ -180,7 +191,7 @@ public class PatrolAI : MonoBehaviour
         {
             FindObjectOfType<AiDoor>().CloseDoor(); 
             anim.SetBool("IsWalk", false);
-            destIndex = 0;
+            isGoOut = false;
             Debug.Log("문 닫기");
         }
     }
@@ -195,26 +206,33 @@ public class PatrolAI : MonoBehaviour
     void ComeIn()
     {
         Debug.Log("안으로 들어오기");
-
-
-        if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
+        if(!isGoOut)
         {
-            if (destIndex == comeDestinations.Length - 2)
+            if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
             {
-                OpenDoor();
-                isMove = false;
-                return;
+                if (destIndex == 0)
+                {
+                    OpenDoor();
+                    isMove = false;
+                    return;
+                }
+
+
+                if (destIndex >= comeDestinations.Length - 2)
+                    return;
+
+                destIndex++;
+                SetDestinations(destIndex, false);
+
+                Debug.Log("움직이세요 제발");
             }
 
-            if (destIndex >= comeDestinations.Length - 2)
-                return;
-            destIndex++;
-            SetDestinations(destIndex , false);
-        }
 
-        if (Vector3.Distance(transform.position, comeDestinations[comeDestinations.Length-1].position) <= 0.1f)
-        {
-            StandToSit();
+            if (Vector3.Distance(transform.position, comeDestinations[comeDestinations.Length - 1].position) <= 0.1f)
+            {
+                StandToSit();
+                isGoOut = true;
+            }
         }
     }
 
@@ -244,5 +262,7 @@ public class PatrolAI : MonoBehaviour
             agent.SetDestination(goOutDestinations[idx].position);
         else
             agent.SetDestination(comeDestinations[idx].position);
+
+        Debug.Log("하 스발");
     }
 }
