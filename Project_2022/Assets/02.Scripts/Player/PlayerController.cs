@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
         move = new Vector3(move.x, -9.8f * _gravityScale * Time.deltaTime, move.z);
 
-        float turnPlayer = Input.GetAxis("Mouse X") * _mouseSensitivity;
+        float turnPlayer = Input.GetAxis("Mouse X") * (_mouseSensitivity / 5f);
         _horizontalAngle = _horizontalAngle + turnPlayer;
 
         if (_horizontalAngle > 360) _horizontalAngle -= 360.0f;
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         transform.localEulerAngles = currentAngles;
 
         var turnCam = -Input.GetAxis("Mouse Y");
-        turnCam = turnCam * _mouseSensitivity;
+        turnCam = turnCam * (_mouseSensitivity / 5f);
         _verticalAngle = Mathf.Clamp(turnCam + _verticalAngle, -89.0f, 89.0f);
         currentAngles = camTrm.localEulerAngles;
         currentAngles.x = _verticalAngle;

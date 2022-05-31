@@ -16,8 +16,6 @@ public class OptionRatio : MonoBehaviour
     FullScreenMode curFullScreenMode;
     Array fullscreenModes;
 
-    Action onCancel = null;
-
     private void Start()
     {
         ratioDropdown.ClearOptions();

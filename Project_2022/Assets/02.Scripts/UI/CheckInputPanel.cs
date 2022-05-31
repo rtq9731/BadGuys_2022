@@ -8,6 +8,9 @@ public class CheckInputPanel : MonoBehaviour
     [SerializeField] Button btnOK;
     [SerializeField] Button btnCancel;
 
+    [SerializeField] float cancelCool = 10f;
+    float cancelTimer = 0f;
+
     System.Action onCancel;
 
     private void Start()
@@ -16,9 +19,23 @@ public class CheckInputPanel : MonoBehaviour
         btnCancel.onClick.AddListener(() => CheckInput(false));
     }
 
+    private void OnEnable()
+    {
+        cancelTimer = 0f;
+    }
+
+    private void Update()
+    {
+        cancelTimer += Time.deltaTime;
+        if (cancelCool <= cancelTimer)
+        {
+            onCancel();
+            transform.parent.gameObject.SetActive(false);
+        }
+    }
+
     public void InitInputPanel(System.Action onCancel)
     {
-        transform.parent.gameObject.SetActive(false);
         this.onCancel = onCancel;
     }
 

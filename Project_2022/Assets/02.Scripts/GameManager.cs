@@ -125,12 +125,4 @@ public class GameManager : MonoBehaviour
     }
 }
 
-[Serializable]
-public class SettingInfo
-{
-    float masterVolume;
-    float backgroundVolume;
-    float sfxVolume;
-    float mouseSensitivity;
-}
 
