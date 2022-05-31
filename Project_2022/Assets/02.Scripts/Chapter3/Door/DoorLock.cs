@@ -14,7 +14,9 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     private bool isOpen;
     private bool isPuzzle;
     private bool isTest;
+    private bool isTouch;
     private bool isDialog;
+
 
     [Header("Components")]
     public Animator anim;
@@ -23,8 +25,11 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     public Collider handle;
     public Collider door;
     public GameObject itemSlot;
-    public DialogDatas puzzleDialog;
-    public DialogDatas tryDialog;
+    public HairPinCounter hairpinCount;
+    public DialogDatas noPreparePuzzleDialog;
+    public DialogDatas PreparePuzzleDialog;
+    public DialogDatas noTryDialog;
+    public DialogDatas oneTryDialog;
 
 
     private void Awake()
@@ -32,6 +37,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         isLock = true;
         isOpen = false;
         isTest = false;
+        isTouch = false;
         isDialog = false;
     }
 
@@ -59,16 +65,24 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         }
         else
         {
-            if (!isDialog)
+            hairpinCount.isTouch = true;
+
+            if (hairpinCount.IsSingle() && !isTouch)
             {
-                isDialog = true;
-                DialogManager.Instance.SetDialaogs(tryDialog.GetDialogs());
+                isTouch = true;
+                DialogManager.Instance.SetDialaogs(oneTryDialog.GetDialogs());
             }
+            if (!isTouch)
+            {
+                isTouch = true;
+                DialogManager.Instance.SetDialaogs(noTryDialog.GetDialogs());
+            }
+
             return;
         }
         
 
-        if (isLock)
+        if (isLock && !isDialog)
         {
             isPuzzle = true;
             puzzleMgr.gameObject.SetActive(true);
@@ -76,7 +90,17 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             handle.enabled = false;
             door.enabled = false;
 
-            DialogManager.Instance.SetDialaogs(puzzleDialog.GetDialogs());
+            isDialog = true;
+            if (isTouch)
+            {
+                DialogManager.Instance.ClearALLDialog();
+                DialogManager.Instance.SetDialaogs(noPreparePuzzleDialog.GetDialogs());
+            }
+            else
+            {
+                DialogManager.Instance.ClearALLDialog();
+                DialogManager.Instance.SetDialaogs(PreparePuzzleDialog.GetDialogs());
+            }
         }
         else
         {
