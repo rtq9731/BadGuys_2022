@@ -54,7 +54,6 @@ public class PatrolAI : MonoBehaviour
     private void Update()
     {
         CheckStates();
-        Debug.Log(_states);
 
         timingTime += Time.deltaTime;
 
@@ -208,10 +207,9 @@ public class PatrolAI : MonoBehaviour
             SetDestinations(destIndex, false);
         }
 
-        if (Vector3.Distance(transform.position, agent.destination) <= 0.1f && destIndex == 2)
+        if (Vector3.Distance(transform.position, destinations[1].position) <= 0.1f)
         {
             FindObjectOfType<AiDoor>().CloseDoor();
-            anim.SetBool("IsWalk", false);
             isGoOut = false;
             SetDestinations(destIndex, false);
             Debug.Log("asd");
@@ -278,6 +276,7 @@ public class PatrolAI : MonoBehaviour
         anim.SetBool("IsWalk", false);
         isMove = false;
         chair.transform.DOMoveZ(originChairPos.z, 1.5f);
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         StartStates(AIStates.Normal);
     }
