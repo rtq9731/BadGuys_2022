@@ -6,12 +6,15 @@ namespace Triggers.Tutorial
 {
     public class TutorialClearEmail : EmailTrigger
     {
-        private void OnDestroy()
+        private void Start()
         {
-            if (GameManager.Instance.jsonData.emails.Find(item => item.id == data.id) == null)
+            FindObjectOfType<TutorialExit>().onClear += () =>
             {
-                OnTriggered();
-            }
+                if (GameManager.Instance.jsonData.emails.Find(item => item.id == data.id) == null)
+                {
+                    OnTriggered();
+                }
+            };
         }
     }
 }
