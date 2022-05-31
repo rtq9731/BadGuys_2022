@@ -5,13 +5,22 @@ using DG.Tweening;
 
 public class AiDoor : MonoBehaviour
 {
+
+    Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     public void OpenDoor()
     {
-        transform.DOMoveY(50f, 1f);
+        anim.SetTrigger("OpenTri");
+        Debug.Log("¿­±â");
     }
 
     public void CloseDoor()
     {
-        transform.DOMoveY(180f, 1f);
+        anim.SetTrigger("CloseTri");
+        Debug.Log("´Ý±â");
     }
 }
