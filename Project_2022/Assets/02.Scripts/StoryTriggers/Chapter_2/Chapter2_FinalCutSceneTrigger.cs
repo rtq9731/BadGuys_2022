@@ -29,8 +29,10 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
 
     virtual public void OnComplete()
     {
-        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+        finishTimeline.SetActive(false);
+        black.color = new Color(0, 0, 0, 1);
         startTimeline.gameObject.SetActive(false);
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         LoadingManager.LoadScene("Title", true);
     }
 
@@ -54,12 +56,5 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
         cam.SetActive(false);
         finishTimeline.SetActive(true);
         aimTimeline.SetActive(false);
-    }
-
-    virtual public void LoadMainScene()
-    {
-        finishTimeline.SetActive(false);
-        black.color = new Color(0, 0, 0, 1);
-        
     }
 }
