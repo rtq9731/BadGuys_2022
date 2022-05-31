@@ -6002,7 +6002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3055634444094867277
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6044,7 +6044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: b89fe5ba919488448932eec0a1caf6fb, type: 2}
-  m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 0.5019608}
+  m_Color: {r: 0.11764706, g: 0.11764706, b: 0.11764706, a: 0.78431374}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6075,6 +6075,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnOK: {fileID: 7250141677049033346}
   btnCancel: {fileID: 8796187453705315506}
+  countText: {fileID: 5614695624345597036}
+  cancelCool: 10
 --- !u!1 &3134001709314807793
 GameObject:
   m_ObjectHideFlags: 0
@@ -6639,14 +6641,13 @@ GameObject:
   m_Component:
   - component: {fileID: 377163724844224860}
   - component: {fileID: 911795868218986135}
-  - component: {fileID: 4187993956149334654}
   m_Layer: 5
   m_Name: OptionDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &377163724844224860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6695,21 +6696,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4187993956149334654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3404255701535113664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d72d5deebfc22240a9013b639d34f21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ratioDropdown: {fileID: 8897283623361348934}
-  fullScreenDropdown: {fileID: 985501936624294051}
-  inputPanel: {fileID: 0}
 --- !u!1 &3430044750249261371
 GameObject:
   m_ObjectHideFlags: 0
@@ -13199,7 +13185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1194000733833314649}
-  - component: {fileID: 1271829375370557796}
+  - component: {fileID: 3194983784726379333}
   m_Layer: 5
   m_Name: OptionScreenRatio
   m_TagString: Untagged
@@ -13228,7 +13214,7 @@ RectTransform:
   m_AnchoredPosition: {x: 375, y: -50}
   m_SizeDelta: {x: 750, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1271829375370557796
+--- !u!114 &3194983784726379333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13242,7 +13228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ratioDropdown: {fileID: 8897283623361348934}
   fullScreenDropdown: {fileID: 985501936624294051}
-  inputPanel: {fileID: 0}
+  inputPanel: {fileID: 3167558326968258860}
 --- !u!1 &6623042441628132647
 GameObject:
   m_ObjectHideFlags: 0

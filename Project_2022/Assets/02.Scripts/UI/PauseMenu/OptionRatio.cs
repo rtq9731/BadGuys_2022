@@ -20,8 +20,6 @@ public class OptionRatio : MonoBehaviour
     {
         ratioDropdown.ClearOptions();
         fullScreenDropdown.ClearOptions();
-        ratioDropdown.onValueChanged.AddListener(OnChangeValueScreenRatio);
-        fullScreenDropdown.onValueChanged.AddListener(OnChangeValueFullscreenMode);
 
         resolutions = Screen.resolutions.ToList();
 
@@ -48,6 +46,9 @@ public class OptionRatio : MonoBehaviour
 
         fullScreenDropdown.AddOptions(optionFullScreenModeDatas.options);
         ratioDropdown.AddOptions(optionRatioDatas.options);
+
+        ratioDropdown.onValueChanged.AddListener(OnChangeValueScreenRatio);
+        fullScreenDropdown.onValueChanged.AddListener(OnChangeValueFullscreenMode);
     }
 
     void OnChangeValueScreenRatio(int value)
@@ -68,13 +69,11 @@ public class OptionRatio : MonoBehaviour
     {
         curFullScreenMode = (FullScreenMode)(fullScreenDropdown.value);
 
-        Resolution curResolution = Screen.currentResolution;
-
-        Screen.SetResolution(resolutions[value].width, resolutions[value].height, (FullScreenMode)(fullScreenDropdown.value), resolutions[value].refreshRate);
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, (FullScreenMode)(fullScreenDropdown.value), Screen.currentResolution.refreshRate);
 
         inputPanel.InitInputPanel(() =>
         {
-            Screen.SetResolution(curResolution.width, curResolution.height, curFullScreenMode, curResolution.refreshRate);
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, curFullScreenMode, Screen.currentResolution.refreshRate);
         });
 
         curFullScreenMode = (FullScreenMode)(fullScreenDropdown.value);

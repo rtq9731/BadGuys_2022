@@ -7,9 +7,14 @@ public class CheckInputPanel : MonoBehaviour
 {
     [SerializeField] Button btnOK;
     [SerializeField] Button btnCancel;
+    [SerializeField] Text countText = null;
 
     [SerializeField] float cancelCool = 10f;
     float cancelTimer = 0f;
+
+    int lastTime = 1;
+
+    bool isOn = false;
 
     System.Action onCancel;
 
@@ -26,17 +31,34 @@ public class CheckInputPanel : MonoBehaviour
 
     private void Update()
     {
-        cancelTimer += Time.deltaTime;
-        if (cancelCool <= cancelTimer)
+        if(isOn)
         {
-            onCancel();
-            transform.parent.gameObject.SetActive(false);
+            cancelTimer += Time.deltaTime;
+
+            if (cancelCool <= cancelTimer)
+            {
+                onCancel();
+                cancelTimer = 0f;
+                lastTime = 1;
+                gameObject.SetActive(false);
+                isOn = false;
+            }
+
+            if (cancelTimer >= lastTime)
+            {
+                lastTime++;
+                countText.text = $"{cancelCool - lastTime}초 후에 원래 설정으로 돌아갑니다.";
+            }
         }
     }
 
     public void InitInputPanel(System.Action onCancel)
     {
+        countText.text = $"{cancelCool - lastTime}초 후에 원래 설정으로 돌아갑니다.";
+        gameObject.SetActive(true);
+        isOn = true;
         this.onCancel = onCancel;
+        onCancel += () => onCancel = null;
     }
 
     public void CheckInput(bool value)
@@ -46,6 +68,7 @@ public class CheckInputPanel : MonoBehaviour
             onCancel?.Invoke();
         }
 
-        transform.parent.gameObject.SetActive(false);
+        isOn = false;
+        gameObject.SetActive(false);
     }
 }
