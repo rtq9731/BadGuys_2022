@@ -31,7 +31,6 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
     {
         finishTimeline.SetActive(false);
         black.color = new Color(0, 0, 0, 1);
-        startTimeline.gameObject.SetActive(false);
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         LoadingManager.LoadScene("Title", true);
     }
