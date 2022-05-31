@@ -8,7 +8,7 @@ using DG.Tweening;
 public class StopMenu : MonoBehaviour
 {
     [SerializeField] Button _btnReturn = null;
-    [SerializeField] Button _btnTodo = null;
+    [SerializeField] Button _btnDialog = null;
     [SerializeField] Button _btnExit = null;
 
     [SerializeField] PanelOption _optionPanel = null;
@@ -21,7 +21,7 @@ public class StopMenu : MonoBehaviour
             UIManager.Instance.UpdateStopMenu();
         });
 
-        _btnTodo.onClick.AddListener(() =>
+        _btnDialog.onClick.AddListener(() =>
         {
             _dialogPanel.gameObject.SetActive(true);
             _optionPanel.gameObject.SetActive(false);
