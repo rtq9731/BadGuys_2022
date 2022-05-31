@@ -124,3 +124,13 @@ public class GameManager : MonoBehaviour
         stateNum = 0;
     }
 }
+
+[Serializable]
+public class SettingInfo
+{
+    float masterVolume;
+    float backgroundVolume;
+    float sfxVolume;
+    float mouseSensitivity;
+}
+
