@@ -37,10 +37,9 @@ public class ContentSizer : MonoBehaviour
 
         float bigHeight = 0f;
 
-        List<RectTransform> ls = panels.FindAll(item => item.gameObject.activeSelf);
+        List<RectTransform> ls = panels.FindAll(item => item.gameObject.activeSelf && item.lossyScale.x >= 0.1f);
         for (int i = 0; i < ls.Count; i++)
         {
-            Debug.Log(ls[i].rect.width * ls[i].lossyScale.x);
 
             if (i == 0)
             {
@@ -54,11 +53,13 @@ public class ContentSizer : MonoBehaviour
                 bigHeight = ls[i].rect.height;
             }
 
-            if (i == ls.Count - 1)
+            if (i == ls.Count - 1 && i != 0)
             {
                 newSize.x += padding.right;
             }
         }
+
+        newSize.x -= spacing;
 
         newSize.y = bigHeight;
 

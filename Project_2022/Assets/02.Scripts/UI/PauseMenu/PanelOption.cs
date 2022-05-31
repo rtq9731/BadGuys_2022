@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class PanelOption : MonoBehaviour
 {
+    [SerializeField] Text optionTitle;
     [SerializeField] List<RectTransform> panels = new List<RectTransform>();
     [SerializeField] List<Button> btns = new List<Button>();
-
-    public System.Action onChangePanel;
+    [SerializeField] string[] titles;
+    [SerializeField] PauseMenuCaller caller = null;
 
     private void Start()
     {
@@ -17,8 +18,10 @@ public class PanelOption : MonoBehaviour
             int y = i;
             btns[y].onClick.AddListener(() =>
             {
+                caller.CallPanelGroup(PauseMenuCaller.PaenlGroupKind.OPTIONGROUP);
                 gameObject.SetActive(true);
                 RefreshPanels();
+                optionTitle.text = titles[y];
                 panels[y].gameObject.SetActive(true);
             });
         }
@@ -26,7 +29,6 @@ public class PanelOption : MonoBehaviour
 
     private void RefreshPanels()
     {
-        onChangePanel?.Invoke();
         panels.ForEach(x => x.gameObject.SetActive(false)); 
     }
 }
