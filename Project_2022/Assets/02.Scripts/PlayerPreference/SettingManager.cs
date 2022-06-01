@@ -83,7 +83,6 @@ public class SettingManager : MonoBehaviour
             else
             {
                 _setting = JsonUtility.FromJson<SettingInfo>(sr.ReadToEnd());
-                Debug.Log(sr.ReadToEnd());
             }
         }
     }
