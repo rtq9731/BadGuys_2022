@@ -5,36 +5,41 @@ using UnityEngine.UI;
 
 public class PanelOption : MonoBehaviour
 {
-    [SerializeField] Slider sliderMasterVolume;
-    [SerializeField] Slider sliderBackgorundVolume;
-    [SerializeField] Slider sliderSFXVolume;
-    [SerializeField] Slider sliderMouseSensitivity;
+    [SerializeField] SliderAndInputField sliderMasterVolume;
+    [SerializeField] SliderAndInputField sliderBackgorundVolume;
+    [SerializeField] SliderAndInputField sliderSFXVolume;
+    [SerializeField] SliderAndInputField sliderMouseSensitivity;
 
     private void Start()
     {
-        sliderMasterVolume.onValueChanged.AddListener(ChangeMasterVolume);
-        sliderBackgorundVolume.onValueChanged.AddListener(ChangeBackgroundVolume);
-        sliderSFXVolume.onValueChanged.AddListener(ChangeSFXVolume);
-        sliderMouseSensitivity.onValueChanged.AddListener(ChangeMouseSensitivity);
+        sliderMasterVolume.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MASTERVOL) / 100;
+        sliderBackgorundVolume.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.BACKGROUNDVOL) / 100;
+        sliderSFXVolume.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.SFXVOL) / 100;
+        sliderMouseSensitivity.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY) / 100;
+
+        sliderMasterVolume.onValueChange += ChangeMasterVolume;
+        sliderBackgorundVolume.onValueChange += ChangeBackgroundVolume;
+        sliderSFXVolume.onValueChange += ChangeSFXVolume;
+        sliderMouseSensitivity.onValueChange += ChangeMouseSensitivity;
     }
 
     public void ChangeMasterVolume(float value)
     {
-        SettingManager.Setting.masterVolume = value;
+        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.MASTERVOL);
     }
 
     public void ChangeBackgroundVolume(float value)
     {
-        SettingManager.Setting.backgroundVolume = value;
+        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.BACKGROUNDVOL);
     }
 
     public void ChangeSFXVolume(float value)
     {
-        SettingManager.Setting.sfxVolume = value;
+        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.SFXVOL);
     }
 
     public void ChangeMouseSensitivity(float value)
     {
-        SettingManager.Setting.mouseSensitivity = value;
+        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY);
     }
 }

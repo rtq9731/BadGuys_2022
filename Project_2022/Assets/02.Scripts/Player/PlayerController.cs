@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.DisplayCursor(false);
+
+        _mouseSensitivity = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY);
+
+        SettingManager.onChangeSetting += (setting) =>
+        {
+            _mouseSensitivity = setting.GetValue(SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY);
+        };
     }
 
     private void Update()

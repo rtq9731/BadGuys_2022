@@ -19,7 +19,24 @@ public class PauseMenuCaller : MonoBehaviour
 
     private void OnEnable()
     {
-        CallPanelGroup(PaenlGroupKind.PAUSEGROUP);
+        CallPanelGroupImmediately(PaenlGroupKind.PAUSEGROUP);
+    }
+
+    private void CallPanelGroupImmediately(PaenlGroupKind kind)
+    {
+        List<RectTransform> rects = panels.FindAll(item => gameObject.activeSelf && !panelGroups[(int)kind].panles.Contains(item));
+
+        foreach (var item in rects)
+        {
+            item.localScale = new Vector3(0, 1, 1);
+            item.gameObject.SetActive(false);
+        }
+
+        foreach (var item in panelGroups[(int)kind].panles)
+        {
+            item.localScale = new Vector3(1, 1, 1);
+            item.gameObject.SetActive(true);
+        }
     }
 
     public void CallPanelGroup(PaenlGroupKind kind)

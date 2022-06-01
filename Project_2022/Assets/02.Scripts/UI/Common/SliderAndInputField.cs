@@ -9,8 +9,8 @@ public class SliderAndInputField : MonoBehaviour
     [SerializeField] float max = 100;
     [SerializeField] float min = 0;
 
-    [SerializeField] Slider inputSlider;
-    [SerializeField] InputField inputField;
+    [SerializeField] public Slider inputSlider;
+    [SerializeField] public InputField inputField;
 
     public event Action<float> onValueChange;
 
@@ -40,13 +40,12 @@ public class SliderAndInputField : MonoBehaviour
         {
             result = Clamp(result);
 
-            inputField.text = result.ToString("D2");
-            Debug.Log(result.ToString("D2"));
+            inputField.text = result.ToString();
             inputSlider.value = result / max;
         }
         else
         {
-            inputField.text = (inputSlider.value * max).ToString("D2");
+            inputField.text = (inputSlider.value * max).ToString();
         }
 
         onValueChange?.Invoke(result);
