@@ -33,6 +33,7 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
         black.color = new Color(0, 0, 0, 1);
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         LoadingManager.LoadScene("Title", true);
+        FindObjectOfType<Triggers.Chapter2.Chapter2_FinalEmail>().TriggerOn();
     }
 
     private void OnTriggerEnter(Collider other)
