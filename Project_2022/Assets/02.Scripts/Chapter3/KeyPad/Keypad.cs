@@ -20,6 +20,7 @@ public class Keypad : MonoBehaviour
     public Text numTxt;
     public int answer;
     public Animator anim;
+    public GameObject timeLineObj;
 
     private bool isCal;
     private int keyCount;
@@ -58,7 +59,8 @@ public class Keypad : MonoBehaviour
 
     private void PuzzleClear()
     {
-        anim.SetTrigger("OpenTri");
+        //anim.SetTrigger("OpenTri");
+        timeLineObj.SetActive(true);
     }
 
     public void KeyInput(KeyType type, string value = "")
