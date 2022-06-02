@@ -44,6 +44,7 @@ public class LaptopManager : MonoBehaviour
         mainPanel.SetActive(false);
         isSetting = false;
         isUIUse = false;
+        isDialog = false;
     }
 
     private void Update()
@@ -158,6 +159,7 @@ public class LaptopManager : MonoBehaviour
     {
         if (!isDialog)
         {
+            isDialog = true;
             DialogManager.Instance.ClearALLDialog();
             DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
             yield return new WaitForSeconds(dialogTime);

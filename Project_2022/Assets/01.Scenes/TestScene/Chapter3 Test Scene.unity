@@ -4993,6 +4993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog: {fileID: 11400000, guid: 6731272bd9975f64aab727036014e9db, type: 2}
+  dialogTime: 3
 --- !u!65 &514789329
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8199,6 +8200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog: {fileID: 11400000, guid: dd0f93dd863173e4e85ed1a21fd47508, type: 2}
+  dialogTime: 3
 --- !u!65 &824886538
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8207,7 +8209,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824886535}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.611475, y: 2.2603812, z: 0.96130955}
@@ -8918,8 +8920,28 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6622992702298657094, guid: d6da7e095c86b124a9e95302c67bbaa7,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.023682732
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622992702298657094, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.0028556455
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622992702298657094, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622992702298657094, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.011149032
+      objectReference: {fileID: 0}
+    - target: {fileID: 6622992702298657094, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.000000006495378
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6da7e095c86b124a9e95302c67bbaa7, type: 3}
@@ -8948,6 +8970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialog: {fileID: 11400000, guid: 1aabbdede023d904ba6d7b1b553c4567, type: 2}
+  dialogTime: 3.5
 --- !u!65 &869605934
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8959,8 +8982,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.06409941, y: 0.056116592, z: 0.014196231}
-  m_Center: {x: 0.009888441, y: 0.025047021, z: 0.01081378}
+  m_Size: {x: 0.06409941, y: 0.056116592, z: 0.01799622}
+  m_Center: {x: 0.009888441, y: 0.02504702, z: 0.008913793}
 --- !u!1001 &875563215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12198,8 +12221,8 @@ MonoBehaviour:
   laptopMain: {fileID: 769424330}
   laptopCam: {fileID: 1470076678}
   dialog: {fileID: 11400000, guid: b115d38207a761a459ea6c9ae8236739, type: 2}
-  dialogTime: 3
-  password: 2580
+  dialogTime: 3.5
+  password: 7432
   isPass: 0
   isUIUse: 0
 --- !u!114 &1204655278
@@ -16714,6 +16737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 1
+  dialogTime: 3.5
   isLock: 0
   isOpen: 0
   anim: {fileID: 1852006988}
@@ -19021,7 +19045,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE44\uBC00\uBC88\uD638 \uD78C\uD2B8"
+  m_Text: "\uC18C ( \\ )"
 --- !u!222 &2048072145
 CanvasRenderer:
   m_ObjectHideFlags: 0

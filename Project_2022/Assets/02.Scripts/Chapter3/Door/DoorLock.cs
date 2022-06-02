@@ -7,6 +7,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 {
     [Header("Values")]
     public float time = 1f;
+    public float dialogTime = 3.5f;
 
     [SerializeField]
     private bool isLock;
@@ -84,12 +85,6 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
         if (isLock && !isDialog)
         {
-            isPuzzle = true;
-            puzzleMgr.gameObject.SetActive(true);
-            puzzleMgr.PuzzleOn();
-            handle.enabled = false;
-            door.enabled = false;
-
             isDialog = true;
             if (isTouch)
             {
@@ -101,6 +96,8 @@ public class DoorLock : MonoBehaviour, IInteractableItem
                 DialogManager.Instance.ClearALLDialog();
                 DialogManager.Instance.SetDialaogs(PreparePuzzleDialog.GetDialogs());
             }
+
+            StartCoroutine(PuzzleOn());
         }
         else
         {
@@ -153,5 +150,16 @@ public class DoorLock : MonoBehaviour, IInteractableItem
         isLock = false;
         handle.enabled = true;
         door.enabled = true;
+    }
+
+    private IEnumerator PuzzleOn()
+    {
+        yield return new WaitForSeconds(dialogTime);
+
+        isPuzzle = true;
+        puzzleMgr.gameObject.SetActive(true);
+        puzzleMgr.PuzzleOn();
+        handle.enabled = false;
+        door.enabled = false;
     }
 }
