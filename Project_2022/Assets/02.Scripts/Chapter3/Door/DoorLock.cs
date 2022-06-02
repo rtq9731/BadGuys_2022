@@ -85,6 +85,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
         if (isLock && !isDialog)
         {
+            handle.enabled = false;
             isDialog = true;
 
             if (isTouch)
@@ -146,6 +147,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
     public void PuzzleCLear()
     {
+        handle.enabled = true;
         isPuzzle = false;
         isLock = false;
         handle.enabled = true;
