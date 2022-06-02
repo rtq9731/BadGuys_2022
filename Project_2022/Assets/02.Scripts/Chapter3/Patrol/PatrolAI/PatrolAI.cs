@@ -21,13 +21,15 @@ public enum Kinds
 
 public class PatrolAI : MonoBehaviour
 {
+    [SerializeField] bool isMainAI;
+    [SerializeField] PatrolAI otherAI;
+
     [HideInInspector]
     public AIStates _states = AIStates.Normal;
 
     private NavMeshAgent agent;
     private Animator anim;
 
-    [SerializeField] Transform[] normalDestinations;
     [SerializeField] Transform[] goOutDestinations;
     [SerializeField] Transform[] comeDestinations;
 
@@ -37,6 +39,8 @@ public class PatrolAI : MonoBehaviour
     public float comeInTime = 10f;
 
     public int destIndex = 0;
+
+    public bool isArrive = true;
 
     Vector3 originChairPos;
 
@@ -63,9 +67,12 @@ public class PatrolAI : MonoBehaviour
 
         timingTime += Time.deltaTime;
 
-        if (isMove)
+        if (isMove && agent.steeringTarget != null)
         {
             Vector3 lookrotation = agent.steeringTarget - transform.position;
+
+            if (lookrotation == Vector3.zero)
+                return;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
     }
@@ -96,8 +103,11 @@ public class PatrolAI : MonoBehaviour
         {
             case AIStates.Normal:
                 {
-                    normalTime -= Time.deltaTime;
-                    if (normalTime <= 0)
+                    if(isArrive && otherAI.isArrive)
+                    {
+                        normalTime -= Time.deltaTime;
+                    }
+                    if (normalTime <= 0.1f)
                     {
                         StartStates(AIStates.GoOut);
                         normalTime = 5;
@@ -107,20 +117,23 @@ public class PatrolAI : MonoBehaviour
             case AIStates.GoOut:
                 {
                     StartStates(_states);
-                    
+
                 }
                 break;
             case AIStates.ComeIn:
                 {
-                    comeInTime -= Time.deltaTime;
                     isMove = false;
-
-                    if (comeInTime <= 0)
+                    if (isArrive && otherAI.isArrive)
                     {
-                        if (destIndex == goOutDestinations.Length -1 )
+                        comeInTime -= Time.deltaTime;
+                    }
+
+                    if (comeInTime <= 0.1f)
+                    {
+                        if (destIndex == goOutDestinations.Length - 1)
                             destIndex = -1;
                         isMove = true;
-                        
+
                         StartStates(_states);
                     }
                 }
@@ -141,17 +154,36 @@ public class PatrolAI : MonoBehaviour
     void GoOut()
     {
         //일단 일어나고 
-        if(isGoOut)
+        if (isGoOut)
         {
+            
             if (isSit)
             {
                 anim.SetTrigger("StandUp");
-                chair.transform.DOMoveZ(transform.position.z - 0.5f, 1.5f).OnComplete(() =>
+                float posZ = 0;
+
+                if (transform.rotation.y > 0)
+                {
+                    posZ = 0.5f;
+                    Debug.Log("에엑");
+                    Debug.Log(transform.rotation.y);
+                }
+                else
+                {
+                    posZ = -0.5f;
+                    Debug.Log("이익");
+                    Debug.Log(transform.rotation.y);
+                }
+
+
+                chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
                 {
                     SetDestinations(0, true);
                     anim.SetBool("IsSitting", false);
+                    isArrive = false;
                 });
                 isSit = false;
+
             }
 
             DoorAnimTimingGoOut(goOutDestinations);
@@ -161,86 +193,114 @@ public class PatrolAI : MonoBehaviour
                 _states = AIStates.ComeIn;
                 isGoOut = false;
                 isSit = true;
+                isArrive = true;
+                Debug.LogError("멈춰");
                 return;
             }
 
             if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
             {
-                if (destIndex == goOutDestinations.Length - 2)
+                if (destIndex == goOutDestinations.Length - 2 && isMainAI)
                 {
                     OpenDoor();
                     isMove = false;
                     return;
                 }
 
-                if (destIndex >= goOutDestinations.Length - 2)
+                if (destIndex > goOutDestinations.Length - 2 && isMainAI)
                     return;
+
+                if (destIndex == goOutDestinations.Length - 1)
+                {
+                    _states = AIStates.ComeIn;
+                    isGoOut = false;
+                    isSit = true;
+
+                    anim.SetBool("IsWalk", false);
+                    Debug.LogError("멈춰");
+
+                    isArrive = true;
+
+                    return;
+                }
+
                 destIndex++;
                 SetDestinations(destIndex, true);
+                Debug.LogError("asd");
             }
         }
     }
 
     void DoorAnimTimingGoOut(Transform[] destinations)
     {
-        if(timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == destinations.Length - 2)
+        if (isMainAI)
         {
-            FindObjectOfType<AiDoor>().OpenDoor();
-            isMove = true;
-            destIndex++;
-            anim.SetBool("IsWalk", true);
-            SetDestinations(destIndex , true);
-            Debug.Log("문 열기");
-        }                                                               
-        
-        if(Vector3.Distance(transform.position, agent.destination) <= 0.1f && destIndex == destinations.Length - 1)
-        {
-            FindObjectOfType<AiDoor>().CloseDoor(); 
-            anim.SetBool("IsWalk", false);
-            isGoOut = false;
-            Debug.Log("문 닫기");
+            if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == destinations.Length - 2)
+            {
+                FindObjectOfType<AiDoor>().OpenDoor();
+                isMove = true;
+                destIndex++;
+                anim.SetBool("IsWalk", true);
+                SetDestinations(destIndex, true);
+                Debug.Log("문 열기");
+            }
+
+            if (Vector3.Distance(transform.position, agent.destination) <= 0.1f && destIndex == destinations.Length - 1)
+            {
+                FindObjectOfType<AiDoor>().CloseDoor();
+                anim.SetBool("IsWalk", false);
+                Debug.Log("문 닫기");
+            }
         }
     }
 
     void DoorAnimTimingComeIn(Transform[] destinations)
     {
-        if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == 1)
+        if (isMainAI)
         {
-            FindObjectOfType<AiDoor>().OpenDoor();
-            isMove = true;
-            destIndex++;
-            anim.SetBool("IsWalk", true);
-            SetDestinations(destIndex, false);
+            if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == 1)
+            {
+                FindObjectOfType<AiDoor>().OpenDoor();
+                isMove = true;
+                SetDestinations(destIndex, false);
+                anim.SetBool("IsWalk", true); 
+            }
+
+            if (Vector3.Distance(transform.position, destinations[1].position) <= 0.1f && destIndex == 1)
+            {
+                FindObjectOfType<AiDoor>().CloseDoor();
+                isGoOut = false;
+                destIndex++;
+                SetDestinations(destIndex, false);
+                Debug.Log("문을 닫아보아요");
+            }
         }
 
-        if (Vector3.Distance(transform.position, destinations[1].position) <= 0.1f)
-        {
-            FindObjectOfType<AiDoor>().CloseDoor();
-            isGoOut = false;
-            SetDestinations(destIndex, false);
-            Debug.Log("asd");
-        }
     }
 
     void OpenDoor()
     {
+        if (isMainAI)
+            anim.SetTrigger("OpenDoor");
+
         anim.SetBool("IsWalk", false);
-        anim.SetTrigger("OpenDoor");
         timingTime = 0f;
     }
 
     void ComeIn()
     {
-        if(!isGoOut)
+        if (!isGoOut)
         {
 
-            if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && destIndex == 2)
+            if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && destIndex == comeDestinations.Length - 1)
             {
                 StandToSit();
                 isGoOut = true;
                 destIndex = 0;
                 comeInTime = 10f;
+                isArrive = true;
                 Debug.LogError("앉아요");
+
 
                 return;
             }
@@ -249,31 +309,31 @@ public class PatrolAI : MonoBehaviour
 
             if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
             {
-                if (destIndex == 0)
+                if (destIndex == 0 && isMainAI)
                 {
                     OpenDoor();
-                    destIndex =1;
+                    destIndex = 1;
                     isMove = false;
                     return;
                 }
 
 
-                if (destIndex >= 1)
+                if (destIndex >= 1 && isMainAI)
                     return;
+
+                if(destIndex == 1)
+                    isArrive = false;
 
                 destIndex++;
                 SetDestinations(destIndex, false);
-
             }
-
-            
         }
     }
 
     void DetectionPlayer()
     {
         Debug.Log("플레이어 발각했을 때 행동");
-        //플레이어 발각했을 때 행동 
+        //플레이어 발각했을 때 행동
     }
 
     void StandToSit()
@@ -282,7 +342,16 @@ public class PatrolAI : MonoBehaviour
         anim.SetBool("IsWalk", false);
         isMove = false;
         chair.transform.DOMoveZ(originChairPos.z, 1.5f);
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
+        if(isMainAI)
+        {
+            transform.DORotate(new Vector3(0, 0, 0), 0.5f);
+
+        }
+        else
+        {
+            transform.DORotate(new Vector3(0, 180, 0), 0.5f);
+        }
 
         StartStates(AIStates.Normal);
     }

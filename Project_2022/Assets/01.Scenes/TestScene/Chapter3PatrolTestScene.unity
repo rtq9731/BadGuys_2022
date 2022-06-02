@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.547, y: 0.145, z: -5.772}
+  m_LocalPosition: {x: 2.46, y: 0.145, z: -5.742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 339441367}
@@ -2724,7 +2724,7 @@ PrefabInstance:
     - target: {fileID: 2843745011146720915, guid: a82ab613de593e2439b710b4ce1813b9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.547
+      value: 2.543
       objectReference: {fileID: 0}
     - target: {fileID: 2843745011146720915, guid: a82ab613de593e2439b710b4ce1813b9,
         type: 3}
@@ -2734,7 +2734,7 @@ PrefabInstance:
     - target: {fileID: 2843745011146720915, guid: a82ab613de593e2439b710b4ce1813b9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.772
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 2843745011146720915, guid: a82ab613de593e2439b710b4ce1813b9,
         type: 3}
@@ -2823,8 +2823,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59889e11511bcdb4d9af79dfe5ea14d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMainAI: 0
+  otherAI: {fileID: 915518736}
   _states: 0
-  normalDestinations: []
   goOutDestinations:
   - {fileID: 1071713639}
   - {fileID: 1658355952}
@@ -2840,6 +2841,7 @@ MonoBehaviour:
   normalTime: 5
   comeInTime: 5
   destIndex: 0
+  isArrive: 1
   timingTime: 0
 --- !u!136 &238273963
 CapsuleCollider:
@@ -2849,7 +2851,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238273960}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 1.8424029
@@ -3903,7 +3905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326800410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.972, y: 0.165, z: -10.842}
+  m_LocalPosition: {x: 4.972, y: 0.165, z: -9.769}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1566007444}
@@ -9548,8 +9550,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59889e11511bcdb4d9af79dfe5ea14d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMainAI: 1
+  otherAI: {fileID: 238273962}
   _states: 0
-  normalDestinations: []
   goOutDestinations:
   - {fileID: 212971288}
   - {fileID: 84590025}
@@ -9563,6 +9566,7 @@ MonoBehaviour:
   normalTime: 5
   comeInTime: 5
   destIndex: 0
+  isArrive: 1
   timingTime: 0
 --- !u!195 &915518737
 NavMeshAgent:
@@ -14391,7 +14395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624126838}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.211, y: 0.165, z: -10.266}
+  m_LocalPosition: {x: 5.412, y: 0.165, z: -7.087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 339441367}
@@ -14907,7 +14911,7 @@ PrefabInstance:
     - target: {fileID: 5780667498861271377, guid: 2e47b95875d20bc489e2c030137a5df9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.495
+      value: 1.0988626
       objectReference: {fileID: 0}
     - target: {fileID: 5780667498861271377, guid: 2e47b95875d20bc489e2c030137a5df9,
         type: 3}
@@ -17585,17 +17589,17 @@ PrefabInstance:
     - target: {fileID: 5780667498861271377, guid: 2e47b95875d20bc489e2c030137a5df9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.424
+      value: 2.544
       objectReference: {fileID: 0}
     - target: {fileID: 5780667498861271377, guid: 2e47b95875d20bc489e2c030137a5df9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8821206
+      value: -0.954
       objectReference: {fileID: 0}
     - target: {fileID: 5780667498861271377, guid: 2e47b95875d20bc489e2c030137a5df9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.134
+      value: 4.586
       objectReference: {fileID: 0}
     - target: {fileID: 5780667498861271377, guid: 2e47b95875d20bc489e2c030137a5df9,
         type: 3}
