@@ -13,6 +13,7 @@ public class DoorNear : MonoBehaviour
         {
             isDialog = true;
             DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+            transform.GetComponent<Collider>().enabled = false;
         }
     }
 }

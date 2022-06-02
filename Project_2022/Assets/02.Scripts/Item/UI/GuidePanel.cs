@@ -44,7 +44,7 @@ public class GuidePanel : MonoBehaviour
         {
             isOnPanel = true;
 
-            UIManager.Instance.OnCutScene();
+            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
 
             guidePanel.gameObject.SetActive(true);
 
@@ -67,7 +67,6 @@ public class GuidePanel : MonoBehaviour
         guidePanel.transform.DOScale(0f, 0.2f).OnComplete(() =>
         {
             guidePanel.SetActive(false);
-            Debug.Log("FUCK");
             UIManager.Instance.OnCutSceneOver();
             guidePanel.transform.localScale = new Vector3(1f, 1f, 1f);
         });

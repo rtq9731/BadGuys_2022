@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(_instance == this)
+        if (_instance == this)
         {
             _instance = null;
         }
@@ -119,16 +119,17 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         DOTween.PlayAll();
 
-        _stopMenu.transform.Find("PanelStopMenu").transform.DOScale(0, 0.5f).OnComplete(() => { 
+        _stopMenu.transform.Find("PanelStop").transform.DOScale(0, 0.5f).OnComplete(() =>
+        {
             _stopMenu.gameObject.SetActive(false);
             DisplayCursor(isCursor);
         });
-       
+
     }
 
     public void UpdateStopMenu()
     {
-        if(_stopMenu.gameObject.activeSelf)
+        if (_stopMenu.gameObject.activeSelf)
         {
             RemoveStopMenu();
         }
@@ -145,5 +146,6 @@ public class UIManager : MonoBehaviour
         DOTween.PauseAll();
 
         _stopMenu.gameObject.SetActive(true);
+        _stopMenu.transform.Find("PanelStop").transform.localScale = Vector3.one;
     }
 }

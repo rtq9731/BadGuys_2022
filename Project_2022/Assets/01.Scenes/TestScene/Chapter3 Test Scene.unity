@@ -4948,6 +4948,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e47b95875d20bc489e2c030137a5df9, type: 3}
+--- !u!1 &514789326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 514789327}
+  - component: {fileID: 514789329}
+  - component: {fileID: 514789328}
+  m_Layer: 0
+  m_Name: NearCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &514789327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514789326}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0.62217665, y: 1.1268799, z: -0.052072525}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1033042650}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &514789328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514789326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9179423c34602743be87e67d11811bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: {fileID: 11400000, guid: 6731272bd9975f64aab727036014e9db, type: 2}
+--- !u!65 &514789329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514789326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4897572, y: 0.6449755, z: 1}
+  m_Center: {x: 0.1629457, y: -0.9693265, z: -4.3589332e-16}
 --- !u!1001 &520158732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8096,6 +8154,64 @@ MonoBehaviour:
   outlineWidth: 10
   outlineMode: 2
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &824886535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 824886536}
+  - component: {fileID: 824886538}
+  - component: {fileID: 824886537}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &824886536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824886535}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1646217747}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &824886537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824886535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9179423c34602743be87e67d11811bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: {fileID: 11400000, guid: dd0f93dd863173e4e85ed1a21fd47508, type: 2}
+--- !u!65 &824886538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824886535}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.611475, y: 2.2603812, z: 0.96130955}
+  m_Center: {x: 0.5375062, y: 0.6301906, z: 0.019345209}
 --- !u!1 &831000453
 GameObject:
   m_ObjectHideFlags: 0
@@ -8767,7 +8883,36 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6622992702298657093, guid: d6da7e095c86b124a9e95302c67bbaa7,
         type: 3}
+      propertyPath: noTryDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: 724d5e691e1e9e9429e9832c6da61c8b,
+        type: 2}
+    - target: {fileID: 6622992702298657093, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: hairpinCount
+      value: 
+      objectReference: {fileID: 1853729561}
+    - target: {fileID: 6622992702298657093, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: oneTryDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: 17de25bb82d2a5f47bed2ef0d95c8cf2,
+        type: 2}
+    - target: {fileID: 6622992702298657093, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
       propertyPath: puzzleDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: 70727b68f59c94642a075bc05875bcdd,
+        type: 2}
+    - target: {fileID: 6622992702298657093, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: PreparePuzzleDialog
+      value: 
+      objectReference: {fileID: 11400000, guid: b1a0d4aa89620d34c951f46b82650763,
+        type: 2}
+    - target: {fileID: 6622992702298657093, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
+      propertyPath: noPreparePuzzleDialog
       value: 
       objectReference: {fileID: 11400000, guid: 70727b68f59c94642a075bc05875bcdd,
         type: 2}
@@ -12052,8 +12197,10 @@ MonoBehaviour:
   laptopLogin: {fileID: 675420239}
   laptopMain: {fileID: 769424330}
   laptopCam: {fileID: 1470076678}
-  isPass: 0
+  dialog: {fileID: 11400000, guid: b115d38207a761a459ea6c9ae8236739, type: 2}
+  dialogTime: 3
   password: 2580
+  isPass: 0
   isUIUse: 0
 --- !u!114 &1204655278
 MonoBehaviour:
@@ -16575,8 +16722,11 @@ MonoBehaviour:
   handle: {fileID: 0}
   door: {fileID: 0}
   itemSlot: {fileID: 0}
-  puzzleDialog: {fileID: 0}
-  tryDialog: {fileID: 0}
+  hairpinCount: {fileID: 0}
+  noPreparePuzzleDialog: {fileID: 0}
+  PreparePuzzleDialog: {fileID: 0}
+  noTryDialog: {fileID: 0}
+  oneTryDialog: {fileID: 0}
 --- !u!95 &1852006988
 Animator:
   serializedVersion: 3
@@ -16643,7 +16793,10 @@ MonoBehaviour:
   - {fileID: 910832611241637241}
   itemInfo: {fileID: 11400000, guid: 80f03e0e00833264fb4976e69a3ff9d4, type: 2}
   slotParents: {fileID: 462751004}
-  dialog: {fileID: 11400000, guid: 9276fcdc2c1f30940a4a88bcecb55b0b, type: 2}
+  touchOneDialog: {fileID: 11400000, guid: 012e47cf0d339f74582420395f28d97b, type: 2}
+  noTouchDialog: {fileID: 11400000, guid: 9276fcdc2c1f30940a4a88bcecb55b0b, type: 2}
+  TouchDialog: {fileID: 11400000, guid: e27cd785456c8bc4ea02dd6c7c23f8be, type: 2}
+  isTouch: 0
 --- !u!4 &1853729562
 Transform:
   m_ObjectHideFlags: 0
@@ -18498,6 +18651,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3dd6b2f779d7164cbe84604c3fae307, type: 3}
+--- !u!1 &2010865596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2010865597}
+  m_Layer: 0
+  m_Name: StartDialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2010865597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010865596}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0559752, y: 1.2251538, z: -1.1968231}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2035582466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19962,12 +20145,7 @@ MonoBehaviour:
   dialogs:
   - id: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    str: "\uBA38\uB9AC\uD540? "
-    name: "\uB098"
-  - id: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-    str: "\uC5B4\uB514\uC5D0 \uC4F8 \uC218 \uC788\uC744\uC9C0\uB294 \uBAA8\uB974\uACA0\uC9C0\uB9CC
-      \uC77C\uB2E8 \uAC00\uC9C0\uACE0 \uC788\uC5B4\uBCF4\uC790."
+    str: "\uBA38\uB9AC\uD540? \uC774\uAC8C \uC65C \uC5EC\uAE30\uC5D0\uC788\uC9C0?"
     name: "\uB098"
   itemInfo: {fileID: 11400000, guid: 80f03e0e00833264fb4976e69a3ff9d4, type: 2}
 --- !u!114 &910832611241637242
@@ -20149,12 +20327,7 @@ MonoBehaviour:
   dialogs:
   - id: 0
     color: {r: 1, g: 1, b: 1, a: 1}
-    str: "\uBA38\uB9AC\uD540? "
-    name: "\uB098"
-  - id: 1
-    color: {r: 1, g: 1, b: 1, a: 1}
-    str: "\uC5B4\uB514\uC5D0 \uC4F8 \uC218 \uC788\uC744\uC9C0\uB294 \uBAA8\uB974\uACA0\uC9C0\uB9CC
-      \uC77C\uB2E8 \uAC00\uC9C0\uACE0 \uC788\uC5B4\uBCF4\uC790."
+    str: "\uBA38\uB9AC\uD540? \uC774\uAC8C \uC65C \uC5EC\uAE30\uC5D0\uC788\uC9C0?"
     name: "\uB098"
   itemInfo: {fileID: 11400000, guid: 80f03e0e00833264fb4976e69a3ff9d4, type: 2}
 --- !u!114 &3325485940094330331

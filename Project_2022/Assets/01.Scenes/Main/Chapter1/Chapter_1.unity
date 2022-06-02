@@ -1567,6 +1567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemTakePos: {fileID: 551192930}
   interactImage: {fileID: 2058227779}
+  pickUpCoolTime: 0
 --- !u!114 &121597836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10404,8 +10405,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861695663}
-  - component: {fileID: 861695664}
   - component: {fileID: 861695665}
+  - component: {fileID: 861695664}
   m_Layer: 0
   m_Name: ClearEmailTrigger
   m_TagString: Untagged
@@ -10440,10 +10441,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 3
+    id: 4
     isRead: 0
     timeTick: 3155378975999999999
-    textDataID: 3
+    textDataID: 4
 --- !u!114 &861695665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10457,10 +10458,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    id: 4
+    id: 3
     isRead: 0
     timeTick: 3155378975999999999
-    textDataID: 4
+    textDataID: 3
 --- !u!4 &864392779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8160103459373632277, guid: d83dae319b796214e93203889b8ae378,
@@ -12511,6 +12512,11 @@ PrefabInstance:
     - target: {fileID: 1378304929224743931, guid: 8d73be43b133813429d81667211be210,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4608214708649624285, guid: 8d73be43b133813429d81667211be210,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

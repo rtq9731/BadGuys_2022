@@ -20,8 +20,6 @@ public class GuidePanelManager : MonoBehaviour
         guideIndex++;
     }
 
-    
-
     [System.Serializable]
     public class Guides
     {

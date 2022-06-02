@@ -81,18 +81,13 @@ public class RunnerAI : MonoBehaviour
         {
             if(waitpoint.isTriggered)
             {
-                arriveActQueue.Enqueue(() =>
-                {
-                    SetDestination(idx + 1);
-                });
-
+                SetDestination(idx + 1);
                 return;
             }
 
-            Debug.Log(ai.destination);
+            Debug.Log(waitpoint.gameObject);
             arriveActQueue.Enqueue(() =>
             {
-                Debug.Log("Waitpoint 1 Callback");
                 waitpoint.SetWait(this, () => SetDestination(idx + 1));
             });
             return;
