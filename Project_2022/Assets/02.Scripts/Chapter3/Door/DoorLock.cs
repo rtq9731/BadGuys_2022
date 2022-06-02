@@ -85,15 +85,14 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
         if (isLock && !isDialog)
         {
+            transform.GetComponent<Collider>().enabled = false;
             isDialog = true;
             if (isTouch)
             {
-                DialogManager.Instance.ClearALLDialog();
                 DialogManager.Instance.SetDialaogs(noPreparePuzzleDialog.GetDialogs());
             }
             else
             {
-                DialogManager.Instance.ClearALLDialog();
                 DialogManager.Instance.SetDialaogs(PreparePuzzleDialog.GetDialogs());
             }
 
@@ -146,6 +145,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
     public void PuzzleCLear()
     {
+        transform.GetComponent<Collider>().enabled = true;
         isPuzzle = false;
         isLock = false;
         handle.enabled = true;
