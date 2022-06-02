@@ -26,6 +26,7 @@ public class LaptopLogin : MonoBehaviour
         loginWelcome.SetActive(false);
         loginName.SetActive(true);
         passwordIPF.onValueChanged.AddListener((word) => WordUpdate(word));
+        loginHintBtn.SetActive(true);
         loginHintTxt.SetActive(false);
         logWrong.SetActive(false);
 
