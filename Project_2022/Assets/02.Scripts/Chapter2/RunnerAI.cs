@@ -79,13 +79,6 @@ public class RunnerAI : MonoBehaviour
         
         if (waitpoint)
         {
-            if(waitpoint.isTriggered)
-            {
-                SetDestination(idx + 1);
-                return;
-            }
-
-            Debug.Log(waitpoint.gameObject);
             arriveActQueue.Enqueue(() =>
             {
                 waitpoint.SetWait(this, () => SetDestination(idx + 1));
