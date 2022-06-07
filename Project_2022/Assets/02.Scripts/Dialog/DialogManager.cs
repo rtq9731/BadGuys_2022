@@ -102,6 +102,16 @@ public class DialogManager : MonoBehaviour
         }
     }
 
+    public bool BoolDialog()
+    {
+        if (dialogs.Find(x => x.gameObject.activeSelf) != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public void SetDialaogs(List<DialogData> datas)
     {
         datas.Sort((x, y) => -x.id.CompareTo(y.id));
