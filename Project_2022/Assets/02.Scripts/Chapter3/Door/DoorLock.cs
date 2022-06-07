@@ -90,11 +90,11 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
             if (isTouch)
             {
-                //DialogManager.Instance.SetDialaogs(noPreparePuzzleDialog.GetDialogs());
+                DialogManager.Instance.SetDialaogs(noPreparePuzzleDialog.GetDialogs());
             }
             else
             {
-                //DialogManager.Instance.SetDialaogs(PreparePuzzleDialog.GetDialogs());
+                DialogManager.Instance.SetDialaogs(PreparePuzzleDialog.GetDialogs());
             }
 
             StartCoroutine(PuzzleOn());
