@@ -61,9 +61,11 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
 
     IEnumerator Fading()
     {
+        if (DialogManager.Instance.BoolDialog())
+            yield return new WaitForSeconds(3f);
+
         if (isPeek)
         {
-            yield return new WaitForSeconds(3f);
             UIManager.Instance.OnCutSceneWithMainUI();
             UIManager.Instance.OnPuzzleUI();
         }

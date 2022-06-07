@@ -57,6 +57,9 @@ public class PatrolAI : MonoBehaviour
 
     bool isGoOut = true;
     public bool isInRoom = true;
+
+    bool isOver = false;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -382,13 +385,11 @@ public class PatrolAI : MonoBehaviour
     void DetectionPlayer()
     {
         isMove = true;
-
-        
-
         if(isMove && isInRoom)
         {
-            if (Vector3.Distance(transform.position, player.transform.position) <= 1.0f)
+            if (Vector3.Distance(transform.position, player.transform.position) <= 1.0f && !isOver)
             {
+                isOver = true;
                 FindObjectOfType<PatrolCheck>().EndGame();
                 Debug.Log("GameOver");
                 isMove = false;
