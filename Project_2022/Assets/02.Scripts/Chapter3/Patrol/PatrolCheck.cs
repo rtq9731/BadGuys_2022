@@ -8,6 +8,7 @@ public class PatrolCheck : MonoBehaviour
 
     public bool isPlayerIn;
     public bool isDoorClose;
+    public StageReStart restart;
 
     private void Awake()
     {
@@ -32,5 +33,10 @@ public class PatrolCheck : MonoBehaviour
     public bool IsHide()
     {
         return (isPlayerIn && isDoorClose);
+    }
+
+    public void EndGame()
+    {
+        restart.Detection();
     }
 }

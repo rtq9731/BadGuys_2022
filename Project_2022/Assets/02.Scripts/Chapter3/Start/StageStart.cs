@@ -36,7 +36,5 @@ public class StageStart : MonoBehaviour
 
             if (a == 0) break;
         }
-
-        fadeImg.gameObject.SetActive(false);
     }
 }

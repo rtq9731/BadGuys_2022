@@ -35,6 +35,8 @@ public class PatrolAI : MonoBehaviour
 
     [SerializeField] Transform chair;
     [SerializeField] GameObject player;
+    [SerializeField] GameObject roomDoor;
+    [SerializeField] Transform roomDoorTrm;
 
     public float normalTime = 6f;
     public float comeInTime = 10f;
@@ -79,7 +81,6 @@ public class PatrolAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
 
-        Debug.LogWarning(_states);
     }
 
     void StartStates(AIStates states)
@@ -155,10 +156,34 @@ public class PatrolAI : MonoBehaviour
     {
         if(isInRoom)
         {
-            if (!PatrolCheck.Instanse.IsHide())
+            if(!PatrolCheck.Instanse.IsHide() && isSit)
+            {
+                anim.SetTrigger("StandUp");
+                float posZ = 0;
+
+                if (transform.rotation.y > 0)
+                {
+                    posZ = 0.5f;
+                    Debug.Log(transform.rotation.y);
+                }
+                else
+                {
+                    posZ = -0.5f;
+                    Debug.Log(transform.rotation.y);
+                }
+
+                chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
+                {
+                    SetDestinations(0, true);
+                    anim.SetBool("IsSitting", false);
+                    isArrive = false;
+                    isSit = false;
+                });
+            }
+
+            if (!PatrolCheck.Instanse.IsHide() && !isSit)
             {
                 _states = AIStates.Detection;
-
             }
         }
     }
@@ -181,13 +206,11 @@ public class PatrolAI : MonoBehaviour
                 if (transform.rotation.y > 0)
                 {
                     posZ = 0.5f;
-                    Debug.Log("¿¡¿¢");
                     Debug.Log(transform.rotation.y);
                 }
                 else
                 {
                     posZ = -0.5f;
-                    Debug.Log("ÀÌÀÍ");
                     Debug.Log(transform.rotation.y);
                 }
 
@@ -210,7 +233,6 @@ public class PatrolAI : MonoBehaviour
                 isGoOut = false;
                 isSit = true;
                 isArrive = true;
-                Debug.LogError("¸ØÃç");
                 return;
             }
 
@@ -233,7 +255,6 @@ public class PatrolAI : MonoBehaviour
                     isSit = true;
 
                     anim.SetBool("IsWalk", false);
-                    Debug.LogError("¸ØÃç");
 
                     isArrive = true;
 
@@ -242,7 +263,6 @@ public class PatrolAI : MonoBehaviour
 
                 destIndex++;
                 SetDestinations(destIndex, true);
-                Debug.LogError("asd");
             }
         }
     }
@@ -251,7 +271,7 @@ public class PatrolAI : MonoBehaviour
     {
         if (isMainAI)
         {
-            if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == destinations.Length - 2)
+            if (timingTime >= 1.5f && !anim.GetBool("IsWalk") && destIndex == destinations.Length - 2)
             {
                 FindObjectOfType<AiDoor>().OpenDoor();
                 isMove = true;
@@ -259,7 +279,6 @@ public class PatrolAI : MonoBehaviour
                 anim.SetBool("IsWalk", true);
                 SetDestinations(destIndex, true);
                
-                Debug.Log("¹® ¿­±â");
             }
 
             if (Vector3.Distance(transform.position, agent.destination) <= 0.1f && destIndex == destinations.Length - 1)
@@ -268,42 +287,52 @@ public class PatrolAI : MonoBehaviour
                 isInRoom = false;
                 otherAI.isInRoom = false;
                 anim.SetBool("IsWalk", false);
-                Debug.Log("¹® ´Ý±â");
             }
         }
     }
 
     void DoorAnimTimingComeIn(Transform[] destinations)
     {
-        if (isMainAI)
-        {
-            if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == 1)
+        if (timingTime >= 1.5f && !anim.GetBool("IsWalk") && destIndex == 1)
+        {   
+            if(isMainAI)
             {
                 FindObjectOfType<AiDoor>().OpenDoor();
-                isMove = true;
-                SetDestinations(destIndex, false); 
-                isInRoom = true;
-                otherAI.isInRoom = true;
-                anim.SetBool("IsWalk", true); 
+                
             }
-
-            if (Vector3.Distance(transform.position, destinations[1].position) <= 0.1f && destIndex == 1)
-            {
-                FindObjectOfType<AiDoor>().CloseDoor();
-                isGoOut = false;
-                destIndex++;
-                SetDestinations(destIndex, false);
-                Debug.Log("¹®À» ´Ý¾Æº¸¾Æ¿ä");
-            }
+            anim.SetBool("IsWalk", true);
+            isMove = true;
+            SetDestinations(destIndex, false);
+            isInRoom = true;
+            otherAI.isInRoom = true;
         }
 
+        if (Vector3.Distance(transform.position, destinations[1].position) <= 0.1f && destIndex == 1)
+        {
+            if(isMainAI)
+            {
+                FindObjectOfType<AiDoor>().CloseDoor();
+            }
+            isGoOut = false;
+            destIndex++;
+            SetDestinations(destIndex, false);
+        }
+
+        if(Vector3.Distance(transform.position, destinations[2].position) <= 0.1f && destIndex == 2)
+        {
+            destIndex++;
+            SetDestinations(destIndex, false);
+        }
     }
 
     void OpenDoor()
     {
         if (isMainAI)
+        {
             anim.SetTrigger("OpenDoor");
+        }
 
+        Debug.Log("asd");
         anim.SetBool("IsWalk", false);
         timingTime = 0f;
     }
@@ -320,7 +349,6 @@ public class PatrolAI : MonoBehaviour
                 destIndex = 0;
                 comeInTime = 10f;
                 isArrive = true;
-                Debug.LogError("¾É¾Æ¿ä");
 
 
                 return;
@@ -330,20 +358,20 @@ public class PatrolAI : MonoBehaviour
 
             if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && isMove)
             {
-                if (destIndex == 0 && isMainAI)
+                if (destIndex == 0)
                 {
                     OpenDoor();
                     destIndex = 1;
                     isMove = false;
+                    Debug.Log(gameObject);
                     return;
                 }
 
-
-                if (destIndex >= 1 && isMainAI)
-                    return;
-
                 if(destIndex == 1)
                     isArrive = false;
+
+                if (destIndex >= 1)
+                    return;
 
                 destIndex++;
                 SetDestinations(destIndex, false);
@@ -355,18 +383,43 @@ public class PatrolAI : MonoBehaviour
     {
         isMove = true;
 
+        
+
         if(isMove && isInRoom)
         {
-            agent.SetDestination(player.transform.position);
-            anim.SetBool("IsWalk", true);
-
-            if (Vector3.Distance(transform.position, agent.destination) <= 1.0f)
+            if (Vector3.Distance(transform.position, player.transform.position) <= 1.0f)
             {
-                FindObjectOfType<StageReStart>().Detection();
+                FindObjectOfType<PatrolCheck>().EndGame();
                 Debug.Log("GameOver");
                 isMove = false;
                 return;
             }
+
+            if (roomDoor.GetComponent<DoorLock>().isOpen)
+            {
+                agent.SetDestination(player.transform.position);
+                anim.SetBool("IsWalk", true);
+                return;
+            }
+
+            if (!roomDoor.GetComponent<DoorLock>().isOpen)
+            {
+                agent.SetDestination(roomDoorTrm.position);
+                if(Vector3.Distance(transform.position, agent.destination) <= 0.1f)
+                {
+                    anim.SetBool("IsWalk", false);
+                    roomDoor.GetComponent<Animator>().SetTrigger("IsOpen");
+                    roomDoor.GetComponent<DoorLock>().isOpen = true;
+                }
+                return;
+            }
+
+            agent.SetDestination(player.transform.position);
+            anim.SetBool("IsWalk", true);
+
+            
+
+            
         }
     }
 
@@ -375,12 +428,12 @@ public class PatrolAI : MonoBehaviour
         anim.SetTrigger("SitDown");
         anim.SetBool("IsWalk", false);
         isMove = false;
+        isSit = true;
         chair.transform.DOMoveZ(originChairPos.z, 1.5f);
 
         if(isMainAI)
         {
             transform.DORotate(new Vector3(0, 0, 0), 0.5f);
-
         }
         else
         {
@@ -400,6 +453,5 @@ public class PatrolAI : MonoBehaviour
             agent.SetDestination(goOutDestinations[idx].position);
         else
             agent.SetDestination(comeDestinations[idx].position);
-
     }
 }

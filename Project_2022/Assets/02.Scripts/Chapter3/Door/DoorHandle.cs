@@ -47,8 +47,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         {
             isPeek = true;
             isMoving = true;
-            UIManager.Instance.OnCutSceneWithMainUI();
-            UIManager.Instance.OnPuzzleUI();
+            
             StartCoroutine(Fading());
             
         }
@@ -62,6 +61,13 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
 
     IEnumerator Fading()
     {
+        if (isPeek)
+        {
+            yield return new WaitForSeconds(3f);
+            UIManager.Instance.OnCutSceneWithMainUI();
+            UIManager.Instance.OnPuzzleUI();
+        }
+
         bool isOver = false;
         bool outing = true;
         float value = 0;

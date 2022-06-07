@@ -18,15 +18,19 @@ public enum KeyType
 public class Keypad : MonoBehaviour
 {
     public Text numTxt;
+    public Image black;
     public int answer;
     public Animator anim;
     public GameObject timeLineObj;
+    public GameObject cam;
 
     private bool isCal;
     private int keyCount;
 
     private void Awake()
     {
+        cam.SetActive(false);
+        timeLineObj.SetActive(false);
         keyCount = 0;
         numTxt.text = "";
         isCal = false;
@@ -60,7 +64,27 @@ public class Keypad : MonoBehaviour
     private void PuzzleClear()
     {
         //anim.SetTrigger("OpenTri");
+        UIManager.Instance.OnCutScene();
         timeLineObj.SetActive(true);
+    }
+
+    public void DoorOpen()
+    {
+        anim.SetTrigger("OpenTri");
+    }
+
+    public void DoorClose()
+    {
+        anim.SetTrigger("CloseTri");
+    }
+
+    public void ClearScene()
+    {
+        timeLineObj.SetActive(false);
+        black.gameObject.SetActive(true);
+        black.color = new Color(0, 0, 0, 1);
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+        LoadingManager.LoadScene("Title", true);
     }
 
     public void KeyInput(KeyType type, string value = "")
