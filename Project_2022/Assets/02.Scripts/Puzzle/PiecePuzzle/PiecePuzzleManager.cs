@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.IO;
+using DG.Tweening;
 using System.Linq;
 
 public class PiecePuzzleManager : MonoBehaviour
@@ -22,12 +22,26 @@ public class PiecePuzzleManager : MonoBehaviour
     public bool pieceCanMove;
 
     private PiecePuzzleInput inputSystem;
+    private bool cheat;
 
     private void Awake()
     {
+        cheat = false;
         inputSystem = GetComponentInParent<PiecePuzzleInput>();
         pieceCanMove = false;
         StartCoroutine(SetChildrenInList());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.C))
+        {
+            if (Input.GetKeyDown(KeyCode.K) && !cheat)
+            {
+                cheat = true;
+                CheatClear();
+            }
+        }
     }
 
     private List<GameObject> ListShuffle(List<GameObject> _list)
@@ -95,6 +109,20 @@ public class PiecePuzzleManager : MonoBehaviour
         targetPiece.transform.localPosition = Vector3.zero;
         targetPiece.GetComponent<PiecePuzzlePiece>().AppearPiece();
 
+    }
+
+    private void CheatClear()
+    {
+        Debug.Log("그건 좀 실망인데");
+        inputSystem.enabled = false;
+        targetPiece.transform.DOLocalMove(FindPiecePos(targetPiece), 0.5f);
+
+        for (int i = 0; i < pieceGameObj.Count; i++)
+        {
+            pieceGameObj[i].SetActive(true);
+            pieceGameObj[i].GetComponent<PiecePuzzlePiece>().AppearPiece();
+        }
+        Invoke("ClearPuzzle", 1.5f);
     }
 
     private IEnumerator SetChildrenInList()
