@@ -10425,6 +10425,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.06409941, y: 0.056116592, z: 0.01799622}
   m_Center: {x: 0.009888441, y: 0.02504702, z: 0.008913793}
+--- !u!1 &869605935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6622992702298657091, guid: d6da7e095c86b124a9e95302c67bbaa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 869605930}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &873265290
 GameObject:
   m_ObjectHideFlags: 0
@@ -13917,6 +13923,8 @@ MonoBehaviour:
   - {fileID: 1359356201}
   chair: {fileID: 415074530}
   player: {fileID: 1898086578}
+  roomDoor: {fileID: 869605935}
+  roomDoorTrm: {fileID: 1931169889}
   normalTime: 5
   comeInTime: 5
   destIndex: 0
@@ -15953,6 +15961,8 @@ MonoBehaviour:
   - {fileID: 116966092}
   chair: {fileID: 600608173}
   player: {fileID: 1898086578}
+  roomDoor: {fileID: 869605935}
+  roomDoorTrm: {fileID: 1931169889}
   normalTime: 5
   comeInTime: 5
   destIndex: 0
@@ -20318,6 +20328,7 @@ MonoBehaviour:
   itemImage: {fileID: 176791905}
   itemRole: {fileID: 1406836839}
   pickUpPanel: {fileID: 1716854415}
+  currentObj: {fileID: 0}
 --- !u!1 &1716854415
 GameObject:
   m_ObjectHideFlags: 0

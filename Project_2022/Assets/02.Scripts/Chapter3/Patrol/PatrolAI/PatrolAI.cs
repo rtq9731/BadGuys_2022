@@ -383,32 +383,43 @@ public class PatrolAI : MonoBehaviour
     {
         isMove = true;
 
+        
+
         if(isMove && isInRoom)
         {
-            if(!roomDoor.GetComponent<DoorLock>().isOpen)
+            if (Vector3.Distance(transform.position, player.transform.position) <= 1.0f)
+            {
+                FindObjectOfType<PatrolCheck>().EndGame();
+                Debug.Log("GameOver");
+                isMove = false;
+                return;
+            }
+
+            if (roomDoor.GetComponent<DoorLock>().isOpen)
+            {
+                agent.SetDestination(player.transform.position);
+                anim.SetBool("IsWalk", true);
+                return;
+            }
+
+            if (!roomDoor.GetComponent<DoorLock>().isOpen)
             {
                 agent.SetDestination(roomDoorTrm.position);
                 if(Vector3.Distance(transform.position, agent.destination) <= 0.1f)
                 {
                     anim.SetBool("IsWalk", false);
-
+                    roomDoor.GetComponent<Animator>().SetTrigger("IsOpen");
+                    roomDoor.GetComponent<DoorLock>().isOpen = true;
                 }
                 return;
             }
 
-            
             agent.SetDestination(player.transform.position);
             anim.SetBool("IsWalk", true);
 
             
 
-            if (Vector3.Distance(transform.position, agent.destination) <= 1.0f)
-            {
-                FindObjectOfType<StageReStart>().Detection();
-                Debug.Log("GameOver");
-                isMove = false;
-                return;
-            }
+            
         }
     }
 
@@ -423,7 +434,6 @@ public class PatrolAI : MonoBehaviour
         if(isMainAI)
         {
             transform.DORotate(new Vector3(0, 0, 0), 0.5f);
-
         }
         else
         {
