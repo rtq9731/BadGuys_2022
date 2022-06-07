@@ -79,7 +79,6 @@ public class PatrolAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
 
-        Debug.LogWarning(_states);
     }
 
     void StartStates(AIStates states)
@@ -205,13 +204,11 @@ public class PatrolAI : MonoBehaviour
                 if (transform.rotation.y > 0)
                 {
                     posZ = 0.5f;
-                    Debug.Log("ø°ø¢");
                     Debug.Log(transform.rotation.y);
                 }
                 else
                 {
                     posZ = -0.5f;
-                    Debug.Log("¿Ã¿Õ");
                     Debug.Log(transform.rotation.y);
                 }
 
@@ -234,7 +231,6 @@ public class PatrolAI : MonoBehaviour
                 isGoOut = false;
                 isSit = true;
                 isArrive = true;
-                Debug.LogError("∏ÿ√Á");
                 return;
             }
 
@@ -257,7 +253,6 @@ public class PatrolAI : MonoBehaviour
                     isSit = true;
 
                     anim.SetBool("IsWalk", false);
-                    Debug.LogError("∏ÿ√Á");
 
                     isArrive = true;
 
@@ -266,7 +261,6 @@ public class PatrolAI : MonoBehaviour
 
                 destIndex++;
                 SetDestinations(destIndex, true);
-                Debug.LogError("asd");
             }
         }
     }
@@ -283,7 +277,6 @@ public class PatrolAI : MonoBehaviour
                 anim.SetBool("IsWalk", true);
                 SetDestinations(destIndex, true);
                
-                Debug.Log("πÆ ø≠±‚");
             }
 
             if (Vector3.Distance(transform.position, agent.destination) <= 0.1f && destIndex == destinations.Length - 1)
@@ -292,7 +285,6 @@ public class PatrolAI : MonoBehaviour
                 isInRoom = false;
                 otherAI.isInRoom = false;
                 anim.SetBool("IsWalk", false);
-                Debug.Log("πÆ ¥›±‚");
             }
         }
     }
@@ -317,7 +309,6 @@ public class PatrolAI : MonoBehaviour
                 isGoOut = false;
                 destIndex++;
                 SetDestinations(destIndex, false);
-                Debug.Log("πÆ¿ª ¥›æ∆∫∏æ∆ø‰");
             }
         }
 
@@ -344,7 +335,6 @@ public class PatrolAI : MonoBehaviour
                 destIndex = 0;
                 comeInTime = 10f;
                 isArrive = true;
-                Debug.LogError("æ…æ∆ø‰");
 
 
                 return;
