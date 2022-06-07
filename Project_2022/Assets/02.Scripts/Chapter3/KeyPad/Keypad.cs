@@ -23,6 +23,7 @@ public class Keypad : MonoBehaviour
     public Animator anim;
     public GameObject timeLineObj;
     public GameObject cam;
+    public GameObject[] desThings;
 
     private bool isCal;
     private int keyCount;
@@ -64,6 +65,11 @@ public class Keypad : MonoBehaviour
     private void PuzzleClear()
     {
         //anim.SetTrigger("OpenTri");
+        for (int i = 0; i < desThings.Length; i++)
+        {
+            Debug.Log("»èÁ¦");
+            desThings[i].SetActive(false);
+        }
         UIManager.Instance.OnCutScene();
         timeLineObj.SetActive(true);
     }
