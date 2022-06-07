@@ -269,7 +269,7 @@ public class PatrolAI : MonoBehaviour
     {
         if (isMainAI)
         {
-            if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == destinations.Length - 2)
+            if (timingTime >= 1.5f && !anim.GetBool("IsWalk") && destIndex == destinations.Length - 2)
             {
                 FindObjectOfType<AiDoor>().OpenDoor();
                 isMove = true;
@@ -293,7 +293,7 @@ public class PatrolAI : MonoBehaviour
     {
         if (isMainAI)
         {
-            if (timingTime >= 2.3f && !anim.GetBool("IsWalk") && destIndex == 1)
+            if (timingTime >= 1.5f && !anim.GetBool("IsWalk") && destIndex == 1)
             {
                 FindObjectOfType<AiDoor>().OpenDoor();
                 isMove = true;
