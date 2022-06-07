@@ -12,7 +12,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     [SerializeField]
     private bool isLock;
     [SerializeField]
-    private bool isOpen;
+    public bool isOpen;
     private bool isPuzzle;
     private bool isTest;
     private bool isTouch;
