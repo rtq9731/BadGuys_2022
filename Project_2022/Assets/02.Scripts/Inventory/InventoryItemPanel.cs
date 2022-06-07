@@ -18,7 +18,7 @@ public class InventoryItemPanel : MonoBehaviour
 
     GameObject dontEatObj = null;
 
-    GameObject currentObj = null;
+    public GameObject currentObj = null;
     Vector3 originRotate;
 
     float speed = 5f;
@@ -118,13 +118,17 @@ public class InventoryItemPanel : MonoBehaviour
     {
         inventoryUI.isOnInventory = false;
 
-        currentObj.transform.rotation = Quaternion.Euler(originRotate);
-        itemImage.texture = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
-                    GetComponent<Camera>().targetTexture;
-        itemRole.text = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
-            GetComponentInChildren<Item>().itemInfo.itemRole;
         currentObj = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
             GetComponentInChildren<Item>().gameObject;
+
+        if(isActive)
+        {
+            itemImage.texture = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
+                    GetComponent<Camera>().targetTexture;
+            itemRole.text = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
+                GetComponentInChildren<Item>().itemInfo.itemRole;
+            currentObj.transform.rotation = Quaternion.Euler(originRotate);
+        }
 
         inventoryUI.isOnInventory = true;
     }
