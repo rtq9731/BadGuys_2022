@@ -155,10 +155,34 @@ public class PatrolAI : MonoBehaviour
     {
         if(isInRoom)
         {
-            if (!PatrolCheck.Instanse.IsHide())
+            if(!PatrolCheck.Instanse.IsHide() && isSit)
+            {
+                anim.SetTrigger("StandUp");
+                float posZ = 0;
+
+                if (transform.rotation.y > 0)
+                {
+                    posZ = 0.5f;
+                    Debug.Log(transform.rotation.y);
+                }
+                else
+                {
+                    posZ = -0.5f;
+                    Debug.Log(transform.rotation.y);
+                }
+
+                chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
+                {
+                    SetDestinations(0, true);
+                    anim.SetBool("IsSitting", false);
+                    isArrive = false;
+                    isSit = false;
+                });
+            }
+
+            if (!PatrolCheck.Instanse.IsHide() && !isSit)
             {
                 _states = AIStates.Detection;
-
             }
         }
     }
@@ -338,7 +362,6 @@ public class PatrolAI : MonoBehaviour
                     return;
                 }
 
-
                 if (destIndex >= 1 && isMainAI)
                     return;
 
@@ -375,6 +398,7 @@ public class PatrolAI : MonoBehaviour
         anim.SetTrigger("SitDown");
         anim.SetBool("IsWalk", false);
         isMove = false;
+        isSit = true;
         chair.transform.DOMoveZ(originChairPos.z, 1.5f);
 
         if(isMainAI)
@@ -400,6 +424,5 @@ public class PatrolAI : MonoBehaviour
             agent.SetDestination(goOutDestinations[idx].position);
         else
             agent.SetDestination(comeDestinations[idx].position);
-
     }
 }
