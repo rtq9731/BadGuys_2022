@@ -65,6 +65,7 @@ public class LaptopManager : MonoBehaviour
         UIManager.Instance.OnCutSceneWithMainUI();
         UIManager.Instance.OnPuzzleUI();
         UIManager.Instance.DisplayCursor(true);
+        GameManager.Instance.IsPause = false;
         laptopCam.SetActive(true);
 
         if (!isPass)
