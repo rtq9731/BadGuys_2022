@@ -76,11 +76,13 @@ public class PatrolAI : MonoBehaviour
             agent.isStopped = true;
             return;
         }
-        else
+
+        if(!GameManager.Instance.IsPause && agent.isStopped)
         {
             agent.isStopped = false;
         }
 
+        Debug.Log("퍼즈가 아니다");
         CheckStates();
         CheckPlayerOut();
 
