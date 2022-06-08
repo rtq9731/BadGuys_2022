@@ -44,7 +44,8 @@ public class LockPickPuzzle : MonoBehaviour
         UIManager.Instance.OnPuzzleUI();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        
+        GameManager.Instance.IsPause = false;
+
         isClear = false;
         puzzleCam.SetActive(true);
         puzzleObj.SetActive(true);

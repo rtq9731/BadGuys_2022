@@ -56,7 +56,8 @@ public class PatrolAI : MonoBehaviour
 
 
     bool isGoOut = true;
-    public bool isInRoom = true;
+    bool isInRoom = true;
+    bool isDetection = false;
 
     bool isOver = false;
 
@@ -70,6 +71,16 @@ public class PatrolAI : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.IsPause)
+        {
+            agent.isStopped = true;
+            return;
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
+
         CheckStates();
         CheckPlayerOut();
 
@@ -83,7 +94,6 @@ public class PatrolAI : MonoBehaviour
                 return;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
-
     }
 
     void StartStates(AIStates states)
@@ -159,7 +169,7 @@ public class PatrolAI : MonoBehaviour
     {
         if(isInRoom)
         {
-            if (_states == AIStates.Detection)
+            if (isDetection)
                 return;
 
             if(!PatrolCheck.Instanse.IsHide() && isSit)
@@ -181,13 +191,12 @@ public class PatrolAI : MonoBehaviour
                 chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
                 {
                     Debug.LogError("asdasddsad");
-                    SetDestinations(0, true);
                     anim.SetBool("IsSitting", false);
+                    _states = AIStates.Detection;
                     isArrive = false;
                     isSit = false;
                 });
-                _states = AIStates.Detection;
-
+                isDetection = true;
             }
 
             if (!PatrolCheck.Instanse.IsHide() && !isSit)
