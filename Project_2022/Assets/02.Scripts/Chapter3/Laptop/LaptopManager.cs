@@ -49,11 +49,7 @@ public class LaptopManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && isSetting)
-        {
-            isSetting = false;
-            StartCoroutine(OutScene());
-        }
+        
     }
 
     public void CloseLaptop()
@@ -115,6 +111,12 @@ public class LaptopManager : MonoBehaviour
         mainPanel.SetActive(false);
     }
 
+    public void OutLaptop()
+    {
+        isSetting = false;
+        StartCoroutine(OutScene());
+    }
+
     public IEnumerator FadeOut()
     {
         fadeObj.SetActive(true);
@@ -160,10 +162,7 @@ public class LaptopManager : MonoBehaviour
         if (!isDialog)
         {
             isDialog = true;
-            DialogManager.Instance.ClearALLDialog();
             DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
-            yield return new WaitForSeconds(dialogTime);
-            DialogManager.Instance.ClearALLDialog();
         }
 
         StartCoroutine(FadeIn());

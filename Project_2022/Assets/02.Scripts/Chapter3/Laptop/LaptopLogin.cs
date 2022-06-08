@@ -12,6 +12,7 @@ public class LaptopLogin : MonoBehaviour
     public GameObject loginHintBtn;
     public GameObject loginHintTxt;
     public GameObject logWrong;
+    public GameObject exitBtn;
     public InputField passwordIPF;
     public Text outputText;
 
@@ -29,6 +30,7 @@ public class LaptopLogin : MonoBehaviour
         loginHintBtn.SetActive(true);
         loginHintTxt.SetActive(false);
         logWrong.SetActive(false);
+        exitBtn.SetActive(true);
 
         passwordIPF.text = "";
         passwordTxt = "";
