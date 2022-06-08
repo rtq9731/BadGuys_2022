@@ -14,6 +14,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
     [Header("Component")]
     public GameObject peekCam;
     public GameObject peekUI;
+    public GameObject peekTxt;
     public Image fadeImg;
     public DialogDatas dialog;
 
@@ -24,6 +25,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         isDialog = false;
         peekCam.SetActive(false);
         peekUI.SetActive(false);
+        peekTxt.SetActive(false);
         fadeImg.color = new Color(0, 0, 0, 0);
         fadeImg.gameObject.SetActive(true);
     }
@@ -32,7 +34,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
     {
         if (isPeek && !isMoving)
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 isPeek = false;
                 isMoving = true;
@@ -66,7 +68,6 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
 
         if (isPeek)
         {
-            UIManager.Instance.OnCutSceneWithMainUI();
             UIManager.Instance.OnPuzzleUI();
         }
 
@@ -95,6 +96,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
                 {
                     peekCam.SetActive(isPeek);
                     peekUI.SetActive(isPeek);
+                    peekTxt.SetActive(isPeek);
                     outing = false;
                     value = 1;
                     yield return new WaitForSeconds(fadeTime);
@@ -126,7 +128,6 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
 
         if (!isPeek)
         {
-            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
             UIManager.Instance.OffPuzzleUI();
         }
 
