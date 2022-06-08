@@ -49,7 +49,7 @@ public class PatrolAI : MonoBehaviour
 
 
     bool isMove = false;
-    bool isSit = true;
+    public bool isSit = true;
 
     float extraRotationSpeed = 5f;
     public float timingTime = 0f;
@@ -159,6 +159,9 @@ public class PatrolAI : MonoBehaviour
     {
         if(isInRoom)
         {
+            if (_states == AIStates.Detection)
+                return;
+
             if(!PatrolCheck.Instanse.IsHide() && isSit)
             {
                 anim.SetTrigger("StandUp");
@@ -177,11 +180,14 @@ public class PatrolAI : MonoBehaviour
 
                 chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
                 {
+                    Debug.LogError("asdasddsad");
                     SetDestinations(0, true);
                     anim.SetBool("IsSitting", false);
                     isArrive = false;
                     isSit = false;
                 });
+                _states = AIStates.Detection;
+
             }
 
             if (!PatrolCheck.Instanse.IsHide() && !isSit)
@@ -234,7 +240,6 @@ public class PatrolAI : MonoBehaviour
             {
                 _states = AIStates.ComeIn;
                 isGoOut = false;
-                isSit = true;
                 isArrive = true;
                 return;
             }
@@ -255,7 +260,6 @@ public class PatrolAI : MonoBehaviour
                 {
                     _states = AIStates.ComeIn;
                     isGoOut = false;
-                    isSit = true;
 
                     anim.SetBool("IsWalk", false);
 
@@ -387,6 +391,8 @@ public class PatrolAI : MonoBehaviour
         isMove = true;
         if(isMove && isInRoom)
         {
+            agent.speed = 4f;
+
             if (Vector3.Distance(transform.position, player.transform.position) <= 1.0f && !isOver)
             {
                 isOver = true;
@@ -417,10 +423,6 @@ public class PatrolAI : MonoBehaviour
 
             agent.SetDestination(player.transform.position);
             anim.SetBool("IsWalk", true);
-
-            
-
-            
         }
     }
 
