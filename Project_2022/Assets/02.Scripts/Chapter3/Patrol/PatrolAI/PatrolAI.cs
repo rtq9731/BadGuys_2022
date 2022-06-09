@@ -72,12 +72,14 @@ public class PatrolAI : MonoBehaviour
         if (GameManager.Instance.IsPause)
         {
             agent.isStopped = true;
+            anim.speed = 0;
             return;
         }
 
         if(!GameManager.Instance.IsPause && agent.isStopped)
         {
             agent.isStopped = false;
+            anim.speed = 1;
         }
 
         CheckStates();
