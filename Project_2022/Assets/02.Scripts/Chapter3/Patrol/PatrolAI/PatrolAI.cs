@@ -83,7 +83,7 @@ public class PatrolAI : MonoBehaviour
         }
 
         CheckStates();
-        
+        CheckPlayerOut();
 
         timingTime += Time.deltaTime;
 
@@ -139,7 +139,6 @@ public class PatrolAI : MonoBehaviour
             case AIStates.GoOut:
                 {
                     StartStates(_states);
-                    CheckPlayerOut();
                 }
                 break;
             case AIStates.ComeIn:
@@ -157,7 +156,6 @@ public class PatrolAI : MonoBehaviour
                         isMove = true;
 
                         StartStates(_states);
-                        CheckPlayerOut();
                     }
                 }
                 break;
@@ -372,7 +370,6 @@ public class PatrolAI : MonoBehaviour
                 comeInTime = 10f;
                 isArrive = true;
 
-
                 return;
             }
 
@@ -426,7 +423,7 @@ public class PatrolAI : MonoBehaviour
                 return;
             }
 
-            if (!roomDoor.GetComponent<DoorLock>().isOpen)
+            if (!roomDoor.GetComponent<DoorLock>().isOpen && PatrolCheck.Instanse.IsHide())
             {
                 agent.SetDestination(roomDoorTrm.position);
                 if(Vector3.Distance(transform.position, agent.destination) <= 0.1f)

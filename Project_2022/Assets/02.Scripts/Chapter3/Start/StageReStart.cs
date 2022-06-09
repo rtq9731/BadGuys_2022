@@ -11,6 +11,7 @@ public class StageReStart : MonoBehaviour
     public Text restartTxt;
     public float fadeTime;
 
+
     private void Awake()
     {
         restartTxt.gameObject.SetActive(false);
@@ -72,5 +73,9 @@ public class StageReStart : MonoBehaviour
         yield return new WaitForSeconds(18f);
         UIManager.Instance.OnCutSceneOver();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
+
+    
+
 }

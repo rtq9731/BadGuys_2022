@@ -1,5 +1,6 @@
  using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PatrolCheck : MonoBehaviour
@@ -16,6 +17,11 @@ public class PatrolCheck : MonoBehaviour
             Instanse = this;
         else if (Instanse != this)
             Destroy(this.gameObject);
+    }
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += LoadedsceneEvent;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,5 +44,12 @@ public class PatrolCheck : MonoBehaviour
     public void EndGame()
     {
         restart.Detection();
+    }
+
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
+    {
+        isPlayerIn = true;
+        isDoorClose = true;
+        Debug.LogError(scene.name + "으로 변경되었습니다.");
     }
 }
