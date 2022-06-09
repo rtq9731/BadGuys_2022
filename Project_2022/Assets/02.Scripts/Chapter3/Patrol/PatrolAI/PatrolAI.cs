@@ -174,10 +174,10 @@ public class PatrolAI : MonoBehaviour
             if (isDetection)
                 return;
 
-            Debug.Log(PatrolCheck.Instanse.IsHide());
+                Debug.Log(PatrolCheck.Instanse.IsHide());
 
-            if(!PatrolCheck.Instanse.IsHide() && isSit)
-            {
+                if(!PatrolCheck.Instanse.IsHide() && isSit)
+                {
                 anim.SetTrigger("StandUp");
                 float posZ = 0;
 
@@ -361,7 +361,6 @@ public class PatrolAI : MonoBehaviour
     {
         if (!isGoOut)
         {
-
             if (Vector3.Distance(agent.destination, transform.position) <= 0.1f && destIndex == comeDestinations.Length - 1)
             {
                 StandToSit();
@@ -405,12 +404,16 @@ public class PatrolAI : MonoBehaviour
         {
             agent.speed = 4f;
 
+            if(!isMainAI && Vector3.Distance(transform.position, comeDestinations[1].position) <= 0.3f)
+            {
+                FindObjectOfType<AiDoor>().CloseDoor();
+            }
+
             if (Vector3.Distance(transform.position, player.transform.position) <= 1.5f && !isOver)
             {
                 isOver = true;
                 FindObjectOfType<PatrolCheck>().EndGame();
                 agent.isStopped = true;
-                //_states = AIStates.Normal;
                 Debug.Log("GameOver");
                 isMove = false;
                 return;
@@ -471,4 +474,5 @@ public class PatrolAI : MonoBehaviour
         else
             agent.SetDestination(comeDestinations[idx].position);
     }
+    
 }

@@ -17,11 +17,8 @@ public class PatrolCheck : MonoBehaviour
             Instanse = this;
         else if (Instanse != this)
             Destroy(this.gameObject);
-    }
-
-    private void Start()
-    {
         SceneManager.sceneLoaded += LoadedsceneEvent;
+
     }
 
     private void OnTriggerEnter(Collider other)
