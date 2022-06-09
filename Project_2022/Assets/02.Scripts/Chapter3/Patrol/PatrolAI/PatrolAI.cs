@@ -82,9 +82,8 @@ public class PatrolAI : MonoBehaviour
             agent.isStopped = false;
         }
 
-        Debug.Log("퍼즈가 아니다");
         CheckStates();
-        CheckPlayerOut();
+        
 
         timingTime += Time.deltaTime;
 
@@ -96,6 +95,8 @@ public class PatrolAI : MonoBehaviour
                 return;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
+
+        Debug.LogWarning(_states);
     }
 
     void StartStates(AIStates states)
@@ -138,7 +139,7 @@ public class PatrolAI : MonoBehaviour
             case AIStates.GoOut:
                 {
                     StartStates(_states);
-
+                    CheckPlayerOut();
                 }
                 break;
             case AIStates.ComeIn:
@@ -156,6 +157,7 @@ public class PatrolAI : MonoBehaviour
                         isMove = true;
 
                         StartStates(_states);
+                        CheckPlayerOut();
                     }
                 }
                 break;
@@ -173,6 +175,8 @@ public class PatrolAI : MonoBehaviour
         {
             if (isDetection)
                 return;
+
+            Debug.Log(PatrolCheck.Instanse.IsHide());
 
             if(!PatrolCheck.Instanse.IsHide() && isSit)
             {
@@ -404,10 +408,12 @@ public class PatrolAI : MonoBehaviour
         {
             agent.speed = 4f;
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= 1.0f && !isOver)
+            if (Vector3.Distance(transform.position, player.transform.position) <= 1.5f && !isOver)
             {
                 isOver = true;
                 FindObjectOfType<PatrolCheck>().EndGame();
+                agent.isStopped = true;
+                //_states = AIStates.Normal;
                 Debug.Log("GameOver");
                 isMove = false;
                 return;
