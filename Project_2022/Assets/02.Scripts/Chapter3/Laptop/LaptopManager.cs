@@ -67,6 +67,8 @@ public class LaptopManager : MonoBehaviour
         UIManager.Instance.DisplayCursor(true);
         laptopCam.SetActive(true);
 
+        GameManager.Instance.IsPause = false;
+
         if (!isPass)
         {
             StartCoroutine(BootingScene());
