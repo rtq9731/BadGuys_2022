@@ -65,7 +65,6 @@ public class LaptopManager : MonoBehaviour
         UIManager.Instance.OnCutSceneWithMainUI();
         UIManager.Instance.OnPuzzleUI();
         UIManager.Instance.DisplayCursor(true);
-        GameManager.Instance.IsPause = false;
         laptopCam.SetActive(true);
 
         if (!isPass)
@@ -110,12 +109,6 @@ public class LaptopManager : MonoBehaviour
         bootingPanel.SetActive(false);
         loginPanel.SetActive(false);
         mainPanel.SetActive(false);
-    }
-
-    public void OutLaptop()
-    {
-        isSetting = false;
-        StartCoroutine(OutScene());
     }
 
     public IEnumerator FadeOut()
