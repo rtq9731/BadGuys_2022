@@ -47,13 +47,11 @@ public class PatrolAI : MonoBehaviour
 
     Vector3 originChairPos;
 
-
     bool isMove = false;
     public bool isSit = true;
 
     float extraRotationSpeed = 5f;
     public float timingTime = 0f;
-
 
     bool isGoOut = true;
     bool isInRoom = true;
@@ -95,7 +93,6 @@ public class PatrolAI : MonoBehaviour
                 return;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
-
     }
 
     void StartStates(AIStates states)
