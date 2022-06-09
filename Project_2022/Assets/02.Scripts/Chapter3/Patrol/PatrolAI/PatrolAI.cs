@@ -96,7 +96,6 @@ public class PatrolAI : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookrotation), extraRotationSpeed * Time.deltaTime);
         }
 
-        Debug.LogWarning(_states);
     }
 
     void StartStates(AIStates states)
@@ -173,8 +172,6 @@ public class PatrolAI : MonoBehaviour
         {
             if (isDetection)
                 return;
-
-                Debug.Log(PatrolCheck.Instanse.IsHide());
 
                 if(!PatrolCheck.Instanse.IsHide() && isSit)
                 {
