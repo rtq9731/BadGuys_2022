@@ -55,7 +55,7 @@ public class WallDissolve : MonoBehaviour
             myMat.SetColor("Color_C277ACA6", new Color(mC.r, mC.g, mC.b, i));
         }
 
-        UIManager.Instance.OnCutSceneOver();
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         gameObject.SetActive(false);
         myVCam.SetActive(false);
         Destroy(this);
