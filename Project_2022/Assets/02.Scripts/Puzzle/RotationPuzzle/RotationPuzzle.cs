@@ -9,6 +9,7 @@ public class RotationPuzzle : MonoBehaviour
 {
     [SerializeField] float rotationAmount = 10;
 
+    [SerializeField] GameObject puzzleUI = null;
     [SerializeField] List<RotationPuzzleElement> elements = new List<RotationPuzzleElement>();
     [SerializeField] StoryTrigger completeTrigger = null;
     [SerializeField] GStageLightTrigger lightTrigger = null;
@@ -63,6 +64,7 @@ public class RotationPuzzle : MonoBehaviour
         vCamPuzzle.SetActive(true);
         UIManager.Instance.OnCutSceneWithoutPause();
         isOn = true;
+        puzzleUI.SetActive(true);
         RefreshOulines(curLayer);
     }
 
@@ -103,6 +105,7 @@ public class RotationPuzzle : MonoBehaviour
     {
         isOn = false;
         vCamPuzzle.SetActive(true);
+        puzzleUI.SetActive(false);
         completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, destRot));
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
