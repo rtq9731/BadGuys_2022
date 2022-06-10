@@ -67,6 +67,14 @@ public class CameraShaking : MonoBehaviour
 
         while (gameObject != null)
         {
+            if (GameManager.Instance.IsPause)
+            {
+                if (DOTween.IsTweening(myCam.transform))
+                    CameraOff();
+                yield return null;
+                continue;
+            }
+
             shakePower = new Vector3(0, walkPower, 0);
             vibra = walkVibrato;
             time = walkTime;
