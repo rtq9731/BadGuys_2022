@@ -68,7 +68,7 @@ public class GuidePanel : MonoBehaviour
         guidePanel.transform.DOScale(0f, 0.2f).OnComplete(() =>
         {
             guidePanel.SetActive(false);
-            UIManager.Instance.OnCutSceneOver();
+            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
             guidePanel.transform.localScale = new Vector3(1f, 1f, 1f);
         });
     }
