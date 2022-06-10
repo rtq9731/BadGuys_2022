@@ -23,14 +23,6 @@ public class StageReStart : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Detection();
-        }
-    }
-
     public void Detection()
     {
         UIManager.Instance.OnCutScene();
