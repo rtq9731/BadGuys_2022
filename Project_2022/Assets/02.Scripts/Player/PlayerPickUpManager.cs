@@ -16,7 +16,7 @@ public class PlayerPickUpManager : MonoBehaviour
 
     public void CanPickUpItem(IInteractableItem curItem)
     {
-        if(curItem.CanInteract())
+        if(curItem.CanInteract() && !GameManager.Instance.IsPause)
         {
             ShowPickUpIcon(true);
             if (pickUpCoolTime >= 0.3f)
@@ -39,7 +39,7 @@ public class PlayerPickUpManager : MonoBehaviour
 
     public void CanInteractObj(IInteractAndGetItemObj curObj, ItemInfo itemInfo)
     {
-        if (curObj.CanInteract(itemInfo))
+        if (curObj.CanInteract(itemInfo)&&!GameManager.Instance.IsPause)
         {
             ShowPickUpIcon(true);
 
