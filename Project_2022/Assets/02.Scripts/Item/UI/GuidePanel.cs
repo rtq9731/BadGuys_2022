@@ -62,6 +62,9 @@ public class GuidePanel : MonoBehaviour
 
     void FalseGuide()
     {
+        if (UIManager.Instance._stopMenu.gameObject.activeSelf)
+            return;
+
         isOnPanel = false;
         falseImage.gameObject.SetActive(false);
         guideDetail[detailIdx].SetActive(false);
@@ -69,6 +72,7 @@ public class GuidePanel : MonoBehaviour
         {
             guidePanel.SetActive(false);
             UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+            
             guidePanel.transform.localScale = new Vector3(1f, 1f, 1f);
         });
     }

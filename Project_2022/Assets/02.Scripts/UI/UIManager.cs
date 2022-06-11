@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] StopMenu _stopMenu = null;
+    public StopMenu _stopMenu = null;
     [SerializeField] GameObject _mainUI = null;
 
     public static UIManager Instance
