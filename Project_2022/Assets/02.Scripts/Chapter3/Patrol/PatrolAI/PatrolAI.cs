@@ -362,7 +362,7 @@ public class PatrolAI : MonoBehaviour
                 StandToSit();
                 isGoOut = true;
                 destIndex = 0;
-                comeInTime = 10f;
+                comeInTime = 180f;
                 isArrive = true;
 
                 return;
