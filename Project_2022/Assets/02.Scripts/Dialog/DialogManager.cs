@@ -121,6 +121,7 @@ public class DialogManager : MonoBehaviour
         }
 
         datas.Sort((x, y) => x.id.CompareTo(y.id));
+        Debug.Log(datas.Count);
         foreach (var item in datas)
         {
             UIManager.Instance.SetStopMenuDialog($"{item.name} : {item.str}", item.color);
