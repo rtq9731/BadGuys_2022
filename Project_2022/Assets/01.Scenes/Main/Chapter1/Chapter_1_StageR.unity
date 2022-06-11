@@ -1357,9 +1357,8 @@ RectTransform:
   - {fileID: 833974256}
   - {fileID: 352019881}
   - {fileID: 1864528514}
-  - {fileID: 474888844}
   m_Father: {fileID: 1697869529}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3124,7 +3123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3367,7 +3366,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 154078671}
+    m_TransformParent: {fileID: 1697869529}
     m_Modifications:
     - target: {fileID: 1378304929224743930, guid: 8d73be43b133813429d81667211be210,
         type: 3}
@@ -3387,7 +3386,7 @@ PrefabInstance:
     - target: {fileID: 1378304929224743931, guid: 8d73be43b133813429d81667211be210,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1378304929224743931, guid: 8d73be43b133813429d81667211be210,
         type: 3}
@@ -3711,7 +3710,7 @@ RectTransform:
   m_Children:
   - {fileID: 409251411}
   m_Father: {fileID: 1697869529}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5173,6 +5172,7 @@ MonoBehaviour:
   itemImage: {fileID: 1337520148}
   itemRole: {fileID: 185084408}
   pickUpPanel: {fileID: 352019880}
+  currentObj: {fileID: 0}
 --- !u!1 &834664580
 GameObject:
   m_ObjectHideFlags: 0
@@ -9039,8 +9039,9 @@ RectTransform:
   - {fileID: 1738538737}
   - {fileID: 375589370}
   - {fileID: 1303442702}
-  - {fileID: 565182227}
   - {fileID: 154078671}
+  - {fileID: 474888844}
+  - {fileID: 565182227}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
