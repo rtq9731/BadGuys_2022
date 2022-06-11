@@ -119,11 +119,8 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         DOTween.PlayAll();
 
-        _stopMenu.transform.Find("PanelStop").transform.DOScale(0, 0.5f).OnComplete(() =>
-        {
-            _stopMenu.gameObject.SetActive(false);
-            DisplayCursor(isCursor);
-        });
+        _stopMenu.gameObject.SetActive(false);
+        DisplayCursor(isCursor);
 
     }
 
@@ -146,6 +143,5 @@ public class UIManager : MonoBehaviour
         DOTween.PauseAll();
 
         _stopMenu.gameObject.SetActive(true);
-        _stopMenu.transform.Find("PanelStop").transform.localScale = Vector3.one;
     }
 }
