@@ -74,15 +74,18 @@ public class SettingManager : MonoBehaviour
 
     public void LoadSettingInfo()
     {
-        using (StreamReader sr = new StreamReader(Application.persistentDataPath + fileName))
+        if(File.Exists(Application.persistentDataPath + fileName))
         {
-            if (sr == null)
+            using (StreamReader sr = new StreamReader(Application.persistentDataPath + fileName))
             {
-                _setting = new SettingInfo();
-            }
-            else
-            {
-                _setting = JsonUtility.FromJson<SettingInfo>(sr.ReadToEnd());
+                if (sr == null)
+                {
+                    _setting = new SettingInfo();
+                }
+                else
+                {
+                    _setting = JsonUtility.FromJson<SettingInfo>(sr.ReadToEnd());
+                }
             }
         }
     }
