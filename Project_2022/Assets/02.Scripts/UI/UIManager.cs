@@ -141,6 +141,9 @@ public class UIManager : MonoBehaviour
 
     public void DisplayStopMenu()
     {
+        if (UIManager.Instance.isOnCutScene)
+            return;
+
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();
