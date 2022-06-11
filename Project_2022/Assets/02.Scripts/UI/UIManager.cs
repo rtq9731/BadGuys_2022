@@ -119,6 +119,9 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         DOTween.PlayAll();
 
+        _mainUI.SetActive(true);
+        DialogManager.Instance.gameObject.SetActive(true);
+
         _stopMenu.gameObject.SetActive(false);
         DisplayCursor(isCursor);
 
@@ -141,6 +144,9 @@ public class UIManager : MonoBehaviour
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();
+
+        _mainUI.SetActive(false);
+        DialogManager.Instance.gameObject.SetActive(false);
 
         _stopMenu.gameObject.SetActive(true);
     }
