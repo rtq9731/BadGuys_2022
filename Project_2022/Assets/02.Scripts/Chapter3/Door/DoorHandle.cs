@@ -32,7 +32,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
 
     private void Update()
     {
-        if (isPeek && !isMoving)
+        if (isPeek && !isMoving && !GameManager.Instance.IsPause)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

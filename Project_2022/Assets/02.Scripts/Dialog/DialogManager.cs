@@ -37,6 +37,8 @@ public class DialogManager : MonoBehaviour
 
     Coroutine cor = null;
 
+    bool isFirst = true;
+
     float waitTimer = 0f;
 
     private void Awake()
@@ -49,6 +51,13 @@ public class DialogManager : MonoBehaviour
 
     public void OnEnable()
     {
+        if(isFirst)
+        {
+            isFirst = false;
+            Debug.Log("°³Ελ");
+            return;
+        }
+
         if(cor != null)
         {
             StopCoroutine(cor);
