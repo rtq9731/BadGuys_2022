@@ -1,105 +1,84 @@
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class DialogPanel : MonoBehaviour
 {
-    [SerializeField] Text text;
+    RectTransform rectTrm = null;
 
-    public RectTransform rectTrm = null;
     Rect originRect = Rect.zero;
 
-    List<Tween> tweens = new List<Tween>();
+    [SerializeField] Text uiText;
 
-    Coroutine cor = null;
+    public bool isOn = false;
+    public bool isInited = false;
 
-    public int order;
-
+    public int order = 0;
     private void Awake()
     {
         rectTrm = GetComponent<RectTransform>();
         originRect = rectTrm.rect;
-        rectTrm.sizeDelta = Vector2.zero;
     }
 
-    public void SetActive(bool active, Color color = default, string str = "", Action callBack = null)
+    public void InitPanel()
     {
+        uiText.text = "";
+        gameObject.SetActive(true);
+        isOn = false;
+        isInited = true;
+
         float height = 0f;
-        text.text = "";
-        if (active)
+        DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(()=> 
         {
-            if(cor != null)
-            {
-                StopCoroutine(cor);
-
-                if(tweens.Count > 1)
-                {
-                    foreach (var item in tweens)
-                    {
-                        item.Complete();
-                    }
-                }
-            }
-
-            text.color = color;
-            gameObject.SetActive(active);
-
-            tweens.Add(text.DOText(str, (str.Length * 0.125f)).SetEase(Ease.Linear).OnComplete(() =>
-            {
-                cor = StartCoroutine(RemovePanel(1.5f));
-            }));
-
-            tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), originRect.height, 0.3f).OnComplete(() =>
-            {
-                text.text = str;
-                callBack?.Invoke();
-            }));
-        }
-        else
-        {
-            height = originRect.height;
-            tweens.Add(text.DOFade(0, 0.3f).OnComplete(() =>
-            {
-                tweens.Add(DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
-                {
-                    gameObject.SetActive(active);
-                    callBack?.Invoke();
-                }));
-            }));
-        }
+            isOn = true;
+        });
     }
 
-    public void SetActiveFalseImmediately()
+    public void SetTextColor(Color color)
     {
-        if(cor != null)
-        {
-            StopCoroutine(cor);
-        }
-
-        foreach (var item in tweens)
-        {
-            item.Kill();
-        }
-
-        SetActive(false);
+        uiText.color = color;
     }
 
-    IEnumerator RemovePanel(float time)
+    public void InitPanelNow()
     {
-        float timer = 0f;
-        
-        while (timer < time)
+        isOn = false;
+        isInited = true;
+
+        rectTrm.sizeDelta = new Vector2(originRect.width, originRect.height);
+
+        isOn = true;
+    }
+
+    public bool IsOn()
+    {
+        return isOn;
+    }
+
+    public void SetText(char text)
+    {
+        uiText.text += text;
+    }
+
+    public void Remove()
+    {
+        float height = rectTrm.rect.height;
+        uiText.DOFade(0, 0.3f).OnComplete(() =>
         {
-            if(!GameManager.Instance.IsPause)
-                timer += Time.deltaTime;
+            DOTween.To(() => height, height => rectTrm.sizeDelta = new Vector2(originRect.width, height), 0, 0.3f).OnComplete(() =>
+            {
+                isOn = false;
+                gameObject.SetActive(false);
+                isInited = false;
+            });
+        });
+    }
 
-            yield return null;
-        }
-
-        SetActive(false);
+    public void RemoveNow()
+    {
+        uiText.text = "";
+        gameObject.SetActive(false);
+        isInited = false;
     }
 }

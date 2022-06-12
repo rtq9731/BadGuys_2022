@@ -71,12 +71,12 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             if (hairpinCount.IsSingle() && !isTouch)
             {
                 isTouch = true;
-                DialogManager.Instance.SetDialaogs(oneTryDialog.GetDialogs());
+                DialogManager.Instance.SetDialogData(oneTryDialog.GetDialogs());
             }
             if (!isTouch)
             {
                 isTouch = true;
-                DialogManager.Instance.SetDialaogs(noTryDialog.GetDialogs());
+                DialogManager.Instance.SetDialogData(noTryDialog.GetDialogs());
             }
 
             return;
@@ -90,11 +90,11 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
             if (isTouch)
             {
-                DialogManager.Instance.SetDialaogs(noPreparePuzzleDialog.GetDialogs());
+                DialogManager.Instance.SetDialogData(noPreparePuzzleDialog.GetDialogs());
             }
             else
             {
-                DialogManager.Instance.SetDialaogs(PreparePuzzleDialog.GetDialogs());
+                DialogManager.Instance.SetDialogData(PreparePuzzleDialog.GetDialogs());
             }
 
             StartCoroutine(PuzzleOn());

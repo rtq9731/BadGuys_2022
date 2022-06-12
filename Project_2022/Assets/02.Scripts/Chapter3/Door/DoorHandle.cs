@@ -123,7 +123,7 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         if (!isDialog)
         {
             isDialog = true;
-            DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+            DialogManager.Instance.SetDialogData(dialog.GetDialogs());
         }
 
         if (!isPeek)

@@ -128,7 +128,7 @@ public class LockPickPuzzle : MonoBehaviour
                     if(!isDialog)
                     {
                         isDialog = true;
-                        DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+                        DialogManager.Instance.SetDialogData(dialog.GetDialogs());
                     }
                     PuzzleOver();
                 }

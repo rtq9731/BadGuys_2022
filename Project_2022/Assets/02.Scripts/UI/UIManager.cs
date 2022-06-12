@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = Instantiate<GameObject>(null).AddComponent<UIManager>();
+                _instance = new GameObject().AddComponent<UIManager>();
                 _instance._mainUI = GameObject.Find("MainUIs");
                 _instance._stopMenu = FindObjectOfType<StopMenu>(true);
             }

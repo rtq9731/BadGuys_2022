@@ -9,7 +9,7 @@ namespace Triggers
         [SerializeField] protected DialogDatas datas;
         public virtual void OnTriggered()
         {
-            DialogManager.Instance.SetDialaogs(datas.GetDialogs());
+            DialogManager.Instance.SetDialogData(datas.GetDialogs());
         }
     }
 }

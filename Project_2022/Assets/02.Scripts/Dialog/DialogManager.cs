@@ -1,179 +1,220 @@
-using System.Collections;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System;
 using DG.Tweening;
+using System;
 
-[RequireComponent(typeof(ContentSizeFitter))]
 public class DialogManager : MonoBehaviour
 {
-    public static DialogManager Instance = null;
+    public static DialogManager Instance
+    {
+        get { return _instance; }
+    }
 
-    public int padding = 0;
-    public int limitPanelCount = 0;
+    private static DialogManager _instance;
 
-    ShowInventoryUI showInventoryUI;
+    [SerializeField] DialogPanel dialogPanelPrefab;
 
-    public DialogPanel panelPrefab = null;
-    List<DialogPanel> dialogs = new List<DialogPanel>();
-
-    Stack<DialogData> lastDialogs = new Stack<DialogData>();
-
-    RectTransform myRect = null;
-
-    Coroutine cor = null;
-
-    Vector3 originRect;
+    [SerializeField] int maxDialogCount = 2;
+    [SerializeField] float textTime = 0.1f;
 
     int curOrder = 0;
 
+    RectTransform myRect = null;
+
+    Vector2 originRect = Vector2.zero;
+
+    List<DialogPanel> dialogPanelPool = new List<DialogPanel>();
+    Queue<Stack<char>> dialogDatas = new Queue<Stack<char>>();
+
+    Stack<char> curDialog = new Stack<char>();
+    
+    DialogPanel curDialogPanel = null;
+
+    Coroutine cor = null;
+
     private void Awake()
     {
-        //if (Instance != null)
-        //{
-        //    Destroy(gameObject);
-        //}
-        Instance = this;
-    }
+        _instance = this;
 
-    private void Start()
-    {
         myRect = GetComponent<RectTransform>();
-
         originRect = myRect.anchoredPosition;
-        showInventoryUI = FindObjectOfType<ShowInventoryUI>();
     }
 
-    private void Update()
+    public void OnEnable()
     {
-        SetPositionPanels();
+        if(cor != null)
+        {
+            StopCoroutine(cor);
+        }
+
+        cor = StartCoroutine(PlayDialog());
+    }
+
+    public void SetDialogData(List<DialogData> datas)
+    {
+        gameObject.SetActive(true);
+
+        datas.Sort((x, y) => x.id.CompareTo(y.id));
+
+        foreach (var item in datas)
+        {
+            dialogDatas.Enqueue(DialogDataToStack(item)); // 다이얼로그 선입선출 구조
+            UIManager.Instance.SetStopMenuDialog(item.name + " : " + item.str, item.color);
+        }
+
+
+        //foreach (var item in datas)
+        //{
+        //    UIManager.Instance.SetStopMenuDialog($"{item.name} : {item.str}", item.color);
+        //}
+
+        if (cor != null)
+        {
+            StopCoroutine(cor);
+        }
+
+        cor = StartCoroutine(PlayDialog());
+    }
+
+    private Stack<char> DialogDataToStack(DialogData data)
+    {
+        Stack<char> result = new Stack<char>();
+
+        for (int i = data.str.Length - 1; i >= 0; i--)
+        {
+            result.Push(data.str[i]);
+        }
+
+        result.Push(' ');
+        result.Push(':');
+        result.Push(' ');
+
+        for (int i = data.name.Length - 1; i >= 0; i--)
+        {
+            result.Push(data.name[i]);
+        }
+
+        string colorString = ColorUtility.ToHtmlStringRGBA(data.color);
+        result.Push('/');
+        for (int i = colorString.Length - 1; i >= 0; i--)
+        {
+            result.Push(colorString[i]);
+        }
+
+        result.Push('#');
+
+        return result;
+    }
+
+    private DialogPanel GetDialogPanel()
+    {
+        DialogPanel result = dialogPanelPool.Find(x => !x.gameObject.activeSelf);
+
+        if (result == null)
+        {
+            if (dialogPanelPool.Count <= maxDialogCount + 1)
+            {
+                result = Instantiate<DialogPanel>(dialogPanelPrefab, transform);
+                dialogPanelPool.Add(result);
+            }
+        }
+
+        result.order = curOrder;
+        curOrder++;
+        result.transform.SetAsLastSibling();
+
+        if (dialogPanelPool.Count >= maxDialogCount + 1)
+        {
+            dialogPanelPool.Sort((x, y) => -x.order.CompareTo(y.order));
+            dialogPanelPool[0].RemoveNow();
+        }
+
+        result.gameObject.SetActive(true);
+
+        return result;
     }
 
     public void ClearALLDialog()
     {
-        lastDialogs.Clear();
-        dialogs.ForEach(x => x.gameObject.SetActive(false));
-    }
-
-    private void CreateDialogPanel(string name, string text, Color color)
-    {
-        gameObject.SetActive(true);
-        DialogPanel dialogPanel = dialogs.Find(x => !x.gameObject.activeSelf);
-        if(dialogPanel == null)
+        while (dialogDatas.Count > 0)
         {
-            if(dialogs.Count <= limitPanelCount + 1)
-            {
-                dialogPanel = Instantiate<DialogPanel>(panelPrefab, transform);
-                dialogs.Add(dialogPanel);
-            }
+            dialogDatas.Dequeue().Clear();
         }
-        dialogPanel.order = curOrder;   
-        curOrder++;
+        dialogDatas.Clear();
 
-        if (dialogs.Count >= limitPanelCount + 1)
-        {
-            dialogs.Sort((x, y) => -x.order.CompareTo(y.order));
-            dialogs[0].SetActiveFalseImmediately();
-        }
-
-        dialogPanel.SetActive(true, color, name + " : " + text, CheckDialog);
-    }
-
-    private void SetPositionPanels()
-    {
-        dialogs.Sort((x, y) => -x.order.CompareTo(y.order));
-        float height = 0f;
-        //Debug.Log(height);
-        for (int i = 0; i < dialogs.Count; i++)
-        {
-            dialogs[i].rectTrm.anchoredPosition = new Vector2(0, height);
-            height += dialogs[i].rectTrm.rect.height;
-        }
-        myRect.sizeDelta = new Vector2(panelPrefab.rectTrm.rect.width, height);
-    }
-
-    public void CheckDialog()
-    {
-        if(dialogs.Find(x => x.gameObject.activeSelf) == null)
-        {
-            gameObject.SetActive(false);
-        }
-    }
-
-    public bool BoolDialog()
-    {
-        if (dialogs.Find(x => x.gameObject.activeSelf) != null)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public void SetDialaogs(List<DialogData> datas)
-    {
-        datas.Sort((x, y) => -x.id.CompareTo(y.id));
-        foreach (var item in datas)
-        {
-            lastDialogs.Push(item);
-        }
-
-        datas.Sort((x, y) => x.id.CompareTo(y.id));
-        Debug.Log(datas.Count);
-        foreach (var item in datas)
-        {
-            UIManager.Instance.SetStopMenuDialog($"{item.name} : {item.str}", item.color);
-        }
-
-        if (cor == null)
-        {
-            cor = StartCoroutine(PlayDialog());
-        }
-    }
-
-    public void SetDialog(DialogData data)
-    {
-        lastDialogs.Push(data);
-        UIManager.Instance.SetStopMenuDialog($"{data.name} : {data.str}", data.color);
-
-        if (cor == null)
-        {
-            cor = StartCoroutine(PlayDialog());
-        }
+        dialogPanelPool.ForEach(x => x.RemoveNow());
     }
 
     IEnumerator PlayDialog()
     {
-        while (lastDialogs.Count > 0)
+        while (dialogDatas.Count > 0 || curDialog != null)
         {
-            DialogData data = lastDialogs.Pop();
-            CreateDialogPanel(data.name, data.str, data.color);
-
-            float timer = 0f;
-            while (timer < data.str.Length * 0.1f + 0.5f)
+            if (curDialog.Count < 1)
             {
-                if (!GameManager.Instance.IsPause)
-                    timer += Time.deltaTime;
+                if(dialogDatas.Count < 1)
+                {
+                    yield break;
+                }
 
-                yield return null;
+                curDialog = dialogDatas.Dequeue();
             }
+
+            if(curDialogPanel == null)
+            {
+                curDialogPanel = GetDialogPanel();
+            }
+
+            if(!curDialogPanel.isInited)
+            {
+                string colorString = "";
+
+                while (curDialog.Peek() != '/')
+                {
+                    colorString += curDialog.Pop();
+                }
+                curDialog.Pop();
+
+                Color color = Color.red;
+                ColorUtility.TryParseHtmlString(colorString, out color);
+
+                curDialogPanel.SetTextColor(color);
+                curDialogPanel.InitPanel();
+
+                yield return new WaitUntil(curDialogPanel.IsOn);
+            } // 지금 진행중인 패널이 있을 때
+            else
+            {
+                if(!curDialogPanel.IsOn())
+                    yield return new WaitUntil(curDialogPanel.IsOn);
+            }
+
+            while (curDialog.Count > 0) // 글자 재생 반복문
+            {
+                yield return new WaitForSeconds(textTime);
+
+                curDialogPanel.SetText(curDialog.Pop());
+            }
+
+            // 다이얼로그 끝!
+            curDialogPanel.Remove();
+            curDialogPanel = null;
+
+
+            yield return null;
         }
-        cor = null;
         yield return null;
     }
-
     public void SetDialogPos(bool isInventoryDown)
     {
-        if(isInventoryDown)
+        if (isInventoryDown)
         {
             myRect.DOAnchorPos(originRect, 0.5f);
         }
         else
         {
-            myRect.DOAnchorPos(new Vector2(myRect.anchoredPosition.x , originRect.y + 180f), 0.5f);
+            myRect.DOAnchorPos(new Vector2(myRect.anchoredPosition.x, originRect.y + 180f), 0.5f);
         }
     }
 }
-

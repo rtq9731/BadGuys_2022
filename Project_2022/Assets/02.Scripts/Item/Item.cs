@@ -15,7 +15,7 @@ public class Item : MonoBehaviour, IInteractableItem
         Inventory.Instance.PickUpItem(itemInfo, this.gameObject, taker);
         if(dialogs != null && dialogs.Count > 0)
         {
-            DialogManager.Instance.SetDialaogs(dialogs);
+            DialogManager.Instance.SetDialogData(dialogs);
         }
     }
 

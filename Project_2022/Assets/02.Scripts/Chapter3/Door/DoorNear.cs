@@ -13,7 +13,7 @@ public class DoorNear : MonoBehaviour
         if (other.CompareTag("Player") && !isDialog)
         {
             isDialog = true;
-            DialogManager.Instance.SetDialaogs(dialog.GetDialogs());
+            DialogManager.Instance.SetDialogData(dialog.GetDialogs());
             Invoke("OffMe", dialogTime);
         }
     }
