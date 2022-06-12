@@ -31,6 +31,7 @@ public class GuidePanel : MonoBehaviour
     {
         if(isOnPanel)
         {
+            GameManager.Instance.IsPause = true;
             if(Input.GetMouseButtonDown(0))
             {
                 FalseGuide();
