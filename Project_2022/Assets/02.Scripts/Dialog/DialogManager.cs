@@ -18,6 +18,9 @@ public class DialogManager : MonoBehaviour
 
     [SerializeField] int maxDialogCount = 2;
     [SerializeField] float textTime = 0.1f;
+    [SerializeField] float waitTime = 1f;
+
+    bool isNeedToWait = false;
 
     int curOrder = 0;
 
@@ -33,6 +36,8 @@ public class DialogManager : MonoBehaviour
     DialogPanel curDialogPanel = null;
 
     Coroutine cor = null;
+
+    float waitTimer = 0f;
 
     private void Awake()
     {
@@ -149,18 +154,22 @@ public class DialogManager : MonoBehaviour
 
     IEnumerator PlayDialog()
     {
+        if(isNeedToWait)
+        {
+            while (waitTimer < waitTime)
+            {
+                if (!GameManager.Instance.IsPause)
+                {
+                    waitTimer += Time.deltaTime;
+                }
+                yield return null;
+            }
+            isNeedToWait = false;
+            waitTimer = 0f;
+        }
+
         while (dialogDatas.Count > 0 || curDialog != null)
         {
-            if (curDialog.Count < 1)
-            {
-                if(dialogDatas.Count < 1)
-                {
-                    yield break;
-                }
-
-                curDialog = dialogDatas.Dequeue();
-            }
-
             if(curDialogPanel == null)
             {
                 curDialogPanel = GetDialogPanel();
@@ -168,6 +177,16 @@ public class DialogManager : MonoBehaviour
 
             if(!curDialogPanel.isInited)
             {
+                if (curDialog.Count < 1)
+                {
+                    if (dialogDatas.Count < 1)
+                    {
+                        yield break;
+                    }
+
+                    curDialog = dialogDatas.Dequeue();
+                }
+
                 string colorString = "";
 
                 while (curDialog.Peek() != '/')
@@ -196,6 +215,18 @@ public class DialogManager : MonoBehaviour
 
                 curDialogPanel.SetText(curDialog.Pop());
             }
+
+            isNeedToWait = true;
+            while (waitTimer < waitTime)
+            {
+                if(!GameManager.Instance.IsPause)
+                {
+                    waitTimer += Time.deltaTime;
+                }
+                yield return null;
+            }
+            isNeedToWait = false;
+            waitTimer = 0f;
 
             // 다이얼로그 끝!
             curDialogPanel.Remove();
