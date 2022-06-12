@@ -52,8 +52,6 @@ public class ColorGathering : MonoBehaviour
 
     IEnumerator ParticleMove(GameObject target)
     {
-        Debug.Log("start");
-
         while (ps.isPlaying)
         {
             //Vector3 targetPos = target.transform.position;
@@ -64,8 +62,6 @@ public class ColorGathering : MonoBehaviour
 
             yield return null;
         }
-
-        Debug.Log("end");
     }
 }
 

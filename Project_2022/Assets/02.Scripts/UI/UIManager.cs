@@ -112,21 +112,6 @@ public class UIManager : MonoBehaviour
         Cursor.visible = display;
     }
 
-    public void RemoveStopMenu()
-    {
-        DisplayCursor(true);
-
-        GameManager.Instance.IsPause = false;
-        DOTween.PlayAll();
-
-        _mainUI.SetActive(true);
-        DialogManager.Instance.gameObject.SetActive(true);
-
-        _stopMenu.gameObject.SetActive(false);
-        DisplayCursor(isCursor);
-
-    }
-
     public void UpdateStopMenu()
     {
         if (_stopMenu.gameObject.activeSelf)
@@ -152,5 +137,20 @@ public class UIManager : MonoBehaviour
         DialogManager.Instance.gameObject.SetActive(false);
 
         _stopMenu.gameObject.SetActive(true);
+    }
+
+    public void RemoveStopMenu()
+    {
+        DisplayCursor(true);
+
+        GameManager.Instance.IsPause = false;
+        DOTween.PlayAll();
+
+        _mainUI.SetActive(true);
+        DialogManager.Instance.gameObject.SetActive(true);
+
+        _stopMenu.gameObject.SetActive(false);
+        DisplayCursor(isCursor);
+
     }
 }
