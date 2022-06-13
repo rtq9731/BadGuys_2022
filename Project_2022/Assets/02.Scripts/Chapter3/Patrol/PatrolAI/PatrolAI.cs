@@ -23,6 +23,7 @@ public class PatrolAI : MonoBehaviour
 {
     [SerializeField] bool isMainAI;
     [SerializeField] PatrolAI otherAI;
+    [SerializeField] PatrolDialog patrolDialog;
 
     [HideInInspector]
     public AIStates _states = AIStates.Normal;
@@ -126,6 +127,10 @@ public class PatrolAI : MonoBehaviour
         {
             case AIStates.Normal:
                 {
+                    if (normalTime >= initNormalTime)
+                    {
+                        patrolDialog.NormalDialogOn();
+                    }
                     if(isArrive && otherAI.isArrive)
                     {
                         normalTime -= Time.deltaTime;
@@ -139,12 +144,17 @@ public class PatrolAI : MonoBehaviour
                 break;
             case AIStates.GoOut:
                 {
+                    patrolDialog.GoOutDialogOn();
                     StartStates(_states);
                 }
                 break;
             case AIStates.ComeIn:
                 {
                     isMove = false;
+                    if (comeInTime >= initComeInTime)
+                    {
+                        patrolDialog.ComeInDialogOn();
+                    }
                     if (isArrive && otherAI.isArrive)
                     {
                         comeInTime -= Time.deltaTime;
@@ -162,6 +172,7 @@ public class PatrolAI : MonoBehaviour
                 break;
             case AIStates.Detection:
                 {
+                    patrolDialog.DetectionDialogOn();
                     StartStates(_states);
                 }
                 break;

@@ -5769,6 +5769,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &469186259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 469186261}
+  - component: {fileID: 469186260}
+  m_Layer: 0
+  m_Name: PatrolDialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &469186260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469186259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a360eaf6520a2734bb1457b308cc6d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalDialogs: []
+  gooutDialogs: []
+  comeinDialogs: []
+  detectionDialogs: {fileID: 0}
+--- !u!4 &469186261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469186259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5406516, y: 0.6999052, z: -0.085998565}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480309108
 GameObject:
   m_ObjectHideFlags: 0
@@ -14484,6 +14531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMainAI: 0
   otherAI: {fileID: 1319233889}
+  patrolDialog: {fileID: 0}
   _states: 0
   goOutDestinations:
   - {fileID: 1831936588}
@@ -14500,6 +14548,8 @@ MonoBehaviour:
   player: {fileID: 1898086578}
   roomDoor: {fileID: 869605935}
   roomDoorTrm: {fileID: 1931169889}
+  initNormalTime: 15
+  initComeInTime: 180
   normalTime: 15
   comeInTime: 180
   destIndex: 0
@@ -16374,6 +16424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMainAI: 1
   otherAI: {fileID: 1140663455}
+  patrolDialog: {fileID: 0}
   _states: 0
   goOutDestinations:
   - {fileID: 873265291}
@@ -16390,6 +16441,8 @@ MonoBehaviour:
   player: {fileID: 1898086578}
   roomDoor: {fileID: 869605935}
   roomDoorTrm: {fileID: 1931169889}
+  initNormalTime: 15
+  initComeInTime: 180
   normalTime: 15
   comeInTime: 180
   destIndex: 0
@@ -21939,7 +21992,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 1
-  dialogTime: 3.5
   isLock: 0
   isOpen: 0
   anim: {fileID: 1852006988}
@@ -22099,9 +22151,6 @@ MonoBehaviour:
   - {fileID: 910832611241637241}
   itemInfo: {fileID: 11400000, guid: 80f03e0e00833264fb4976e69a3ff9d4, type: 2}
   slotParents: {fileID: 462751004}
-  touchOneDialog: {fileID: 11400000, guid: 012e47cf0d339f74582420395f28d97b, type: 2}
-  noTouchDialog: {fileID: 11400000, guid: 9276fcdc2c1f30940a4a88bcecb55b0b, type: 2}
-  TouchDialog: {fileID: 11400000, guid: e27cd785456c8bc4ea02dd6c7c23f8be, type: 2}
   isTouch: 0
 --- !u!4 &1853729562
 Transform:
@@ -22115,7 +22164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1861247912
 GameObject:
@@ -23909,7 +23958,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2035582466
 PrefabInstance:
@@ -25814,11 +25863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5519f514fa15d548b7a1ca3b0d3984a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogs:
-  - id: 0
-    color: {r: 1, g: 1, b: 1, a: 1}
-    str: "\uBA38\uB9AC\uD540? \uC774\uAC8C \uC65C \uC5EC\uAE30\uC5D0\uC788\uC9C0?"
-    name: "\uB098"
+  dialogs: []
   itemInfo: {fileID: 11400000, guid: 80f03e0e00833264fb4976e69a3ff9d4, type: 2}
 --- !u!114 &910832611241637242
 MonoBehaviour:
@@ -30392,11 +30437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5519f514fa15d548b7a1ca3b0d3984a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogs:
-  - id: 0
-    color: {r: 1, g: 1, b: 1, a: 1}
-    str: "\uBA38\uB9AC\uD540? \uC774\uAC8C \uC65C \uC5EC\uAE30\uC5D0\uC788\uC9C0?"
-    name: "\uB098"
+  dialogs: []
   itemInfo: {fileID: 11400000, guid: 80f03e0e00833264fb4976e69a3ff9d4, type: 2}
 --- !u!114 &3325485940094330331
 MonoBehaviour:

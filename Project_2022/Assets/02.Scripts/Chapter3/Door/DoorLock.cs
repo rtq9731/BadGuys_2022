@@ -7,7 +7,6 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 {
     [Header("Values")]
     public float time = 1f;
-    public float dialogTime = 3.5f;
 
     [SerializeField]
     private bool isLock;
@@ -156,7 +155,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
 
     private IEnumerator PuzzleOn()
     {
-        yield return new WaitForSeconds(dialogTime);
+        yield return new WaitForSeconds(0);
 
         isPuzzle = true;
         puzzleMgr.gameObject.SetActive(true);
