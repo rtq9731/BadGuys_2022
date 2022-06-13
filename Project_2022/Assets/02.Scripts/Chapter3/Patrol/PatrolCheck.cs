@@ -40,7 +40,7 @@ public class PatrolCheck : MonoBehaviour
 
     public void EndGame()
     {
-        restart.Detection();
+        restart.Detection("TIP : 조직원들에게 발각되지 않도록 조심하세요.");
     }
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)

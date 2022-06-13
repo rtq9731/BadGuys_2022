@@ -11,6 +11,7 @@ public class StageReStart : MonoBehaviour
     public Text restartTxt;
     public float fadeTime;
 
+    string alertMsg = "";
 
     private void Awake()
     {
@@ -23,13 +24,13 @@ public class StageReStart : MonoBehaviour
         
     }
 
-    public void Detection()
+    public void Detection(string alertMsg)
     {
         UIManager.Instance.OnCutScene();
-        StartCoroutine(DeathReturn());
+        StartCoroutine(DeathReturn(alertMsg));
     }
 
-    private IEnumerator DeathReturn()
+    private IEnumerator DeathReturn(string alertMsg)
     {
         fadeImg.gameObject.SetActive(true);
         float value = 0;
@@ -50,22 +51,51 @@ public class StageReStart : MonoBehaviour
 
         yield return null;
 
+        float allWaitTime = 0f;
+        
         restartTxt.gameObject.SetActive(true);
 
-        restartTxt.DOText("M.A.M : 시스템 오류, 기억의 영역에서 벗어났습니다.", 6f).OnComplete(() =>
+        allWaitTime += "M.A.M : 시스템 오류, 기억의 영역에서 벗어났습니다.".Length * 0.1f + 0.5f;
+        allWaitTime += "M.A.M : 기억 재구성중...".Length * 0.1f + 0.5f;
+        allWaitTime += "M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.".Length * 0.1f + 0.5f;
+
+        restartTxt.DOText("M.A.M : 시스템 오류, 기억의 영역에서 벗어났습니다.", "M.A.M : 시스템 오류, 기억의 영역에서 벗어났습니다.".Length * 0.1f + 0.5f).OnComplete(() =>
         {
             restartTxt.text = "";
-            restartTxt.DOText("M.A.M : 기억 재구성중...", 3f).OnComplete(() =>
+            restartTxt.DOText("M.A.M : 기억 재구성중...", "M.A.M : 기억 재구성중...".Length * 0.1f + 0.5f).OnComplete(() =>
             {
                 restartTxt.text = "";
-                restartTxt.DOText("M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.", 6f);
+                restartTxt.DOText("M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.", "M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.".Length * 0.1f + 0.5f);
             });
         });
 
-        yield return new WaitForSeconds(18f);
+        yield return new WaitForSeconds(allWaitTime);
+
+        float timer = 0f;
+        while (timer <= 6f)
+        {
+            timer += Time.deltaTime;
+            restartTxt.text = "M.A.M : 재구성 완료, 기억 재동기화를 시작합니다.";
+            for (int i = 0; i < (int)(timer) % 3; i++)
+            {
+                restartTxt.text += ".";
+            }
+
+            yield return null;
+        }
+
+
+        this.alertMsg = alertMsg;
+
         UIManager.Instance.OnCutSceneOver();
+        SceneManager.sceneLoaded += OnNextSceneLoaded;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+    }
+
+    void OnNextSceneLoaded(Scene curScene, LoadSceneMode mode)
+    {
+        FindObjectOfType<RestartStartCheckPanel>(true).SetStart(alertMsg);
+        SceneManager.sceneLoaded -= OnNextSceneLoaded;
     }
 
     

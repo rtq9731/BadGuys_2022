@@ -57,12 +57,15 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
-        if(cor != null)
+        if(dialogDatas.Count > 0 || curDialog.Count > 0)
         {
-            StopCoroutine(cor);
-        }
+            if (cor != null)
+            {
+                StopCoroutine(cor);
+            }
 
-        cor = StartCoroutine(PlayDialog());
+            cor = StartCoroutine(PlayDialog());
+        }
     }
 
     public void SetDialogData(List<DialogData> datas)

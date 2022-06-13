@@ -29,7 +29,7 @@ public class ChaseHPSystem : MonoBehaviour
         if (hp <= 0 && !over)
         {
             over = true;
-            restart.Detection();
+            restart.Detection("TIP : 범인을 놓치지 않도록 주의하세요.");
         }
             
         
