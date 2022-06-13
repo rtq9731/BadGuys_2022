@@ -40,7 +40,6 @@ public class LockPickPuzzle : MonoBehaviour
 
     public void PuzzleOn()
     {
-        UIManager.Instance.OnCutSceneWithMainUI();
         UIManager.Instance.OnPuzzleUI();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -68,7 +67,6 @@ public class LockPickPuzzle : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         UIManager.Instance.OffPuzzleUI();
     }
 

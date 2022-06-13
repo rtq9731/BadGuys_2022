@@ -4722,6 +4722,7 @@ GameObject:
   - component: {fileID: 393044751}
   - component: {fileID: 393044753}
   - component: {fileID: 393044752}
+  - component: {fileID: 393044754}
   m_Layer: 5
   m_Name: StartInputPanel
   m_TagString: Untagged
@@ -4771,6 +4772,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393044750}
   m_CullTransparentMesh: 1
+--- !u!114 &393044754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393044750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ed62f77f0d9046b5bc6eab16764ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: {fileID: 11400000, guid: 1aabbdede023d904ba6d7b1b553c4567, type: 2}
 --- !u!1 &394050673
 GameObject:
   m_ObjectHideFlags: 0
@@ -11062,19 +11076,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 869605930}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &869605933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 869605932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9179423c34602743be87e67d11811bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog: {fileID: 11400000, guid: 1aabbdede023d904ba6d7b1b553c4567, type: 2}
 --- !u!65 &869605934
 BoxCollider:
   m_ObjectHideFlags: 0

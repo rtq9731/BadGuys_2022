@@ -62,9 +62,9 @@ public class LaptopManager : MonoBehaviour
     public void LapTopOn()
     {
         isSetting = false;
-        UIManager.Instance.OnCutSceneWithMainUI();
         UIManager.Instance.OnPuzzleUI();
         UIManager.Instance.DisplayCursor(true);
+        Debug.LogWarning("ÄÆ¾ÀÀ» Ä×´Ù!");
         laptopCam.SetActive(true);
 
         GameManager.Instance.IsPause = false;
@@ -201,11 +201,14 @@ public class LaptopManager : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         OffAllPanel();
         laptopCam.SetActive(false);
-        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         UIManager.Instance.OffPuzzleUI();
         UIManager.Instance.DisplayCursor(false);
+        GameManager.Instance.IsPause = false;
+        Debug.LogWarning("ÄÆ¾ÀÀ» ²°´Ù!");
         StartCoroutine(FadeOut());
         yield return new WaitForSeconds(fadeTime);
         isUIUse = false;
+        yield return new WaitForSeconds(1f);
+        GameManager.Instance.IsPause = false;
     }
 }
