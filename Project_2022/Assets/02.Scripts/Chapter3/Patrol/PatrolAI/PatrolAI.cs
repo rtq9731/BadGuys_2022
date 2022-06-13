@@ -63,6 +63,7 @@ public class PatrolAI : MonoBehaviour
 
     bool isOver = false;
 
+    int endPatrolCount = 0;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -133,7 +134,8 @@ public class PatrolAI : MonoBehaviour
                     }
                     if(isArrive && otherAI.isArrive)
                     {
-                        normalTime -= Time.deltaTime;
+                    normalTime -= Time.deltaTime;
+
                     }
                     if (normalTime <= 0.1f)
                     {
@@ -345,6 +347,12 @@ public class PatrolAI : MonoBehaviour
             }
             isGoOut = false;
             destIndex++;
+            if (endPatrolCount == 3)
+            {
+                _states = AIStates.Detection;
+                return;
+            }
+            endPatrolCount++;
             SetDestinations(destIndex, false);
         }
 
@@ -391,7 +399,8 @@ public class PatrolAI : MonoBehaviour
                     OpenDoor();
                     destIndex = 1;
                     isMove = false;
-                    Debug.Log(gameObject);
+                    
+                    
                     return;
                 }
 

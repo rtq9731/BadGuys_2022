@@ -38,7 +38,6 @@ public class TutorialGuideManager : MonoBehaviour
         {
             if (Inventory.Instance.MainItem != null)
             {
-                Debug.Log("tlqkf");
                 isFirstItem = true;
                 return true;
             }
