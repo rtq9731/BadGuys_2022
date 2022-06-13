@@ -128,7 +128,7 @@ public class PatrolAI : MonoBehaviour
         {
             case AIStates.Normal:
                 {
-                    if (normalTime >= initNormalTime)
+                    if (normalTime >= initNormalTime && isMainAI == true)
                     {
                         patrolDialog.NormalDialogOn(endPatrolCount);
                     }
@@ -163,7 +163,8 @@ public class PatrolAI : MonoBehaviour
                         if (destIndex == goOutDestinations.Length - 1)
                             destIndex = -1;
                         isMove = true;
-                        patrolDialog.ComeInDialogOn(endPatrolCount);
+                        if (isMainAI == true)
+                            patrolDialog.ComeInDialogOn(endPatrolCount);
                         StartStates(_states);
                     }
                 }
@@ -229,7 +230,9 @@ public class PatrolAI : MonoBehaviour
         {
             if (isSit)
             {
-                patrolDialog.GoOutDialogOn();
+                if (isMainAI == true)
+                    patrolDialog.GoOutDialogOn(endPatrolCount);
+                
                 anim.SetTrigger("StandUp");
                 float posZ = 0;
 
@@ -415,7 +418,9 @@ public class PatrolAI : MonoBehaviour
     void DetectionPlayer()
     {
         isMove = true;
-        patrolDialog.DetectionDialogOn();
+        if (isMainAI == true)
+            patrolDialog.DetectionDialogOn();
+
         if (isMove && isInRoom)
         {
             agent.speed = 4f;

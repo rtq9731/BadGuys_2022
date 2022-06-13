@@ -5,7 +5,6 @@ using UnityEngine;
 public class DoorNear : MonoBehaviour
 {
     public DialogDatas dialog;
-    public float dialogTime = 3.5f;
     private bool isDialog;
 
     private void OnTriggerEnter(Collider other)
@@ -14,7 +13,7 @@ public class DoorNear : MonoBehaviour
         {
             isDialog = true;
             DialogManager.Instance.SetDialogData(dialog.GetDialogs());
-            Invoke("OffMe", dialogTime);
+            OffMe();
         }
     }
 

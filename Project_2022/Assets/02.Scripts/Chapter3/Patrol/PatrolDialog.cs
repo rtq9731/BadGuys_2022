@@ -5,7 +5,7 @@ using UnityEngine;
 public class PatrolDialog : MonoBehaviour
 {
     public List<DialogDatas> normalDialogs;
-    public DialogDatas gooutDialogs;
+    public List<DialogDatas> gooutDialogs;
     public List<DialogDatas> comeinDialogs;
     public DialogDatas detectionDialogs;
 
@@ -26,12 +26,12 @@ public class PatrolDialog : MonoBehaviour
         }
     }
 
-    public void GoOutDialogOn()
+    public void GoOutDialogOn(int count)
     {
         ResetChecker(1);
         if (checkers[1])
         {
-            DialogManager.Instance.SetDialogData(gooutDialogs.GetDialogs());
+            DialogManager.Instance.SetDialogData(gooutDialogs[count].GetDialogs());
             checkers[1] = false;
         }
     }

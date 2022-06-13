@@ -19,11 +19,6 @@ public class StageReStart : MonoBehaviour
         restartTxt.text = "";
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void Detection(string alertMsg)
     {
         UIManager.Instance.OnCutScene();
