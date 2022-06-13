@@ -38,6 +38,9 @@ public class PatrolAI : MonoBehaviour
     [SerializeField] GameObject roomDoor;
     [SerializeField] Transform roomDoorTrm;
 
+    [SerializeField] float initNormalTime = 15f;
+    [SerializeField] float initComeInTime = 180f;
+
     public float normalTime = 6f;
     public float comeInTime = 10f;
 
@@ -130,7 +133,7 @@ public class PatrolAI : MonoBehaviour
                     if (normalTime <= 0.1f)
                     {
                         StartStates(AIStates.GoOut);
-                        normalTime = 5;
+                        normalTime = initNormalTime;
                     }
                 }
                 break;
@@ -362,7 +365,7 @@ public class PatrolAI : MonoBehaviour
                 StandToSit();
                 isGoOut = true;
                 destIndex = 0;
-                comeInTime = 180f;
+                comeInTime = initComeInTime;
                 isArrive = true;
 
                 return;
