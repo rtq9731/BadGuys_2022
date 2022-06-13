@@ -41,7 +41,6 @@ public class InventoryItemPanel : MonoBehaviour
                     GetComponentInChildren<Item>().gameObject.transform.
                     Rotate(Input.GetAxis("Mouse Y") * speed, 0f, 0f);
             }
-            GameManager.Instance.IsPause = true;
         }
 
         if (isActive)
@@ -59,6 +58,7 @@ public class InventoryItemPanel : MonoBehaviour
                     itemInfoPanel.SetActive(false);
                 });
             }
+            GameManager.Instance.IsPause = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
