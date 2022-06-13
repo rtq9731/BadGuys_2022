@@ -5,25 +5,24 @@ using UnityEngine;
 public class PatrolDialog : MonoBehaviour
 {
     public List<DialogDatas> normalDialogs;
-    public List<DialogDatas> gooutDialogs;
+    public DialogDatas gooutDialogs;
     public List<DialogDatas> comeinDialogs;
     public DialogDatas detectionDialogs;
 
     private bool[] checkers;
-    private int count;
 
     private void Start()
     {
-        count = 0;
-        checkers = new bool[4] { false, false, false, false };
+        checkers = new bool[4] { true, true, true, true };
     }
 
-    public void NormalDialogOn()
+    public void NormalDialogOn(int count)
     {
         ResetChecker(0);
         if (checkers[0])
         {
             DialogManager.Instance.SetDialogData(normalDialogs[count].GetDialogs());
+            checkers[0] = false;
         }
     }
 
@@ -32,17 +31,18 @@ public class PatrolDialog : MonoBehaviour
         ResetChecker(1);
         if (checkers[1])
         {
-            DialogManager.Instance.SetDialogData(gooutDialogs[count].GetDialogs());
+            DialogManager.Instance.SetDialogData(gooutDialogs.GetDialogs());
+            checkers[1] = false;
         }
     }
 
-    public void ComeInDialogOn()
+    public void ComeInDialogOn(int count)
     {
         ResetChecker(2);
         if (checkers[2])
         {
             DialogManager.Instance.SetDialogData(comeinDialogs[count].GetDialogs());
-            count++;
+            checkers[2] = false;
         }
     }
 

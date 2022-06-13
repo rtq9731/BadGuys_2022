@@ -25,7 +25,7 @@ public class PatrolAI : MonoBehaviour
     [SerializeField] PatrolAI otherAI;
     [SerializeField] PatrolDialog patrolDialog;
 
-    [HideInInspector]
+    //[HideInInspector]
     public AIStates _states = AIStates.Normal;
 
     private NavMeshAgent agent;
@@ -130,7 +130,7 @@ public class PatrolAI : MonoBehaviour
                 {
                     if (normalTime >= initNormalTime)
                     {
-                        patrolDialog.NormalDialogOn();
+                        patrolDialog.NormalDialogOn(endPatrolCount);
                     }
                     if(isArrive && otherAI.isArrive)
                     {
@@ -146,17 +146,13 @@ public class PatrolAI : MonoBehaviour
                 break;
             case AIStates.GoOut:
                 {
-                    patrolDialog.GoOutDialogOn();
                     StartStates(_states);
                 }
                 break;
             case AIStates.ComeIn:
                 {
                     isMove = false;
-                    if (comeInTime >= initComeInTime)
-                    {
-                        patrolDialog.ComeInDialogOn();
-                    }
+
                     if (isArrive && otherAI.isArrive)
                     {
                         comeInTime -= Time.deltaTime;
@@ -167,14 +163,13 @@ public class PatrolAI : MonoBehaviour
                         if (destIndex == goOutDestinations.Length - 1)
                             destIndex = -1;
                         isMove = true;
-
+                        patrolDialog.ComeInDialogOn(endPatrolCount);
                         StartStates(_states);
                     }
                 }
                 break;
             case AIStates.Detection:
                 {
-                    patrolDialog.DetectionDialogOn();
                     StartStates(_states);
                 }
                 break;
@@ -234,6 +229,7 @@ public class PatrolAI : MonoBehaviour
         {
             if (isSit)
             {
+                patrolDialog.GoOutDialogOn();
                 anim.SetTrigger("StandUp");
                 float posZ = 0;
 
@@ -419,7 +415,8 @@ public class PatrolAI : MonoBehaviour
     void DetectionPlayer()
     {
         isMove = true;
-        if(isMove && isInRoom)
+        patrolDialog.DetectionDialogOn();
+        if (isMove && isInRoom)
         {
             agent.speed = 4f;
 

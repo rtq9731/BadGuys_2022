@@ -5798,10 +5798,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a360eaf6520a2734bb1457b308cc6d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalDialogs: []
-  gooutDialogs: []
-  comeinDialogs: []
-  detectionDialogs: {fileID: 0}
+  normalDialogs:
+  - {fileID: 11400000, guid: 401cdf4bdf3fb764995f04a42e9230f3, type: 2}
+  - {fileID: 11400000, guid: c8bbaed5143429f418bc498a69a94a95, type: 2}
+  - {fileID: 11400000, guid: 45cf5a598a2818143b877f298fbb4276, type: 2}
+  - {fileID: 11400000, guid: c52ab07152a6c3145862c270ebdbf84d, type: 2}
+  gooutDialogs: {fileID: 11400000, guid: 73bb452d12458b643a953a96f49d3bcb, type: 2}
+  comeinDialogs:
+  - {fileID: 11400000, guid: d4d88aa41d7de424c885548f8c199bf2, type: 2}
+  - {fileID: 11400000, guid: 27847008e8f341442a6a546e9e9009e6, type: 2}
+  - {fileID: 11400000, guid: d8c30f9cf71430a40a15f34826146ff8, type: 2}
+  - {fileID: 11400000, guid: 0cd7e13010a21c34aaa955ae78e1b34a, type: 2}
+  detectionDialogs: {fileID: 11400000, guid: e982cf65a798d834da0b226a81260fbd, type: 2}
 --- !u!4 &469186261
 Transform:
   m_ObjectHideFlags: 0
@@ -14531,7 +14539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMainAI: 0
   otherAI: {fileID: 1319233889}
-  patrolDialog: {fileID: 0}
+  patrolDialog: {fileID: 469186260}
   _states: 0
   goOutDestinations:
   - {fileID: 1831936588}
@@ -14549,9 +14557,9 @@ MonoBehaviour:
   roomDoor: {fileID: 869605935}
   roomDoorTrm: {fileID: 1931169889}
   initNormalTime: 15
-  initComeInTime: 180
+  initComeInTime: 5
   normalTime: 15
-  comeInTime: 180
+  comeInTime: 5
   destIndex: 0
   isArrive: 1
   isSit: 1
@@ -16424,7 +16432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMainAI: 1
   otherAI: {fileID: 1140663455}
-  patrolDialog: {fileID: 0}
+  patrolDialog: {fileID: 469186260}
   _states: 0
   goOutDestinations:
   - {fileID: 873265291}
