@@ -54,7 +54,6 @@ public class DialogManager : MonoBehaviour
         if(isFirst)
         {
             isFirst = false;
-            Debug.Log("°³Ελ");
             return;
         }
 
