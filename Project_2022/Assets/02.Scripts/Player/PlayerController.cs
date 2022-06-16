@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
             if (SoundManager.Instance != null && _walkSoundDelay >= 0.2f)
             {
-                SoundManager.Instance.LoopSound("WoodenSound");
+                SoundManager.Instance.LoopSound(SoundManager.Instance.footstepsSound.name);
                 _walkSoundDelay = 0;
             }
         }
@@ -67,8 +67,6 @@ public class PlayerController : MonoBehaviour
         if (move.sqrMagnitude > 1.0f)
         {
             move.Normalize();
-
-            
         }
 
         if (Input.GetButton("Run"))
@@ -82,12 +80,6 @@ public class PlayerController : MonoBehaviour
             move = move * _playerSpeed * Time.deltaTime;
             if (SoundManager.Instance != null)
                 SoundManager.Instance.SetLoopPitch(1.2f);
-        }
-
-
-        if (_isMove)
-        {
-            
         }
 
         move = new Vector3(move.x, -9.8f * _gravityScale * Time.deltaTime, move.z);

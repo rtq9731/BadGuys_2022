@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] audioCilp;
     [SerializeField] AudioClip BGMCilp;
+    public AudioClip footstepsSound;
 
     Dictionary<string, AudioClip> audioClipDic = new Dictionary<string, AudioClip>();
 
@@ -50,8 +51,11 @@ public class SoundManager : MonoBehaviour
         {
             audioCilp = soundClip.mapSounds;
             BGMCilp = soundClip.mapBGMsound;
+            footstepsSound = soundClip.footstepsSound;
 
             instance = this;
+
+            gameObject.name = "SoundManager";
             DontDestroyOnLoad(instance.gameObject);
         }
     }
@@ -66,6 +70,8 @@ public class SoundManager : MonoBehaviour
             {
                 audioClipDic.Add(a.name, a);
             }
+
+            audioClipDic.Add(footstepsSound.name, footstepsSound);
         }
         
     }
@@ -143,6 +149,15 @@ public class SoundManager : MonoBehaviour
 
             audioCilp = soundClip.mapSounds;
             BGMCilp = soundClip.mapBGMsound;
+
+            audioClipDic.Clear();
+
+            foreach (AudioClip a in audioCilp)
+            {
+                audioClipDic.Add(a.name, a);
+            }
+
+            audioClipDic.Add(footstepsSound.name, footstepsSound);
         }
     }
     
