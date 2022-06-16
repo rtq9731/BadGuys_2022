@@ -44,7 +44,6 @@ public class SoundManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-
         soundClip = FindObjectOfType<Sound>();
 
         if (soundClip != null)
@@ -84,8 +83,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
     public void LoopSound(string name)
     {
+        GameObject loopObj = null;
+        AudioSource source = null;
         if (soundClip != null)
         {
             if (isLoop)
@@ -93,22 +95,19 @@ public class SoundManager : MonoBehaviour
 
             if (curLoopObj == null)
             {
-                GameObject loopObj = new GameObject("LoopSound");
+                loopObj = new GameObject("LoopSound");
                 curLoopObj = loopObj;
-                AudioSource source = loopObj.AddComponent<AudioSource>();
-                source.clip = audioClipDic[name];
-                source.volume = sfxVolume;
-                source.loop = true;
-                source.Play();
+                source = loopObj.AddComponent<AudioSource>();
             }
             else
             {
-                AudioSource source = curLoopObj.GetComponent<AudioSource>();
-                source.clip = audioClipDic[name];
-                source.volume = sfxVolume;
-                source.loop = true;
-                source.Play();
+                source = curLoopObj.GetComponent<AudioSource>();
             }
+
+            source.clip = audioClipDic[name];
+            source.volume = sfxVolume;
+            source.loop = true;
+            source.Play();
 
             isLoop = true;
         }
@@ -128,7 +127,7 @@ public class SoundManager : MonoBehaviour
     }
     public void SetLoopPitch(float pitch)
     {
-        if (soundClip != null)
+        if (curLoopObj != null)
         {
             AudioSource source = curLoopObj.GetComponent<AudioSource>();
             source.pitch = pitch;

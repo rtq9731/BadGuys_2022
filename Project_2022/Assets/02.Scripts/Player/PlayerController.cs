@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     float _horizontalAngle = 0f;
     float _verticalAngle = 0f;
+    float _walkSoundDelay = 0f;
 
     public bool _isPaused = false;
     public bool _isMove = false;
@@ -48,38 +49,45 @@ public class PlayerController : MonoBehaviour
         if (move != Vector3.zero)
         {
             _isMove = true;
-            //if (SoundManager.Instance != null)
-            //    SoundManager.Instance.LoopSound("AsphaltSound");
+            _walkSoundDelay += Time.deltaTime;
+
+            if (SoundManager.Instance != null && _walkSoundDelay >= 0.2f)
+            {
+                SoundManager.Instance.LoopSound("WoodenSound");
+                _walkSoundDelay = 0;
+            }
         }
         else
         {
             _isMove = false;
-            //if (SoundManager.Instance != null)
-            //    SoundManager.Instance.StopLoopSound();
+            if (SoundManager.Instance != null)
+               SoundManager.Instance.StopLoopSound();
         }
 
         if (move.sqrMagnitude > 1.0f)
         {
             move.Normalize();
-            
-        }
-        
 
             
-        if(_isMove)
+        }
+
+        if (Input.GetButton("Run"))
         {
-            if (Input.GetButton("Run"))
-            {
-                move = move * _runningSpeed * Time.deltaTime;
-                //if (SoundManager.Instance != null)
-                //    SoundManager.Instance.SetLoopPitch(1.3f);
-            }
-            else
-            {
-                move = move * _playerSpeed * Time.deltaTime;
-                //if (SoundManager.Instance != null)
-                //    SoundManager.Instance.SetLoopPitch(1f);
-            }
+            move = move * _runningSpeed * Time.deltaTime;
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.SetLoopPitch(1.5f);
+        }
+        else
+        {
+            move = move * _playerSpeed * Time.deltaTime;
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.SetLoopPitch(1.2f);
+        }
+
+
+        if (_isMove)
+        {
+            
         }
 
         move = new Vector3(move.x, -9.8f * _gravityScale * Time.deltaTime, move.z);
