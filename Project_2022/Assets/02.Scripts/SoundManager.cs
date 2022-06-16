@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] audioCilp;
     [SerializeField] AudioClip BGMCilp;
+    public AudioClip footstepsSound;
 
     Dictionary<string, AudioClip> audioClipDic = new Dictionary<string, AudioClip>();
 
@@ -44,15 +45,17 @@ public class SoundManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-
         soundClip = FindObjectOfType<Sound>();
 
         if (soundClip != null)
         {
             audioCilp = soundClip.mapSounds;
             BGMCilp = soundClip.mapBGMsound;
+            footstepsSound = soundClip.footstepsSound;
 
             instance = this;
+
+            gameObject.name = "SoundManager";
             DontDestroyOnLoad(instance.gameObject);
         }
     }
@@ -67,6 +70,8 @@ public class SoundManager : MonoBehaviour
             {
                 audioClipDic.Add(a.name, a);
             }
+
+            audioClipDic.Add(footstepsSound.name, footstepsSound);
         }
         
     }
@@ -84,8 +89,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
     public void LoopSound(string name)
     {
+        GameObject loopObj = null;
+        AudioSource source = null;
         if (soundClip != null)
         {
             if (isLoop)
@@ -93,22 +101,19 @@ public class SoundManager : MonoBehaviour
 
             if (curLoopObj == null)
             {
-                GameObject loopObj = new GameObject("LoopSound");
+                loopObj = new GameObject("LoopSound");
                 curLoopObj = loopObj;
-                AudioSource source = loopObj.AddComponent<AudioSource>();
-                source.clip = audioClipDic[name];
-                source.volume = sfxVolume;
-                source.loop = true;
-                source.Play();
+                source = loopObj.AddComponent<AudioSource>();
             }
             else
             {
-                AudioSource source = curLoopObj.GetComponent<AudioSource>();
-                source.clip = audioClipDic[name];
-                source.volume = sfxVolume;
-                source.loop = true;
-                source.Play();
+                source = curLoopObj.GetComponent<AudioSource>();
             }
+
+            source.clip = audioClipDic[name];
+            source.volume = sfxVolume;
+            source.loop = true;
+            source.Play();
 
             isLoop = true;
         }
@@ -128,7 +133,7 @@ public class SoundManager : MonoBehaviour
     }
     public void SetLoopPitch(float pitch)
     {
-        if (soundClip != null)
+        if (curLoopObj != null)
         {
             AudioSource source = curLoopObj.GetComponent<AudioSource>();
             source.pitch = pitch;
@@ -144,6 +149,15 @@ public class SoundManager : MonoBehaviour
 
             audioCilp = soundClip.mapSounds;
             BGMCilp = soundClip.mapBGMsound;
+
+            audioClipDic.Clear();
+
+            foreach (AudioClip a in audioCilp)
+            {
+                audioClipDic.Add(a.name, a);
+            }
+
+            audioClipDic.Add(footstepsSound.name, footstepsSound);
         }
     }
     
