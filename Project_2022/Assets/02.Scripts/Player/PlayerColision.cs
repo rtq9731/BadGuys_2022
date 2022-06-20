@@ -8,18 +8,8 @@ public abstract class PlayerColision : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if(hit.transform.CompareTag("StoneBtn") && hit.gameObject.GetComponent<StoneBtn>().isPressed != true)
-        {
-            curHitObj = hit.gameObject;
-            OnTriggered(hit.gameObject);
-        }
-        else if (hit.transform.CompareTag("Bridge"))
-        {
-            curHitObj = hit.gameObject;
-            OnTriggered(hit.gameObject);
-        }
-
-        //if(hit.collider.flag)
+        curHitObj = hit.gameObject;
+        OnTriggered(hit.gameObject);
     }
 
     protected abstract void OnTriggeredExit(GameObject hit);

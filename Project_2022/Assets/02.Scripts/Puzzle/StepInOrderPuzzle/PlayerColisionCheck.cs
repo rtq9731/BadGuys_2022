@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerColisionCheck : PlayerColision
+public class PlayerColisionCheck : MonoBehaviour
 {
-    protected override void OnTriggered(GameObject hit)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        curHitObj.GetComponent<StoneBtn>().Pressed();
+        if (hit.transform.CompareTag("StoneBtn") && hit.gameObject.GetComponent<StoneBtn>().isPressed != true)
+        {
+            OnTriggered(hit.gameObject);
+        }
     }
 
-    protected override void OnTriggeredExit(GameObject hit)
+    void OnTriggered(GameObject hit)
     {
-        throw new System.NotImplementedException();
+        hit.GetComponent<StoneBtn>().Pressed();
     }
 }

@@ -14,13 +14,17 @@ public class PlayerFootstepsCheck : PlayerColision
 
     protected override void OnTriggered(GameObject hit)
     {
-        if(!isOnTrigger)
+        if (hit.transform.CompareTag("Bridge") && !isOnTrigger)
         {
             SoundManager.Instance.StopLoopSound();
             SoundManager.Instance.curFootstepsSound = hit.transform.GetComponent<AudioSource>().clip;
             isOnTrigger = true;
         }
-        
+        else if (hit.transform.CompareTag("Sand") && isOnTrigger)
+        {
+            OffBridge();
+            isOnTrigger = false;
+        }
     }
 
     protected override void OnTriggeredExit(GameObject hit)
