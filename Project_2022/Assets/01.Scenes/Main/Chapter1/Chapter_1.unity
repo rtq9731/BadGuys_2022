@@ -7659,6 +7659,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLight: {fileID: 685947104}
+  turnOnSound: {fileID: 8300000, guid: 4234c3148dbff554fb7992140f1fa732, type: 3}
+  turnOffSound: {fileID: 8300000, guid: 3a9c39577435ec6479ed2d352b26e02e, type: 3}
   clickSound: {fileID: 0}
 --- !u!114 &611399246
 MonoBehaviour:
@@ -8937,7 +8939,7 @@ PrefabInstance:
     - target: {fileID: 3136622453927935038, guid: 7a275fdc0ba3d5b4a9c16c2d3368681c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3136622453927935038, guid: 7a275fdc0ba3d5b4a9c16c2d3368681c,
         type: 3}
@@ -8947,7 +8949,7 @@ PrefabInstance:
     - target: {fileID: 3136622453927935038, guid: 7a275fdc0ba3d5b4a9c16c2d3368681c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3136622453927935038, guid: 7a275fdc0ba3d5b4a9c16c2d3368681c,
         type: 3}
@@ -13922,6 +13924,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLight: {fileID: 2065345535}
+  turnOnSound: {fileID: 8300000, guid: 4234c3148dbff554fb7992140f1fa732, type: 3}
+  turnOffSound: {fileID: 8300000, guid: 3a9c39577435ec6479ed2d352b26e02e, type: 3}
   clickSound: {fileID: 0}
 --- !u!114 &1130500079
 MonoBehaviour:
@@ -15086,6 +15090,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLight: {fileID: 952643002}
+  turnOnSound: {fileID: 8300000, guid: 4234c3148dbff554fb7992140f1fa732, type: 3}
+  turnOffSound: {fileID: 8300000, guid: 3a9c39577435ec6479ed2d352b26e02e, type: 3}
   clickSound: {fileID: 0}
 --- !u!114 &1287709281
 MonoBehaviour:
@@ -17147,6 +17153,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1966718715}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1506390727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506390729}
+  - component: {fileID: 1506390728}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1506390728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506390727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf7218e1815703429cefc284ebe7051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapSounds: []
+  footstepsSound: {fileID: 8300000, guid: e381f26b748129e4cb0683733b754757, type: 3}
+  mapBGMsound: {fileID: 0}
+--- !u!4 &1506390729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506390727}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1511977691
 GameObject:
   m_ObjectHideFlags: 0
@@ -19103,6 +19155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1730433365}
+  - component: {fileID: 1730433366}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -19136,6 +19189,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1730433366
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730433364}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1735523830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4662305135347223727, guid: 37a41acdd29ded54c9ffe5fba16fba90,
@@ -24525,6 +24674,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLight: {fileID: 1611994722}
+  turnOnSound: {fileID: 8300000, guid: 4234c3148dbff554fb7992140f1fa732, type: 3}
+  turnOffSound: {fileID: 8300000, guid: 3a9c39577435ec6479ed2d352b26e02e, type: 3}
   clickSound: {fileID: 0}
 --- !u!114 &2126137112
 MonoBehaviour:

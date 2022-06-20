@@ -15,6 +15,8 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
     ItemInfo item;
     [SerializeField]
     Outline outline;
+    [SerializeField]
+    AudioClip clip;
 
     private Vector3 originPos;
 
@@ -25,10 +27,15 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
 
     Animator[] anim;
     BoatCam boatCamera;
+    AudioSource audioSource;
     private void Start()
     {
         originPos = transform.position;
         anim = GetComponentsInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.clip = clip;
+        audioSource.loop = true;
     }
     private void Update()
     {
@@ -110,6 +117,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
         isCanInterct = false;
         boatCamera = boatCam.GetComponent<BoatCam>();
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
+        SoundManager.Instance.StopLoopSound();
         boatCamera.enabled = false;
 
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
@@ -117,6 +125,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             yield return null;
         }
 
+        audioSource.Play();
         boatCamera.enabled = true;
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
@@ -126,6 +135,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             SetPaddleAnim(false);
             isCanInterct = true;
             isSun = true;
+            audioSource.Stop();
         });
     }
 
@@ -140,9 +150,8 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             isSun = false;
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
-                
                 float duration = Vector2.Distance(transform.position, originPos);
-
+                audioSource.Play();
                 transform.DOMove(originPos, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
                 {
                     TakeOffBoat();
@@ -161,6 +170,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
         boatCam.GetComponent<BoatCam>().enabled = false;
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
+            audioSource.Stop();
             isCanInterct = true;
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);

@@ -6,6 +6,10 @@ public class LightSwitch : MonoBehaviour, IInteractableItem
 {
     [SerializeField]
     private GameObject targetLight;
+
+    [SerializeField] AudioClip turnOnSound;
+    [SerializeField] AudioClip turnOffSound;
+
     [SerializeField]
     private AudioSource clickSound;
 
@@ -13,7 +17,7 @@ public class LightSwitch : MonoBehaviour, IInteractableItem
     {
         if (targetLight == null)
             Debug.LogWarning("타겟 라이트 설정 안되어 있다.");
-        //clickSound = GetComponent<AudioSource>();
+        clickSound = GetComponentInParent<AudioSource>();
         //clickSound.playOnAwake = false;
     }
 
@@ -23,9 +27,17 @@ public class LightSwitch : MonoBehaviour, IInteractableItem
         targetLight.SetActive(!targetLight.activeSelf);
         //clickSound.Play();
         if (gameObject.transform.rotation.z == 0)
+        {
             gameObject.transform.localEulerAngles = new Vector3(meTr.x, meTr.y, 180);
+            clickSound.clip = turnOnSound;
+            clickSound.Play();
+        }
         else
+        {
             gameObject.transform.localEulerAngles = new Vector3(meTr.x, meTr.y, 0);
+            clickSound.clip = turnOffSound;
+            clickSound.Play();
+        }
     }
 
     public bool CanInteract()

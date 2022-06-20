@@ -27,7 +27,7 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] AudioClip[] audioCilp;
     [SerializeField] AudioClip BGMCilp;
-    public AudioClip footstepsSound;
+    public AudioClip[] footstepsSound;
 
     Dictionary<string, AudioClip> audioClipDic = new Dictionary<string, AudioClip>();
 
@@ -36,6 +36,8 @@ public class SoundManager : MonoBehaviour
     AudioSource soundPlayer;
 
     public GameObject curLoopObj = null;
+    public AudioClip curFootstepsSound;
+
     bool isLoop = false;
 
     private void Awake()
@@ -47,11 +49,16 @@ public class SoundManager : MonoBehaviour
 
         soundClip = FindObjectOfType<Sound>();
 
+        if (soundClip == null)
+        {
+            Destroy(this.gameObject);
+        }
+
         if (soundClip != null)
         {
             audioCilp = soundClip.mapSounds;
             BGMCilp = soundClip.mapBGMsound;
-            footstepsSound = soundClip.footstepsSound;
+            footstepsSound = soundClip.footstepsSounds;
 
             instance = this;
 
@@ -71,7 +78,13 @@ public class SoundManager : MonoBehaviour
                 audioClipDic.Add(a.name, a);
             }
 
-            audioClipDic.Add(footstepsSound.name, footstepsSound);
+            foreach (AudioClip a in footstepsSound)
+            {
+                audioClipDic.Add(a.name, a);
+            }
+
+            if(footstepsSound.Length > 0)
+                curFootstepsSound = footstepsSound[0];
         }
         
     }
@@ -140,6 +153,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
     //챕터나 스테이지 전환 시 그 챕터에서 쓰는 사운드 받아오는 코드
     public void SetStageSound()
     {
@@ -157,7 +171,10 @@ public class SoundManager : MonoBehaviour
                 audioClipDic.Add(a.name, a);
             }
 
-            audioClipDic.Add(footstepsSound.name, footstepsSound);
+            foreach (AudioClip a in footstepsSound)
+            {
+                audioClipDic.Add(a.name, a);
+            }
         }
     }
     

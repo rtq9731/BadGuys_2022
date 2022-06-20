@@ -51,9 +51,9 @@ public class PlayerController : MonoBehaviour
             _isMove = true;
             _walkSoundDelay += Time.deltaTime;
 
-            if (SoundManager.Instance != null && _walkSoundDelay >= 0.2f)
+            if(SoundManager.Instance.footstepsSound.Length >0 && SoundManager.Instance != null && _walkSoundDelay >= 0.2f)
             {
-                SoundManager.Instance.LoopSound(SoundManager.Instance.footstepsSound.name);
+                SoundManager.Instance.LoopSound(SoundManager.Instance.curFootstepsSound.name);
                 _walkSoundDelay = 0;
             }
         }
