@@ -1,7 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using DG.Tweening;
+
+public enum moveState
+{ 
+    Walk,
+    Run,
+    Stop
+}
 
 public class CameraShaking : MonoBehaviour
 {
@@ -9,25 +17,29 @@ public class CameraShaking : MonoBehaviour
     private GameObject myCam;
     [SerializeField]
     private PlayerController playerCon;
-    private bool isRun;
-    private Vector3 shakePower;
-    private int vibra;
-    private float time;
+    private CinemachineBrain camBrain;
+    private CinemachineVirtualCamera camVirtual;
+
+    private moveState state;
     private Vector3 camOriPos;
 
-    public float maxDistance = 0.2f;
+    
+    
+    private Vector3 strength;
+
+    public int vibra;
     public float walkPower;
     public float runPower;
     public float walkTime;
     public float runTime;
-    public int walkVibrato;
-    public int runVibrato;
-    public bool fadeOut;
 
     private void Awake()
     {
         if (playerCon == null)
             transform.GetComponent<PlayerController>();
+
+        camVirtual = myCam.GetComponent<CinemachineVirtualCamera>();
+        camBrain = Camera.main.GetComponent<CinemachineBrain>();
     }
 
     private void Start()
@@ -37,82 +49,92 @@ public class CameraShaking : MonoBehaviour
         myCam.SetActive(false);
         myCam.SetActive(true);
 
-        StartCoroutine(Shaking());
-
-        //Vector3 shakePower = new Vector3(0, power, 0);
-        //myCam.transform.DOShakePosition(time, shakePower, vibrato, 90, false, fadeOut).SetLoops(-1, LoopType.Yoyo);
+        StartCoroutine(CameraShake());
     }
 
-    private void Update()
+    private void WalkState(moveState cur)
     {
-        if (Vector3.Distance(Camera.main.transform.position, (myCam.transform.position)) >= maxDistance)
+        if (state != cur)
         {
-            CameraOff();
-            //Debug.Log(false);
-            //Debug.LogWarning(Vector3.Distance(Camera.main.transform.position, myCam.transform.position));
+            myCam.transform.DOKill();
+            strength = new Vector3(0, walkPower, 0);
+            myCam.transform.DOShakePosition(walkTime, strength, vibra, 90, false, false).SetLoops(-1, LoopType.Yoyo);
         }
 
-        //Debug.LogWarning(myCam.transform.localPosition + transform.position);
+        state = cur;
     }
 
-    private void CameraOff()
+    private void RunState(moveState cur)
+    {
+        if (state != cur)
+        {
+            myCam.transform.DOKill();
+            strength = new Vector3(0, runPower, 0);
+            myCam.transform.DOShakePosition(runTime, strength, vibra, 90, false, false).SetLoops(-1, LoopType.Yoyo);
+        }
+
+        state = cur;
+    }
+
+    private void StopState()
     {
         myCam.transform.DOKill();
-        myCam.transform.DOLocalMove(camOriPos, time / 2);
+        myCam.transform.DOLocalMove(camOriPos, 0.1f);
+        state = moveState.Stop;
     }
 
-    IEnumerator Shaking()
+    IEnumerator CameraShake()
     {
-        GameManager manager = GameManager.Instance;
+        moveState curState = new moveState();
+        curState = state;
 
-        while (gameObject != null)
+        while (gameObject == true)
         {
-            if (GameManager.Instance.IsPause)
-            {
-                if (DOTween.IsTweening(myCam.transform))
-                    CameraOff();
-                yield return null;
-                continue;
-            }
-
-            shakePower = new Vector3(0, walkPower, 0);
-            vibra = walkVibrato;
-            time = walkTime;
-
-            if (playerCon._isMove && !DOTween.IsTweening(myCam.transform))
-                myCam.transform.DOShakePosition(time, shakePower, vibra, 90, false, fadeOut).SetLoops(-1, LoopType.Yoyo);
-
-            if (Input.GetButton("Run"))
-            {
-                vibra = runVibrato;
-                time = runTime;
-                shakePower = new Vector3(0, runPower, 0);
-
-                if (!isRun)
-                {
-                    myCam.transform.DOKill();
-                    myCam.transform.DOShakePosition(time, shakePower, vibra, 90, false, fadeOut).SetLoops(-1, LoopType.Yoyo);
-                    isRun = true;
-                }
-            }
-            else
-            {
-                if (isRun)
-                {
-                    isRun = false;
-                    myCam.transform.DOKill();
-                }
-            }
-                
-            if (!playerCon._isMove)
-                CameraOff();
-
-            if (manager != null && GameManager.Instance.IsPause)
-                CameraOff();
-
             yield return null;
-        }
 
-        Debug.Log("루틴 종료");
+            if (playerCon._isMove)
+            {
+                curState = moveState.Walk;
+
+                if (Input.GetButton("Run"))
+                    curState = moveState.Run;
+            }
+
+            if (!playerCon._isMove)
+                curState = moveState.Stop;
+
+            if (GameManager.Instance.IsPause)
+                curState = moveState.Stop;
+
+            if (camBrain.IsLive(camVirtual) == false)
+                curState = moveState.Stop;
+
+            switch (curState)
+            {
+                case moveState.Walk:
+                    if (state != curState)
+                    {
+                        myCam.transform.DOKill();
+                        myCam.transform.DOLocalMove(camOriPos, 0.1f);
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                    WalkState(curState);
+                    break;
+
+                case moveState.Run:
+                    if (state != curState)
+                    {
+                        myCam.transform.DOKill();
+                        myCam.transform.DOLocalMove(camOriPos, 0.1f);
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                    RunState(curState);
+                    break;
+
+                case moveState.Stop:
+                    StopState();
+                    break;
+            }
+        }
     }
 }
