@@ -4265,10 +4265,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 199038223}
   playerCon: {fileID: 642104659}
+  playerStep: {fileID: 642104663}
+  dataList:
+  - floor: 1
+    vibra: 0
+    walkPower: 0.1
+    runPower: 0.15
+    walkTime: 0.55
+    runTime: 0.4
+  - floor: 3
+    vibra: 0
+    walkPower: 0.1
+    runPower: 0.15
+    walkTime: 0.6
+    runTime: 0.45
+  - floor: 4
+    vibra: 0
+    walkPower: 0.1
+    runPower: 0.15
+    walkTime: 0.6
+    runTime: 0.5
   vibra: 0
   walkPower: 0.1
-  runPower: 0.1
-  walkTime: 0.5
+  runPower: 0.15
+  walkTime: 0.55
   runTime: 0.4
 --- !u!114 &642104663
 MonoBehaviour:
@@ -4288,6 +4308,7 @@ MonoBehaviour:
   - {fileID: 1098201997}
   - {fileID: 1787141839}
   - {fileID: 2070272203}
+  curFloor: 0
 --- !u!1 &709894677
 GameObject:
   m_ObjectHideFlags: 0
@@ -6731,12 +6752,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7493b0d2a8f50e46861a061d77712ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boatCam: {fileID: 0}
+  boatCam: {fileID: 2081960638}
   mainCam: {fileID: 282647632}
   playerCam: {fileID: 199038223}
   item: {fileID: 11400000, guid: 06a3eb0eb18feda42af299ca87d44de8, type: 2}
   outline: {fileID: 1129716335}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 1129716338}
 --- !u!82 &1129716337
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6833,6 +6854,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1129716338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129716333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf7218e1815703429cefc284ebe7051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originVolume: 0
+  audioSource: {fileID: 1129716337}
+  audioType: 2
+  clip: {fileID: 8300000, guid: 75f48e4068bc6954d9998d80c37e530f, type: 3}
 --- !u!1 &1149566111
 GameObject:
   m_ObjectHideFlags: 0

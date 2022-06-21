@@ -55,6 +55,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PauseFootSound()
+    {
+        GameObject.Find("Player").GetComponent<PlayerFootstepSound>().PauseSound();
+    }
+
     public void ResumeAllSound()
     {
         foreach (var item in sounds)
