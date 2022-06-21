@@ -9,7 +9,7 @@ public class CameraBlending : MonoBehaviour
 
     public PlayerController player;
 
-    private void Start()
+    protected virtual void Start()
     {
         player = FindObjectOfType<PlayerController>();
     }
