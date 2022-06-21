@@ -18,6 +18,10 @@ public class DestinationButterflyTrigger : MonoBehaviour
     private void Awake()
     {
         GetComponent<Collider>().isTrigger = true;
+        foreach (var item in butterflyAnim.GetComponentsInChildren<MeshRenderer>())
+        {
+            item.material.SetFloat("_NoiseStrength", 300);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,8 +54,6 @@ public class DestinationButterflyTrigger : MonoBehaviour
             }
             yield return null;
         }
-
-
 
         gameObject.SetActive(false);
     }
