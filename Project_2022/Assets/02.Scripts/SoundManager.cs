@@ -15,8 +15,8 @@ public class SoundManager : MonoBehaviour
                 instance = FindObjectOfType<SoundManager>();
                 if (instance == null)
                 {
-                    GameObject obj = Instantiate(new GameObject());
-                    instance = obj.AddComponent<SoundManager>();
+                    //GameObject obj = Instantiate(new GameObject());
+                    //instance = obj.AddComponent<SoundManager>();
                 }
             }
             return instance;

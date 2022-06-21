@@ -17,19 +17,16 @@ public class ColorPictureInteract : MonoBehaviour , IInteractableItem
     [SerializeField] PictureAnswerChecker pictureAnswerChecker;
     [SerializeField] PictureBtnManager pictureBtnManager;
 
-    private Camera mainCamera;
-
     PlayerController playerController;
     ColorChangeBtn[] colorChangeBtns;
 
     BoxCollider boxCollider;
 
-    GameObject curObj;
 
     void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
-        mainCamera = Camera.main;
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     public void Interact(GameObject taker)
@@ -38,11 +35,12 @@ public class ColorPictureInteract : MonoBehaviour , IInteractableItem
 
         UIManager.Instance.OnPuzzleUI();
 
-        pictureAnswerChecker.pictureCam = this.pictureCam;
+        pictureAnswerChecker.blendingCam = this.pictureCam;
         pictureAnswerChecker.pictureInfo = mainPicture.GetComponent<PictureInfo>();
         pictureAnswerChecker.pictureAnswer = correctPicture.GetComponent<PictureAnswer>();
 
         boxCollider.enabled = false;
+        playerController.enabled = false;
 
         colorChangeBtns = btnParent.GetComponentsInChildren<ColorChangeBtn>();
         for (int i = 0; i <colorChangeBtns.Length; i++)

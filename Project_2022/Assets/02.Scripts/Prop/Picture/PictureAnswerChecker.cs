@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Triggers;
 
-public class PictureAnswerChecker : MonoBehaviour
+public class PictureAnswerChecker : CameraBlending
 {
     [SerializeField]
     private PictureInfo[] pictures;
@@ -16,7 +16,6 @@ public class PictureAnswerChecker : MonoBehaviour
     public int[] pictureCode;
     public int[] pictureCorrectCode;
 
-    public GameObject pictureCam;
     [SerializeField]
     GStageLightTrigger lightTrigger = null;
 
@@ -26,6 +25,7 @@ public class PictureAnswerChecker : MonoBehaviour
     bool isCorrect = false;
 
     public GameObject storyWall;
+
 
     public bool CheckAnswer()
     {
@@ -43,8 +43,9 @@ public class PictureAnswerChecker : MonoBehaviour
                 if (index == pictureCode.Length)
                 {
                     pictureInfo.isClear = true;
-                    pictureCam.SetActive(false);
+                    blendingCam.SetActive(false);
                     isCorrect = true;
+                    StartCoroutine(CameraBlendingCo());
                     AllClearPicture();
                     return isCorrect;
                 }
