@@ -8,6 +8,12 @@ public abstract class PlayerColision : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        if((GetComponent<CharacterController>().collisionFlags & CollisionFlags.Sides) != 0)
+        {
+            Debug.Log("벽과 충돌중");
+            return;
+        }
+
         curHitObj = hit.gameObject;
         OnTriggered(hit.gameObject);
     }

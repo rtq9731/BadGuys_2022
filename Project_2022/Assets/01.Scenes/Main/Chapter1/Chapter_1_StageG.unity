@@ -1126,6 +1126,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6971492679976730391, guid: 740018d22769e6b4ea8f8d4287e13fef, type: 3}
     - {fileID: 7627479478709030151, guid: 740018d22769e6b4ea8f8d4287e13fef, type: 3}
+    - {fileID: 3909896986358567820, guid: 740018d22769e6b4ea8f8d4287e13fef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 740018d22769e6b4ea8f8d4287e13fef, type: 3}
 --- !u!4 &100738929 stripped
 Transform:
@@ -7741,6 +7742,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2675402287725554371, guid: e15e6d6ea654def4e917d028e7475956, type: 3}
     - {fileID: 1631876996815116126, guid: e15e6d6ea654def4e917d028e7475956, type: 3}
+    - {fileID: 856363973722136731, guid: e15e6d6ea654def4e917d028e7475956, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e15e6d6ea654def4e917d028e7475956, type: 3}
 --- !u!4 &883752194 stripped
 Transform:
@@ -14078,6 +14080,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab91ade20235cc54988fc061db06fbc4, type: 3}
+--- !u!114 &1745123702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5543820014301889767, guid: ab91ade20235cc54988fc061db06fbc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1745123701}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7dfe9135af117449c386e52f3dd849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1745123703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9145552963208999840, guid: ab91ade20235cc54988fc061db06fbc4,
@@ -22656,6 +22670,7 @@ GameObject:
   - component: {fileID: 3683053097466208910}
   - component: {fileID: 5024112946542552769}
   - component: {fileID: 7927961679908866531}
+  - component: {fileID: 3683053097466208900}
   m_Layer: 0
   m_Name: PiecePuzzle_Ten
   m_TagString: Untagged
@@ -22663,6 +22678,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3683053097466208900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3683053097466208899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4240db943e33df4e99fdfff8dec56eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 3683053096476812084}
+  input: {fileID: 7927961679908866531}
+  camera: {fileID: 3683053096804832678}
+  clearParticle: {fileID: 1745123702}
+  myCol: {fileID: 0}
+  outline: {fileID: 0}
 --- !u!114 &3683053097466208910
 MonoBehaviour:
   m_ObjectHideFlags: 0
