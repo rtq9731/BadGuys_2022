@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFootstepsCheck : PlayerColision
+public class PlayerFootstepSound : PlayerColision
 {
     [SerializeField] SoundScript[] footStepSounds;
 
     SoundScript curFootstepsSound;
 
-    bool isOnTrigger = false;
+    bool isPlaying = false;
 
     enum FloorType
     {
@@ -18,13 +18,12 @@ public class PlayerFootstepsCheck : PlayerColision
         Wood
     }
 
-
-    public void OffBridge()
+    public void SetPitch(float pitch)
     {
-        curFootstepsSound.StopLoop();
-        curFootstepsSound.Stop();
-
-        curFootstepsSound = footStepSounds[0];
+        foreach (var item in footStepSounds)
+        {
+            item.audioSource.pitch = pitch;
+        }
     }
 
     protected override void OnTriggered(GameObject hit)
@@ -48,13 +47,33 @@ public class PlayerFootstepsCheck : PlayerColision
         }
     }
 
+    public void PauseSound()
+    {
+        isPlaying = false;
+        curFootstepsSound.Stop();
+    }
+
+    public void PlaySound()
+    {
+        isPlaying = true;
+        curFootstepsSound.SetLoop();
+    }
+
     private void ChangefootStepSound(FloorType type)
     {
-        curFootstepsSound.Stop();
-        curFootstepsSound.StopLoop();
+        if(isPlaying)
+        {
+            curFootstepsSound.Stop();
+            curFootstepsSound.StopLoop();
 
-        curFootstepsSound = footStepSounds[(int)(type)];
-        curFootstepsSound.SetLoop();
+            curFootstepsSound = footStepSounds[(int)(type)];
+
+            curFootstepsSound.SetLoop();
+        }
+        else
+        {
+            curFootstepsSound = footStepSounds[(int)(type)];
+        }
     }
 
     protected override void OnTriggeredExit(GameObject hit)

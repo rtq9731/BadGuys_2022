@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour
     public bool _isMove = false;
 
     CharacterController _characterController = null;
+    PlayerFootstepSound _footStepSound = null;
 
     private void Awake()
     {
+        _footStepSound = GetComponent<PlayerFootstepSound>();
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -50,20 +52,19 @@ public class PlayerController : MonoBehaviour
         {
             _isMove = true;
             _walkSoundDelay += Time.deltaTime;
-            if(SoundManager.Instance != null)
+            if(_walkSoundDelay >= 0)
             {
-                if (SoundManager.Instance.footstepsSound.Length > 0 && _walkSoundDelay >= 0.2f)
+                if (_walkSoundDelay >= 0.2f)
                 {
-                    SoundManager.Instance.LoopSound(SoundManager.Instance.curFootstepsSound.name);
-                    _walkSoundDelay = 0;
+                    _footStepSound.PlaySound();
                 }
             }
         }
         else
         {
             _isMove = false;
-            if (SoundManager.Instance != null)
-               SoundManager.Instance.StopLoopSound();
+            _walkSoundDelay = 0f;
+            _footStepSound.PauseSound();
         }
 
         if (move.sqrMagnitude > 1.0f)
@@ -71,18 +72,9 @@ public class PlayerController : MonoBehaviour
             move.Normalize();
         }
 
-        if (Input.GetButton("Run"))
-        {
-            move = move * _runningSpeed * Time.deltaTime;
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.SetLoopPitch(1.5f);
-        }
-        else
-        {
-            move = move * _playerSpeed * Time.deltaTime;
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.SetLoopPitch(1.2f);
-        }
+        move = move * (Input.GetButton("Run") ? _runningSpeed : _playerSpeed) * Time.deltaTime;
+
+        _footStepSound.SetPitch(Input.GetButton("Run") ? 1.5f : 1.2f);
 
         move = new Vector3(move.x, -9.8f * _gravityScale * Time.deltaTime, move.z);
 
