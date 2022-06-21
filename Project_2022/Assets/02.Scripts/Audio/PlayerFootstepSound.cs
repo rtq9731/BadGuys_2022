@@ -1,24 +1,31 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum FloorType
+{
+    Bridge,
+    Sand,
+    Dirt,
+    Wood,
+    Asphalt,
+    Other
+}
 
 public class PlayerFootstepSound : PlayerColision
 {
     [SerializeField] SoundScript[] footStepSounds;
 
     SoundScript curFootstepsSound;
-    FloorType curFloor = FloorType.Bridge;
+    public FloorType curFloor = FloorType.Bridge;
 
     bool isPlaying = false;
 
-    enum FloorType
+    private void Awake()
     {
-        Bridge,
-        Sand,
-        Dirt,
-        Wood,
-        Other
+        GameManager.Instance._onPauseChanged += CheckPauseSound; 
     }
 
     public void SetPitch(float pitch)
@@ -58,6 +65,11 @@ public class PlayerFootstepSound : PlayerColision
                 ChangefootStepSound(FloorType.Wood);
                 curFloor = FloorType.Wood;
                 break;
+            case "Asphalt":
+                PauseSound();
+                ChangefootStepSound(FloorType.Asphalt);
+                curFloor = FloorType.Asphalt;
+                break;
             default:
                 PauseSound();
                 curFloor = FloorType.Other;
@@ -69,6 +81,12 @@ public class PlayerFootstepSound : PlayerColision
     {
         isPlaying = false;
         curFootstepsSound?.Stop();
+    }
+
+    private void CheckPauseSound(bool pause)
+    {
+        if (pause)
+            PauseSound();
     }
 
     public void PlaySound()

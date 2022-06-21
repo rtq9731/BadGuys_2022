@@ -10606,11 +10606,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 1541680324}
   playerCon: {fileID: 1203307708}
-  vibra: 0
-  walkPower: 0.1
-  runPower: 0.1
-  walkTime: 0.6
-  runTime: 0.5
+  playerStep: {fileID: 1203307712}
+  dataList:
+  - floor: 3
+    vibra: 0
+    walkPower: 0.06
+    runPower: 0.1
+    walkTime: 0.65
+    runTime: 0.55
+  - floor: 4
+    vibra: 0
+    walkPower: 0.06
+    runPower: 0.1
+    walkTime: 0.65
+    runTime: 0.55
 --- !u!114 &1203307712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10629,6 +10638,7 @@ MonoBehaviour:
   - {fileID: 1652723962}
   - {fileID: 645606996}
   - {fileID: 2131753044}
+  curFloor: 0
 --- !u!1 &1203558812
 GameObject:
   m_ObjectHideFlags: 0

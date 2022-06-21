@@ -15140,11 +15140,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 1635360816}
   playerCon: {fileID: 1973491187}
-  vibra: 0
-  walkPower: 0.1
-  runPower: 0.1
-  walkTime: 0.5
-  runTime: 0.4
+  playerStep: {fileID: 1973491191}
+  dataList:
+  - floor: 3
+    vibra: 0
+    walkPower: 0.1
+    runPower: 0.15
+    walkTime: 0.7
+    runTime: 0.55
+  - floor: 5
+    vibra: 0
+    walkPower: 0.1
+    runPower: 0.15
+    walkTime: 0.7
+    runTime: 0.55
 --- !u!114 &1973491191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15163,6 +15172,7 @@ MonoBehaviour:
   - {fileID: 27540833}
   - {fileID: 1171834823}
   - {fileID: 2054455037}
+  curFloor: 0
 --- !u!4 &1980612635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2130234204341834370, guid: 7dcf608f1c1348443b81d8440de96d0a,

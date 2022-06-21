@@ -52,6 +52,7 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
         if ((isCanInterct && Inventory.Instance.FindItemInInventory(item)) || isSun)
         {
             outline.enabled = false;
+            SoundManager.Instance.PauseFootSound();
             transform.DOKill();
 
             if (transform.position == originPos)
