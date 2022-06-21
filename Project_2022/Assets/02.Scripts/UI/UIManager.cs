@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
-        SoundManager.Instance.StopLoopSound();
+        SoundManager.Instance.PauseAllSound();
     }
 
     public void OnCutSceneWithoutPause()
@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>(true).enabled = false;
         isOnCutScene = true;
-        SoundManager.Instance.StopLoopSound();
+        SoundManager.Instance.PauseAllSound();
     }
 
     public void OnCutSceneWithMainUI()
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
-        SoundManager.Instance.StopLoopSound();
+        SoundManager.Instance.PauseAllSound();
     }
 
     public void OnCutSceneOver()
@@ -83,6 +83,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
         isOnCutScene = false;
         FindObjectOfType<PlayerController>(true).enabled = true;
+        SoundManager.Instance.ResumeAllSound();
 
     }
 
@@ -92,6 +93,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         isOnCutScene = false;
         FindObjectOfType<PlayerController>(true).enabled = true;
+        SoundManager.Instance.ResumeAllSound();
     }
 
     public void OnPuzzleUI()

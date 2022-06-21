@@ -16,7 +16,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
     [SerializeField]
     Outline outline;
     [SerializeField]
-    AudioClip clip;
+    SoundScript audioSource;
 
     private Vector3 originPos;
 
@@ -27,15 +27,11 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
 
     Animator[] anim;
     BoatCam boatCamera;
-    AudioSource audioSource;
     private void Start()
     {
         originPos = transform.position;
         anim = GetComponentsInChildren<Animator>();
-        audioSource = GetComponent<AudioSource>();
-
-        audioSource.clip = clip;
-        audioSource.loop = true;
+        audioSource = GetComponent<SoundScript>();
     }
     private void Update()
     {
@@ -117,7 +113,6 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
         isCanInterct = false;
         boatCamera = boatCam.GetComponent<BoatCam>();
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
-        SoundManager.Instance.StopLoopSound();
         boatCamera.enabled = false;
 
         while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
@@ -125,7 +120,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             yield return null;
         }
 
-        audioSource.Play();
+        audioSource.SetLoop();
         boatCamera.enabled = true;
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
@@ -135,6 +130,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             SetPaddleAnim(false);
             isCanInterct = true;
             isSun = true;
+            audioSource.StopLoop();
             audioSource.Stop();
         });
     }
