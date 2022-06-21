@@ -7,16 +7,17 @@ using DG.Tweening;
 [RequireComponent(typeof(BoxCollider))]
 public class DestinationButterflyTrigger : MonoBehaviour
 {
-    [SerializeField] ParticleSystem triggerParticle = null;
     [SerializeField] ParticleSystem idleParticle = null;
+
+    [SerializeField] float flySpeed;
+    [SerializeField] Animator butterflyAnim = null;
+    [SerializeField] Transform dest = null;
 
     public event Action onTrigger;
 
     private void Awake()
     {
         GetComponent<Collider>().isTrigger = true;
-        triggerParticle = GetComponentsInChildren<ParticleSystem>()[0];
-        idleParticle = GetComponentsInChildren<ParticleSystem>()[1];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,8 +33,26 @@ public class DestinationButterflyTrigger : MonoBehaviour
     IEnumerator PlayParticle()
     {
         idleParticle.Stop();
-        triggerParticle.Play();
-        yield return new WaitUntil(() => !triggerParticle.isPlaying);
+
+        butterflyAnim.SetBool("isTriggered", true);
+
+        Transform butterfly = butterflyAnim.transform;
+        float distToDest = Vector2.Distance(dest.position, butterfly.position);
+
+        while (Vector2.Distance(dest.position, butterfly.position) >= 0.01f)
+        {
+            butterfly.LookAt(dest);
+            butterfly.Translate((dest.position - butterfly.position).normalized * flySpeed * Time.deltaTime);
+
+            foreach (var item in butterflyAnim.GetComponentsInChildren<MeshRenderer>())
+            {
+                item.material.SetFloat("_NoiseStrength", Mathf.Lerp(0, 300, Vector2.Distance(dest.position, butterfly.position) / distToDest));
+            }
+            yield return null;
+        }
+
+
+
         gameObject.SetActive(false);
     }
 }
