@@ -11,13 +11,12 @@ public class SoundScript : MonoBehaviour
 
     public AudioClip clip = null;
 
-    Coroutine loopCor;
-
-    bool isLoop = false;
     bool isPause = false;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = clip;
         audioSource.playOnAwake = false;
         if(audioSource.isPlaying)
         {
@@ -27,20 +26,9 @@ public class SoundScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void SetLoop()
+    public void SetLoop(bool loop)
     {
-        isLoop = true;
-        loopCor = StartCoroutine(Soundloop());
-    }
-
-    public void StopLoop()
-    {
-        if(loopCor != null)
-        {
-            StopCoroutine(loopCor);
-        }
-
-        isLoop = false;
+        audioSource.loop = loop;
     }
 
     public void Play()
@@ -63,23 +51,6 @@ public class SoundScript : MonoBehaviour
     public void Stop()
     {
         audioSource.Stop();
-    }
-
-    IEnumerator Soundloop()
-    {
-        while(isLoop)
-        {
-            if(isPause)
-            {
-                yield return null;
-            }
-
-            if(!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
-            yield return new WaitUntil(() => !audioSource.isPlaying);
-        }
     }
 }
 

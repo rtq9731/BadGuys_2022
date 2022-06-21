@@ -120,7 +120,8 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             yield return null;
         }
 
-        audioSource.SetLoop();
+        audioSource.SetLoop(true);
+        audioSource.Play();
         boatCamera.enabled = true;
         yield return new WaitForSeconds(0.4f);
         SetPaddleAnim(true);
@@ -130,7 +131,7 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
             SetPaddleAnim(false);
             isCanInterct = true;
             isSun = true;
-            audioSource.StopLoop();
+            audioSource.SetLoop(false);
             audioSource.Stop();
         });
     }

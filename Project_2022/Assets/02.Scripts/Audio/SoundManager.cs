@@ -66,7 +66,7 @@ public class SoundManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         sounds.Clear();
-        foreach (var item in FindObjectsOfType<SoundScript>())
+        foreach (var item in FindObjectsOfType<SoundScript>(true))
         {
             sounds.Add(item);
         }
