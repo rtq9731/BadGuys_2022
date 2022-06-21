@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
+public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
-    [SerializeField]
-    private GameObject boatCam;
-    [SerializeField]
-    private GameObject mainCam;
     [SerializeField]
     private GameObject playerCam;
     [SerializeField]
@@ -27,15 +23,16 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
 
     Animator[] anim;
     BoatCam boatCamera;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         originPos = transform.position;
         anim = GetComponentsInChildren<Animator>();
         audioSource = GetComponent<SoundScript>();
     }
     private void Update()
     {
-        if(boatCam.activeSelf)
+        if(blendingCam.activeSelf)
         {
             if (GameManager.Instance.IsPause)
             {
@@ -97,7 +94,6 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
         outline.enabled = false;
     }
 
-
     void SetPaddleAnim(bool isMove)
     {
         for (int i = 0; i < 2; i++)
@@ -109,13 +105,13 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
     // 보트 출발하는 함수
     IEnumerator StartMove()
     {
-        boatCam.SetActive(true);
+        blendingCam.SetActive(true);
         isCanInterct = false;
-        boatCamera = boatCam.GetComponent<BoatCam>();
+        boatCamera = blendingCam.GetComponent<BoatCam>();
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
         boatCamera.enabled = false;
 
-        while (Vector3.Distance(boatCam.transform.position, mainCam.transform.position) >= 0.1f)
+        while (Vector3.Distance(blendingCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
@@ -164,14 +160,14 @@ public class Boat : MonoBehaviour, IInteractableItem, IPlayerMouseEnterHandler, 
     private void TakeOffBoat()
     {
         isCanInterct = false;
-        boatCam.GetComponent<BoatCam>().enabled = false;
+        blendingCam.GetComponent<BoatCam>().enabled = false;
         transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
         {
             audioSource.Stop();
             isCanInterct = true;
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);
-            boatCam.SetActive(false);
+            blendingCam.SetActive(false);
             playerCam.GetComponentInParent<PlayerController>().enabled = true;
         });
     }
