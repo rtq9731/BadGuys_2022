@@ -40,17 +40,21 @@ public class PlayerFootstepSound : PlayerColision
         switch (hit.tag)
         {
             case "Bridge":
+                PauseSound();
                 ChangefootStepSound(FloorType.Bridge);
                 curFloor = FloorType.Bridge;
                 break;
             case "Sand":
+                PauseSound();
                 ChangefootStepSound(FloorType.Sand);
                 curFloor = FloorType.Sand;
                 break;
             //case "Dirt":
+            //PauseSound();
             //    ChangefootStepSound(FloorType.Dirt);
             //    break;
             case "Wood":
+                PauseSound();
                 ChangefootStepSound(FloorType.Wood);
                 curFloor = FloorType.Wood;
                 break;
@@ -87,8 +91,6 @@ public class PlayerFootstepSound : PlayerColision
             curFootstepsSound.SetLoop(false);
 
             curFootstepsSound = footStepSounds[(int)(type)];
-            Debug.Log(curFootstepsSound);
-
             PlaySound();
         }
         else
