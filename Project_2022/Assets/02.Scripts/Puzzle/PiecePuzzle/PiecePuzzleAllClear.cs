@@ -40,7 +40,7 @@ public class PiecePuzzleAllClear : MonoBehaviour
     public void AddClearCount()
     {
         clearCount++;
-        if (clearCount == 3)
+        if (clearCount == 1)
             InvokeClearEvent();
     }
 

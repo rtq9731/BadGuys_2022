@@ -53,7 +53,7 @@ public class SlidePuzzleAllClear : MonoBehaviour
     public void AddClearCount()
     {
         clearCount++;
-        if (clearCount == 3)
+        if (clearCount == 1)
             InvokeClearEvent();
     }
 

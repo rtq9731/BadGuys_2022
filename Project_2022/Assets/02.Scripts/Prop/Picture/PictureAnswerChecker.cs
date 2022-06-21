@@ -62,7 +62,7 @@ public class PictureAnswerChecker : CameraBlending
             if (pictures[i].GetComponent<PictureInfo>().isClear)
             {
                 clearPictureIndex++;
-                if(clearPictureIndex == 3)
+                if(clearPictureIndex == 2)
                 {
                     keyPiece.SetActive(true);
                     keyPiece.GetComponent<Item>().Interact(keyPiece);
