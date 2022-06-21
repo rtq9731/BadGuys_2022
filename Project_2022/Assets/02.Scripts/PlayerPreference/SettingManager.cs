@@ -87,7 +87,6 @@ public class SettingManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Setting loaded");
     }
 
     [System.Serializable]

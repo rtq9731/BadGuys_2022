@@ -79,8 +79,8 @@ public class PlayerFootstepSound : PlayerColision
         }
 
         isPlaying = true;
-        curFootstepsSound.SetLoop(true);
-        curFootstepsSound.Play();
+        curFootstepsSound?.SetLoop(true);
+        curFootstepsSound?.Play();
     }
 
     private void ChangefootStepSound(FloorType type)
