@@ -12,15 +12,18 @@ public class PanelOption : MonoBehaviour
 
     private void Start()
     {
-        sliderMasterVolume.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MASTERVOL) / 100;
-        sliderBackgorundVolume.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.BACKGROUNDVOL) / 100;
-        sliderSFXVolume.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.SFXVOL) / 100;
-        sliderMouseSensitivity.inputSlider.value = SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY) / 100;
-
         sliderMasterVolume.onValueChange += ChangeMasterVolume;
         sliderBackgorundVolume.onValueChange += ChangeBackgroundVolume;
         sliderSFXVolume.onValueChange += ChangeSFXVolume;
         sliderMouseSensitivity.onValueChange += ChangeMouseSensitivity;
+    }
+
+    private void OnEnable()
+    {
+        sliderMasterVolume.SetValue(SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MASTERVOL));
+        sliderBackgorundVolume.SetValue(SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.BACKGROUNDVOL));
+        sliderSFXVolume.SetValue(SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.SFXVOL));
+        sliderMouseSensitivity.SetValue(SettingManager.Instance.Setting.GetValue(SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY));
     }
 
     public void ChangeMasterVolume(float value)

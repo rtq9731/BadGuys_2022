@@ -20,6 +20,20 @@ public class SliderAndInputField : MonoBehaviour
         inputField.onValueChanged.AddListener(onValueChanged);
     }
 
+    public void SetValue(float value)
+    {
+        inputField.onValueChanged.RemoveListener(onValueChanged);
+        inputSlider.onValueChanged.RemoveListener(onValueChanged);
+
+        value = Clamp(value);
+        inputField.text = value.ToString();
+        inputField.placeholder.GetComponent<Text>().text = value.ToString();
+        inputSlider.value = value / max;
+
+        inputField.onValueChanged.AddListener(onValueChanged);
+        inputSlider.onValueChanged.AddListener(onValueChanged);
+    }
+
     private void onValueChanged(float num)
     {
         inputField.onValueChanged.RemoveListener(onValueChanged);
@@ -54,16 +68,6 @@ public class SliderAndInputField : MonoBehaviour
 
     private float Clamp(float num)
     {
-        if (num > max)
-        {
-            num = max;
-        }
-
-        if (num < min)
-        {
-            num = min;
-        }
-
-        return num;
+        return Mathf.Clamp(num, min, max);
     }
 }

@@ -54,8 +54,8 @@ public class SettingManager : MonoBehaviour
 
         LoadSettingInfo();
 
-        _setting.onChangeValue += (setting) => onChangeSetting?.Invoke(setting);
-        _setting.onChangeValue += (Setting) => SaveSettingInfo();
+        _setting.OnChangeValue += (setting) => onChangeSetting?.Invoke(setting);
+        _setting.OnChangeValue += (Setting) => SaveSettingInfo();
     }
 
     private void Start()
@@ -68,7 +68,6 @@ public class SettingManager : MonoBehaviour
         using (StreamWriter sw = new StreamWriter(Application.persistentDataPath + fileName))
         {
             sw.Write(JsonUtility.ToJson(_setting));
-            Debug.Log(JsonUtility.ToJson(_setting));
         }
     }
 
@@ -88,6 +87,7 @@ public class SettingManager : MonoBehaviour
                 }
             }
         }
+        Debug.Log("Setting loaded");
     }
 
     [System.Serializable]
@@ -101,7 +101,7 @@ public class SettingManager : MonoBehaviour
             MOUSESENSITIVITY
         }
 
-        public event System.Action<SettingInfo> onChangeValue;
+        public event System.Action<SettingInfo> OnChangeValue;
 
         [SerializeField] private float masterVolume = 100f;
         [SerializeField] private float backgroundVolume = 100f;
@@ -145,7 +145,7 @@ public class SettingManager : MonoBehaviour
                 default:
                     break;
             }
-            onChangeValue?.Invoke(this);
+            OnChangeValue?.Invoke(this);
 
         }
     }
