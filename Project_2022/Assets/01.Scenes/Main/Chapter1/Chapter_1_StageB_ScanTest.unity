@@ -10100,7 +10100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344589520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 129.9, y: 33.7, z: 228.8}
+  m_LocalPosition: {x: 187.6, y: 33.7, z: 321}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 465043041}
@@ -10136,11 +10136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCam: {fileID: 465043040}
   playerCon: {fileID: 344589522}
-  vibra: 0
-  walkPower: 0.15
-  runPower: 0.15
-  walkTime: 0.5
-  runTime: 0.4
+  playerStep: {fileID: 0}
+  dataList: []
 --- !u!114 &344589527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10159,6 +10156,7 @@ MonoBehaviour:
   - {fileID: 1101086149}
   - {fileID: 139357259}
   - {fileID: 490285783}
+  curFloor: 0
 --- !u!1001 &345408511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46084,7 +46082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566583811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 129.9, y: 34.7, z: 228.8}
+  m_LocalPosition: {x: 187.6, y: 34.7, z: 321}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

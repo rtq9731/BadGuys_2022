@@ -13,7 +13,7 @@ public class PlayerInteractGuide : MonoBehaviour
 
     bool isScanning = false;
 
-    Dictionary<Transform, OutlineInfo> originInfoDict = new Dictionary<Transform, OutlineInfo>();
+    Dictionary<Outline, OutlineInfo> originInfoDict = new Dictionary<Outline, OutlineInfo>();
 
     public void OnInput()
     {
@@ -33,16 +33,11 @@ public class PlayerInteractGuide : MonoBehaviour
         skillSphere.localScale = Vector3.zero;
         skillSphere.GetComponent<MeshRenderer>().material.DOFade(0.1960784f, 0f);
 
-        RaycastHit[] items;
-        if ((items = Physics.SphereCastAll(transform.position, scanDist, Vector3.up, 100)).Length > 0)
+        Collider[] items;
+        if ((items = Physics.OverlapSphere(transform.position, scanDist)).Length > 0)
         {
-            foreach (var item in items)
-            {
-                Debug.Log(item);
-            }
-
             var result = from item in items
-                         where item.transform.GetComponent<IInteractableItem>() != null
+                         where item.transform.GetComponent<IInteractableItem>() != null || item.transform.GetComponent<IInteractAndGetItemObj>() != null
                          select item.transform;
 
             foreach (var item in result)
@@ -57,15 +52,12 @@ public class PlayerInteractGuide : MonoBehaviour
                     }
                 }
 
-                originInfoDict.Add(item ,new OutlineInfo(outline));
+                originInfoDict.Add(outline, new OutlineInfo(outline));
 
+                outline.enabled = true;
                 outline.OutlineColor = Color.yellow;
                 outline.OutlineWidth = 10f;
                 outline.OutlineMode = Outline.Mode.OutlineAll;
-            }
-
-            foreach (var item in result)
-            {
             }
         }
 
@@ -76,14 +68,15 @@ public class PlayerInteractGuide : MonoBehaviour
 
         foreach (var item in originInfoDict)
         {
-            Outline outline = item.Key.GetComponent<Outline>();
-            outline.OutlineColor = item.Value.outlineColor;
-            outline.OutlineWidth = item.Value.outlineWidth;
-            outline.OutlineMode = item.Value.outlineMode;
+            item.Key.enabled = false;
+            item.Key.OutlineColor = item.Value.outlineColor;
+            item.Key.OutlineWidth = item.Value.outlineWidth;
+            item.Key.OutlineMode = item.Value.outlineMode;
         }
 
         yield return new WaitForSeconds(coolTime);
         isScanning = false;
+        originInfoDict.Clear();
     }
 
     class OutlineInfo
