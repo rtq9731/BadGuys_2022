@@ -10,5 +10,10 @@ public class PlayerKeyInput : MonoBehaviour
         {
             UIManager.Instance.UpdateStopMenu();
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            FindObjectOfType<PlayerInteractGuide>()?.OnInput();
+        }
     }
 }
