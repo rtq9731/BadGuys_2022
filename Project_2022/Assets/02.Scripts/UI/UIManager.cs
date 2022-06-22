@@ -2,11 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UIManager : MonoBehaviour
 {
     public StopMenu _stopMenu = null;
     [SerializeField] GameObject _mainUI = null;
+    public Action<bool> _onCutSceneChanged = (_isCutScene) => { };
 
     public static UIManager Instance
     {
@@ -57,6 +59,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
+        _onCutSceneChanged(isOnCutScene);
         SoundManager.Instance.PauseAllSound();
     }
 
@@ -65,6 +68,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>(true).enabled = false;
         isOnCutScene = true;
+        _onCutSceneChanged(isOnCutScene);
         SoundManager.Instance.PauseAllSound();
     }
 
@@ -73,6 +77,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
+        _onCutSceneChanged(isOnCutScene);
         SoundManager.Instance.PauseAllSound();
     }
 
@@ -82,6 +87,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
         isOnCutScene = false;
+        _onCutSceneChanged(isOnCutScene);
         FindObjectOfType<PlayerController>(true).enabled = true;
         SoundManager.Instance.ResumeAllSound();
 
@@ -92,6 +98,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
         isOnCutScene = false;
+        _onCutSceneChanged(isOnCutScene);
         FindObjectOfType<PlayerController>(true).enabled = true;
         SoundManager.Instance.ResumeAllSound();
     }

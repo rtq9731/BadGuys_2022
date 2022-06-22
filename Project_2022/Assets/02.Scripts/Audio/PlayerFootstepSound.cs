@@ -23,9 +23,10 @@ public class PlayerFootstepSound : PlayerColision
 
     bool isPlaying = false;
 
-    private void Awake()
+    private void Start()
     {
-        GameManager.Instance._onPauseChanged += CheckPauseSound; 
+        GameManager.Instance._onPauseChanged += CheckPauseSound;
+        UIManager.Instance._onCutSceneChanged += CheckPauseSound;
     }
 
     public void SetPitch(float pitch)
