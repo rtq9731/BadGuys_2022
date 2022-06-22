@@ -56,10 +56,11 @@ public class PlayerFootstepSound : PlayerColision
                 ChangefootStepSound(FloorType.Sand);
                 curFloor = FloorType.Sand;
                 break;
-            //case "Dirt":
-            //PauseSound();
-            //    ChangefootStepSound(FloorType.Dirt);
-            //    break;
+            case "Dirt":
+                PauseSound();
+                ChangefootStepSound(FloorType.Dirt);
+                curFloor = FloorType.Dirt;
+                break;
             case "Wood":
                 PauseSound();
                 ChangefootStepSound(FloorType.Wood);
