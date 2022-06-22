@@ -19,6 +19,11 @@ public class Cabinet : MonoBehaviour, IInteractableItem
         audioSource = GetComponentInParent<AudioSource>();
     }
 
+    private void PlaySound()
+    {
+        audioSource.Play();
+    }
+
     public void Interact(GameObject taker)
     {
         OpenCabinet(_isOpen);
@@ -31,14 +36,16 @@ public class Cabinet : MonoBehaviour, IInteractableItem
             this._isOpen = false;
             anim.SetTrigger("IsClose");
             audioSource.clip = clip[1];
+            Invoke("PlaySound", 0.75f);
         }
         else
         {
             this._isOpen = true;
             anim.SetTrigger("IsOpen");
             audioSource.clip = clip[0];
+            audioSource.Play();
         }
-        audioSource.Play();
+        
     }
 
     public bool CanInteract()
