@@ -43,6 +43,7 @@ public class Inventory : MonoBehaviour
     private CreateRenderTextureCam createRender;
     private ShowInventoryUI showInventory;
     private TutorialEmphasis tutorialEmphasis;
+    private InventorySound inventorySound;
 
     public ItemInfo MainItem;
     public int mainItemIndex;
@@ -68,6 +69,7 @@ public class Inventory : MonoBehaviour
         creatSlot = GetComponentInChildren<CreatSlot>();
         createRender = FindObjectOfType<CreateRenderTextureCam>();
         showInventory = GetComponentInChildren<ShowInventoryUI>();
+        inventorySound = FindObjectOfType<InventorySound>();
     }
 
     private void Update()
@@ -100,6 +102,7 @@ public class Inventory : MonoBehaviour
 
             creatSlot.CreatingSlot();
             showInventory.ShowInventorySlot();
+            inventorySound.GetItemSoundPlay();
             //InventoryContentsSize.Instance.SetContentsSize();
 
             slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(item);
