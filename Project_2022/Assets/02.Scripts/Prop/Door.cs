@@ -36,13 +36,24 @@ public class Door : MonoBehaviour, IInteractableItem
         {
             isOpen = false;
             anim.SetTrigger("IsClose");
-            closeDoorSound.Play();
+            Invoke("CloseSound", 0.8f);
         }
         else
         {
             isOpen = true;
             anim.SetTrigger("IsOpen");
-            openDoorSound.Play();
+            Invoke("OpenSound", 0.8f);
         }
+    }
+
+
+    void OpenSound()
+    {
+        openDoorSound.Play();
+    }
+
+    void CloseSound()
+    {
+        closeDoorSound.Play();
     }
 }

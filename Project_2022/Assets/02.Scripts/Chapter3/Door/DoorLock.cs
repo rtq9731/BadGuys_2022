@@ -110,7 +110,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             {
                 anim.SetTrigger("IsClose");
                 isOpen = false;
-                closeDoor.Play();
+                Invoke("CloseSound", 0.8f);
                 PatrolCheck.Instanse.isDoorClose = true;
             }
                 
@@ -118,10 +118,20 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             {
                 anim.SetTrigger("IsOpen");
                 isOpen = true;
-                openDoor.Play();
+                Invoke("OpenSound", 0.8f);
                 PatrolCheck.Instanse.isDoorClose = false;
             }
         }
+    }
+
+    void OpenSound()
+    {
+        openDoor.Play();
+    }
+
+    void CloseSound()
+    {
+        closeDoor.Play();
     }
 
     private bool CheckMainitem()
