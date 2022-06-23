@@ -10,7 +10,6 @@ public abstract class PlayerColision : MonoBehaviour
     {
         if((GetComponent<CharacterController>().collisionFlags & CollisionFlags.Sides) != 0)
         {
-            Debug.Log("벽과 충돌중");
             return;
         }
 
