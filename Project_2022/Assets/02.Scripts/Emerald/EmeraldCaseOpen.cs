@@ -14,6 +14,8 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
 
     [SerializeField]
     StoryTrigger stageGClearTrigger;
+    [SerializeField]
+    SoundScript sound;
 
     float originPosY;
 
@@ -21,6 +23,7 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
     private void Start()
     {
         originPosY = transform.position.y;
+        sound = GetComponent<SoundScript>();
     }
 
     IEnumerator ClearStageG()
@@ -50,6 +53,7 @@ public class EmeraldCaseOpen : MonoBehaviour, IInteractableItem
         {
             Debug.Log("asd");
             isClear = true;
+            sound.Play();
             transform.DOLocalMoveY(-0.58f, 0.2f).OnComplete(() =>
             {
                 transform.DOMoveY(originPosY, 0.2f);
