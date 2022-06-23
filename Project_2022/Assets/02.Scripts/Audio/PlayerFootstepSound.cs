@@ -11,6 +11,7 @@ public enum FloorType
     Dirt,
     Wood,
     Asphalt,
+    Concrete,
     Other
 }
 
@@ -23,9 +24,10 @@ public class PlayerFootstepSound : PlayerColision
 
     bool isPlaying = false;
 
-    private void Awake()
+    private void Start()
     {
-        GameManager.Instance._onPauseChanged += CheckPauseSound; 
+        GameManager.Instance._onPauseChanged += CheckPauseSound;
+        UIManager.Instance._onCutSceneChanged += CheckPauseSound;
     }
 
     public void SetPitch(float pitch)
@@ -70,6 +72,11 @@ public class PlayerFootstepSound : PlayerColision
                 PauseSound();
                 ChangefootStepSound(FloorType.Asphalt);
                 curFloor = FloorType.Asphalt;
+                break;
+            case "Concrete":
+                PauseSound();
+                ChangefootStepSound(FloorType.Concrete);
+                curFloor = FloorType.Concrete;
                 break;
             default:
                 PauseSound();
