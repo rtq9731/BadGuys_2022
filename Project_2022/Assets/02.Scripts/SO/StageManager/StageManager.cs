@@ -10,8 +10,15 @@ public class StageManager : MonoBehaviour
     [SerializeField] Text stageMsgText;
     [SerializeField] Image panelHide;
     [SerializeField] GameObject player;
+    [SerializeField] GameObject timeLineManager;
+    [SerializeField] TutorialAccident[] accidentsCars;
 
     public StageChangeData data;
+
+    private void Start()
+    {
+        timeLineManager.SetActive(false);
+    }
 
     public void StageChange()
     {
@@ -25,6 +32,7 @@ public class StageManager : MonoBehaviour
             // 글자당 0.125f 초
             stageMsgText.DOText("조심해요!!!", 1f);
             stageMsgText.transform.DOShakePosition(10, 8f);
+            timeLineManager.SetActive(true);
             aiMsgText.DOText("M.A.M : 새로운 기억 발견, 장소 재구성 중. . .", 5f).OnComplete(() => // 글자당 0.1f 초
             {   
                 aiMsgText.text = " ";
@@ -37,11 +45,20 @@ public class StageManager : MonoBehaviour
                         //UIManager.Instance.OnCutSceneOver();
                         FindObjectOfType<PlayerController>().gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 30, 0));
                         FindObjectOfType<GuidePanel>().OnGuide(3);
-                        
+                        AcciCarSoundOn();
+                        timeLineManager.SetActive(false);
                     });
                 });
             });
         });
+    }
+
+    private void AcciCarSoundOn()
+    {
+        for (int i = 0; i < accidentsCars.Length; i++)
+        {
+            accidentsCars[i].SoundOn();
+        }
     }
 
     private IEnumerator StageChanger()
