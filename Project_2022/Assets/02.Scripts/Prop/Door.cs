@@ -7,6 +7,9 @@ public class Door : MonoBehaviour, IInteractableItem
 {
     public bool isOpen = false;
 
+    [SerializeField] SoundScript openDoorSound;
+    [SerializeField] SoundScript closeDoorSound;
+
     Animator anim;
 
     private void Start()
@@ -33,11 +36,13 @@ public class Door : MonoBehaviour, IInteractableItem
         {
             isOpen = false;
             anim.SetTrigger("IsClose");
+            closeDoorSound.Play();
         }
         else
         {
             isOpen = true;
             anim.SetTrigger("IsOpen");
+            openDoorSound.Play();
         }
     }
 }

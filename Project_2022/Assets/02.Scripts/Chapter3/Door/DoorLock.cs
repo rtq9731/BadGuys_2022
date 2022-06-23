@@ -17,6 +17,9 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     private bool isTouch;
     private bool isDialog;
 
+    [SerializeField] SoundScript openDoor;
+    [SerializeField] SoundScript closeDoor;
+
 
     [Header("Components")]
     public Animator anim;
@@ -30,6 +33,8 @@ public class DoorLock : MonoBehaviour, IInteractableItem
     public DialogDatas PreparePuzzleDialog;
     public DialogDatas noTryDialog;
     public DialogDatas oneTryDialog;
+
+
 
 
     private void Awake()
@@ -105,6 +110,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             {
                 anim.SetTrigger("IsClose");
                 isOpen = false;
+                closeDoor.Play();
                 PatrolCheck.Instanse.isDoorClose = true;
             }
                 
@@ -112,6 +118,7 @@ public class DoorLock : MonoBehaviour, IInteractableItem
             {
                 anim.SetTrigger("IsOpen");
                 isOpen = true;
+                openDoor.Play();
                 PatrolCheck.Instanse.isDoorClose = false;
             }
         }
