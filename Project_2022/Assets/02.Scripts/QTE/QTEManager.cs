@@ -103,12 +103,13 @@ public class QTEManager : MonoBehaviour
         keys.Clear();
         events.QTEKeys.RemoveAt(0);
     }
-
+    
     void SetQTESound()
     {
         _sound.successSound = generator.sound.successSound;
         _sound.failedSound = generator.sound.failedSound;
     }
+
     // 결과 처리
     void QTEResult(bool isCorret)
     {
