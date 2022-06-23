@@ -19,13 +19,13 @@ public class QTEManager : MonoBehaviour
     QTEEvents events;
     QTEGenerator generator;
 
+    [SerializeField] QTESound _sound;
+
     int rollCount = 10;
     private void Start()
     {
         events = GetComponent<QTEEvents>();
         generator = GetComponent<QTEGenerator>();
-
-
     }
 
     private void Update()
@@ -60,7 +60,6 @@ public class QTEManager : MonoBehaviour
         Time.timeScale = 0.2f;
         isSpawnQTE = true;
     }
-
     public void CheckSingleQTE()
     {
         if (events.QTEKeys[0].QTEKey[0] == keys[0])
@@ -105,10 +104,15 @@ public class QTEManager : MonoBehaviour
         events.QTEKeys.RemoveAt(0);
     }
 
-
+    void SetQTESound()
+    {
+        _sound.successSound = generator.sound.successSound;
+        _sound.failedSound = generator.sound.failedSound;
+    }
     // 결과 처리
     void QTEResult(bool isCorret)
     {
+        SetQTESound();
         if (isCorret)
         {
             Debug.Log("맞았음");
@@ -119,6 +123,9 @@ public class QTEManager : MonoBehaviour
             generator.SuccessQTE();
 
             _successCallback?.Invoke();
+
+            _sound.SuccessQTE(); 
+
             _successCallback = null;
 
             
@@ -130,6 +137,8 @@ public class QTEManager : MonoBehaviour
 
             //실패했을때 행동
             //실패했을때 이펙트
+
+            _sound.FailedQTE();
             generator.FailedQTE();
 
             _failedCallback?.Invoke();

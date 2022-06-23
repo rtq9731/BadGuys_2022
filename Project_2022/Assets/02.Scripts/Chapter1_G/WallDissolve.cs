@@ -12,6 +12,8 @@ public class WallDissolve : MonoBehaviour
     private MeshRenderer myMeshRnd;
     private Material myMat;
 
+    [SerializeField] SoundScript dissolveSound;
+
     private void Awake()
     {
         myVCam.SetActive(false);
@@ -48,6 +50,7 @@ public class WallDissolve : MonoBehaviour
         float i = 1f;
 
         transform.DOShakePosition(dissolveTime, new Vector3(0.05f,0.05f,0f), 3, 45, false, true);
+        dissolveSound.Play();
         while (i > 0)
         {
             i -= 0.01f;

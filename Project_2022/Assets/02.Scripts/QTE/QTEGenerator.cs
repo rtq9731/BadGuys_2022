@@ -39,6 +39,8 @@ public class QTEGenerator : MonoBehaviour
 
     public GameObject curQTEObj;
 
+    public QTESound sound;
+
     private void Awake()
     {
         events = GetComponent<QTEEvents>();
@@ -94,6 +96,8 @@ public class QTEGenerator : MonoBehaviour
                     SetQTE(qte, QTEPressType.Single, key);
                     isOnQTE = true;
                     curQTEObj = qte;
+
+                    sound = qte.GetComponentInChildren<QTESound>();
                 }
                 break;
             case QTEPressType.Roll:
@@ -102,6 +106,8 @@ public class QTEGenerator : MonoBehaviour
                     SetQTE(qte, QTEPressType.Roll, key);
                     isOnQTE = true;
                     curQTEObj = qte;
+
+                    sound = qte.GetComponentInChildren<QTESound>();
                 }
                 break;
             
