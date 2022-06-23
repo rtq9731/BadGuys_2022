@@ -11,6 +11,7 @@ public enum FloorType
     Dirt,
     Wood,
     Asphalt,
+    Concrete,
     Other
 }
 
@@ -71,6 +72,11 @@ public class PlayerFootstepSound : PlayerColision
                 PauseSound();
                 ChangefootStepSound(FloorType.Asphalt);
                 curFloor = FloorType.Asphalt;
+                break;
+            case "Concrete":
+                PauseSound();
+                ChangefootStepSound(FloorType.Concrete);
+                curFloor = FloorType.Concrete;
                 break;
             default:
                 PauseSound();
