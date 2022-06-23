@@ -57,7 +57,7 @@ public class PictureAnswerChecker : CameraBlending
     public void AllClearPicture()
     {
         int clearPictureIndex = 0;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (pictures[i].GetComponent<PictureInfo>().isClear)
             {

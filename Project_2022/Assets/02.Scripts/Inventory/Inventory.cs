@@ -102,7 +102,6 @@ public class Inventory : MonoBehaviour
 
             creatSlot.CreatingSlot();
             showInventory.ShowInventorySlot();
-            inventorySound.GetItemSoundPlay();
             //InventoryContentsSize.Instance.SetContentsSize();
 
             slotParents.transform.GetChild(slotParents.transform.childCount - 1).GetComponent<Slot>().AddItem(item);
