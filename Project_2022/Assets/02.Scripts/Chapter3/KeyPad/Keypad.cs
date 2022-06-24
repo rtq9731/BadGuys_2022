@@ -24,6 +24,8 @@ public class Keypad : MonoBehaviour
     public GameObject timeLineObj;
     public GameObject cam;
     public GameObject[] desThings;
+    public SoundScript soundScript;
+    public AudioClip[] soundFX;
 
     private bool isCal;
     private int keyCount;
@@ -37,6 +39,8 @@ public class Keypad : MonoBehaviour
         isCal = false;
 
         if (answer == 0) RandAnswer();
+
+        soundScript = gameObject.GetComponent<SoundScript>();
     }
 
     private void RandAnswer()
@@ -70,8 +74,29 @@ public class Keypad : MonoBehaviour
             Debug.Log("»èÁ¦");
             desThings[i].SetActive(false);
         }
+        ClearSoundFX();
         UIManager.Instance.OnCutScene();
         timeLineObj.SetActive(true);
+    }
+
+    private void KeyPadSoundFX()
+    {
+        soundScript.audioSource.clip = soundFX[0];
+        soundScript.audioSource.volume = 0.5f;
+        soundScript.Play();
+        soundScript.audioSource.volume = 1f;
+    }
+
+    private void ClearSoundFX()
+    {
+        soundScript.audioSource.clip = soundFX[1];
+        soundScript.Play();
+    }
+
+    private void WrongSoundFX()
+    {
+        soundScript.audioSource.clip = soundFX[2];
+        soundScript.Play();
     }
 
     public void DoorOpen()
@@ -104,6 +129,7 @@ public class Keypad : MonoBehaviour
             case KeyType.Num:
                 if (keyCount >= 4) break;
                 numTxt.text += "" + value;
+                KeyPadSoundFX();
                 keyCount++;
                 break;
 
@@ -120,7 +146,13 @@ public class Keypad : MonoBehaviour
 
             case KeyType.enter:
                 if (keyCount != 4) break;
-                if (CheckAnswer(numTxt.text)) PuzzleClear(); 
+                if (CheckAnswer(numTxt.text)) PuzzleClear();
+                else 
+                { 
+                    numTxt.text = ""; 
+                    keyCount = 0;
+                    WrongSoundFX();
+                }
                 break;
 
             case KeyType.sharp:
