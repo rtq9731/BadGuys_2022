@@ -29,9 +29,8 @@ public class PlayerInteractGuide : MonoBehaviour
     IEnumerator ScanCorutine()
     {
         isScanning = true;
-
         skillSphere.localScale = Vector3.zero;
-        skillSphere.GetComponent<MeshRenderer>().material.DOFade(0.1960784f, 0f);
+        skillSphere.GetComponent<MeshRenderer>().material.SetFloat("_Alpha", 0.5f);
 
         Collider[] items;
         if ((items = Physics.OverlapSphere(transform.position, scanDist)).Length > 0)
@@ -62,7 +61,7 @@ public class PlayerInteractGuide : MonoBehaviour
         }
 
         skillSphere.DOScale(scanDist, 3f);
-        skillSphere.GetComponent<MeshRenderer>().material.DOFade(0, 3f);
+        skillSphere.GetComponent<MeshRenderer>().material.DOFloat(0f, "_Alpha", 3f);
 
         yield return new WaitForSeconds(effectTime);
 
