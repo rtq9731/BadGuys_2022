@@ -29,6 +29,7 @@ public class PlayerFootstepSound : PlayerColision
     {
         GameManager.Instance._onPauseChanged += CheckPauseSound;
         UIManager.Instance._onCutSceneChanged += CheckPauseSound;
+        UIManager.Instance._onPuzzleCanged += CheckPauseSound;
     }
 
     public void SetPitch(float pitch)

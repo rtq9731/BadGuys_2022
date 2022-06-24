@@ -153,6 +153,9 @@ public class CameraShaking : MonoBehaviour
             if (GameManager.Instance.IsPause)
                 curState = moveState.Stop;
 
+            if (UIManager.Instance.isOnCutScene || UIManager.Instance.isOnPuzzle)
+                curState = moveState.Stop;
+
             if (camBrain.IsLive(camVirtual) == false)
                 curState = moveState.Stop;
 

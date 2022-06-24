@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public StopMenu _stopMenu = null;
     [SerializeField] GameObject _mainUI = null;
     public Action<bool> _onCutSceneChanged = (_isCutScene) => { };
+    public Action<bool> _onPuzzleCanged = (_isPuzzle) => { };
 
     public static UIManager Instance
     {
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     public GameObject aimPoint;
 
     public bool isOnCutScene = false;
+    public bool isOnPuzzle = false;
     public bool isEsc = false;
     public bool isCursor = false;
 
@@ -106,12 +108,16 @@ public class UIManager : MonoBehaviour
     public void OnPuzzleUI()
     {
         aimPoint.SetActive(false);
+        isOnPuzzle = true;
+        _onPuzzleCanged(isOnPuzzle);
         isCursor = true;
     }
 
     public void OffPuzzleUI()
     {
         aimPoint.SetActive(true);
+        isOnPuzzle = false;
+        _onPuzzleCanged(isOnPuzzle);
         isCursor = false;
     }
 
