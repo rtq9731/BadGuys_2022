@@ -42,6 +42,8 @@ public class PatrolAI : MonoBehaviour
     [SerializeField] float initNormalTime = 15f;
     [SerializeField] float initComeInTime = 180f;
 
+    [SerializeField] SoundScript chairSound;
+
     public float normalTime = 6f;
     public float comeInTime = 10f;
 
@@ -56,6 +58,8 @@ public class PatrolAI : MonoBehaviour
 
     float extraRotationSpeed = 5f;
     public float timingTime = 0f;
+
+    
 
     bool isGoOut = true;
     bool isInRoom = true;
@@ -199,7 +203,8 @@ public class PatrolAI : MonoBehaviour
                     posZ = -0.5f;
                     Debug.Log(transform.rotation.y);
                 }
-
+                
+                chairSound.Play();
                 chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
                 {
                     Debug.LogError("asdasddsad");
@@ -247,7 +252,7 @@ public class PatrolAI : MonoBehaviour
                     Debug.Log(transform.rotation.y);
                 }
 
-
+                chairSound.Play();
                 chair.transform.DOMoveZ(transform.position.z + posZ, 1.5f).OnComplete(() =>
                 {
                     SetDestinations(0, true);
@@ -472,7 +477,9 @@ public class PatrolAI : MonoBehaviour
         isSit = true;
         chair.transform.DOMoveZ(originChairPos.z, 1.5f);
 
-        if(isMainAI)
+        chairSound.Play();
+
+        if (isMainAI)
         {
             transform.DORotate(new Vector3(0, 0, 0), 0.5f);
         }
