@@ -10,10 +10,13 @@ public class IronDrawer : MonoBehaviour, IInteractableItem
 
     public float desZ = 0.8f;
 
+    SoundScript drawSound;
+
     private void Awake()
     {
         isOpen = false;
         myOriPos = transform.localPosition;
+        drawSound = GetComponent<SoundScript>();
     }
 
     private bool isDoTween()
@@ -36,7 +39,9 @@ public class IronDrawer : MonoBehaviour, IInteractableItem
                 Vector3 des = new Vector3(myOriPos.x, myOriPos.y, desZ);
                 transform.DOLocalMove(des, 1f);
             }
+            drawSound.Play();
         }
+        
     }
 
     public bool CanInteract()
