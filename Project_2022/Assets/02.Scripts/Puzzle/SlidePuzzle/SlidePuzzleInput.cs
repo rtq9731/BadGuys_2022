@@ -12,6 +12,8 @@ public class SlidePuzzleInput : MonoBehaviour
     private Color color;
     [SerializeField]
     private LayerMask btnLayer;
+    [SerializeField]
+    private SlideSound slideSound;
 
     private LayerMask target; // 그림들 레이어
     private SlidePuzzlePiece selectPiece;
@@ -53,6 +55,7 @@ public class SlidePuzzleInput : MonoBehaviour
         {
            if (selectPiece != null)
             {
+                slideSound.SlideMove();
                 selectPiece.MoveToDis();
                 selectPiece.UnSelected();
             }

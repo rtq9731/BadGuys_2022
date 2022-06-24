@@ -30,7 +30,13 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
 
     private void Start()
     {
-        DisAblePuzzle();
+        input.enabled = false;
+        camera.SetActive(false);
+        manager.enabled = false;
+        UIManager.Instance.OffPuzzleUI();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void DisAblePuzzle()

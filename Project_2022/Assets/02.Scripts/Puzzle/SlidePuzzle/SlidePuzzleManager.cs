@@ -20,6 +20,8 @@ public class SlidePuzzleManager : MonoBehaviour
     [SerializeField]
     private SlideInterect interectManager;
     [SerializeField]
+    private SlideSound slideSound;
+    [SerializeField]
     private SlidePuzzleInput inputManager;
 
     public bool[] twoDVector;
