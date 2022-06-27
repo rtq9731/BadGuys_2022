@@ -5214,14 +5214,13 @@ GameObject:
   - component: {fileID: 393044751}
   - component: {fileID: 393044753}
   - component: {fileID: 393044752}
-  - component: {fileID: 393044754}
   m_Layer: 5
   m_Name: StartInputPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &393044751
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5235,7 +5234,7 @@ RectTransform:
   m_Children:
   - {fileID: 1374487151}
   m_Father: {fileID: 1638324077}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5264,19 +5263,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393044750}
   m_CullTransparentMesh: 1
---- !u!114 &393044754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 393044750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7ed62f77f0d9046b5bc6eab16764ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialog: {fileID: 11400000, guid: 1aabbdede023d904ba6d7b1b553c4567, type: 2}
 --- !u!1 &394050673
 GameObject:
   m_ObjectHideFlags: 0
@@ -14869,7 +14855,7 @@ PrefabInstance:
     - target: {fileID: 1378304929224743931, guid: 8d73be43b133813429d81667211be210,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1378304929224743931, guid: 8d73be43b133813429d81667211be210,
         type: 3}
@@ -16336,6 +16322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1187954237}
+  - component: {fileID: 1187954238}
   m_Layer: 0
   m_Name: map
   m_TagString: Untagged
@@ -16368,6 +16355,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1187954238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187954236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7ed62f77f0d9046b5bc6eab16764ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: {fileID: 11400000, guid: 1aabbdede023d904ba6d7b1b553c4567, type: 2}
 --- !u!1 &1197701794 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a75275919236834eab5e9a70bc43aa9,
@@ -18046,7 +18046,7 @@ PrefabInstance:
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3255862824561215210, guid: c9647e691d1b3b349972895a70a909df,
         type: 3}
@@ -21776,9 +21776,9 @@ RectTransform:
   - {fileID: 1305736871}
   - {fileID: 886455083}
   - {fileID: 1063031523}
-  - {fileID: 393044751}
   - {fileID: 1947644081}
   - {fileID: 1325433562}
+  - {fileID: 393044751}
   - {fileID: 244907240}
   m_Father: {fileID: 0}
   m_RootOrder: 3
