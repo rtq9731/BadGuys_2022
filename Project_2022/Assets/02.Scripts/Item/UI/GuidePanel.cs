@@ -17,7 +17,7 @@ public class GuidePanel : MonoBehaviour
     bool isOnPanel = false;
     bool isTrigger = true;
 
-    int detailIdx = 0;
+    public int detailIdx = 0;
 
     private void Start()
     {
@@ -69,6 +69,13 @@ public class GuidePanel : MonoBehaviour
         isOnPanel = false;
         falseImage.gameObject.SetActive(false);
         guideDetail[detailIdx].SetActive(false);
+
+        if (detailIdx == 0)
+        {
+            OnGuide(1);
+            return;
+        }
+
         guidePanel.transform.DOScale(0f, 0.2f).OnComplete(() =>
         {
             guidePanel.SetActive(false);
