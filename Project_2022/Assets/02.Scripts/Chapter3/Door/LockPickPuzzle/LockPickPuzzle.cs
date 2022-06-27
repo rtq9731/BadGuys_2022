@@ -6,20 +6,19 @@ using DG.Tweening;
 public class LockPickPuzzle : MonoBehaviour
 {
     public DoorLock doorMgr;
-
     public UpsideLockPick upsidePin;
+    
     public GameObject upsidePinObj;
-
     public GameObject downsidePin;
-
     public GameObject keyhole;
-
     public GameObject puzzleCam;
     public GameObject puzzleObj;
-
     public GameObject puzzleUI;
 
     public DialogDatas dialog;
+    public SoundScript trySound;
+    public SoundScript resultSound;
+    public AudioClip[] audioClips;
 
     [SerializeField]
     private int answerDeg;
@@ -36,6 +35,9 @@ public class LockPickPuzzle : MonoBehaviour
         puzzleCam.SetActive(false);
         puzzleObj.SetActive(false);
         puzzleUI.SetActive(false);
+
+        trySound.SetLoop(true);
+        trySound.Pause();
     }
 
     public void PuzzleOn()
@@ -110,12 +112,21 @@ public class LockPickPuzzle : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E) && !isReset)
             {
+                if (trySound.isPause == true)
+                {
+                    trySound.audioSource.clip = audioClips[0];
+                    trySound.Play();
+                }
+
                 float z = keyhole.transform.eulerAngles.z + (Time.deltaTime / tryDur * 90);
                 keyhole.transform.eulerAngles = new Vector3(0, 0, z);
 
                 if (z > CalculDeg())
                 {
                     isReset = true;
+                    resultSound.audioSource.clip = audioClips[1];
+                    resultSound.Play();
+
                     keyhole.transform.DORotate(Vector3.zero, resetDur * 
                         (keyhole.transform.eulerAngles.z / 90));
                 }
@@ -127,12 +138,17 @@ public class LockPickPuzzle : MonoBehaviour
                     {
                         isDialog = true;
                         DialogManager.Instance.SetDialogData(dialog.GetDialogs());
+
+                        resultSound.audioSource.clip = audioClips[2];
+                        resultSound.Play();
                     }
                     PuzzleOver();
                 }
             }
             else
             {
+                trySound.Pause();
+
                 if (keyhole.transform.eulerAngles.z == 0)
                 {
                     isReset = false;

@@ -11,7 +11,7 @@ public class SoundScript : MonoBehaviour
 
     public AudioClip clip = null;
 
-    bool isPause = false;
+    public bool isPause = false;
 
     private void Awake()
     {
