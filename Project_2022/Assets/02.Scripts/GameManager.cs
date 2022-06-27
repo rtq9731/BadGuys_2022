@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,6 +57,8 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(_instance.gameObject);
+
+        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => { _onPauseChanged = (x) => { }; };
 
         emailDatas = new EmailDataListSO();
         emailDatas = Resources.Load<EmailDataListSO>("EmailDataSOList");

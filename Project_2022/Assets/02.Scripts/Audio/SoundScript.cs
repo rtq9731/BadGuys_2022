@@ -50,7 +50,7 @@ public class SoundScript : MonoBehaviour
 
     public void Stop()
     {
-        audioSource.Stop();
+        audioSource?.Stop();
     }
 }
 
