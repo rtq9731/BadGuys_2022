@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler, IPlayerMouseExitHandler
 {
@@ -13,6 +14,10 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
     Outline outline;
     [SerializeField]
     SoundScript audioSource;
+    [SerializeField]
+    Image blindImage;
+    [SerializeField]
+    Transform sunPosition;
 
     private Vector3 originPos;
 
@@ -61,7 +66,7 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
             }
             else
             {
-                TurnBoat(isSun);
+                StartCoroutine(TurnBoat(isSun));
             }
         }
     }
@@ -120,38 +125,39 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
         audioSource.SetLoop(true);
         audioSource.Play();
         boatCamera.enabled = true;
-        yield return new WaitForSeconds(0.4f);
-        SetPaddleAnim(true);
-
-        transform.DOMoveX(230f, 15f).SetEase(Ease.InOutSine).OnComplete(() =>
+        blindImage.DOFade(1, 1f).OnComplete(() =>
         {
-            SetPaddleAnim(false);
+            transform.position = sunPosition.position;
             isCanInterct = true;
             isSun = true;
             audioSource.SetLoop(false);
             audioSource.Stop();
+            blindImage.DOFade(0, 1f);
+            Debug.Log("asd");   
         });
     }
 
-    
-    //돌리는 함수
-    private void TurnBoat(bool isGo)
+    private IEnumerator TurnBoat(bool isGo)
     {
         if (isGo)
         {
-            SetPaddleAnim(true);
             isCanInterct = false;
             isSun = false;
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
-                float duration = Vector2.Distance(transform.position, originPos);
+                audioSource.SetLoop(true);
                 audioSource.Play();
-                transform.DOMove(originPos, Mathf.Clamp((Mathf.Round(duration / 8)), 5f, 15f)).SetEase(Ease.InOutSine).OnComplete(() =>
-                {
-                    TakeOffBoat();
-                    isCanInterct = true;
-                    
-                });
+                blindImage.DOFade(1, 1f);
+            });
+            
+            yield return new WaitForSeconds(3.0f);
+
+            transform.position = originPos;
+            audioSource.SetLoop(false);
+            audioSource.Stop();
+            blindImage.DOFade(0, 1f).OnComplete(() =>
+            {
+                TakeOffBoat();
             });
         }
     }
