@@ -22,13 +22,13 @@ public class TutorialGuideManager : MonoBehaviour
         if(IsGetAllCarWithoutRed() && !isAllItem)
         {
             Debug.Log("asd");
-            guidePanel.OnGuide(4);
+            guidePanel.OnGuide(5);
             isAllItem = true;
         }
 
         if(IsFirstInterect())
         {
-            guidePanel.OnGuide(1);
+            guidePanel.OnGuide(2);
         }
     }
 

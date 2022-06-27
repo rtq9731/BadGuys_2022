@@ -44,7 +44,7 @@ public class StageManager : MonoBehaviour
                         panelHide.gameObject.SetActive(false);
                         //UIManager.Instance.OnCutSceneOver();
                         FindObjectOfType<PlayerController>().gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 30, 0));
-                        FindObjectOfType<GuidePanel>().OnGuide(3);
+                        FindObjectOfType<GuidePanel>().OnGuide(4);
                         AcciCarSoundOn();
                         timeLineManager.SetActive(false);
                     });
