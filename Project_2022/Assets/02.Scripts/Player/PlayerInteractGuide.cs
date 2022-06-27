@@ -53,6 +53,11 @@ public class PlayerInteractGuide : MonoBehaviour
                     }
                 }
 
+                if(originInfoDict.ContainsKey(outline))
+                {
+                    continue;
+                }
+
                 originInfoDict.Add(outline, new OutlineInfo(outline));
 
                 outline.enabled = true;
