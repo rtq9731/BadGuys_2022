@@ -47,6 +47,5 @@ public class PatrolCheck : MonoBehaviour
     {
         isPlayerIn = true;
         isDoorClose = true;
-        Debug.LogError(scene.name + "으로 변경되었습니다.");
     }
 }
