@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class SlideInterect : MonoBehaviour, IInteractableItem
+public class SlideInterect : CameraBlending, IInteractableItem
 {
     public bool gameClear;
 
@@ -19,9 +19,10 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
     [SerializeField]
     private ClearParticle clearParticle;
     
-
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+        blendingCam = myCam;
         myCam.SetActive(false);
         slideImage.SetActive(false);
         slideButton.SetActive(false);
@@ -48,6 +49,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
         Cursor.lockState = CursorLockMode.Locked;
         clearParticle.ParticleOn();
         SlidePuzzleAllClear.Instance.AddClearCount();
+        StartCoroutine(CameraBlendingCo());
         Destroy(this);
     }
 
@@ -84,6 +86,7 @@ public class SlideInterect : MonoBehaviour, IInteractableItem
             slideImage.SetActive(true);
             slideMnager.enabled = true;
             slideMnager.GameStart_Slide();
+            StartCoroutine(CameraBlendingCo());
 
             this.enabled = false;
         }

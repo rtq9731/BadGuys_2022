@@ -12397,6 +12397,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2, y: 1.5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1443340091 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1620089992, guid: 5c4c7d46e275d06458a01e9722b79c22,
+    type: 3}
+  m_PrefabInstance: {fileID: 1758583699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1464744638
 GameObject:
   m_ObjectHideFlags: 0
@@ -14742,9 +14748,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7503832196042100855, guid: 5c4c7d46e275d06458a01e9722b79c22,
         type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 1112463616}
+    - target: {fileID: 7503832196042100855, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
       propertyPath: slideImage
       value: 
       objectReference: {fileID: 93810931}
+    - target: {fileID: 7503832196042100855, guid: 5c4c7d46e275d06458a01e9722b79c22,
+        type: 3}
+      propertyPath: blendingCam
+      value: 
+      objectReference: {fileID: 1443340091}
     - target: {fileID: 7503832196042100855, guid: 5c4c7d46e275d06458a01e9722b79c22,
         type: 3}
       propertyPath: slideButton
@@ -23126,6 +23142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4240db943e33df4e99fdfff8dec56eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 1112463616}
+  blendingCam: {fileID: 3683053096804832678}
+  player: {fileID: 0}
   manager: {fileID: 3683053096476812084}
   input: {fileID: 7927961679908866531}
   camera: {fileID: 3683053096804832678}

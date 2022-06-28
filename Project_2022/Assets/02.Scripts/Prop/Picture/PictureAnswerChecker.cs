@@ -68,6 +68,7 @@ public class PictureAnswerChecker : CameraBlending
                     keyPiece.GetComponent<Item>().Interact(keyPiece);
                     storyWall.GetComponent<WallDissolve>().WallDissolveScene();
                     //storyWall.SetActive(false);
+                    StartCoroutine(CameraBlendingCo());
                     lightTrigger.SetActiveGroup(true);
                 }
             }
