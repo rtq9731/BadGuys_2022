@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
+public class PiecePuzzleInteract : CameraBlending, IInteractableItem
 {
     [SerializeField]
     private PiecePuzzleManager manager;
@@ -28,10 +28,12 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
         outline = GetComponent<Outline>();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         input.enabled = false;
         camera.SetActive(false);
+        blendingCam = camera;
         manager.enabled = false;
         UIManager.Instance.OffPuzzleUI();
 
@@ -78,6 +80,7 @@ public class PiecePuzzleInteract : MonoBehaviour, IInteractableItem
 
             playing = true;
 
+            StartCoroutine(CameraBlendingCo());
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
