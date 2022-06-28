@@ -11,7 +11,7 @@ public class PlayerKeyInput : MonoBehaviour
             UIManager.Instance.UpdateStopMenu();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.IsPause && !UIManager.Instance.isOnCutScene)
         {
             FindObjectOfType<PlayerInteractGuide>()?.OnInput();
         }
