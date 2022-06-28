@@ -7,7 +7,11 @@ public class HoodLightSwitch : MonoBehaviour, IInteractableItem
     [SerializeField]
     private GameObject hoodLight;
     [SerializeField]
-    private AudioSource hoodSound;
+    private SoundScript hoodBtnSound;
+    [SerializeField]
+    private SoundScript hoodWindSound;
+
+    private bool isReady;
 
     private void Awake()
     {
@@ -15,24 +19,37 @@ public class HoodLightSwitch : MonoBehaviour, IInteractableItem
             Debug.LogWarning("후드라이트 세팅 안되어 있음");
         else
             hoodLight.SetActive(false);
+
+        isReady = true;
     }
 
     public void Interact(GameObject taker)
     {
+        isReady = false;
+
         if (hoodLight.activeSelf)
         {
             hoodLight.SetActive(false);
-            //hoodSound.Stop();
+            hoodBtnSound.Play();
+            hoodWindSound.Pause();
         }
         else
         {
             hoodLight.SetActive(true);
-            //hoodSound.Play();
+            hoodBtnSound.Play();
+            hoodWindSound.Play();
         }
+
+        Invoke("Ready", 0.3f);
+    }
+
+    private void Ready()
+    {
+        isReady = true;
     }
 
     public bool CanInteract()
     {
-        return true;
+        return isReady;
     }
 }

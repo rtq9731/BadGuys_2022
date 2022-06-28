@@ -7,7 +7,11 @@ public class StandLight : MonoBehaviour, IInteractableItem
     [SerializeField]
     private GameObject targetLight;
     [SerializeField]
-    private AudioSource clickSound;
+    private SoundScript sound;
+    [SerializeField]
+    private AudioClip[] clickSound;
+
+    private bool isReady;
 
     private void Awake()
     {
@@ -15,18 +19,31 @@ public class StandLight : MonoBehaviour, IInteractableItem
             Debug.LogWarning("타겟 라이트 설정 안되어 있다.");
         else
             targetLight.SetActive(false);
-        //clickSound = GetComponent<AudioSource>();
-        //clickSound.playOnAwake = false;
+
+        isReady = true;
     }
 
     public void Interact(GameObject taker)
     {
+        isReady = false;
+
+        if (targetLight.activeSelf) // off
+            sound.audioSource.clip = clickSound[0];
+        else // on
+            sound.audioSource.clip = clickSound[1];
+        
+        sound.Play();
+        Invoke("LightOnOff", 0.75f);
+    }
+
+    private void LightOnOff()
+    {
+        isReady = true;
         targetLight.SetActive(!targetLight.activeSelf);
-        //clickSound.Play();
     }
 
     public bool CanInteract()
     {
-        return true;
+        return isReady;
     }
 }
