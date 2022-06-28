@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class ButterflyTrigger : MonoBehaviour
+public class ButterflyTrigger : CameraBlending
 {
     [SerializeField] ButterFlyScript butterfly = null;
     [SerializeField] GameObject butterfly_Idle = null;
@@ -14,8 +14,9 @@ public class ButterflyTrigger : MonoBehaviour
 
     public event System.Action onComplete = null;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         skipBtn = FindObjectOfType<ButterflySkipBtn>(true);
     }
 
@@ -35,11 +36,14 @@ public class ButterflyTrigger : MonoBehaviour
                 vcam.gameObject.SetActive(false);
                 skipBtn.SetActive(false);
                 UIManager.Instance.OnCutSceneOverWithoutClearDialog();
-                gameObject.SetActive(false);
+                StartCoroutine(CameraBlendingCo());
+                gameObject.GetComponent<SphereCollider>().enabled = false;
                 onComplete?.Invoke();
             });
+
             vcam.m_LookAt = butterfly.butterfly;
             vcam.gameObject.SetActive(true);
         }
     }
+
 }
