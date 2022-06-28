@@ -19,7 +19,6 @@ public class UpsideLockPick : MonoBehaviour
 
     public void PuzzleStart()
     {
-        Debug.Log("Start Upside");
         isClear = false;
         StartCoroutine(Rotate());
     }

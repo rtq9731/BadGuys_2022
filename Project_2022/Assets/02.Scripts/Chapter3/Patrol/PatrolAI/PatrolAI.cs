@@ -244,12 +244,10 @@ public class PatrolAI : MonoBehaviour
                 if (transform.rotation.y > 0)
                 {
                     posZ = 0.5f;
-                    Debug.Log(transform.rotation.y);
                 }
                 else
                 {
                     posZ = -0.5f;
-                    Debug.Log(transform.rotation.y);
                 }
 
                 chairSound.Play();
@@ -374,7 +372,6 @@ public class PatrolAI : MonoBehaviour
             anim.SetTrigger("OpenDoor");
         }
 
-        Debug.Log("asd");
         anim.SetBool("IsWalk", false);
         timingTime = 0f;
     }

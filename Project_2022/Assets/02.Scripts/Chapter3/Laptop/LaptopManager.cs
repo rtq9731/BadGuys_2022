@@ -64,7 +64,6 @@ public class LaptopManager : MonoBehaviour
         isSetting = false;
         UIManager.Instance.OnPuzzleUI();
         UIManager.Instance.DisplayCursor(true);
-        Debug.LogWarning("ÄÆ¾ÀÀ» Ä×´Ù!");
         laptopCam.SetActive(true);
 
         GameManager.Instance.IsPause = false;
@@ -146,7 +145,6 @@ public class LaptopManager : MonoBehaviour
             value += Time.deltaTime / fadeTime;
             a = Mathf.Clamp(value, 0, 1);
             fadeImg.color = new Color(col.r, col.g, col.b, a);
-            Debug.Log(a);
 
             if (a == 1) break;
         }
@@ -204,7 +202,6 @@ public class LaptopManager : MonoBehaviour
         UIManager.Instance.OffPuzzleUI();
         UIManager.Instance.DisplayCursor(false);
         GameManager.Instance.IsPause = false;
-        Debug.LogWarning("ÄÆ¾ÀÀ» ²°´Ù!");
         StartCoroutine(FadeOut());
         yield return new WaitForSeconds(fadeTime);
         isUIUse = false;

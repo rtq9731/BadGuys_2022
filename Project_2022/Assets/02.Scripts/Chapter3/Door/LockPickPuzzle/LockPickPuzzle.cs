@@ -77,8 +77,6 @@ public class LockPickPuzzle : MonoBehaviour
         answerDeg = Random.Range(-85, 86);
         answerDeg = Mathf.Clamp(answerDeg, -85, 85);
         answerDeg += 90;
-
-        Debug.Log(answerDeg);
     }
 
     private float CalculDeg()
@@ -133,7 +131,6 @@ public class LockPickPuzzle : MonoBehaviour
 
                 if (z >= 90)
                 {
-                    Debug.Log("¿­¼è°¡ ´Ù µ¹¾Æ°¬´Ù!");
                     if(!isDialog)
                     {
                         isDialog = true;

@@ -15,12 +15,10 @@ public class AiDoor : MonoBehaviour
     public void OpenDoor()
     {
         anim.SetTrigger("OpenTri");
-        Debug.Log("¿­±â");
     }
 
     public void CloseDoor()
     {
         anim.SetTrigger("CloseTri");
-        Debug.Log("´Ý±â");
     }
 }
