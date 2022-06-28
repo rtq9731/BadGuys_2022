@@ -9,6 +9,7 @@ public class ColorChangeBtn : MonoBehaviour
     public ClearParticle clearParticle;
     public PictureAnswerChecker pictureAnswerChecker;
     public PictureBtnManager pictureBtnManager;
+    public SoundScript soundScript;
 
     public Color[] colors;
     public Color curColor;
@@ -32,6 +33,7 @@ public class ColorChangeBtn : MonoBehaviour
         pictureBtnManager = FindObjectOfType<PictureBtnManager>();
         mesh = GetComponent<MeshCollider>();
         mesh.enabled = false;
+        soundScript = transform.parent.GetComponentInParent<SoundScript>();
     }
 
     //버튼 눌리는함수
@@ -51,6 +53,7 @@ public class ColorChangeBtn : MonoBehaviour
         colorIndex++;
         curColor = colors[colorIndex];
 
+        soundScript.Play();
         ButtonPush();
 
         foreach (Image item in images)

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         _footStepSound = GetComponent<PlayerFootstepSound>();
         _characterController = GetComponent<CharacterController>();
+        _isPaused = false;
     }
 
     private void Start()
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.IsPause)
+        if(GameManager.Instance.IsPause || _isPaused)
         {
             return;
         }

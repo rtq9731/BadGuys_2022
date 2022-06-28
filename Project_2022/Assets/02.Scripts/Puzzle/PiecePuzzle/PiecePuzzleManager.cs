@@ -14,13 +14,15 @@ public class PiecePuzzleManager : MonoBehaviour
 
     public UnityEvent clear;
     public UnityEvent pieceIn;
+    public AudioClip pieceInSound;
+    public GameObject targetPiece;
     public float durationTime;
     public float appearTime;
     public float clearDistance;
     public int targetPieceNum;
-    public GameObject targetPiece;
     public bool pieceCanMove;
 
+    private SoundScript soundScript;
     private PiecePuzzleInput inputSystem;
     private bool cheat;
 
@@ -28,6 +30,7 @@ public class PiecePuzzleManager : MonoBehaviour
     {
         cheat = false;
         inputSystem = GetComponentInParent<PiecePuzzleInput>();
+        soundScript = GetComponent<SoundScript>();
         pieceCanMove = false;
         StartCoroutine(SetChildrenInList());
     }
@@ -87,15 +90,21 @@ public class PiecePuzzleManager : MonoBehaviour
         {
             targetPieceNum++;
             targetPieceSetting();
+            PieceInSound();
             pieceIn.Invoke();
         }
         else
             ClearPuzzle();
     }
 
+    private void PieceInSound()
+    {
+        soundScript.audioSource.clip = pieceInSound;
+        soundScript.Play();
+    }
+
     private void ClearPuzzle()
     {
-        Debug.LogWarning("Clear");
         clear.Invoke();
         PiecePuzzleAllClear.Instance.AddClearCount();
         this.enabled = false;
@@ -113,7 +122,6 @@ public class PiecePuzzleManager : MonoBehaviour
 
     private void CheatClear()
     {
-        Debug.Log("그건 좀 실망인데");
         inputSystem.enabled = false;
         targetPiece.transform.DOLocalMove(FindPiecePos(targetPiece), 0.5f);
 

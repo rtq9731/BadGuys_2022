@@ -18,7 +18,7 @@ public class ClearParticle : MonoBehaviour
     public void ParticleOn()
     {
         ss.Play();
-        Invoke("PSPlay", 0.5f);
+        Invoke("PSPlay", 0f);
     }
 
     private void PSPlay()
