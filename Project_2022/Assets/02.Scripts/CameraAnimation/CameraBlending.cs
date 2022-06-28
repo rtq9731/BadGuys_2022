@@ -9,6 +9,8 @@ public class CameraBlending : MonoBehaviour
 
     public PlayerController player;
 
+    public bool isEndBlending = false;
+
     protected virtual void Start()
     {
         player = FindObjectOfType<PlayerController>();
@@ -17,6 +19,7 @@ public class CameraBlending : MonoBehaviour
     protected IEnumerator CameraBlendingCo()
     {
         player.enabled = false;
+        isEndBlending = false;
 
         Vector3 camPos = new Vector3(mainCam.transform.position.x, 0, mainCam.transform.position.z);
         Vector3 playerPos = new Vector3(player.transform.position.x, 0, player.transform.position.z);
@@ -29,6 +32,13 @@ public class CameraBlending : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log("카메라 가까이있다");
         player.enabled = true;
+        isEndBlending = true;
+    }
+
+    public void StartCo()
+    {
+        StartCoroutine(CameraBlendingCo());
     }
 }

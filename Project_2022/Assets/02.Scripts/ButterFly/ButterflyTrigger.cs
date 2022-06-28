@@ -14,10 +14,20 @@ public class ButterflyTrigger : CameraBlending
 
     public event System.Action onComplete = null;
 
+    public Collider[] cols;
+
     protected override void Start()
     {
         base.Start();
         skipBtn = FindObjectOfType<ButterflySkipBtn>(true);
+    }
+
+    private void Update()
+    {
+        if(isEndBlending)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +40,7 @@ public class ButterflyTrigger : CameraBlending
             butterfly.transform.position = butterfly_Idle.transform.position;
             
             UIManager.Instance.OnCutSceneWithoutPause();
+
             
             butterfly.Disappear(destination, () =>
             {
@@ -37,7 +48,6 @@ public class ButterflyTrigger : CameraBlending
                 skipBtn.SetActive(false);
                 UIManager.Instance.OnCutSceneOverWithoutClearDialog();
                 StartCoroutine(CameraBlendingCo());
-                gameObject.GetComponent<SphereCollider>().enabled = false;
                 onComplete?.Invoke();
             });
 
@@ -46,4 +56,13 @@ public class ButterflyTrigger : CameraBlending
         }
     }
 
+    void RemoveCol()
+    {
+        cols = gameObject.GetComponents<Collider>();
+
+        for (int i = 0; i < gameObject.GetComponents<Collider>().Length; i++)
+        {
+            gameObject.GetComponents<Collider>()[i].enabled = false;
+        }
+    }
 }
