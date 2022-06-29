@@ -45,8 +45,7 @@ public class GuidePanel : MonoBehaviour
         {
             isOnPanel = true;
 
-            UIManager.Instance.OnCutSceneOverWithoutClearDialog();
-            GameManager.Instance.IsPause = true;
+            UIManager.Instance.OnCutScene();
 
             guidePanel.gameObject.SetActive(true);
 

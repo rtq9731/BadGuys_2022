@@ -32,7 +32,6 @@ public class CameraBlending : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("카메라 가까이있다");
         player.enabled = true;
         isEndBlending = true;
     }
