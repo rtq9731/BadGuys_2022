@@ -175,7 +175,7 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
             playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
             SetPaddleAnim(false);
             blendingCam.SetActive(false);
-            playerCam.GetComponentInParent<PlayerController>().enabled = true;
+            StartCoroutine(CameraBlendingCo());
         });
     }
 
