@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class WallDissolve : MonoBehaviour
+public class WallDissolve : CameraBlending
 {
     [SerializeField]
     private GameObject myVCam;
@@ -21,17 +21,23 @@ public class WallDissolve : MonoBehaviour
         myMat = myMeshRnd.material;
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.T))
-    //    {
-    //        WallDissolveScene();
-    //    }
-    //}
+    protected override void Start()
+    {
+        base.Start();
+        blendingCam = myVCam;
+    }
+
+    private void Update()
+    {
+        if (isEndBlending)
+        {
+            gameObject.SetActive(false);
+            Destroy(this);
+        }
+    }
 
     public void WallDissolveScene()
     {
-        
         StartCoroutine(WallAlphaDown());
     }
 
@@ -59,8 +65,8 @@ public class WallDissolve : MonoBehaviour
         }
 
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
-        gameObject.SetActive(false);
+        
         myVCam.SetActive(false);
-        Destroy(this);
+        StartCoroutine(CameraBlendingCo());
     }
 }
