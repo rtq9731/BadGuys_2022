@@ -49,6 +49,7 @@ public class SlideInterect : CameraBlending, IInteractableItem
         Cursor.lockState = CursorLockMode.Locked;
         clearParticle.ParticleOn();
         SlidePuzzleAllClear.Instance.AddClearCount();
+        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
         StartCoroutine(CameraBlendingCo());
         Destroy(this);
     }
@@ -80,13 +81,12 @@ public class SlideInterect : CameraBlending, IInteractableItem
         {
             GetComponent<Collider>().enabled = false;
             CameraGameSetting();
-
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             slideImage.SetActive(true);
             slideMnager.enabled = true;
             slideMnager.GameStart_Slide();
-            StartCoroutine(CameraBlendingCo());
+            UIManager.Instance.OnCutSceneWithMainUI();
 
             this.enabled = false;
         }

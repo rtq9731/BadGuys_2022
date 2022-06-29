@@ -49,7 +49,7 @@ public class PiecePuzzleInteract : CameraBlending, IInteractableItem
 
         clearParticle.ParticleOn();
         UIManager.Instance.OffPuzzleUI();
-
+        StartCoroutine(CameraBlendingCo());
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
@@ -80,7 +80,7 @@ public class PiecePuzzleInteract : CameraBlending, IInteractableItem
 
             playing = true;
 
-            StartCoroutine(CameraBlendingCo());
+            FindObjectOfType<PlayerController>().enabled = false;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }

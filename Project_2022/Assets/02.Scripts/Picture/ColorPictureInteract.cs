@@ -40,7 +40,7 @@ public class ColorPictureInteract : MonoBehaviour , IInteractableItem
         pictureAnswerChecker.pictureAnswer = correctPicture.GetComponent<PictureAnswer>();
 
         boxCollider.enabled = false;
-        playerController.enabled = false;
+        FindObjectOfType<PlayerController>().enabled = false;
 
         colorChangeBtns = btnParent.GetComponentsInChildren<ColorChangeBtn>();
         for (int i = 0; i <colorChangeBtns.Length; i++)

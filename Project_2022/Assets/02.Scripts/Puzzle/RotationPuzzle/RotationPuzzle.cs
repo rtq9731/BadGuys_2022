@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using Triggers;
 
-public class RotationPuzzle : MonoBehaviour
+public class RotationPuzzle : CameraBlending
 {
     [SerializeField] float rotationAmount = 10;
 
@@ -26,6 +26,12 @@ public class RotationPuzzle : MonoBehaviour
     bool isOn = false;
 
     int curLayer = 0;
+
+    protected override void Start()
+    {
+        base.Start();
+        blendingCam = vCamPuzzle;
+    }
 
     private void Update()
     {
@@ -125,7 +131,7 @@ public class RotationPuzzle : MonoBehaviour
         completeSR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, destRot));
         completeSR.gameObject.SetActive(true);
         completeSR.material.SetFloat("_DissolveAmount", 0f);
-        UIManager.Instance.OnCutSceneWithMainUI();
+        FindObjectOfType<PlayerController>().enabled = false;
 
         completeSR.material.DOFloat(1, "_DissolveAmount", 3f).OnComplete(() => 
         {
@@ -148,6 +154,8 @@ public class RotationPuzzle : MonoBehaviour
                 UIManager.Instance.OnCutSceneOverWithoutClearDialog();
 
                 RefreshOulines(-1);
+
+                StartCoroutine(CameraBlendingCo());
 
                 lightTrigger.SetActiveGroup(true);
                 enabled = false;
