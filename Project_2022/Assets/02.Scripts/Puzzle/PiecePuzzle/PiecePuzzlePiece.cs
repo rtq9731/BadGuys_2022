@@ -54,7 +54,6 @@ public class PiecePuzzlePiece : MonoBehaviour
     {
         Vector3 mPos = transform.localPosition - new Vector3(0, 0, transform.localPosition.z);
         float distance = Vector3.Distance(mPos, myClearPos);
-        Debug.Log(distance);
         if (distance < clearDis)
             PieceIn();
     }

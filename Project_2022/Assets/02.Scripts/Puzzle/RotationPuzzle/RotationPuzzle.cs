@@ -21,6 +21,8 @@ public class RotationPuzzle : MonoBehaviour
     [SerializeField] GameObject keyPiece = null;
     [SerializeField] ClearParticle clearParticle;
 
+    [SerializeField] SoundScript[] soundScript;
+
     bool isOn = false;
 
     int curLayer = 0;
@@ -33,27 +35,32 @@ public class RotationPuzzle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             curLayer = 0;
+            SwapSound();
             RefreshOulines(curLayer);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             curLayer = 1;
+            SwapSound();
             RefreshOulines(curLayer);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             curLayer = 2;
+            SwapSound();
             RefreshOulines(curLayer);
         }
 
         if(Input.GetKeyDown(KeyCode.Q))
         {
+            RotateSound();
             elements[curLayer].RotatePicture(-rotationAmount);
             OnElementRotate();
         }
 
         if(Input.GetKeyDown(KeyCode.E))
         {
+            RotateSound();
             elements[curLayer].RotatePicture(rotationAmount);
             OnElementRotate();
         }
@@ -66,6 +73,16 @@ public class RotationPuzzle : MonoBehaviour
         isOn = true;
         puzzleUI.SetActive(true);
         RefreshOulines(curLayer);
+    }
+
+    private void RotateSound()
+    {
+        soundScript[0].Play();
+    }
+
+    private void SwapSound()
+    {
+        soundScript[1].Play();
     }
 
     private void RefreshOulines(int curLayer)
@@ -93,7 +110,6 @@ public class RotationPuzzle : MonoBehaviour
     private float ClampForRoationPuzzle(float rot)
     {
         rot = Mathf.Round(rot);
-        Debug.Log(rot);
         if (rot <= 0)
         {
             return 360 + (rot % 360);
