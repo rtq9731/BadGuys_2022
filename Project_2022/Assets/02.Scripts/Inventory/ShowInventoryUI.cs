@@ -78,6 +78,7 @@ public class ShowInventoryUI : MonoBehaviour
             isInventoryDown = false;
             rectTrm.DOAnchorPos(originRectTrm, 0.5f);
             DialogManager.Instance.SetDialogPos(isInventoryDown);
+            fadeTime = 0;
         }
     }
 

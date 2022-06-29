@@ -89,6 +89,8 @@ public class InventoryItemPanel : MonoBehaviour
                 currentObj = itemIconCamParent.transform.GetChild(Inventory.Instance.mainItemIndex).
                     GetComponentInChildren<Item>().gameObject;
 
+                
+                GetComponentInChildren<ShowInventoryUI>().ShowInventorySlot();
 
                 originRotate = currentObj.transform.rotation.eulerAngles;
             }
