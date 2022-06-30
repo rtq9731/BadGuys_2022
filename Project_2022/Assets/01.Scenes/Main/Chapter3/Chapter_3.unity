@@ -12146,6 +12146,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5152041219959361533, guid: d6da7e095c86b124a9e95302c67bbaa7,
         type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 1688041596}
+    - target: {fileID: 5152041219959361533, guid: d6da7e095c86b124a9e95302c67bbaa7,
+        type: 3}
       propertyPath: puzzleUI
       value: 
       objectReference: {fileID: 630687598}
@@ -17917,6 +17922,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eefc983f3a4be745aab70a5475fc507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCam: {fileID: 1688041596}
+  blendingCam: {fileID: 0}
+  player: {fileID: 0}
+  isEndBlending: 0
   fadeTime: 1.5
   fadeImg: {fileID: 1325433563}
   fadeObj: {fileID: 2138171560}
@@ -25089,9 +25098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2bb56f0684197440b12523f7c876689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImg: {fileID: 1325433563}
-  restartTxt: {fileID: 626320027}
-  fadeTime: 1
 --- !u!4 &1791005479
 Transform:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class LockPickPuzzle : MonoBehaviour
+public class LockPickPuzzle : CameraBlending
 {
     public DoorLock doorMgr;
     public UpsideLockPick upsidePin;
@@ -40,12 +40,19 @@ public class LockPickPuzzle : MonoBehaviour
         trySound.Pause();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        blendingCam = puzzleCam;
+    }
+
     public void PuzzleOn()
     {
         UIManager.Instance.OnPuzzleUI();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         GameManager.Instance.IsPause = false;
+        FindObjectOfType<PlayerController>().enabled = false;
 
         isClear = false;
         puzzleCam.SetActive(true);
@@ -70,6 +77,7 @@ public class LockPickPuzzle : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         UIManager.Instance.OffPuzzleUI();
+        StartCoroutine(CameraBlendingCo());
     }
 
     private void AnswerSetting()

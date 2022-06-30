@@ -30,7 +30,6 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
         finishTimeline.SetActive(false);
         black.color = new Color(0, 0, 0, 1);
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
-        FindObjectOfType<PlayerController>().enabled = false;
         LoadingManager.LoadScene("Title", true);
         FindObjectOfType<Triggers.Chapter2.Chapter2_FinalEmail>().TriggerOn();
     }
@@ -41,7 +40,8 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
         {
             startTimeline.gameObject.SetActive(true);
             transform.GetComponent<Collider>().enabled = false;
-        }   
+            FindObjectOfType<PlayerController>().enabled = false;
+        }
     }
 
     public void AimCutScene()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LaptopManager : MonoBehaviour
+public class LaptopManager : CameraBlending
 {
     static public LaptopManager Instance;
 
@@ -47,9 +47,10 @@ public class LaptopManager : MonoBehaviour
         isDialog = false;
     }
 
-    private void Update()
+    protected override void Start()
     {
-        
+        base.Start();
+        blendingCam = laptopCam;
     }
 
     public void CloseLaptop()
@@ -67,6 +68,8 @@ public class LaptopManager : MonoBehaviour
         laptopCam.SetActive(true);
 
         GameManager.Instance.IsPause = false;
+
+        FindObjectOfType<PlayerController>().enabled = false;
 
         if (!isPass)
         {
@@ -203,6 +206,7 @@ public class LaptopManager : MonoBehaviour
         UIManager.Instance.DisplayCursor(false);
         GameManager.Instance.IsPause = false;
         StartCoroutine(FadeOut());
+        StartCoroutine(CameraBlendingCo());
         yield return new WaitForSeconds(fadeTime);
         isUIUse = false;
         yield return new WaitForSeconds(1f);
