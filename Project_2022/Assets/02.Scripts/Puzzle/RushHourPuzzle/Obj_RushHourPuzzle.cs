@@ -10,7 +10,7 @@ public class RushHourCarInfo
     public ItemInfo itemInfo;
 }
 
-public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
+public class Obj_RushHourPuzzle : CameraBlending, IInteractAndGetItemObj
 {
     [SerializeField]
     CinemachineVirtualCamera rushHourCam;
@@ -28,8 +28,6 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
     [SerializeField]
     InventoryInput invenInput;
     [SerializeField]
-    GameObject player;
-    [SerializeField]
     Transform playerMovePos;
 
     [SerializeField]
@@ -41,6 +39,18 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
         Destroy(GetComponent<Outline>());
         rushHourCam.gameObject.SetActive(false);
         rushScript.enabled = false;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        blendingCam = rushHourCam.gameObject;
+    }
+
+    private void Update()
+    {
+        if(isEndBlending)
+            Destroy(GetComponent<Item_RushHourPuzzle>());
     }
 
     public bool CanEat()
@@ -102,6 +112,8 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
 
+                player.enabled = false;
+
                 Destroy(GetComponent<Rigidbody>());
             }
         }
@@ -149,7 +161,8 @@ public class Obj_RushHourPuzzle : MonoBehaviour, IInteractAndGetItemObj
         player.transform.rotation = Quaternion.Euler(new Vector3(0f, 30f, 0));
         GameObject.Find("StageManager").GetComponent<StageManager>().StageChange();
 
-        Destroy(GetComponent<Item_RushHourPuzzle>());
+        StartCoroutine(CameraBlendingCo());
+
     }
 
     // 색에 맞는 차 생성 
