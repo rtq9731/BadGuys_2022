@@ -33,6 +33,7 @@ public class StageManager : MonoBehaviour
             stageMsgText.DOText("조심해요!!!", 1f);
             stageMsgText.transform.DOShakePosition(10, 8f);
             timeLineManager.SetActive(true);
+            FindObjectOfType<PlayerKeyInput>(true).gameObject.SetActive(true);
             aiMsgText.DOText("M.A.M : 새로운 기억 발견, 장소 재구성 중. . .", 5f).OnComplete(() => // 글자당 0.1f 초
             {   
                 aiMsgText.text = " ";
@@ -40,7 +41,6 @@ public class StageManager : MonoBehaviour
                 {
                     panelHide.rectTransform.DOAnchorPosY(panelHide.rectTransform.rect.height / 2, 0.5f).OnComplete(() =>
                     {
-                        FindObjectOfType<PlayerKeyInput>(true).gameObject.SetActive(true);
                         panelHide.gameObject.SetActive(false);
                         //UIManager.Instance.OnCutSceneOver();
                         FindObjectOfType<PlayerController>().gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 30, 0));
