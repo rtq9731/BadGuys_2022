@@ -30,7 +30,7 @@ public class QTEManager : MonoBehaviour
 
     private void Update()
     {
-        if (isSpawnQTE)
+        if (isSpawnQTE && !GameManager.Instance.IsPause)
         {
             time += Time.unscaledDeltaTime;
 
@@ -45,8 +45,6 @@ public class QTEManager : MonoBehaviour
             }
         }
     }
-
-    //이거로 생성하시면 됩니다
     public void GenerateQTEEvent(QTEPressType qTEPressType, KeyCode key,
         Action successCallback, Action failedCallback)
     {
@@ -55,6 +53,7 @@ public class QTEManager : MonoBehaviour
         _failedCallback = failedCallback;
 
         UIManager.Instance.OnCutSceneWithoutPause();
+        UIManager.Instance.isOnCutScene = false;
 
         generator.Generation(qTEPressType, key);
         Time.timeScale = 0.2f;
@@ -103,7 +102,7 @@ public class QTEManager : MonoBehaviour
         keys.Clear();
         events.QTEKeys.RemoveAt(0);
     }
-    
+
     void SetQTESound()
     {
         _sound.successSound = generator.sound.successSound;
@@ -116,28 +115,19 @@ public class QTEManager : MonoBehaviour
         SetQTESound();
         if (isCorret)
         {
-            Debug.Log("맞았음");
-
-            //맞게했을때 행동 
-            //맞았을 때 이펙트
-
             generator.SuccessQTE();
 
             _successCallback?.Invoke();
 
-            _sound.SuccessQTE(); 
+            _sound.SuccessQTE();
 
             _successCallback = null;
 
-            
+
         }
         else
         {
-            Debug.Log("틀렸음");
             generator.FailQTE();
-
-            //실패했을때 행동
-            //실패했을때 이펙트
 
             _sound.FailedQTE();
             generator.FailedQTE();
@@ -156,7 +146,7 @@ public class QTEManager : MonoBehaviour
     // 입력 처리 
     private void OnGUI()
     {
-        if (isSpawnQTE)
+        if (isSpawnQTE && !GameManager.Instance.IsPause)
         {
             if (Input.anyKeyDown)
             {
@@ -164,8 +154,11 @@ public class QTEManager : MonoBehaviour
                 if (e.isKey)
                 {
                     if (e.keyCode == KeyCode.None) return;
-
-
+                    if (e.keyCode == KeyCode.Escape)
+                    {
+                        Debug.Log("QTEInput");
+                        return;
+                    }
                     switch (events.QTEKeys[0].pressType)
                     {
                         case QTEPressType.Roll:
@@ -173,7 +166,7 @@ public class QTEManager : MonoBehaviour
                                 keys.Add(e.keyCode);
                                 generator.RollBtn();
                                 generator.RollImage(rollCount, keys.Count);
-                                
+
                                 if (keys.Count != rollCount)
                                     return;
                             }

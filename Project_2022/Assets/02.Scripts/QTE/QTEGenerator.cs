@@ -48,7 +48,7 @@ public class QTEGenerator : MonoBehaviour
 
     private void Update()
     {
-        if (isOnQTE)
+        if (isOnQTE && !GameManager.Instance.IsPause)
         {
             switch(events.QTEKeys[0].pressType)
             {

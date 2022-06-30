@@ -132,11 +132,15 @@ public class UIManager : MonoBehaviour
         if (_stopMenu.gameObject.activeSelf)
         {
             RemoveStopMenu();
+            Debug.Log("Remove");
         }
         else
         {
             DisplayStopMenu();
+            Debug.Log("Display");
         }
+        
+
     }
 
     public void DisplayStopMenu()
@@ -144,6 +148,8 @@ public class UIManager : MonoBehaviour
         if (UIManager.Instance.isOnCutScene)
             return;
 
+
+        Debug.Log("혹시 여기가 안들어오니?");
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();
