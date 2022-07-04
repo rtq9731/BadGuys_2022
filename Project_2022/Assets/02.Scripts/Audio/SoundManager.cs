@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
                 instance = FindObjectOfType<SoundManager>();
                 if (instance == null)
                 {
-                    GameObject obj = Instantiate(new GameObject());
+                    GameObject obj = Instantiate(new GameObject("SoundManager"));
                     instance = obj.AddComponent<SoundManager>();
                 }
             }
@@ -44,7 +44,7 @@ public class SoundManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        SettingManager.onChangeSetting += OnChangeVolumeChange;
+        SettingManager.onChangeSetting += OnChangeVolume;
     }
 
     public void PauseAllSound()
@@ -75,18 +75,19 @@ public class SoundManager : MonoBehaviour
         {
             sounds.Add(item);
         }
-        OnChangeVolumeChange(SettingManager.Instance.Setting);
+        OnChangeVolume(SettingManager.Instance.Setting);
     }
 
-    private void OnChangeVolumeChange(SettingManager.SettingInfo setting)
+    private void OnChangeVolume(SettingManager.SettingInfo setting)
     {
         for (int i = 0; i < 3; i++)
         {
+            float masterVolumeValue = setting.GetValue(SettingManager.SettingInfo.SettingType.MASTERVOL);
             float volumeValue = setting.GetValue((SettingManager.SettingInfo.SettingType)i);
 
             foreach (var item in sounds.FindAll((item) => (int)item.audioType == i))
             {
-                item.audioSource.volume = item.originVolume * (volumeValue / 100);
+                item.audioSource.volume = (item.originVolume * (volumeValue / 100)) * (masterVolumeValue / 100);
             }
         }
     }

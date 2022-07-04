@@ -124,9 +124,8 @@ public class SettingManager : MonoBehaviour
             }
         }
 
-        public void Set(float value, SettingType type)
+        public void SetValue(float value, SettingType type)
         {
-
             switch (type)
             {
                 case SettingType.MASTERVOL:
@@ -145,7 +144,6 @@ public class SettingManager : MonoBehaviour
                     break;
             }
             OnChangeValue?.Invoke(this);
-
         }
     }
 }
