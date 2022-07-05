@@ -13,8 +13,11 @@ public class TutorialAccident : MonoBehaviour
 
     public void SoundOn()
     {
-        sound.SetLoop(true);
-        sound.audioSource.volume = 0.3f;
+        InvokeRepeating("SoundRepeating", 0, 3f);
+    }
+
+    public void SoundRepeating()
+    {
         sound.Play();
     }
 
