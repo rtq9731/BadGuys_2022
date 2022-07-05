@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerKeyInput : MonoBehaviour
 {
+    public bool canScan = true;
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -11,7 +13,7 @@ public class PlayerKeyInput : MonoBehaviour
             UIManager.Instance.UpdateStopMenu();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.IsPause && !UIManager.Instance.isOnCutScene)
+        if ((Input.GetKeyDown(KeyCode.Q) && !GameManager.Instance.IsPause && !UIManager.Instance.isOnCutScene) && canScan)
         {
             FindObjectOfType<PlayerInteractGuide>()?.OnInput();
         }
