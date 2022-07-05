@@ -38,6 +38,7 @@ public class Chapter2_FinalCutSceneTrigger : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            UIManager.Instance.OnCutScene();
             startTimeline.gameObject.SetActive(true);
             transform.GetComponent<Collider>().enabled = false;
             FindObjectOfType<PlayerController>().enabled = false;
