@@ -102,7 +102,7 @@ public class Obj_RushHourPuzzle : CameraBlending, IInteractAndGetItemObj
                 GetComponent<CarOutLine>().DestroySelf();
 
                 rushHourCam.gameObject.SetActive(true);
-                //UIManager.Instance.OnCutScene();
+                UIManager.Instance.OnCutScene();
                 UIManager.Instance.OnPuzzleUI();
                 rushScript.enabled = true;
 
@@ -155,7 +155,7 @@ public class Obj_RushHourPuzzle : CameraBlending, IInteractAndGetItemObj
         Destroy(GetComponent<OutlinerOnMouseEnter>());
         Destroy(GetComponent<Outline>());
 
-        //UIManager.Instance.OnCutSceneOver();
+        UIManager.Instance.OnCutSceneOver();
         UIManager.Instance.OffPuzzleUI();
         player.transform.position = playerMovePos.position;
         player.transform.rotation = Quaternion.Euler(new Vector3(0f, 30f, 0));

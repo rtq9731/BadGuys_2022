@@ -6,11 +6,18 @@ public class Leaflet : MonoBehaviour, IInteractableItem
 {
     public void Interact(GameObject taker)
     {
-        gameObject.SetActive(false);
+        GetComponent<SoundScript>().Play();
+        GetComponent<Collider>().enabled = false;
+        Invoke("Pop", 0.7f);
     }
 
     public bool CanInteract()
     {
         return true;
+    }
+
+    private void Pop()
+    {
+        gameObject.SetActive(false);
     }
 }
