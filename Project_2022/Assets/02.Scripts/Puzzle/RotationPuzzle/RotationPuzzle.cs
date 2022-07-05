@@ -116,7 +116,7 @@ public class RotationPuzzle : CameraBlending
     private float ClampForRoationPuzzle(float rot)
     {
         rot = Mathf.Round(rot);
-        if (rot <= 0)
+        if (rot < 0)
         {
             return 360 + (rot % 360);
         }
