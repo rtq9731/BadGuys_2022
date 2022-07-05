@@ -17,6 +17,8 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
     public GameObject peekTxt;
     public Image fadeImg;
     public DialogDatas dialog;
+    private GameObject player;
+    private PlayerKeyInput keyInput;
 
     private bool isDialog;
 
@@ -28,6 +30,8 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         peekTxt.SetActive(false);
         fadeImg.color = new Color(0, 0, 0, 0);
         fadeImg.gameObject.SetActive(true);
+        player = GameObject.Find("Player");
+        keyInput = player.GetComponent<PlayerKeyInput>();
     }
 
     private void Update()
@@ -38,6 +42,8 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
             {
                 isPeek = false;
                 isMoving = true;
+                keyInput.canScan = true;
+                //UIManager.Instance.OnCutSceneOverWithoutClearDialog();
                 StartCoroutine(Fading());
             }
         }
@@ -49,7 +55,8 @@ public class DoorHandle : MonoBehaviour, IInteractableItem
         {
             isPeek = true;
             isMoving = true;
-            
+            keyInput.canScan = false;
+            //UIManager.Instance.OnCutSceneWithoutPause();
             StartCoroutine(Fading());
             
         }
