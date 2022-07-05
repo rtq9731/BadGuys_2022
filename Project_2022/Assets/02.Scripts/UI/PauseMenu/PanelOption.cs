@@ -28,21 +28,21 @@ public class PanelOption : MonoBehaviour
 
     public void ChangeMasterVolume(float value)
     {
-        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.MASTERVOL);
+        SettingManager.Instance.Setting.SetValue(value, SettingManager.SettingInfo.SettingType.MASTERVOL);
     }
 
     public void ChangeBackgroundVolume(float value)
     {
-        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.BACKGROUNDVOL);
+        SettingManager.Instance.Setting.SetValue(value, SettingManager.SettingInfo.SettingType.BACKGROUNDVOL);
     }
 
     public void ChangeSFXVolume(float value)
     {
-        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.SFXVOL);
+        SettingManager.Instance.Setting.SetValue(value, SettingManager.SettingInfo.SettingType.SFXVOL);
     }
 
     public void ChangeMouseSensitivity(float value)
     {
-        SettingManager.Instance.Setting.Set(value, SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY);
+        SettingManager.Instance.Setting.SetValue(value, SettingManager.SettingInfo.SettingType.MOUSESENSITIVITY);
     }
 }

@@ -9,7 +9,7 @@ public class PatrolCheck : MonoBehaviour
 
     public bool isPlayerIn;
     public bool isDoorClose;
-    public StageRestart restart;
+    public StageReStart restart;
 
     private void Awake()
     {
@@ -26,6 +26,8 @@ public class PatrolCheck : MonoBehaviour
         if (other.CompareTag("Player"))
             isPlayerIn = true;
     }
+
+
 
     private void OnTriggerExit(Collider other)
     {

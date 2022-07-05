@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ChaseHPSystem : MonoBehaviour
 {
     [SerializeField] Image handCuffImage = null;
-    [SerializeField] StageRestart restart;
+    [SerializeField] StageReStart restart;
     [SerializeField] float maxHp = 100;
     [SerializeField] float damage = 1f;
 

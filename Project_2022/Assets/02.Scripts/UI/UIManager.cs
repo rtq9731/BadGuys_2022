@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
-        _onCutSceneChanged(isOnCutScene);
+        _onCutSceneChanged?.Invoke(isOnCutScene);
         SoundManager.Instance.PauseAllSound();
     }
 
@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(false);
         FindObjectOfType<PlayerController>(true).enabled = false;
         isOnCutScene = true;
-        _onCutSceneChanged(isOnCutScene);
+        _onCutSceneChanged?.Invoke(isOnCutScene);
         SoundManager.Instance.PauseAllSound();
     }
 
@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
         FindObjectOfType<PlayerController>(true).enabled = false;
         GameManager.Instance.IsPause = true;
         isOnCutScene = true;
-        _onCutSceneChanged(isOnCutScene);
+        _onCutSceneChanged?.Invoke(isOnCutScene);
         SoundManager.Instance.PauseAllSound();
     }
 
@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         FindObjectOfType<DialogManager>()?.ClearALLDialog();
         isOnCutScene = false;
-        _onCutSceneChanged(isOnCutScene);
+        _onCutSceneChanged?.Invoke(isOnCutScene);
         FindObjectOfType<PlayerController>(true).enabled = true;
         SoundManager.Instance.ResumeAllSound();
 
@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
         _mainUI.SetActive(true);
         GameManager.Instance.IsPause = false;
         isOnCutScene = false;
-        _onCutSceneChanged(isOnCutScene);
+        _onCutSceneChanged?.Invoke(isOnCutScene);
         FindObjectOfType<PlayerController>(true).enabled = true;
         SoundManager.Instance.ResumeAllSound();
     }
@@ -109,7 +109,7 @@ public class UIManager : MonoBehaviour
     {
         aimPoint.SetActive(false);
         isOnPuzzle = true;
-        _onPuzzleCanged(isOnPuzzle);
+        _onPuzzleCanged?.Invoke(isOnPuzzle);
         isCursor = true;
     }
 
@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
     {
         aimPoint.SetActive(true);
         isOnPuzzle = false;
-        _onPuzzleCanged(isOnPuzzle);
+        _onPuzzleCanged?.Invoke(isOnPuzzle);
         isCursor = false;
     }
 
@@ -148,12 +148,12 @@ public class UIManager : MonoBehaviour
         if (UIManager.Instance.isOnCutScene)
             return;
 
-
         Debug.Log("혹시 여기가 안들어오니?");
         DisplayCursor(true);
         GameManager.Instance.IsPause = true;
         DOTween.PauseAll();
 
+        SoundManager.Instance.PauseAllSound();
         _mainUI.SetActive(false);
         DialogManager.Instance.gameObject.SetActive(false);
 
@@ -167,6 +167,7 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.IsPause = false;
         DOTween.PlayAll();
 
+        SoundManager.Instance.ResumeAllSound();
         _mainUI.SetActive(true);
         DialogManager.Instance.gameObject.SetActive(true);
 

@@ -39,6 +39,7 @@ public class SoundScript : MonoBehaviour
     public void Pause()
     {
         audioSource.Pause();
+        SetLoop(false);
         isPause = true;
     }
 
