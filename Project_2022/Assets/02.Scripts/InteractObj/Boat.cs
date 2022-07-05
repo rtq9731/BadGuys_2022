@@ -19,7 +19,6 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
     [SerializeField]
     Image blindImage;
 
-
     [SerializeField]
     Transform sunPosition;
     [SerializeField]
@@ -124,12 +123,15 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
         boatCamera = blendingCam.GetComponent<BoatCam>();
         playerCam.GetComponentInParent<PlayerController>().enabled = false;
         boatCamera.enabled = false;
+        
 
         while (Vector3.Distance(blendingCam.transform.position, mainCam.transform.position) >= 0.1f)
         {
             yield return null;
         }
 
+        audioSource.Play();
+        SetPaddleAnim(true);
         boatCamera.enabled = true;
         blindImage.DOFade(1, 1f).OnComplete(() =>
         {
@@ -137,7 +139,11 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
             isCanInterct = true;
             isSun = true;
             blindImage.DOFade(0, 1f);
-            transform.DOMove(sunPosition.position, 4f);
+            transform.DOMove(sunPosition.position, 4f).OnComplete(() =>
+            {
+                SetPaddleAnim(false);
+                audioSource.Stop();
+            });
         });
     }
 
@@ -147,6 +153,8 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
         {
             isCanInterct = false;
             isSun = false;
+            SetPaddleAnim(true);
+            audioSource.Play();
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
                 blindImage.DOFade(1, 1f);
@@ -174,11 +182,9 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
                 playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
                 SetPaddleAnim(false);
                 blendingCam.SetActive(false);
+                audioSource.Stop();
                 StartCoroutine(CameraBlendingCo());
             });
         });
-        
     }
-
-
 }
