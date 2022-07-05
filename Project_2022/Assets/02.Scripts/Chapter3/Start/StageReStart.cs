@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class StageRestart : MonoBehaviour
+public class StageReStart : MonoBehaviour
 {
     public Image fadeImg;
     public Text restartTxt;
