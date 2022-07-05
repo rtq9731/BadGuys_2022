@@ -75,7 +75,7 @@ public class RotationPuzzle : CameraBlending
     public void SetPuzzle()
     {
         vCamPuzzle.SetActive(true);
-        UIManager.Instance.OnCutSceneWithMainUI();
+        UIManager.Instance.OnCutSceneWithoutPause();
         isOn = true;
         puzzleUI.SetActive(true);
         RefreshOulines(curLayer);
