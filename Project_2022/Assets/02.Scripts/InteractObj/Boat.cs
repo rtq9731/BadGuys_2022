@@ -12,12 +12,20 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
     ItemInfo item;
     [SerializeField]
     Outline outline;
+
     [SerializeField]
     SoundScript audioSource;
+
     [SerializeField]
     Image blindImage;
+
+
     [SerializeField]
     Transform sunPosition;
+    [SerializeField]
+    Transform sunFrontPos;
+    [SerializeField]
+    Transform dockSideFrontPos;
 
     private Vector3 originPos;
 
@@ -122,18 +130,14 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
             yield return null;
         }
 
-        audioSource.SetLoop(true);
-        audioSource.Play();
         boatCamera.enabled = true;
         blindImage.DOFade(1, 1f).OnComplete(() =>
         {
-            transform.position = sunPosition.position;
+            transform.position = sunFrontPos.position;
             isCanInterct = true;
             isSun = true;
-            audioSource.SetLoop(false);
-            audioSource.Stop();
             blindImage.DOFade(0, 1f);
-            Debug.Log("asd");   
+            transform.DOMove(sunPosition.position, 4f);
         });
     }
 
@@ -145,38 +149,35 @@ public class Boat : CameraBlending, IInteractableItem, IPlayerMouseEnterHandler,
             isSun = false;
             transform.DORotate(new Vector3(0, -90), 2f).OnComplete(() =>
             {
-                audioSource.SetLoop(true);
-                audioSource.Play();
                 blindImage.DOFade(1, 1f);
             });
             
             yield return new WaitForSeconds(3.0f);
 
-            transform.position = originPos;
-            audioSource.SetLoop(false);
-            audioSource.Stop();
-            blindImage.DOFade(0, 1f).OnComplete(() =>
-            {
-                TakeOffBoat();
-            });
+            transform.position = dockSideFrontPos.position;
+            blindImage.DOFade(0, 1f);
+            TakeOffBoat();
         }
     }
-
 
     // 보트에서 내리는 함수
     private void TakeOffBoat()
     {
         isCanInterct = false;
         blendingCam.GetComponent<BoatCam>().enabled = false;
-        transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
+        transform.DOMove(originPos, 4f).OnComplete(() =>
         {
-            audioSource.Stop();
-            isCanInterct = true;
-            playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
-            SetPaddleAnim(false);
-            blendingCam.SetActive(false);
-            StartCoroutine(CameraBlendingCo());
+            transform.DORotate(new Vector3(0, 90), 2f).OnComplete(() =>
+            {
+                audioSource.Stop();
+                isCanInterct = true;
+                playerCam.GetComponentInParent<PlayerController>().camTrm = playerCam.transform;
+                SetPaddleAnim(false);
+                blendingCam.SetActive(false);
+                StartCoroutine(CameraBlendingCo());
+            });
         });
+        
     }
 
 
