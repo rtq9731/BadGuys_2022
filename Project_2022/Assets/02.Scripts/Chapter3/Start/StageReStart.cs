@@ -39,7 +39,6 @@ public class StageReStart : MonoBehaviour
             value += Time.deltaTime / fadeTime;
             a = Mathf.Clamp(value, 0, 1);
             fadeImg.color = new Color(col.r, col.g, col.b, a);
-            Debug.Log(a);
 
             if (a == 1) break;
         }
