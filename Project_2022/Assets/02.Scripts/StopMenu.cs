@@ -9,6 +9,7 @@ public class StopMenu : MonoBehaviour
 {
     [SerializeField] Button _btnDialog = null;
     [SerializeField] Button _btnExit = null;
+    [SerializeField] Button _btnMainMenu = null;
     [SerializeField] Button _btnOption = null;
 
     [SerializeField] StopMenuDialogPanel _dialogPanel = null;
@@ -39,6 +40,11 @@ public class StopMenu : MonoBehaviour
 #else
             Application.Quit();
 #endif
+        });
+
+        _btnMainMenu.onClick.AddListener(() =>
+        {
+            LoadingManager.LoadScene("Title", true);
         });
     }
 

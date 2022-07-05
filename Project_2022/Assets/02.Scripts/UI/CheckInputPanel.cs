@@ -53,9 +53,12 @@ public class CheckInputPanel : MonoBehaviour
         }
     }
 
-    public void InitInputPanel(System.Action onCancel, System.Action onOK)
+    public void InitInputPanel(System.Action onCancel, System.Action onOK, string text = null)
     {
-        countText.text = $"{cancelCool - lastTime}초 후에 원래 설정으로 돌아갑니다.";
+        if(text == null)
+        {
+            countText.text = $"{cancelCool - lastTime}초 후에 원래 설정으로 돌아갑니다.";
+        }
         gameObject.SetActive(true);
         isOn = true;
 
