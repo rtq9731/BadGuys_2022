@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class StopMenu : MonoBehaviour
 {
@@ -55,11 +56,17 @@ public class StopMenu : MonoBehaviour
 
     private void OnEnable()
     {
+        if (SceneManager.GetActiveScene().name == "Title")
+            return;
+
         UIManager.Instance.isEsc = true;
     }
 
     private void OnDisable()
     {
+        if (SceneManager.GetActiveScene().name == "Title")
+            return;
+
         UIManager.Instance.isEsc = false;
     }
 }

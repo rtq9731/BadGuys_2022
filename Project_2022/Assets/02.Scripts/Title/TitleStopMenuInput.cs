@@ -10,8 +10,9 @@ public class TitleStopMenuInput : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.Instance.IsPause = true;
+            Debug.Log("¤¾¤·");
             pauseMenu.gameObject.SetActive(!pauseMenu.activeSelf);
+            GameManager.Instance.IsPause = pauseMenu.activeSelf;
         }
     }
 }
