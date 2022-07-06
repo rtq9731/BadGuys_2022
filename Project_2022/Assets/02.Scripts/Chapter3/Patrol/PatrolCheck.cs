@@ -9,7 +9,7 @@ public class PatrolCheck : MonoBehaviour
 
     public bool isPlayerIn;
     public bool isDoorClose;
-    public StageReStart restart;
+    public StageRestart restart;
 
     private void Awake()
     {
