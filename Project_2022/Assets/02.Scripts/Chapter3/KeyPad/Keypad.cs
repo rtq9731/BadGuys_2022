@@ -76,15 +76,14 @@ public class Keypad : MonoBehaviour
         }
         ClearSoundFX();
         UIManager.Instance.OnCutScene();
+        DialogManager.Instance.ClearALLDialog();
         timeLineObj.SetActive(true);
     }
 
     private void KeyPadSoundFX()
     {
         soundScript.audioSource.clip = soundFX[0];
-        soundScript.audioSource.volume = 0.5f;
         soundScript.Play();
-        soundScript.audioSource.volume = 1f;
     }
 
     private void ClearSoundFX()

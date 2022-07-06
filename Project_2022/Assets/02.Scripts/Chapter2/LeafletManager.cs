@@ -11,6 +11,13 @@ public class LeafletManager : MonoBehaviour
     [SerializeField]
     private EmphasizeCircle circle;
 
+    [SerializeField]
+    private int[] counts;
+    [SerializeField]
+    private DialogDatas[] dialogDatas;
+
+    public DialogDatas startDialogData;
+
     public bool isChase;
 
     private void Awake()
@@ -28,6 +35,7 @@ public class LeafletManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(CheckAndSetCircle());
+        DialogManager.Instance.SetDialogData(startDialogData.GetDialogs());
     }
 
     private void Getleafelts()
@@ -57,6 +65,7 @@ public class LeafletManager : MonoBehaviour
     private IEnumerator CheckAndSetCircle()
     {
         int num = 0;
+        int countNum = 0;
 
         while (CheckActive())
         {
@@ -70,6 +79,12 @@ public class LeafletManager : MonoBehaviour
             if (leaflets[num].activeSelf == false)
             {
                 num++;
+
+                if (num == counts[countNum] && countNum <= counts.Length)
+                {
+                    DialogManager.Instance.SetDialogData(dialogDatas[countNum].GetDialogs());
+                    countNum++;
+                }
 
                 if (num >= leaflets.Count)
                     break;
