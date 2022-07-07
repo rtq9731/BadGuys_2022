@@ -127,6 +127,11 @@ public class UIManager : MonoBehaviour
         Cursor.visible = display;
     }
 
+    public void DisplayCursurOnPuzzleUI()
+    {
+        DisplayCursor(isCursor);
+    }
+
     public void UpdateStopMenu()
     {
         if (_stopMenu.gameObject.activeSelf)

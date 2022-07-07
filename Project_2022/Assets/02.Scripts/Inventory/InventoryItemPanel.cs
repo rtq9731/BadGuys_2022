@@ -99,7 +99,7 @@ public class InventoryItemPanel : MonoBehaviour
                 isActive = !isActive;
                 inventoryUI.isOnInventory = false;
                 GameManager.Instance.IsPause = false;
-                UIManager.Instance.DisplayCursor(false);
+                UIManager.Instance.DisplayCursurOnPuzzleUI();
 
                 currentObj.transform.rotation = Quaternion.Euler(originRotate);
 

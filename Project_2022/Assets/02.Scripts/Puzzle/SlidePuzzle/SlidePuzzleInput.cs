@@ -30,54 +30,57 @@ public class SlidePuzzleInput : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && slideManager.isPieceStop)
+        if (!GameManager.Instance.IsPause)
         {
-            Ray camRay = viewCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            float depth = viewCamera.farClipPlane;
-
-            if (Physics.Raycast(camRay, out hit, depth, target))
+            if (Input.GetMouseButtonDown(0) && slideManager.isPieceStop)
             {
-                selectPiece = hit.transform.GetComponent<SlidePuzzlePiece>();
-                if(selectPiece != null)
-                    selectPiece.Selected(color);
+                Ray camRay = viewCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                float depth = viewCamera.farClipPlane;
+
+                if (Physics.Raycast(camRay, out hit, depth, target))
+                {
+                    selectPiece = hit.transform.GetComponent<SlidePuzzlePiece>();
+                    if (selectPiece != null)
+                        selectPiece.Selected(color);
+                }
+
+                if (Physics.Raycast(camRay, out hit, depth, btnLayer) && !btnClick)
+                {
+                    btnClick = true;
+                    hit.transform.GetComponent<SlidePuzzleBtn>().Selected(color);
+                    hit.transform.GetComponent<SlidePuzzleBtn>().Onclick();
+                }
             }
 
-            if (Physics.Raycast(camRay, out hit, depth, btnLayer) && !btnClick)
+            if (Input.GetMouseButtonUp(0))
             {
-                btnClick = true;
-                hit.transform.GetComponent<SlidePuzzleBtn>().Selected(color);
-                hit.transform.GetComponent<SlidePuzzleBtn>().Onclick();
-            }
-        }
+                if (selectPiece != null)
+                {
+                    slideSound.SlideMove();
+                    selectPiece.MoveToDis();
+                    selectPiece.UnSelected();
+                }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-           if (selectPiece != null)
+                selectPiece = null;
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                slideSound.SlideMove();
-                selectPiece.MoveToDis();
-                selectPiece.UnSelected();
+                cheatOn = true;
             }
-                
-            selectPiece = null;
-        }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            cheatOn = true;
-        }
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                if (cheatOn)
+                    slideManager.PorceClear();
+            }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            if (cheatOn)
-                slideManager.PorceClear();
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (SlidePuzzleAllClear.Instance.isWeak == false && cheatOn)
-                SlidePuzzleAllClear.Instance.slideCount += 100;
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                if (SlidePuzzleAllClear.Instance.isWeak == false && cheatOn)
+                    SlidePuzzleAllClear.Instance.slideCount += 100;
+            }
         }
     }
 }
