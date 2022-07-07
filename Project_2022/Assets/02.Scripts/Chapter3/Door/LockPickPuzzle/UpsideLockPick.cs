@@ -37,39 +37,42 @@ public class UpsideLockPick : MonoBehaviour
         while (true)
         {
             yield return null;
-            transform.position = targetObj.transform.position;
-            
-            if (Input.GetMouseButton(0))
-            {
-                Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                float depth = Camera.main.farClipPlane;
-                Debug.DrawRay(Camera.main.transform.position, camRay.direction);
-                if (Physics.Raycast(camRay, out hit, depth, targetLay))
-                {
-                    mousePos = hit.point;
-                    resultPos = transform.position - mousePos;
 
-                    deg = Mathf.Atan2(resultPos.y, resultPos.x) * Mathf.Rad2Deg;
-                    deg += 90;
-                    
-                    if (deg > 90)
+            if (!GameManager.Instance.IsPause)
+            {
+                transform.position = targetObj.transform.position;
+
+                if (Input.GetMouseButton(0))
+                {
+                    Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    float depth = Camera.main.farClipPlane;
+                    Debug.DrawRay(Camera.main.transform.position, camRay.direction);
+                    if (Physics.Raycast(camRay, out hit, depth, targetLay))
                     {
-                        continue;
+                        mousePos = hit.point;
+                        resultPos = transform.position - mousePos;
+
+                        deg = Mathf.Atan2(resultPos.y, resultPos.x) * Mathf.Rad2Deg;
+                        deg += 90;
+
+                        if (deg > 90)
+                        {
+                            continue;
+                        }
+
+                        deg = Mathf.Clamp(deg, -85, 85);
+                        transform.DORotate(new Vector3(0, 0, deg), duration);
                     }
 
-                    deg = Mathf.Clamp(deg, -85, 85);
-                    transform.DORotate(new Vector3(0, 0, deg), duration);
                 }
 
-            }
-
-            if (isClear)
-            {
-                Debug.Log("角青场");
-                break;
-            }
-               
+                if (isClear)
+                {
+                    Debug.Log("角青场");
+                    break;
+                }
+            }  
         }
 
         yield return null;

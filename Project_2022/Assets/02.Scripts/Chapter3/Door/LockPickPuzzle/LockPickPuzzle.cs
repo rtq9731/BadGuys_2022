@@ -114,7 +114,7 @@ public class LockPickPuzzle : CameraBlending
 
     private void Update()
     {
-        if (!isClear)
+        if (!isClear && !GameManager.Instance.IsPause)
         {
             if (Input.GetKey(KeyCode.E) && !isReset)
             {
