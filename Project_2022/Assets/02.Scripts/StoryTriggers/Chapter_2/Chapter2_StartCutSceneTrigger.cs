@@ -15,7 +15,7 @@ public class Chapter2_StartCutSceneTrigger : MonoBehaviour
 
     virtual public void OnComplete()
     {
-        UIManager.Instance.OnCutSceneOverWithoutClearDialog();
+        UIManager.Instance.OnCutSceneOver();
         ai.gameObject.SetActive(true);
         chaseHPUI.SetActive(true);
     }

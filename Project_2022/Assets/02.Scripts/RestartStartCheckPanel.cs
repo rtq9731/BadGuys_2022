@@ -12,6 +12,11 @@ public class RestartStartCheckPanel : MonoBehaviour
 
     bool isOn = true;
 
+    private void Start()
+    {
+        UIManager.Instance.OnCutScene();
+    }
+
     private void Update()
     {
         if(Input.GetMouseButtonDown(0) && isOn)
@@ -20,7 +25,7 @@ public class RestartStartCheckPanel : MonoBehaviour
             fadeImage.DOFade(0f, 1f).OnComplete(() =>
             {
                 gameObject.SetActive(false);
-                UIManager.Instance.OnCutSceneOver();
+                UIManager.Instance.OnCutSceneOverWithoutClearDialog();
             });
         }
     }
