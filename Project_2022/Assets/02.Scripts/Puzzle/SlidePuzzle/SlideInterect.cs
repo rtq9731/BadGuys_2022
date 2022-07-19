@@ -81,13 +81,13 @@ public class SlideInterect : CameraBlending, IInteractableItem
         {
             GetComponent<Collider>().enabled = false;
             CameraGameSetting();
+            UIManager.Instance.OnCutSceneWithoutPause();
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             slideImage.SetActive(true);
             slideMnager.enabled = true;
             slideMnager.GameStart_Slide();
-            UIManager.Instance.OnCutSceneWithMainUI();
-
+            
             this.enabled = false;
         }
     }
