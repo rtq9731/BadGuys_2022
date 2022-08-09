@@ -114,7 +114,7 @@ public class Keypad : MonoBehaviour
         black.gameObject.SetActive(true);
         black.color = new Color(0, 0, 0, 1);
         UIManager.Instance.OnCutSceneOverWithoutClearDialog();
-        LoadingManager.LoadScene("Title", true);
+        LoadingManager.LoadScene("Credits", true);
     }
 
     public void KeyInput(KeyType type, string value = "")
