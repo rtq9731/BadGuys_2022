@@ -6,7 +6,17 @@ using UnityEngine.UI;
 public class CreditMove : MonoBehaviour
 {
     [SerializeField] RectTransform creditRect;
-    
+    [SerializeField] float moveSpeed = 5f;
+
+    bool isSetTimer = false;
+
+    float timer = 0f;
+
+    private void Start()
+    {
+        SetMoveCredit();
+    }
+
     public void SetMoveCredit()
     {
         StartCoroutine(CreditCroutine());
@@ -16,7 +26,7 @@ public class CreditMove : MonoBehaviour
     {
         while (creditRect.anchoredPosition.y <= creditRect.rect.height)
         {
-            creditRect.anchoredPosition += Vector2.up * Time.deltaTime;
+            creditRect.anchoredPosition += Vector2.up * Time.deltaTime * moveSpeed;
             yield return null;
         }
 
