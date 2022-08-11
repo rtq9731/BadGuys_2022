@@ -53,7 +53,6 @@ public class CreditsTitleManager : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("asd");
         playerCam.GetComponent<PlayerController>().enabled = true;
     }
 }
