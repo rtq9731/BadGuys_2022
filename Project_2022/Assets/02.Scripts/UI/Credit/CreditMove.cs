@@ -7,23 +7,17 @@ public class CreditMove : MonoBehaviour
 {
     [SerializeField] RectTransform creditRect;
     [SerializeField] float moveSpeed = 5f;
-
-    bool isSetTimer = false;
-
-    float timer = 0f;
-
-    private void Start()
-    {
-        SetMoveCredit();
-    }
-
+    
     public void SetMoveCredit()
     {
+        gameObject.SetActive(true);
         StartCoroutine(CreditCroutine());
     }
 
     IEnumerator CreditCroutine()
     {
+        UIManager.Instance.OnCutScene();
+
         while (creditRect.anchoredPosition.y <= creditRect.rect.height)
         {
             creditRect.anchoredPosition += Vector2.up * Time.deltaTime * moveSpeed;
@@ -31,6 +25,7 @@ public class CreditMove : MonoBehaviour
         }
 
         yield return new WaitForSeconds(3f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
 
         yield return null;
     }
